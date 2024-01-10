@@ -1,5 +1,6 @@
 <?php
-define( 'WP_CACHE', true ); 
+//define( 'WP_CACHE', true ); 
+define('WP_CACHE', false);
 
 /**
  * The base configurations of the WordPress.
@@ -15,7 +16,7 @@ define( 'WP_CACHE', true );
  *
  * @package WordPress
  */
-if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
+if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         define('DB_NAME', 'mojo2');
         define('DB_USER', 'root');
         define('DB_PASSWORD', '');
@@ -24,6 +25,8 @@ if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         define('DB_COLLATE', '');
         define('WP_DEBUG', true);
         define('WP_REDIS_DISABLED', true);
+        define( 'WP_ALLOW_REPAIR', true );
+
 } else {
 
         define('DB_NAME', '890kdz_mojo');
