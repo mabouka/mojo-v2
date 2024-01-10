@@ -1,7 +1,5 @@
 <?php
-//define( 'WP_CACHE', true ); 
-define('WP_CACHE', false);
-
+define( 'WP_CACHE', true ); 
 
 /**
  * The base configurations of the WordPress.
@@ -28,42 +26,12 @@ if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         define('WP_REDIS_DISABLED', true);
 } else {
 
-        define('DB_NAME', 'mojo2');
-        define('DB_USER', 'root');
-        define('DB_PASSWORD', '');
+        define('DB_NAME', '890kdz_mojo');
+        define('DB_USER', '890kdz_devmojo');
+        define('DB_PASSWORD', 'fu6Rcmh-dN7');
         define('DB_HOST', '127.0.0.1');
         define('DB_CHARSET', 'utf8mb4');
         define('DB_COLLATE', '');
-        define('WP_DEBUG', true);
-        define('WP_REDIS_DISABLED', true);
-        /*
-        // ** MySQL settings - You can get this info from your web host ** //
-        define('DB_NAME', 'njbbjdwntr');
-        define('DB_USER', 'njbbjdwntr');
-        define('DB_PASSWORD', 'PRcaV8f3Fc');
-        define('DB_HOST', 'localhost');
-        define('DB_CHARSET', 'utf8mb4');
-        define('DB_COLLATE', '');
-        define('WP_DEBUG', false);
-        define('WP_REDIS_CONFIG', [
-                'token' => "e279430effe043b8c17d3f3c751c4c0846bc70c97f0eaaea766b4079001c",
-                'host' => '127.0.0.1',
-                'port' => 6379,
-                'database' => "2803",
-                'timeout' => 2.5,
-                'read_timeout' => 2.5,
-                'split_alloptions' => true,
-                'async_flush' => true,
-                'client' => 'phpredis',
-                'compression' => 'zstd',
-                'serializer' => 'igbinary',
-                'prefetch' => true,
-                'debug' => false,
-                'save_commands' => false,
-                'prefix' => DB_NAME,
-        ]);
-        define('WP_REDIS_DISABLED', false);
-        */
 }
 /**#@+
  * Authentication Unique Keys and Salts.
