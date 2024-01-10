@@ -1,0 +1,21 @@
+.fullImage{
+    margin: s(80) 0;
+    position: relative;
+    z-index: 2;
+
+    width: 100vw;
+    margin-left: calc(#{1285px/2} - 50vw);
+
+    &__image{
+        img{
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+
+    &--service{
+        margin-left: calc(#{185px/2} - 50vw);
+
+    }
+}

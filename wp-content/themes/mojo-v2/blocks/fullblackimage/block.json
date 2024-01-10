@@ -1,0 +1,20 @@
+{
+    "name": "mojo/fullblackimage",
+    "title": "Full Black Image",
+    "description": "a block that contain one image and black curtains",
+    "editorStyle": [ "file:./fullblackimage.css" ],
+
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": [
+        "image",
+        "quote"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "fullblackimage.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}

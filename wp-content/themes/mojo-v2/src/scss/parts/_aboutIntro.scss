@@ -1,0 +1,28 @@
+.aboutIntro{
+    padding-top: s(175);
+    padding-bottom: s(150);
+    border-bottom: 1px solid color(black);
+
+    &__inside{
+        display: flex;
+    }
+
+    &__title{
+        width: col(7,12);
+        margin-left: gutter(12);
+
+        @extend .title100;
+    }
+
+    &__content{
+        margin-top: s(15);
+        width: col(4,12);
+    }
+
+    &__text{
+        margin-bottom: s(50);
+
+        @extend .body;
+        @extend .body18;
+    }
+}

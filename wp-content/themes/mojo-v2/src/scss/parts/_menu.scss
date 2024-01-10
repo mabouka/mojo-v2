@@ -1,0 +1,304 @@
+$easing :  easing(ease-in-quart);
+$duration : 450ms;
+
+
+body{
+    position: relative;
+
+
+    .mainContent{
+        //will-change: transform;
+        //transform: translate3d(0,0,0);
+        transition: 100ms transform $easing;
+
+        &:before{
+            content: '';
+            @include cover();
+            background: rgba(0,0,0,0.7);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 499;
+            transition: 200ms opacity linear;
+
+        }
+    }
+
+    &.menuOpen{
+        .mainContent{
+            transform: translate3d(0,50vh,0);
+            transition: $duration transform $easing;
+
+            &:before{
+                transition: 500ms opacity linear;
+
+                opacity: 1;
+            }
+        }
+    }
+}
+.menu{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: color(pink);
+    z-index: 500;
+    width: 100vw;
+    height: 100vh;
+    padding-bottom: s(50);
+    opacity: 0;
+    will-change: opacity, transforms;
+    transform: translate3d(0, -100vh, 0);
+    transition: 0ms transform $easing 500ms,400ms opacity easing(ease-out-quad) 100ms ;
+
+
+    .wrapper{
+        height: 100%;
+    }
+
+    &__inside{
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+        position: relative;
+    }
+
+    &__header{
+        position: absolute;
+        top: s(57);
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: flex-start;
+        //anim
+        opacity: 0;
+        transition: 200ms opacity easing(ease-out-quad);
+    }
+
+    &__headerLogo{
+        align-self: flex-start;
+        margin-right:    auto;
+    }
+
+    &__headerLogoSvg{
+        g{
+            fill: color(dark);
+        }
+    }
+
+    &__headerLanguage{
+        font-size: s(14);
+        color: color(dark);
+        font-weight: 600;
+        text-decoration: none;
+        position: relative;
+        padding-bottom: s(8);
+        padding-left: s(8);
+        padding-right: s(8);
+        margin-right: s(22);
+
+        abbr{
+            text-decoration: none;
+        }
+
+        &:before{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: s(8);
+            right: s(8);
+            height: s(2);
+            background-color: color(dark);
+        }
+    }
+
+
+    &__secondary{
+        width: col(5,12);
+        display: flex;
+        @extend .body18;
+
+        //anim
+        opacity: 0;
+        transition: 100ms opacity easing(ease-out-quad);
+    }
+
+    &__secondaryItem{
+        text-decoration: none;
+        color: color(dark);
+        margin-right: s(16);
+        position: relative;
+
+        &:before{
+            content: "";
+
+            position: absolute;
+            bottom: s(-1);
+            left: 0;
+
+            width: 100%;
+            height: s(2);
+            background: color(dark);
+
+            will-change: transform;
+            transform: scaleX(0);
+            transform-origin: right center;
+            transition: transform .2s easing(ease-in-out-quint);
+        }
+
+        &:hover:before{
+            transform: scaleX(1);
+            transform-origin: left center;
+        }
+    }
+
+    &__main{
+        order: 3;
+        align-self: flex-end;
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        &:before{
+            content: '';
+            @include cover();
+            visibility: visible;
+            transition: 0ms visibility linear 0ms;
+            z-index: 1;
+        }
+
+    }
+
+    &__mainItem{
+        display: block;
+        @extend .title100;
+        text-decoration: none;
+        color: color(dark);
+        position: relative;
+        overflow: hidden;
+        padding-bottom: s(10);
+        margin-top: s(-5);
+
+        span{
+            will-change: transform;
+            transition: transform 0s easing(ease-in-out-quint);
+            
+            transform: translate3d(0, -120%, 0);
+            position: relative;
+            display: block;
+        }
+
+        span:before{
+            content: "";
+
+            position: absolute;
+            bottom: s(-9);
+            left: 0;
+
+            width: 100%;
+            height: s(4.5);
+            background: color(dark);
+
+            will-change: transform;
+            transform: scaleX(0);
+            transform-origin: right center;
+            transition: transform .5s easing(ease-in-out-quint);
+        }
+        
+
+        &:hover,
+        &:focus{
+            &:before{
+                //transform: scaleY(0);
+            }
+            span:before{
+                transform: scaleX(1);
+                transform-origin: left center;
+            }
+        }
+
+        &--current{
+            span{
+                padding-right: s(96);
+
+                &:after{
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    margin-top: s(-30);
+                    width: s(76);
+                    height: s(76);
+                    border-radius: s(76);
+                    background-color: color(orange);
+                }
+            }
+        }
+
+    }
+
+    .menuOpen &,
+    &--active{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition: $duration transform $easing;
+
+        .menu__header{
+            opacity: 1;
+            transition: 500ms opacity easing(ease-out-quad) 200ms;
+        }
+
+        .menu__main{
+            &:before{
+                content: '';
+                @include cover();
+                visibility: hidden;
+                transition: 0ms visibility linear 800ms;
+            }
+        }
+
+        .menu__mainItem{
+                $duration : 400ms;
+                $delay : 20ms;
+                $length : 350ms;
+
+            span{
+                transform: translate3d(0,0,0);
+                transition-property: transform;
+                transition-duration: $length;
+                transition-timing-function: easing(ease-out-cubic);
+            }
+
+            &--5 span{
+                transition-delay: $duration+($delay * 0);
+            }
+
+            &--4 span{
+                transition-delay: $duration+($delay * 1);
+            }
+
+            &--3 span{
+                transition-delay: $duration+($delay * 2);
+            }
+
+            &--2 span{
+                transition-delay: $duration+($delay * 3);
+            }
+
+            &--1 span{
+                transition-delay: $duration+($delay * 4);
+            }
+
+            &--0 span{
+                transition-delay: $duration+($delay * 5);
+            }
+        }
+
+        .menu__secondary{
+            opacity: 1;
+            transition: 500ms opacity linear $duration+370ms;
+        }
+    }
+}

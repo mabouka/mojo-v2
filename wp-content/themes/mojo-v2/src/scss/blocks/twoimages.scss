@@ -1,0 +1,46 @@
+// Vars
+@import "../vars/fonts";
+@import "../vars/easing";
+@import "../vars/colors";
+@import "../vars/icons";
+@import "../vars/sizes";
+@import "../vars/grid";
+
+// Mixins
+@import "../mixins/font";
+@import "../mixins/grid";
+@import "../mixins/sizing";
+@import "../mixins/icons";
+@import "../mixins/color";
+@import "../mixins/easing";
+;
+
+.twoImages {
+    display: flex;
+    justify-content: space-between;
+
+    &__item {
+        width: col(6,12);
+        height: 0;
+        padding-top: 54.474708171%;
+        position: relative;
+        & + &{
+            margin-left: gutter(12);
+        }
+        img {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+}
+
+
+

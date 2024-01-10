@@ -1,0 +1,34 @@
+.imagesslider{
+    margin: s(80) 0;
+    background-color: color(sand);
+    overflow: hidden;
+    height: s(500) !important;
+    z-index: 2;
+    position: relative;
+    width: 100vw !important;
+    margin-left: calc(#{1285px/2} - 50vw);
+
+    &--service{
+        margin-left: calc(#{185px/2} - 50vw);
+    }
+
+    .swiper-wrapper {
+        padding-left: s(35);
+    }
+    .swiper-slide {
+        width: 500px !important;
+        height: 500px !important;
+        position: relative;
+
+
+        img{
+            @include cover();
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            
+        }
+    }
+
+
+}

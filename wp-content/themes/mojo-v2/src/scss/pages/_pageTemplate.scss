@@ -1,0 +1,45 @@
+.pageTemplate{
+    padding-top: s(175);
+    padding-bottom: s(200);
+
+    &__title{
+        @extend .title100;
+        width: col(8,12);
+        margin-bottom: s(100);
+    }
+
+    &__content{
+    
+        @extend .body;
+        @extend .body18;
+
+        padding-left: colGut(5,1,12,0);
+        padding-right: colGut(1,1,12,0);
+
+        h2,
+        .h2{
+            font-family: dm, sans-serif;
+            font-size: s(30);
+            line-height: 1.3em;
+            margin-bottom: s(30);
+
+        }
+
+        section.wp-block-group {
+
+            margin-top: s(80);
+            margin-bottom: s(80);
+            position: relative;
+
+
+            h6, 
+            .h6 {
+                position: absolute;
+                top: 0;
+                left: -(colGut(5,1,6,0)) ;
+                margin-left: 0;
+                @extend .body18;
+            }
+        }
+    }
+}

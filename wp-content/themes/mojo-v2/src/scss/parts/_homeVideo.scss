@@ -1,0 +1,44 @@
+.homeVideo{
+    position: relative;
+    overflow: hidden;
+
+    &:before{
+        content: '';
+        z-index: 1;
+        @include cover();
+        mix-blend-mode: darken;
+        background:  linear-gradient(270deg, rgba(19, 28, 35, 0.20) 20.42%, rgba(19, 28, 35, 0.00) 54.72%);
+    }
+
+    &__inside{
+        display: flex;
+        height: s(710);
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    &__video{
+        position: absolute;
+        top: 50%; 
+        left: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        min-width: 100%; 
+        min-height: 100%; 
+        width: auto; 
+        height: auto;
+        overflow: hidden;
+    }
+
+    &__text{
+        position: relative;
+        z-index: 2;
+        margin-bottom: s(88);
+        width: col(3,12);
+        font-family: 'dm', sans-serif;
+        font-size: s(30);
+        color: color(sand);
+        line-height: 1.3em;
+        text-shadow: 0px 0px 15px rgba(0,0,0,0.10);
+    }
+}

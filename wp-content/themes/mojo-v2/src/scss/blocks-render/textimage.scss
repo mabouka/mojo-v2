@@ -1,0 +1,45 @@
+.textImage {
+    display: flex;
+    justify-content: space-between;
+    margin: s(80) 0;
+
+    &--right{
+        flex-direction: row-reverse;
+    }
+
+    &__image {
+        width: col(6,12);
+        height: 0;
+        padding-top: 54.474708171%;
+        position: relative;
+
+        img {
+            height: 100%;
+            width: 100%;
+            @include cover();
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    &__content{
+        width: col(5,12);
+        align-self: flex-end;
+    }
+    
+    &__title{
+        font-family: dm, sans-serif;
+        font-size: s(30);
+        line-height: 1.3em;
+        margin-bottom: s(30);
+    }
+
+    &__text{
+        @extend .body;
+        @extend .body18;
+    }
+
+}
+
+
+

@@ -1,0 +1,23 @@
+%hidden{
+    @include hidden();
+}
+
+%cover{
+    @include cover();
+}
+
+%clearfix{
+    @include clearfix();
+}
+
+%clearfixLeft{
+    @include clearfix(left);
+}
+
+%clearfixRight{
+    @include clearfix(right);
+}
+
+%clickableTransparentBg{
+    @include clickableTransparentBg;
+}

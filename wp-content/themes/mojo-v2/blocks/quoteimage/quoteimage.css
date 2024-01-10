@@ -1,0 +1,40 @@
+.quoteImage {
+  display: flex;
+  justify-content: space-between;
+}
+.quoteImage--right {
+  flex-direction: row-reverse;
+}
+.quoteImage__image {
+  width: 48.6381322957%;
+  height: 0;
+  padding-top: 54.474708171%;
+  position: relative;
+}
+.quoteImage__image img {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.quoteImage__quote {
+  width: 48.6381322957%;
+  align-self: flex-end;
+  font-family: cambon;
+  font-size: 30px;
+  line-height: 1.1em;
+  margin-bottom: 1.25rem;
+}
+.quoteImage__cite {
+  font-size: 1.125rem;
+  font-family: dm;
+  display: block;
+}
+
+/*# sourceMappingURL=quoteimage.css.map*/

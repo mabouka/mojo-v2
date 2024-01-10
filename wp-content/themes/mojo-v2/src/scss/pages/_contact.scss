@@ -1,0 +1,200 @@
+.contact{
+    padding-top: s(175);
+    background-color: color(dark);
+    color: color(sand);
+    padding-bottom: s(104);
+
+    &__inside{
+        @include clearfix();
+    }
+
+    &__svg{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: s(-1299/2);
+    }
+
+    &__title{
+        float: left;
+        @extend .title80;
+        position: sticky;
+        top: s(85);
+    }
+
+    &__content{
+        margin-top: s(18);
+        float: right;
+        width: col(4,12);
+        margin-right: colGut(1,1,12,0);
+    }
+
+    &__text{
+        @extend .body;
+        @extend .body22;
+        margin-bottom: s(50);
+    }
+
+    &__contact{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__contactText,
+    &__address{
+        @extend .body16;
+    }
+
+    &__contactText{
+
+        strong{
+            color: color(sand);
+            opacity: 0.5;
+        }
+
+        a{
+            text-decoration: none;
+            color: color(sand);
+            opacity: 0.5;
+            transition: 200ms color easing(ease-out-quad), 200ms opacity easing(ease-out-quad);
+
+            &:hover,
+            &:focus{
+                opacity: 1;
+                color: color(blue)
+            }
+        }
+    }
+
+    &__address{
+        text-decoration: none;
+        opacity: 0.5;
+        color: color(sand);
+        transition: 200ms color easing(ease-out-quad), 200ms opacity easing(ease-out-quad);
+        &:hover,
+        &:focus{
+            opacity: 1;
+            color: color(blue)
+        }
+    }
+
+    &__form{
+        margin-top: s(70);
+
+        .gfield--type-name .gfield_label,
+        .gform_heading{
+            @include hidden();
+        }
+
+        .gform-grid-col{
+            display: flex;
+        }
+
+        .name_last{
+            margin-top: s(30);
+        }
+
+        .name_first{
+            padding-bottom: s(14);
+            border-bottom: 1px solid color(white);
+        }
+
+        .gfield_required_text,
+        .gfield_description{
+            @include hidden();
+        }
+
+        .gfield{
+            margin-top: s(30);
+            padding-bottom: s(14);
+            border-bottom: 1px solid color(white);
+
+            &--type-textarea,
+            &--type-html{
+                padding-bottom: 0;
+                border: none;
+            }
+
+            &--type-email,
+            &--type-phone,
+            &--type-text{
+                display: flex;
+            }
+
+            &--type-fileupload{
+                input{
+                    position: relative;
+                    left: -9999px;
+                    visibility: hidden;
+                    top: 0;
+                }
+                border-bottom: none;
+            }
+        }
+
+        .ginput_container{
+            width: 100%;
+            input{
+                width: 100%;
+                width: calc(100% - 20px);
+                margin-left: s(20);
+            }
+        }
+        .gform-field-label{
+            color: color(sand);
+            @extend .body18;
+        }
+
+        .gfield_html{
+            font-family: dm, sans-serif;
+            font-size: s(14);
+            line-height: em(22,14); /* 157.143% */
+            opacity: 0.5;
+        }
+
+        input{
+            border: none;
+            background-color: color(dark);
+            outline-style: none;
+            color: color(lightblue);
+            @extend .body18;
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover, 
+            &:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0px 40rem color(dark) inset;
+
+            -webkit-text-fill-color: color(yellow);
+            }
+        }
+
+        textarea{
+            width: 100%;
+            height: s(300);
+            background-color: color(dark);
+            border-radius: s(20);
+            border: 1px dashed color(white);
+            color: color(lightblue);
+            margin-top: s(14);
+            resize: none;
+            outline: none;
+            @extend .body18;
+
+            padding: s(30);
+        }
+
+        .gform_footer{
+            text-align: center;
+        }
+
+        .ginput_container_fileupload input{
+            margin-left: 0;
+            margin-top: s(15);
+            margin-bottom: s(15);
+        }
+        .gform_button{
+            margin-top: s(50);
+            @extend .btn;
+            @extend .btn--light;
+        }
+    }
+}

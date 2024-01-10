@@ -1,0 +1,10 @@
+.wrapperImage{
+    width: 100%;
+    &__image{
+        img{
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+}

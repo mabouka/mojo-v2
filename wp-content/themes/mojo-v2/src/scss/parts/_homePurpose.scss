@@ -1,0 +1,42 @@
+.homePurpose{
+    background-color: color(dark);
+    padding-top: s(162);
+    padding-bottom: s(373);
+    position: relative;
+
+    &__inside{
+        display: flex;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__title{
+        font-family: 'Cambon', serif;
+        width: col(6,12);
+        color: color(sand);
+        font-size: s(80);
+        line-height: s(80);
+    }
+
+    &__text{
+        margin-top: s(19);
+        width: col(4,12);
+        margin-left: gutter(12);
+        @extend .body;
+        color: color(sand);
+        font-family: 'dm', sans-serif;
+        font-size: s(20);
+        line-height: s(28); /* 140% */
+
+        .btn{
+            margin-top: s(60);
+        }
+    }
+
+    &__svg{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: s(1440);
+    }
+}

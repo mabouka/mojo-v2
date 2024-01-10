@@ -1,0 +1,35 @@
+.commitmentsPurpose{
+    padding-top: s(130);
+    padding-bottom: s(80);
+    background-color: color(dark);
+    color: color(sand);
+
+    &__inside{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__text,
+    &__presentation{
+        @extend .title30;
+        text-align: center;
+        max-width: s(630);
+        margin: 0 auto;
+    }
+
+    &__text{
+        margin-bottom: s(91);
+    }
+
+    &__presentation{
+        max-width: s(520);
+    }
+
+    &__cards{
+        margin: s(100) 0;
+        display: flex;
+        gap: s(49);
+        justify-content: center;
+    }
+}

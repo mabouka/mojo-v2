@@ -1,0 +1,65 @@
+.textGallery {
+    margin: s(80) 0;
+
+    @include clearfix();
+
+    &__images{
+        float: left;
+        width: col(6,12);
+    }
+
+    &__image {
+        width: 100%;
+        height: 0;
+        padding-top: 700 / 625 * 100%;
+        position: relative;
+
+        img {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            object-fit: cover;
+            display: block;
+        }
+
+        & + &{
+            margin-top: s(35);
+        }
+    }
+
+    &__content{
+        width: col(5,12);
+        float: right;
+        position: sticky;
+        top: s(35);
+    }
+
+    &__title{
+        font-family: dm, sans-serif;
+        font-size: s(30);
+        line-height: 1.3em;
+        margin-bottom: s(30);
+    }
+    
+    &__text{
+        @extend .body18;
+        @extend .body;
+
+    }
+
+    &--right{
+        .textGallery__content{
+            float: left;
+        }
+
+        .textGallery__images{
+            float: right;
+        }
+    }
+
+
+}

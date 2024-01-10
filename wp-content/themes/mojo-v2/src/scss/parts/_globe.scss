@@ -1,0 +1,85 @@
+.globe{
+    background-color: color(sand);
+    padding-top: s(60);
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+
+    &__inside{
+        position: relative;
+        height: s(1100);
+    }
+
+    &__after,
+    &__before{
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__before{
+        opacity: 1;
+        visibility: visible;
+        transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
+    }
+
+    &__after{
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+
+        opacity: 0;
+        visibility: hidden;
+        transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 200ms;
+    }
+
+    &__title{
+        width: col(7,12);
+        @extend .title80;
+    }
+
+    &__text{
+        margin-top: s(27);
+        width: col(4,12);
+        margin-left: gutter(12);
+        @extend .body18;
+    }
+
+    &__subtitle{
+        width: col(12,12);
+        @extend .subtitle;
+        margin-top: s(24);
+    }
+
+    &__anim{
+        width: 100%;
+
+        position: absolute;
+        top: s(250);
+        left: 0;
+        right: 0;
+    }
+
+    &__after{
+        opacity: 0;
+        visibility: hidden;
+        transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 200ms;
+    }
+
+    &--complete{
+
+        .globe__before{
+            opacity: 0;
+            visibility: hidden;
+            transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 200ms;
+        }
+
+        .globe__after{
+            opacity: 1;
+            visibility: visible;
+            transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+// - s( $goal: number, [$parent: number] )
+// **********************************************************
+// $parent default : false
+// Computes em sizes from pixel-based numbers
+// **********************************************************
+
+
+@function em($goal,$parent:$base-font-size){
+    @return ($goal / $parent * 1em);
+}
+
+@function rem($goal){
+    @return ($goal / $base-font-size * 1rem);
+}
+
+@function s($goal){
+    @return rem($goal);
+}
+
+// - ps_ls( $ps_num: number )
+// **********************************************************
+// $ps_num is an unitless number you can find in the type
+// window of Photoshop.
+// Computes em letter-spacing
+// **********************************************************
+
+@function ps_ls($ps_num){
+    @return ($ps_num / 1000 * 1em);
+}

@@ -1,0 +1,21 @@
+{
+    "name": "mojo/imagesslider",
+    "title": "Images Slider",
+    "description": "a slider",
+    "editorStyle": [
+        "file:./imagesslider.css"
+    ],
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": [
+        "image",
+        "slider"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "imagesslider.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}

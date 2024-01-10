@@ -1,0 +1,33 @@
+.serviceChild{
+    margin-top: s(75);
+    margin-bottom: s(57);
+
+    &__inside{
+        @include clearfix();
+        //overflow: scroll;
+    }
+
+    &__content{
+        margin-top: s(6);
+        width: col(6,12);
+        float: left;
+        margin-left: colGut(1,2,12,0);
+        @extend .body;
+        @extend .body18;
+        
+        h2,
+        .h2{
+            font-family: dm, sans-serif;
+            font-size: s(30);
+            line-height: 1.3em;
+            margin-bottom: s(30);
+
+        }
+
+
+
+        section{
+            margin: s(80) 0;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "name": "mojo/twoimages",
+    "title": "Two Images",
+    "description": "a block that contain two images",
+    "editorStyle": [ "file:./twoimages.css" ],
+
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": [
+        "image"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "twoimages.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}

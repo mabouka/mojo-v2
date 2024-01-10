@@ -1,0 +1,47 @@
+.homeService{
+    background-color: color(dark); 
+    padding-top: s(119);
+    padding-bottom: s(177);
+    overflow: hidden;
+
+    &__inside{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__text{
+        margin-bottom: s(93);
+        width: col(7,12);
+        font-family: 'dm', sans-serif;
+        color: color(sand);
+        font-size: s(30);
+        font-weight: 400;
+        line-height: 1.3em;
+    }
+
+    &__groupSlide{
+        width: 9999px;
+        @include clearfix();
+        
+    }
+
+    &__realSize{
+        float: left;
+        @include clearfix();
+        
+    }
+
+    &__cardSlide{
+        float: left;
+        perspective: 1500px;
+
+        & + &{
+            margin-left: s(35);
+        }
+    }
+
+    .btn{
+        margin-top: s(141);
+        align-self: center;
+    }
+}

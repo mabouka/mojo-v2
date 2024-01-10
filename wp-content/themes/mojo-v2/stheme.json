@@ -1,0 +1,143 @@
+{
+	"version": 2,
+	"settings": {
+		"layout": {
+			"contentSize": "1285px",
+			"wideSize": "20r00px"
+		},
+
+
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFamily": "\"Cambon\", serif",
+					"slug": "cambon",
+					"name": "Cambon",
+					"fontFace": [
+						{
+							"fontFamily": "Cambon",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"src": [
+								"file:./dist/fonts/Cambon-Regular.woff2"
+							]
+						},
+						{
+							"fontFamily": "Cambon",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"src": [
+								"file:./dist/fonts/Cambon-Bold.woff2"
+							]
+						}
+					]
+				},
+				{
+					"fontFamily": "\"dm\", sans-serif",
+					"slug": "dm",
+					"name": "DM Sans",
+					"fontFace": [
+						{
+							"fontFamily": "dm,",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"src": [
+								"file:./dist/fonts/dm-sans-2.woff2"
+							]
+						},
+						{
+							"fontFamily": "dm",
+							"fontWeight": "400",
+							"fontStyle": "italic",
+							"src": [
+								"file:./dist/fonts/dm-sans-1.woff2"
+							]
+						},
+						{
+							"fontFamily": "dm",
+							"fontWeight": "600",
+							"fontStyle": "normal",
+							"src": [
+								"file:./dist/fonts/dm-sans-3.woff2"
+							]
+						}
+					]
+				}
+			]
+		},
+		"color": {
+			"palette": [
+				{
+					"slug": "black",
+					"color": "#000",
+					"name": "Black"
+				},
+				{
+					"slug": "white",
+					"color": "#fff",
+					"name": "White"
+				},
+				{
+					"slug": "dark",
+					"color": "#131C23",
+					"name": "Dark"
+				},
+				{
+					"slug": "sand",
+					"color": "#FAF6ED",
+					"name": "Sand"
+				},
+				{
+					"slug": "orange",
+					"color": "#FF542E",
+					"name": "Orange"
+				},
+				{
+					"slug": "grey",
+					"color": "#FEC5D4",
+					"name": "Grey"
+				},
+				{
+					"slug": "yellow",
+					"color": "#FFC833",
+					"name": "Yellow"
+				},
+				{
+					"slug": "blue",
+					"color": "#784FE0",
+					"name": "Blue"
+				}
+			]
+		}
+	},
+	"styles": {
+		"spacing": {
+			"blockGap": "1.5rem"
+		},
+		"typography": {
+			"fontFamily": "dm"
+		},
+		"color": {
+			"background": "#FAF6ED",
+			"text": "#131C23"
+		},
+		"blocks": {
+			"core/post-title": {
+				"typography": {
+					"fontFamily": "cambon",
+					"fontSize": "40px"
+				}
+			},
+			"core/group": {
+				"spacing": {
+					"blockGap": "3rem"
+				}
+			},
+			"core/heading": {
+				"typography": {
+					"fontFamily": "cambon"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+    "name": "mojo/textimage",
+    "title": "Text + Image",
+    "description": "a block that contain one image and one text",
+    "editorStyle": [ "file:./textimage.css" ],
+
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": [
+        "image",
+        "quote"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "textimage.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}

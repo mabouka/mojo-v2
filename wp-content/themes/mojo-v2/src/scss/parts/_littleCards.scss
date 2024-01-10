@@ -1,0 +1,131 @@
+.littleCards{
+    background-color: red;
+    position: relative;
+    padding-top: s(170);
+    padding-bottom: s(123);
+
+    &:before{
+        content: '';
+        @include cover();
+        background-image: url('../images/noise.jpg');
+        @supports (gap: 1px) {
+            background-image: url('../images/noise.webp');
+        }
+        background-size: 200px 200px;
+        mix-blend-mode:darken;
+        opacity: 0.20;
+        pointer-events: none;
+    }
+
+    &__title{
+        color: color(white);
+        text-align: center;
+        font-family: dm, sans-serif;
+        font-size: s(30);
+        margin-bottom: s(80);
+    }
+
+    &__grid{
+        display: flex;
+        flex-wrap: wrap;
+        gap: s(35);
+        justify-content: center;
+    }
+
+    &__item{
+        position: relative;
+        width: s(295);
+        height: s(310);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: s(20);
+        border: 2px solid #000;
+        background: color(sand);
+        padding: s(76) s(48);
+    }
+
+    &__star{
+        position: absolute;
+
+        &--tl{
+            top: s(20);
+            left: s(20);
+        }
+
+        &--tr{
+            top: s(20);
+            right: s(20);
+        }
+
+        &--bl{
+            bottom: s(20);
+            left: s(20);
+        }
+
+        &--br{
+            bottom: s(20);
+            right: s(20);
+        }
+    }
+    
+    &__itemTitle{
+        color: color(black);
+        text-align: center;
+        font-family: Cambon, serif;
+        font-size: s(15);
+        font-style: normal;
+        font-weight: 700;
+        line-height: em(23,15); /* 153.333% */
+        letter-spacing: 4.502px;
+        text-transform: uppercase;
+        margin-bottom: s(20);
+    }
+
+    &__itemText{
+        font-family: dm, sans-serif;
+        font-size: s(14);
+        font-style: normal;
+        font-weight: 400;
+        line-height: em(22,14);
+        text-align: center;
+
+    }
+
+    &--dodgerblue{
+        background-color: #784FE0;
+
+        &:before{
+            mix-blend-mode:lighten;
+        }
+    }
+
+    &--lightblue{
+        background-color: color(lightblue);
+    }
+
+    &--outrageousorange{
+        background-color: #FF542E;
+    }
+    
+    &--pink{
+        background-color: #FEC5D4;
+    }
+
+    &--denimblue{
+        background-color: #1C6ECF;
+    }
+
+    &--greenpea{
+        background-color: #1F5C40;
+    }
+
+    &--sungloworange{
+        background-color: #FFC833;
+    }
+
+    &--darkgreyblue{
+        background-color: #1D2B33;
+    }
+}

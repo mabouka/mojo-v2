@@ -1,0 +1,35 @@
+
+
+
+.singleCase{
+    .content{
+
+        @extend .body18;
+        @extend .body;
+
+        h2,
+        .h2{
+            font-family: dm, sans-serif;
+            font-size: s(30);
+            line-height: 1.3em;
+            margin-bottom: s(30);
+        }
+
+        section.wp-block-group {
+            padding-left: colGut(6,1,12,0);
+            padding-right: colGut(1,1,12,0);
+            margin-top: s(80);
+            margin-bottom: s(80);
+            position: relative;
+
+            h6, 
+            .h6 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin-left: 0;
+                @extend .body18;                
+            }
+        }
+    } 
+}

@@ -1,0 +1,159 @@
+.clientIntro{
+    position: relative;
+
+    &__circles{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        max-height: 100vh;
+        z-index: 1;
+        background-color: color(sand);
+        overflow: hidden;
+    }
+
+    &__container{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+    }
+
+
+    &__svg{
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        height: auto;
+        top: 50%;
+        margin-top: 552/1440/2 * -100vw;
+    }
+
+    &__second{
+        position: relative;
+        height: 133vw;
+        //width: ;
+        background-color: color(dark);
+        overflow: hidden;
+        transform: translate3d(0,0,0);
+
+
+    }
+
+
+    &__secondCircle{
+        position: absolute;
+        width: 552/1440*100%;
+        padding-top: 552/1440*100%;
+        height: 0;
+        top: 50vh;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        border-radius: s(30000);
+        background-color: #784FE0;
+        transform: translate3d(0, -50%, 0);
+        z-index: 1  ;
+
+        &:before,
+        &:after{
+            content: '';
+            position: absolute;
+            width: 70/552*100%;
+            height: 70/552*100%;
+
+            border-radius: 100%;
+
+        }
+
+        &:after{
+            top: 88/552*100%;
+            left: -30/552*100%;
+            background-color: #784FE0;
+        }
+
+        &:before{
+            top: 107/552*100%;
+            left: -17/552*100%;
+            background-color: color(dark);
+        }
+    }
+
+    &__secondText{
+        @extend .title50;
+        font-size: 50/1440*100vw;
+        max-width: s(452);
+        max-width: 452/1440*100vw;
+        text-align: center;
+        color: color(white);
+        position: absolute;
+        top: 50%;
+        transform: translate3d(0, -45%, 0);
+
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    &__secondText2{
+        @extend .title50;
+        color: color(sand);
+        position: absolute;
+        width: 776/1440*100%;
+        top: 50vh;
+        left: 0;
+        right: 0;
+        margin: 800/1440*100% auto 0 auto;
+        font-size: 50/1440*100vw;
+        text-align: center;
+
+        strong{
+            display: inline-block;
+            position: relative;
+
+            &:before{
+                //animation-name: MOVE-BG;
+                animation-duration: 60s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                height: s(6);
+                bottom: -0.18em;
+                width: 100%;
+                background-image: url("data:image/svg+xml,%3Csvg width='15' height='6' viewBox='0 0 15 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.5 5.5C5.3 5.5 4.3 4.3 3.3 3.2C2.4 2.1 1.6 1.2 0 1.2V0C2.2 0 3.2 1.2 4.2 2.3C5.1 3.3 5.9 4.2 7.5 4.2C9.1 4.2 9.9 3.3 10.8 2.3C11.8 1.2 12.8 0 15 0V1.2C13.4 1.2 12.6 2.1 11.7 3.1C10.7 4.3 9.7 5.5 7.5 5.5Z' fill='%23FAF6ED'/%3E%3C/svg%3E%0A");            }
+        }
+    }
+
+
+    &__secondBg{
+        pointer-events: none;
+        opacity: 0.2;
+        position: absolute;
+        left: 50%;
+        top: 50vh;
+        width: 2980/1440*100%;
+        height: 2980/1440*100%;
+        transform: translate3d(-50%, -50%, 0);
+
+
+    
+    }
+
+
+}
+
+@keyframes MOVE-BG {
+    from {
+        background-position: 0% 0%
+    }
+    to { 
+        background-position: -100% 0%
+    }
+}

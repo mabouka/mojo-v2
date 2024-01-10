@@ -1,0 +1,115 @@
+.footer{
+    background-color: color(dark);
+    color: color(sand);
+    padding-top: s(95);
+    overflow: hidden;
+    position: relative;
+    z-index: 251;
+
+
+    &__inside{
+        position: relative;
+        display: flex;
+        padding-bottom: s(461);
+
+    }
+
+    &__text{
+        position: relative;
+        z-index: 1;
+        color: color(sand);
+        font-size: s(30);
+        line-height: 1.3em;
+        width: colGut(4,0,12,0);
+
+        p + p{
+            margin-top: 1em;
+        }
+
+        a{
+            font-family: Cambon, serif;
+            color: color(sand);
+            transition: 200ms color easing(ease-out-quad);
+
+            &:hover{
+                color: color(yellow);
+            }
+        }
+    }
+    
+    &__menu{
+        position: relative;
+        z-index: 1;
+
+        display: flex;
+        flex-direction: column;
+        width: col(2,12);
+        justify-self: flex-end;
+        margin-left: auto;
+        &--social{
+            margin-left: gutter(12);
+        }
+    }
+
+    &__menuTitle{
+        color: color(sand);
+        font-size: s(18);
+        line-height: em(26, 18);
+        margin-bottom: s(6);
+    }
+
+    &__menuItem{
+        color: color(sand);
+        font-size: s(18);
+        line-height: em(26,18);
+        opacity: 0.5;
+        text-decoration: none;
+        transition: 200ms opacity easing(ease-out-quad),  200ms color easing(ease-out-quad);
+
+        & + &{
+            margin-top: s(6);
+        }
+
+        &:hover,
+        &:focus{
+            opacity: 1;
+            color: color(yellow);
+        }
+    }
+
+    &__copyright{
+        position: absolute;
+        z-index: 1;
+        right: s(35);
+        bottom: s(50);
+    }
+
+    &__svgWrapper{
+        position: absolute;
+        left: (-2500+(1285/2))/1285*100%;
+        right:  (-2500+(1285/2))/1285*100%;
+        bottom: 0;
+    }
+
+    #footerSvg{
+        display: block;
+    }
+
+    #footerSvg_circleWrapper{
+        transform: translate3d(var(--x),var(--y),0);
+
+    }
+
+    #footerSvg_circle{
+
+    }
+
+    #footer_limit{
+        fill: none;
+    }
+
+    #footer_sensible{
+        fill: yellow;
+        opacity: 0.0;
+    }
+}

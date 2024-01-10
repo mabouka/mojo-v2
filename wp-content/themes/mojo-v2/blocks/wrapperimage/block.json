@@ -1,0 +1,20 @@
+{
+    "name": "mojo/wrapperimage",
+    "title": "Wrapper Image",
+    "description": "a block that contain one image that is full on the wrapper size",
+    "editorStyle": [ "file:./wrapperimage.css" ],
+
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": [
+        "image",
+        "full"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "wrapperimage.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}

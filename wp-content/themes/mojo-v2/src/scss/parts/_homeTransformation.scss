@@ -1,0 +1,34 @@
+.homeTransformation{
+    padding-top: s(225);
+    padding-bottom: s(140);
+
+    &__svg{
+        position: absolute;
+        left: s(-85);
+        top: s(-193);
+    }
+
+    &__title{
+        margin-left: colGut(2,1,12,0);
+        margin-bottom: s(100);
+        width: col(7,12);
+        color: color(dark);
+        font-family: Cambon, sans-serif;
+        font-size: s(80);
+        line-height: 1em; /* 100% */
+
+    }
+
+    &__content{
+        margin-left: colGut(7,1,12,0);
+        width: col(5,12);
+    }
+
+    &__text{
+        margin-bottom: s(50);
+        max-width: s(441);
+        font-family: dm, sans-serif;
+        font-size: s(18);
+        line-height: em(26,18);
+    }
+}

@@ -1,0 +1,120 @@
+.commitmentsFaq{
+    padding-top: s(95);
+    padding-bottom: s(70);
+
+    &__inside{
+        @include clearfix();
+    }
+
+    &__title{
+        @extend .title80;
+        float: left;
+        width: col(5,12);
+        position: relative;
+        position: sticky;
+        top: s(80);
+        left: 0;
+    }
+
+    &__items{
+        float: right;
+        width: col(6,12);
+        margin-top: s(55);
+    }
+
+    &__item{
+        position: relative;
+        padding: s(40) 0 s(40) col(1,6);
+        border-bottom: 1px solid color(black);
+        cursor: pointer;
+
+        &:first-child{
+            border-top: 1px solid color(black);
+        }
+
+        &:before{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: s(40);
+            width: s(40);
+            height: s(40);
+            border-radius: s(40);
+            background-color: color(dark);
+            border: 1px solid color(dark);
+            transition: 200ms background-color easing(ease-out-quad);
+
+        }
+
+        
+    }
+
+    &__itemTitle{
+        @extend .title30;
+        margin-bottom: s(20 );
+
+        &:after,
+        &:before{
+            content: '';
+            position: absolute;
+            left: s((42/2) - (10/2));
+            top: s(40+(40/2)+1);
+            width: s(10);
+
+            height: s(2);
+            background-color: color(sand);
+            transform-origin: center center;
+            transition: 200ms transform easing(ease-out-quad);
+            will-change: transform;
+            transform: rotate(0deg);
+
+        }
+
+        &:after{
+            transform: rotate(90deg);
+
+        }
+
+
+    }
+
+    &__itemWrapper{
+        max-height: 0;
+        opacity: 0;
+        transition: 200ms max-height easing(ease-out-quad), 200ms opacity easing(ease-out-quad);
+        overflow: hidden;
+    }
+
+    &__itemText{
+        @extend .body;
+        @extend .body18;
+    }
+
+
+    &__item--active{
+        &:before{
+            background-color: transparent;
+        }
+
+        .commitmentsFaq__itemTitle{
+            &:before,
+            &:after{
+                background-color: color(dark);
+            }
+
+            &:before{
+                transform: rotate(180deg);
+            }
+
+            &:after{
+                transform: rotate(360deg);
+            }
+        }
+
+        .commitmentsFaq__itemWrapper{
+            max-height: 10rem;
+            opacity: 1;
+        }
+    }
+
+}

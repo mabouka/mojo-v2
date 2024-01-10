@@ -1,0 +1,20 @@
+{
+    "name": "mojo/quoteimage",
+    "title": "Quote + Image",
+    "description": "a block that contain one image and one quote",
+    "editorStyle": [ "file:./quoteimage.css" ],
+
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": [
+        "image",
+        "quote"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "quoteimage.php"
+    },
+    "supports": {
+        "anchor": true
+    }
+}

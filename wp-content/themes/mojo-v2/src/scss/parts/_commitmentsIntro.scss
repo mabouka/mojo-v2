@@ -1,0 +1,58 @@
+.commitmentsIntro{
+    &__inside{
+        @include clearfix();
+        padding-top: s(150);
+        padding-bottom: s(200);
+    }
+
+    &__titleLine1,
+    &__titleLine2{
+        //float: left;
+        width: col(6,12);
+        @extend .title100;
+        display: block;
+        position: sticky;
+        top: s(70);
+        z-index: 1;
+        -webkit-transform: translate3d(0,0,0);
+
+    }
+    &__titleLine1{
+        //position: relative;
+        z-index: 4;
+
+
+    }
+
+    &__titleLine2{
+        top: s(170);
+    }
+
+    &__content{
+        margin-top: s(21);
+        width: col(4,12);
+        margin-right: colGut(1,1,12,0);
+        float: right;
+    }
+
+    &__intro{
+        @extend .title30;
+        margin-bottom: s(30);
+    }
+
+    &__text{
+        @extend .body;
+        @extend .body18;
+    }
+
+    &__svg{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        //position: relative;
+        z-index: 2;
+
+        -webkit-transform: translate3d(0,0,0);
+
+    }
+}

@@ -1,0 +1,75 @@
+.teamGrid{
+    padding-top: s(100);
+    padding-bottom: s(175);
+
+    &__inside{
+        position: relative;
+    }
+
+    &__title{
+        position: absolute;
+        top: 0;
+        left: 0;
+        @extend .subtitle;
+    }
+
+    &__grid{
+        display: flex;
+        flex-wrap: wrap;
+
+        .teamCard{
+            width: col(4,12);
+        }
+
+        & > *{
+            margin-left: gutter(12);
+            &:nth-child(3n+1){
+                margin-left: 0;
+            }
+
+            &:nth-child(1n+4){
+                margin-top: s(20);
+            }
+        }
+    }
+}
+
+.teamCitation,
+.teamText{
+    width: col(4,12);
+    padding-top: col(4,12);
+    height: 0;
+    position: relative;
+}
+
+.teamCitation{
+    width: col(4,12);
+    padding-top: col(4,12);
+    height: 0;
+    position: relative;
+
+    &__text{
+        padding-right: s(33);
+        @extend .title50;
+        color: color(dark);
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+.teamText{
+    &__text{
+        @extend .body22;
+        color: color(dark);
+        padding-bottom: s(30);
+        border-bottom: 1px solid color(dark);
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}

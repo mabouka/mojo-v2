@@ -1,0 +1,69 @@
+.serviceProjects{
+    position: relative;
+    padding-top: s(80);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:before{
+        content: '';
+        @include cover();
+        background-image: url('../images/noise.jpg');
+        @supports (gap: 1px) {
+            background-image: url('../images/noise.webp');
+        }
+        background-size: 200px 200px;
+        mix-blend-mode:darken;
+        opacity: 0.20;
+        pointer-events: none;
+    }
+    
+    &__title{
+        color: color(sand);
+        margin-bottom: s(80);
+        text-align: center;
+        @extend .title50;
+    }
+
+    &__seeAll{
+        margin-top: s(70);
+        margin-bottom: s(35);
+    }
+
+    &--dodgerblue{
+        background-color: #784FE0;
+
+        &:before{
+            mix-blend-mode:lighten;
+        }
+    }
+
+    &--lightblue{
+        background-color: color(lightblue);
+    }
+
+    &--outrageousorange{
+        background-color: #FF542E;
+    }
+    
+    &--pink{
+        background-color: #FEC5D4;
+    }
+
+    &--denimblue{
+        background-color: #1C6ECF;
+    }
+
+    &--greenpea{
+        background-color: #1F5C40;
+    }
+
+    &--sungloworange{
+        background-color: #FFC833;
+    }
+
+    &--darkgreyblue{
+        background-color: #1D2B33;
+    }
+}

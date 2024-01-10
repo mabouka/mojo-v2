@@ -1,0 +1,62 @@
+.sCaseFeatures{
+    padding: s(40) 0 0 0;
+
+    &__inside{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 1px solid color(dark);
+        padding-bottom: s(40);
+
+    }
+
+    &__item{
+        max-width: 25%;
+    }
+
+    &__itemTitle{
+        @extend .subtitle;
+        color: color(dark);
+        opacity: 0.4;
+        margin-bottom: s(10);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__itemList,
+    &__itemContent{
+        @extend .subtitle;
+        color: color(dark);
+    }
+
+    &__itemList{
+        li{
+            display: flex;
+            & + &{
+                margin-left: s(10);
+            }
+        }
+    }
+
+    &__link{
+        align-self: center;
+        text-align: right;
+        font-family: Cambon, serif;
+        font-size: s(18);
+        font-weight: 600;
+        text-decoration: none;
+        color: color(dark);
+        padding-right: s(17+7);
+        position: relative;
+        display: inline-block;
+
+    }
+
+    &__linkArrow{
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+    }
+
+}

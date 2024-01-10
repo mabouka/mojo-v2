@@ -1,0 +1,16 @@
+.fullBlackImage{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    margin: s(80) 0;
+
+    &__image{
+       height: 700px;
+       margin-bottom: 0;
+       img{
+           width: auto;
+           height: 700px;
+           display: block;
+       }
+    }
+}

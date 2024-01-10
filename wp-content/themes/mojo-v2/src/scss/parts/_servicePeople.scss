@@ -1,0 +1,78 @@
+.servicePeople{
+    position: relative;
+    padding-top: s(60);
+    padding-bottom: s(140);
+
+    &:before{
+        content: '';
+        @include cover();
+        background-image: url('../images/noise.jpg');
+        @supports (gap: 1px) {
+            background-image: url('../images/noise.webp');
+        }
+
+        background-size: 200px 200px;
+        mix-blend-mode:darken;
+        opacity: 0.20;
+        pointer-events: none;
+    }
+
+    &__title{
+        @extend .title50;
+        text-align: center;
+        color: color(sand);
+        margin-bottom: s(86);
+    }
+
+    &__grid{
+        display: flex;
+        flex-wrap: wrap;
+
+        .teamCard{
+            margin-left: gutter(12);
+            &:nth-child(3n+1){
+                margin-left: 0;
+            }
+
+            &:nth-child(1n+4){
+                margin-top: s(20);
+            }
+        }
+    }
+
+    &--dodgerblue{
+        background-color: #784FE0;
+
+        &:before{
+            mix-blend-mode:lighten;
+        }
+    }
+
+    &--lightblue{
+        background-color: color(lightblue);
+    }
+
+    &--outrageousorange{
+        background-color: #FF542E;
+    }
+    
+    &--pink{
+        background-color: #FEC5D4;
+    }
+
+    &--denimblue{
+        background-color: #1C6ECF;
+    }
+
+    &--greenpea{
+        background-color: #1F5C40;
+    }
+
+    &--sungloworange{
+        background-color: #FFC833;
+    }
+
+    &--darkgreyblue{
+        background-color: #1D2B33;
+    }
+}

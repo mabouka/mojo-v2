@@ -1,0 +1,59 @@
+.quoteImage {
+    display: flex;
+    justify-content: space-between;
+    margin: s(80) 0;
+
+    &--right{
+        flex-direction: row-reverse;
+    }
+
+    &__image {
+        width: col(6,12);
+        height: 0;
+        padding-top: 54.474708171%;
+        position: relative;
+
+        img {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    &__quote{
+        width: col(6,12);
+        align-self: flex-end;
+        font-family: cambon;
+        font-size: s(50);
+        line-height: em(55, 50);
+        padding-bottom: s(42);
+        border-bottom: 1px solid color(dark);
+    }
+
+    &__quoteText{
+        &:before{
+            content: '“';
+        }
+
+        &:after{
+            content: '”';
+        }
+    }
+
+    &__cite{
+        @extend .body18;
+        font-family: dm;
+        margin-top: s(42);
+        display: block;
+    }
+
+}
+
+
+

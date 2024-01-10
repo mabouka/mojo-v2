@@ -1,0 +1,38 @@
+/// Get a easing
+///
+/// @param {String} $name                      - easing to get
+/// @param {Map}    $easing-array ($default-easings) 
+///
+/// @requires {variable} $default-easings
+///
+/// @return {Easing | Null}
+
+@function easing($name, $reverse: false ,$easing-array: $default-easings) {
+    @if map-has-key($easing-array, $name) {
+        $parameter : map-get($easing-array, $name);
+        @if(length($parameter) != 4)
+        {
+            @warn "Each easing need 4 parameters";
+        }
+
+        @if($reverse == true){
+            @return unquote('cubic-bezier(' 
+            + ( 1 - nth($parameter, 3) )+ ', ' 
+            + ( 1 - nth($parameter, 4) )+ ', ' 
+            + ( 1 - nth($parameter, 1) )+ ', ' 
+            + ( 1 - nth($parameter, 2) )+ ')'); 
+        }
+        @else{
+            @return unquote('cubic-bezier(' 
+            + nth($parameter, 1) + ', ' 
+            + nth($parameter, 2) + ', ' 
+            + nth($parameter, 3) + ', ' 
+            + nth($parameter, 4) + ')'); 
+        }
+    }
+    @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$name}`. "
+            + "Please make sure it is defined in `$easing-array` map.";
+    }
+    @return '';
+}

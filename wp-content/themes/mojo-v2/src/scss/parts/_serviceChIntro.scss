@@ -1,0 +1,54 @@
+.serviceChIntro{
+
+    float: left;
+    width: col(4,12);
+    position: sticky;
+    top: s(30);
+    margin-bottom: s(80);
+
+    &__title{
+        @extend .title80;
+        margin-bottom: s(45);
+    }
+
+    &__nav{
+        width: s(260);
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__navItem{
+        border-bottom: 1px solid color(dark);
+        &:first-child{
+            border-top: 1px solid color(dark);
+        }
+        width: 100%;
+        padding: s(15) 0 s(18);
+        font-family: Cambon, serif;
+        font-size: s(18);
+        font-weight: 600;
+        line-height: em(23,18); /* 127.778% */
+        color: color(dark);
+        position: relative;
+        text-decoration: none;
+
+        svg{
+            position: absolute;
+            top: 50%;
+            margin-top: s(-5.5);
+            right: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 200ms;
+        }
+
+        &:hover,
+        &:focus{
+            svg{
+                opacity: 1;
+                visibility: visible;
+                transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;    
+            }
+        }
+    }
+}

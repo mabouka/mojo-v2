@@ -1,0 +1,43 @@
+.homeIntro{
+    background-color: color(dark);
+    overflow: hidden;
+    position: relative;
+
+    &__inside{
+        height: s(833);
+        display: flex;
+        align-items: flex-end;
+    }
+
+    &__title{
+        color: color(sand);
+        font-family: 'Cambon', serif;
+        font-size: s(100);
+        line-height: 100%;
+
+        margin-bottom: s(121);
+    }
+
+    &__shape{
+        z-index: 1;
+        position: absolute;
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
+        top: 0;
+        height: 100%;
+        bottom: 0;
+        width: auto;
+        pointer-events: none;
+    }
+
+    &__stars{
+        position: absolute;
+        left: 50%;
+        transform: translate3d(-45.8%, 0, 0);
+        top: 86/833*100%;
+        height: 701/833*100%;
+        bottom: 0;
+        width: auto;
+        pointer-events: none;
+    }
+}

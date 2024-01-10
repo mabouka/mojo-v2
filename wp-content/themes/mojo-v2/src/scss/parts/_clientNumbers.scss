@@ -1,0 +1,102 @@
+.clientNumbers{
+    background-color: color(dark);
+    position: relative;
+
+    &__inside{
+        height: s(1800);
+        position: relative;
+        padding-top: s(315);
+        padding-bottom: s(160);
+    }
+
+    &__svg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: s(1299);
+        height: auto;
+    }
+
+    &__moon{
+        position: sticky;
+        width: s(350);
+        height: s(350);
+        border-radius: s(350);
+        background-color:#784FE0;
+        top: s(315);
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 3;
+        margin-bottom: s(-600);
+        scroll-behavior: smooth 
+    }
+
+    &__item{
+        position: absolute;
+        transform: translate3d(-50%, -55px, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+
+    &__itemNumber{
+        @extend .title80;
+        color: color(sand);
+        border: 1px solid color(sand);
+        border-radius: 100%;
+        min-width: s(213);
+        text-align: center;
+        padding: s(8) s(50) s(16) s(50);
+    }
+
+    &__itemOutside{
+        margin-top: s(20);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column
+    }
+
+    &__itemLabel{
+        color: color(sand);
+        text-transform: uppercase;
+        @extend .subtitle;
+        text-align: center;
+    }
+
+    &__itemLink{
+        text-decoration: none;
+        margin-top: s(20);
+        color: color(sand);
+        display: inline-block;
+        @extend .tag;
+        padding-bottom: s(7);
+        position: relative;
+        transition: 200ms color easing(ease-out-quad);
+
+        &:before{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: color(sand);
+            transition: 200ms background-color easing(ease-out-quad);
+        }
+
+        &:hover{
+            color: color(blue);
+            &:before{
+                background-color: color(blue);
+            }
+        }
+        
+    }
+    
+}

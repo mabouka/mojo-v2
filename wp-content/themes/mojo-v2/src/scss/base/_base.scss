@@ -1,0 +1,29 @@
+html {
+    font-size: $base-font-size * 1px;
+    font-family: 'dm', sans-serif;
+    background-color: color(sand);
+    color: color(dark);
+    
+}
+
+.sro {
+    @include hidden();
+}
+
+.wrapper {
+    position: relative;
+    margin: 0 auto;
+    max-width: s(1285);
+    width: 100%;
+
+    @media screen and (max-width: 1285px) {
+        max-width: 100%;
+        padding-left: s(40);
+        padding-right: s(40);
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-left: s(24);
+        padding-right: s(24);
+    }
+}

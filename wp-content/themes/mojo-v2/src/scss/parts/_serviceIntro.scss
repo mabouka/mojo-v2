@@ -1,0 +1,23 @@
+.serviceIntro{
+    background-color: color(dark);
+    color: color(sand);
+    padding-top: s(175);
+    padding-bottom: s(220);
+
+    &__inside{
+        display: flex;
+    }
+
+    &__title{
+        @extend .title100;
+        width: col(7,12);
+    }
+
+    &__text{
+        margin-top: s(15);
+        width: col(4,12);
+        margin-left: gutter(12);
+        @extend .body18;
+        @extend .body;
+    }
+}

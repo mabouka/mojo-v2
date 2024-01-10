@@ -1,0 +1,19 @@
+.fullBlackImage{
+    margin: s(80) 0;
+
+    width: 100vw;
+    margin-left: calc(#{1285px/2} - 50vw);
+    background-color: black;
+    display: flex;
+    justify-content: center;
+
+    &__image{
+       height: 700px;
+       margin-bottom: 0;
+       img{
+           width: auto;
+           height: 700px;
+           display: block;
+       }
+    }
+}

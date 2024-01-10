@@ -1,0 +1,63 @@
+// Vars
+@import "../vars/fonts";
+@import "../vars/easing";
+@import "../vars/colors";
+@import "../vars/icons";
+@import "../vars/sizes";
+@import "../vars/grid";
+
+// Mixins
+@import "../mixins/font";
+@import "../mixins/grid";
+@import "../mixins/sizing";
+@import "../mixins/icons";
+@import "../mixins/color";
+@import "../mixins/easing";
+;
+
+.quoteImage {
+    display: flex;
+    justify-content: space-between;
+
+    &--right{
+        flex-direction: row-reverse;
+    }
+
+    &__image {
+        width: col(6,12);
+        height: 0;
+        padding-top: 54.474708171%;
+        position: relative;
+
+        img {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    &__quote{
+        width: col(6,12);
+        align-self: flex-end;
+        font-family: cambon;
+        font-size: 30px;
+        line-height: em(55, 50);
+        margin-bottom: s(20);
+    }
+
+    &__cite{
+        font-size: s(18);
+        font-family: dm;
+        display: block;
+    }
+
+}
+
+
+

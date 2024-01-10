@@ -1,0 +1,73 @@
+.serviceChHeader{
+    background-color: red;
+    position: relative;
+    border-radius: 0px 0px 30px 30px;
+    overflow: hidden;
+
+    &:before{
+        content: '';
+        @include cover();
+        background-image: url('../images/noise.jpg');
+        @supports (gap: 1px) {
+            background-image: url('../images/noise.webp');
+        }
+        background-size: 200px 200px;
+        mix-blend-mode:darken;
+        opacity: 0.20;
+        pointer-events: none;
+    }
+
+
+    &__inside{
+        height: s(70);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__link{
+        color: color(white);
+        font-family: Cambon, serif;
+        font-size: s(18);
+        font-weight: 600;
+        line-height: em(23,18);
+        text-decoration-line: underline;
+    }
+
+    &--dodgerblue{
+        background-color: #784FE0;
+
+        &:before{
+            mix-blend-mode:lighten;
+
+        }
+    }
+
+    &--lightblue{
+        background-color: color(lightblue);
+    }
+
+    &--outrageousorange{
+        background-color: #FF542E;
+    }
+    
+    &--pink{
+        background-color: #FEC5D4;
+    }
+
+    &--denimblue{
+        background-color: #1C6ECF;
+    }
+
+    &--greenpea{
+        background-color: #1F5C40;
+    }
+
+    &--sungloworange{
+        background-color: #FFC833;
+    }
+
+    &--darkgreyblue{
+        background-color: #1D2B33;
+    }
+}
