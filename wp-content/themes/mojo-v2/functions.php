@@ -376,6 +376,12 @@ function isExternal($url)
     return $url['host'] != $site['host'];
 }
 
+
+add_action( 'after_setup_theme', 'my_theme_setup' );
+function my_theme_setup(){
+    load_theme_textdomain( 'mj', get_template_directory() . '/languages' );
+}
+
 function getLanguageLinks($class = "header__language")
 {
     if (!function_exists('icl_get_languages')) {

@@ -249,8 +249,13 @@
     }
 
     &--lightblue{
+        
         &:after{
             background-color: color(lightblue);
+        }
+
+        .serviceCard__picture--hover{
+            z-index: 5;
         }
     }
 
