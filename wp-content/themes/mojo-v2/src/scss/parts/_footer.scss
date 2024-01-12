@@ -97,6 +97,7 @@
 
     #footerSvg_circleWrapper{
         transform: translate3d(var(--x),var(--y),0);
+        transition: opacity .4s easing(ease-out-quint),transform .4s easing(ease-out-quint);
 
     }
 

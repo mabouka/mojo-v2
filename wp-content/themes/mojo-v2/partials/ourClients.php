@@ -44,7 +44,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="ourClients__containerRight">
+        <div class="ourClients__containerRight darkSection">
             <a class="btn btn--light" href="<?= get_post_type_archive_link('client'); ?>">
                 <?= __('See our clients', 'mj'); ?>
             </a>
@@ -54,7 +54,7 @@
 
 
     <?php if ($logos) : ?>
-        <div class="ourClients__carousel js-in-view appear-fadeup">
+        <div class="ourClients__carousel js-in-view appear-fade">
             <div class="ourClients__carouselWrapper">
                 <?php foreach ($logos as $logo) : ?>
                     <?php if ($logo['url']) : ?>

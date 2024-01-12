@@ -55,7 +55,7 @@
 
             <div class="featuredCases__right">
 
-                <div class="featuredCases__circle js-in-view appear-fade">
+                <div class="featuredCases__circle darkSection js-in-view appear-fade">
                     <svg class="featuredCases__m" width="351" height="215" viewBox="0 0 351 215" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M342.112 0H301.042L179.518 201.19V15.2469V0H170.763H129.699L0 214.71H59.0391L170.763 29.75V214.71H171.354H179.518H230.388L342.112 29.75V214.71H350.872V15.2469V0H342.112Z" fill="#FAF6ED" />
                     </svg>

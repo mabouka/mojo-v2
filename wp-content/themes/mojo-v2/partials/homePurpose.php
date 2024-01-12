@@ -1,4 +1,4 @@
-<section class="homePurpose">
+<section class="homePurpose darkSection">
     <div class="wrapper">
         <div class="homePurpose__inside">
             <h2 class="homePurpose__title js-in-view appear-fade">

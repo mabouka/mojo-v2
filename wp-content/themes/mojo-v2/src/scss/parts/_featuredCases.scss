@@ -222,6 +222,7 @@
         left: s(128);
         max-height: 100%;
         mix-blend-mode: difference;
+        pointer-events: none;
     }
 
     &__videoDescription{
@@ -241,7 +242,7 @@
         font-family: Cambon, serif;
         font-size: s(50);
         line-height: 110%;
-        margin-bottom: s(15);
+        margin-bottom: s(20);
         display: block;
     }
 

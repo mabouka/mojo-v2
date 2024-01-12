@@ -1,5 +1,5 @@
 .ourClients{
-    padding-top: s(131);
+    padding-top: s(150);
 
     &__inside{
         display: flex;
@@ -58,18 +58,16 @@
     }
 
     &__carouselItem{
-        height: s(80);
+        height: s(70);
         filter: grayscale(100%);
-        margin-left: s(250);
+        margin-left: s(200);
         transition: 200ms filter linear, 200ms -webkit-filter linear;
 
         &:hover{
             filter: grayscale(0%);
         }
 
-        & + &{
-            margin-left: s(200);
-        }
+
 
         img{
             height: 100%;

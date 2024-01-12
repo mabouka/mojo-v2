@@ -107,6 +107,7 @@
 
 </div>
 
+<?php getPartial('cursor'); ?>
 
 <?php getPartial('menu'); ?>
 

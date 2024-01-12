@@ -1,4 +1,4 @@
-<div class="homeIntro js-in-view">
+<div class="homeIntro darkSection js-in-view">
     <div class="wrapper">
         <div class="homeIntro__inside">
             <?php if($text): ?>
