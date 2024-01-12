@@ -1,4 +1,4 @@
-<div class="serviceIntro">
+<div class="serviceIntro darkSection">
     <div class="wrapper">
         <div class="serviceIntro__inside">
             <h1 class="serviceIntro__title">

@@ -114,7 +114,9 @@ export default class CustomCursor {
   setPosition(x, y, reqAni = false) {
     const set = () => {
       if (typeof x === 'number' && typeof y === 'number') {
-        this.element.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y})`
+        //this.element.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y})`
+        document.documentElement.style.setProperty('--x', x +'px');
+        document.documentElement.style.setProperty('--y', y +'px');
       } 
     }
     

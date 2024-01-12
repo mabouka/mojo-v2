@@ -13,21 +13,13 @@ class Mojo {
         
         const options = {
             focusElements: [
+
                 {
                     elements: '.serviceCard', // Can be nodelist or selector
                     focusClass: 'cursor--service',
-                    mouseenter: () => {
-                        // Run in addition to adding the focusClass
-                        console.log('Hi!! I entered <a id="#special-focus">')
-                    },
-                    mouseleave: () => {
-                        // Run in addition to removing the focusClass
-                        console.log(`Cya!! I'm leaving <a id="#special-focus">`)
-                    },
                 },
                 'button',
                 'a',
-                
                 {
                     elements: '.darkSection', // Can be nodelist or selector
                     focusClass: 'cursor--dark'
