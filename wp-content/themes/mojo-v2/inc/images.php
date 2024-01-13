@@ -3,8 +3,10 @@ add_image_size('social', 1200, 630, true);
 
 add_image_size('featuredCases--big', 625, 350, true);
 add_image_size('featuredCases--big@2x', 625 * 2, 350 * 2, true);
+
 add_image_size('featuredCases--small', 294, 260, true);
 add_image_size('featuredCases--small@2x', 294 * 2, 260 * 2, true);
+
 add_image_size('featuredVideo', 628, 628, true);
 
 add_image_size('logo', 9999, 130, false);
@@ -13,10 +15,11 @@ add_image_size('logo@2x', 9999 * 2, 130 * 2, false);
 add_image_size('teamCard', 405, 405, true);
 add_image_size('teamCard@2x', 405 * 2, 405 * 2, true);
 
-add_image_size('teamCard', 625, 500, true);
-add_image_size('teamCard@2x', 625 * 2, 500 * 2, true);
+add_image_size('caseCard', 625, 500, true);
+add_image_size('caseCard@2x', 625 * 2, 500 * 2, true);
 
 add_image_size('caseLong', 1440, 440, true);
+
 add_image_size('caseFull', 1440, 720, true);
 
 add_image_size('twoImages', 625, 700, true);

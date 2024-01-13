@@ -31,8 +31,10 @@ export default class Focus {
   }
 
   addFocusElements(focusOpts) {
+    console.log(focusOpts);
     focusOpts.forEach(selector => {
-      if (typeof selector == 'string' || typeof selector == 'object') {
+      console.log(selector);
+      if (typeof selector === 'string' || typeof selector === 'object') {
         const elInfo = selector.hasOwnProperty('elements') ? selector.elements : selector
         const focusClass = selector.hasOwnProperty('focusClass') ? selector.focusClass : this.cursor.options.focusClass
         const customEnterFunc = selector.hasOwnProperty('mouseenter') ? selector.mouseenter : null
@@ -40,7 +42,7 @@ export default class Focus {
 
         let elements = []
 
-        if (typeof elInfo == 'string') {
+        if (typeof elInfo === 'string') {
           elements = document.querySelectorAll(elInfo)
         } else {
           elements = elInfo

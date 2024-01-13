@@ -22,6 +22,7 @@ export default class CustomCursor {
     if (typeof element === 'string') element = document.querySelector(element);
     if (!element || !element.nodeName)  throw new Error('No element is specified to initialize customCursor');
     
+    this.isActive = false;
     this.element = element
     this.focusController = null
     this.styleTag = null
@@ -55,6 +56,13 @@ export default class CustomCursor {
     
     this.clicking = (e) => {
       clicking(this)
+    }
+  }
+
+  active() {
+    if (this.initialized) {
+      this.element.classList.add('cursor--active');
+      this.isActive = true;
     }
   }
   
@@ -114,6 +122,8 @@ export default class CustomCursor {
   setPosition(x, y, reqAni = false) {
     const set = () => {
       if (typeof x === 'number' && typeof y === 'number') {
+        if(!this.isActive) this.active();
+
         //this.element.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y})`
         document.documentElement.style.setProperty('--x', x +'px');
         document.documentElement.style.setProperty('--y', y +'px');

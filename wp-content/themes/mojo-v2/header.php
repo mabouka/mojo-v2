@@ -67,7 +67,7 @@
     ?>
 
     <?php if ($show): ?>
-    <header class="header<?= $isDark ? ' header--dark' : '' ?>" role="banner">
+    <header class="header<?= $isDark ? ' header--dark' : ' header--light' ?>" role="banner">
         <div class="wrapper">
             <div class="header__inside">
                 <a class="header__logo" href="<?= home_url(); ?>" title="<?= __('Go back home', 'mj'); ?>">

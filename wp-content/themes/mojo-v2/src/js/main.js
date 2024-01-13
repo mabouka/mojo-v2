@@ -13,6 +13,10 @@ class Mojo {
         
         const options = {
             focusElements: [
+                {
+                    elements: '.menu__mainItem', // Can be nodelist or selector
+                    focusClass: 'cursor--service',
+                },
 
                 {
                     elements: '.serviceCard', // Can be nodelist or selector
@@ -21,6 +25,10 @@ class Mojo {
                 'button',
                 'a',
                 {
+                    elements: '.header--light', // Can be nodelist or selector
+                    focusClass: 'cursor--dark'
+                },
+                {
                     elements: '.darkSection', // Can be nodelist or selector
                     focusClass: 'cursor--dark'
                 },
@@ -28,6 +36,11 @@ class Mojo {
                     elements: '.footer', // Can be nodelist or selector
                     focusClass: 'cursor--hidden',
                 },
+                {
+                    elements: '.menu', // Can be nodelist or selector
+                    focusClass: 'cursor--menu',
+                },
+
             ],
             
         };

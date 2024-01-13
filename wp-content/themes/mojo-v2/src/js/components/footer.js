@@ -48,7 +48,9 @@ export default class Footer {
     }
 
     setEvents() {
-        document.querySelector('body').addEventListener('mousemove', (e)=>{ this.e_mousemove(e)});
+        document.documentElement.addEventListener('mousemove', (e)=>{ this.e_mousemove(e)});
+        //this.el.addEventListener('mouseleave', (e)=>{ this.e_mouseleaveFooter(e)});
+        this.cursor
         window.addEventListener('scroll', (e)=>{ this.e_scroll(e)});
         window.addEventListener('resize', (e)=>{ this.e_resize(e)});
         this.sensible.addEventListener('mouseenter', this.e_mousenter.bind(this));
@@ -79,7 +81,7 @@ export default class Footer {
     e_mouseleave() {
         gsap.to('#footerSvg_circle', {
             scale: 1,  
-            duration: 0.2,
+            duration: 0.3,
             ease: "expoScale(0.5,7,none)"
         });
     }
@@ -92,6 +94,9 @@ export default class Footer {
     e_resize(e){
         this.hide();
         this.svgRect = this.svgWrapper.getBoundingClientRect();
+    }
 
+    e_mouseleaveFooter(){
+        this.hide();
     }
 }

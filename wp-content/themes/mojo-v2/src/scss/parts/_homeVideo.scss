@@ -10,6 +10,11 @@
         background:  linear-gradient(270deg, rgba(19, 28, 35, 0.20) 20.42%, rgba(19, 28, 35, 0.00) 54.72%);
     }
 
+    &:after{
+        //@extend .photoNoise;
+    }
+
+
     &__inside{
         display: flex;
         height: s(710);

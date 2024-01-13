@@ -27,3 +27,16 @@ html {
         padding-right: s(24);
     }
 }
+
+.photoNoise{
+    content : '';
+    @include cover();
+    z-index: 2;
+    background-image: url('../images/noise.jpg');
+    @supports (gap: 1px) {
+        background-image: url('../images/noise.webp');
+    }
+    background-size: 200px 200px;
+    mix-blend-mode:lighten;
+    opacity: 0.25;
+}

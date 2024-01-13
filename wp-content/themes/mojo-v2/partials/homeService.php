@@ -6,7 +6,7 @@ $the_query = new WP_Query([
 ]);
 ?>
 
-<section class="homeService">
+<section class="homeService darkSection">
 
     <div class="wrapper">
         <div class="homeService__inside">
