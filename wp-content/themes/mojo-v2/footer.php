@@ -1,21 +1,22 @@
 <?php 
     $showFooter = true;
     if (is_404()) $showFooter = false;
-    if (is_singular('case')) $showFooter = false;
+    
+    /*if (is_singular('case')) $showFooter = false;
     if (is_singular('services')) {
         global $post;
         $parent = array_reverse(get_post_ancestors($post->ID));
         if($parent) {
             $showFooter = false;
         }
-    }
+    }*/
 
 ?>
 
 </main><!-- main, data router wrapper -->
 <?php wp_reset_postdata(); ?>
 
-<?php if ($showFooter): ?>
+<?php if (true): ?>
 
 <footer class="footer">
     <div class="wrapper">
