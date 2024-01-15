@@ -3,7 +3,22 @@ html {
     font-family: 'dm', sans-serif;
     background-color: color(sand);
     color: color(dark);
+
     
+}
+
+body{
+    &:before{
+        content: '';
+        @include cover();
+        z-index: 10000;
+
+        .no-js &,
+        .js-active &{
+            display:none;
+        }
+    }
+
 }
 
 .sro {

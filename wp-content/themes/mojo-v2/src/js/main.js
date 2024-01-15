@@ -88,5 +88,6 @@ window.addEventListener("DOMContentLoaded", function (event) {
     scrollSetup();
     
     window.MJ = new Mojo();
+    window.document.documentElement.classList.add('js-active');
     
 });
