@@ -5,12 +5,10 @@
 
     &__inside{
         display: flex;
-        justify-content: space-between;
     }
 
     &__title{
-        width: col(6.5,12);
-        max-width: s(685);
+        width: col(7,12);
         margin-left: gutter(12);
 
         @extend .title100;
@@ -19,7 +17,6 @@
     &__content{
         margin-top: s(15);
         width: col(4,12);
-        margin-right: colGut(1,1,12,0);
     }
 
     &__text{
