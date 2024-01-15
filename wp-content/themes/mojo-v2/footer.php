@@ -16,7 +16,7 @@
 </main><!-- main, data router wrapper -->
 <?php wp_reset_postdata(); ?>
 
-<?php if (true): ?>
+<?php if ($showFooter): ?>
 
 <footer class="footer">
     <div class="wrapper">
