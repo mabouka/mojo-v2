@@ -79,7 +79,7 @@ export default class Footer {
 
     e_mousenter() {
         gsap.to('#footerSvg_circle', {
-            scale: 148/36,
+            scale: 266/36,
             duration: 0.3,
             ease: "expoScale(0.5,7,none)"
         });
