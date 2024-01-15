@@ -120,6 +120,10 @@
     &__infoTitle{
         opacity: 0.4;
         mix-blend-mode: plus-darker;
+
+        .servicePeople & {
+            visibility: hidden;
+        }
     }
 
     &--dodgerblue{
