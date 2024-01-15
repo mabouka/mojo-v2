@@ -103,6 +103,10 @@
         visibility: visible;
         color: color(dark);
 
+        .servicePeople--dodgerblue &{
+            color: color(sand);
+        }
+
     }
 
     &__infoName,
