@@ -26,11 +26,19 @@ class Mojo {
                     focusClass: 'cursor--dark'
                 },
                 {
+                    elements: '#purposeSensible', // Can be nodelist or selector
+                    focusClass: 'cursor--big'
+                },
+                {
                     elements: '.darkSection', // Can be nodelist or selector
                     focusClass: 'cursor--dark'
                 },
                 {
                     elements: '.footer', // Can be nodelist or selector
+                    focusClass: 'cursor--hidden',
+                },
+                {
+                    elements: '.homePurpose', // Can be nodelist or selector
                     focusClass: 'cursor--hidden',
                 },
 

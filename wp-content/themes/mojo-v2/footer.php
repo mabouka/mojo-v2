@@ -55,7 +55,7 @@
                 <svg id="footerSvg" class="footerSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5000 1500">
                     <defs>
                         <g id="footerSvg_circleWrapper">
-                            <circle id="footerSvg_circle" class="st0" cx="0" cy="0" r="18" />
+                            <circle id="footerSvg_circle" cx="0" cy="0" r="18" />
                         </g>
                         <g id="footerSvg_logo">
                             <path d="M2139.82,1283.16h-33.84l-100.13,156.13v-144.3v-11.83h-7.21h-33.84l-106.87,166.62h48.65l92.06-143.54v143.54

@@ -3,12 +3,10 @@ import gsap from "gsap";
 export default class Footer {
 
     static get selector() {
-        return '.footer';
+        //return '.footer';
     }
 
     constructor(el) {
-        gsap.ticker.fps(60);
-
         this.el = el;
         this.body= document.querySelector('body');
         this.svg = this.el.querySelector('#footerSvg');
@@ -17,53 +15,46 @@ export default class Footer {
         this.circle = this.el.querySelector('#footerSvg_circle');
         this.sensible = this.el.querySelector('#footer_sensible')
 
-        this.isShow = false;
         this.pos = {
             x: 0,
             y: 0
         };
 
+        gsap.ticker.add(this.updatePosition.bind(this));
+
+
         this.setEvents();
     }
 
     show() {
-        if(this.isShow) return;
-        this.svg.classList.add('show');
-        this.isShow = true;
+        gsap.to('#footerSvg_circle', {
+            autoAlpha: 1,
+            duration: 0.2,
+            ease: "linear"
+        });
     }
-
 
     hide() {
-        if(!this.isShow) return;
-        this.svg.classList.remove('show');
-        this.isShow = false;
+        gsap.to('#footerSvg_circle', {
+            autoAlpha: 0,
+            duration: 0.2,
+            ease: "linear"
+        });
     }
-
-    showAnim() {
-        this.svg.classList.add('showAnim');
-    }
-
-    hideAnim() {
-        this.svg.classList.remove('showAnim');
-    }
-
 
     updatePosition() {
         this.svg.style.setProperty('--x', Math.round(this.pos.x-this.svgRect.left) +'px');
         this.svg.style.setProperty('--y', Math.round(this.pos.y-this.svgRect.top) +'px');
     }
 
-
     setEvents() {
-        this.el.addEventListener('mousemove', (e)=>{ this.e_mousemove(e)});
+        document.documentElement.addEventListener('mousemove', (e)=>{ this.e_mousemove(e)});
+        //this.el.addEventListener('mouseleave', (e)=>{ this.e_mouseleaveFooter(e)});
+        this.cursor
         window.addEventListener('scroll', (e)=>{ this.e_scroll(e)});
         window.addEventListener('resize', (e)=>{ this.e_resize(e)});
-
         this.sensible.addEventListener('mouseenter', this.e_mousenter.bind(this));
         this.sensible.addEventListener('mouseleave', this.e_mouseleave.bind(this));
-
-        this.el.addEventListener('mouseenter', this.e_mousenterEl.bind(this));
-        this.el.addEventListener('mouseleave', this.e_mouseleaveEl.bind(this));
     }
 
     /**
@@ -75,14 +66,16 @@ export default class Footer {
             x : e.clientX,
             y : e.clientY
         };
+        //this.updatePosition();
     }
 
     e_mousenter() {
         gsap.to('#footerSvg_circle', {
-            scale: 148/36,
+            scale: 10.1666666667,
             duration: 0.3,
             ease: "expoScale(0.5,7,none)"
         });
+
     }
 
     e_mouseleave() {
@@ -92,26 +85,18 @@ export default class Footer {
             ease: "expoScale(0.5,7,none)"
         });
     }
-
-    e_mousenterEl() {
-        gsap.ticker.add(this.updatePosition.bind(this));
-        setTimeout(() => {  
-            this.showAnim();
-        }, 100);
-
-    }
-
-    e_mouseleaveEl() {
-        gsap.ticker.remove(this.updatePosition.bind(this));
-        this.hide();
-        this.hideAnim();
-    }
     
     e_scroll(e){
+        this.hide();
         this.svgRect = this.svgWrapper.getBoundingClientRect();
     }
 
     e_resize(e){
+        this.hide();
         this.svgRect = this.svgWrapper.getBoundingClientRect();
+    }
+
+    e_mouseleaveFooter(){
+        this.hide();
     }
 }

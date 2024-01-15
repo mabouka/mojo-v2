@@ -3,6 +3,7 @@
     padding-top: s(162);
     padding-bottom: s(373);
     position: relative;
+    overflow: hidden;
 
     &__inside{
         display: flex;
@@ -33,10 +34,45 @@
         }
     }
 
-    &__svg{
+    &__svgWrapper{
         position: absolute;
-        bottom: 0;
         left: 0;
-        width: s(1440);
+        bottom: 0;
+        width: s(5000);
+        height: s(5000);
+    }
+
+    &__svg{
+        @include cover();
+
+        #purposeSensible{
+            fill: yellow;
+            opacity: 0;
+        }
+
+        #purposeSvg_circleWrapper{
+            transform: translate3d(var(--x),var(--y),0);
+            will-change: transform, opacity;
+        }
+    
+        #purposeSvg_circle{
+            opacity: 0;
+        }
+
+        &.show{
+
+            #purposeSvg_circle{
+                opacity: 1;
+            }
+        }
+
+        &.showAnim{
+            #purposeSvg_circleWrapper{
+                transition: opacity 100ms easing(ease-out-quint),
+                            transform 400ms easing(ease-out-quint);
+            }
+            #purposeSvg_circle{
+            }
+        }
     }
 }
