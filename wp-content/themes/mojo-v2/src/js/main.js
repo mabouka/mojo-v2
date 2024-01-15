@@ -7,15 +7,12 @@ import Cursor from './classes/cursor/index';
 import MobileMenu from './classes/MobileMenu';
 import InView from './classes/InView';
 class Mojo {
-    
-    constructor() {
-        this.inview = InView;
-        
+    initCursor() {
         const options = {
             focusElements: [
                 {
                     elements: '.menu__mainItem', // Can be nodelist or selector
-                    focusClass: 'cursor--service',
+                    focusClass: 'cursor--menuItem',
                 },
 
                 {
@@ -36,16 +33,22 @@ class Mojo {
                     elements: '.footer', // Can be nodelist or selector
                     focusClass: 'cursor--hidden',
                 },
+
                 {
                     elements: '.menu', // Can be nodelist or selector
                     focusClass: 'cursor--menu',
-                },
-
-            ],
-            
+                }
+            ]
         };
+
         this.cursor = new Cursor('.cursor', options).initialize();
+    }
+    
+    constructor() {
         
+        this.initCursor();
+        this.inview = InView;
+
         this.mobileMenu = new MobileMenu();
         this.parts = new Pluton();
     }

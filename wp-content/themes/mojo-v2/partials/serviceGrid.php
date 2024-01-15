@@ -7,9 +7,9 @@ $the_query = new WP_Query([
 ?>
 <?php if ($the_query->have_posts()) : ?>
     <?php if (isset($title)): ?>
-    <div class="serviceGrid<?= isset($modifier) ? ' serviceGrid--' . $modifier : ''?> darkSection">
+    <div class="serviceGrid<?= isset($modifier) ? ' serviceGrid--' . $modifier : ' darkSection'?> ">
     <?php else: ?>
-    <div class="serviceGrid<?= isset($modifier) ? ' serviceGrid--' . $modifier : ''?>">
+    <div class="serviceGrid<?= isset($modifier) ? ' serviceGrid--' . $modifier : ' darkSection'?>">
     <?php endif ?>
         <div class="wrapper">
             <div class="serviceGrid__inside">

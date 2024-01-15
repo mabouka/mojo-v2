@@ -399,11 +399,6 @@ function getLanguageLinks($class = "header__language")
             }
         }
     }
-    else{
-        $link .= '<a href="' . $l['url'] . '" class="' . $class.'">';
-        $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
-        $link .= '</a>';
-    }
     return $link;
 }
 
