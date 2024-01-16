@@ -1,0 +1,57 @@
+// Vars
+@import "vars/fonts";
+@import "vars/easing";
+@import "vars/colors";
+@import "vars/icons";
+@import "vars/sizes";
+@import "vars/grid";
+
+// Mixins
+@import "mixins/font";
+@import "mixins/grid";
+@import "mixins/sizing";
+@import "mixins/icons";
+@import "mixins/color";
+@import "mixins/easing";
+;
+@import "mixins/background";
+@import "mixins/utils";
+@import "mixins/helpers";
+
+// Bases
+@import "base/helpers";
+@import "base/typography";
+@import "base/importFonts";
+@import "base/reset";
+@import "base/base";
+@import "base/gutenberg";
+@import "base/inview";
+@import "base/lenis";
+
+// Vendor
+
+
+// Parts
+@import "parts/cursor";
+@import "parts/header";
+@import "parts/serviceCard";
+@import "parts/teamCard";
+@import "parts/footer";
+@import "parts/menu";
+@import "parts/caseAccordion";
+@import "parts/video";
+
+    // Home
+    @import "parts/homeIntro";
+    @import "parts/homeVideo";
+    @import "parts/homePurpose";
+    @import "parts/featuredCases";
+    @import "parts/homeService";
+    @import "parts/ourClients";
+    @import "parts/homeTransformation";
+
+  
+
+// Pages
+@import "pages/home";
+
