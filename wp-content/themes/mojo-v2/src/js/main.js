@@ -35,13 +35,12 @@ class Mojo {
                 },
                 {
                     elements: '.footer', // Can be nodelist or selector
-                    focusClass: 'cursor--hidden',
+                    focusClass: 'cursor--below',
                 },
                 {
                     elements: '.homePurpose', // Can be nodelist or selector
-                    focusClass: 'cursor--hidden',
+                    focusClass: 'cursor--below',
                 },
-
                 {
                     elements: '.menu', // Can be nodelist or selector
                     focusClass: 'cursor--menu',

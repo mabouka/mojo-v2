@@ -4,6 +4,7 @@
     padding-bottom: s(373);
     position: relative;
     overflow: hidden;
+    z-index: 11;
 
     &__inside{
         display: flex;
@@ -52,7 +53,6 @@
 
         #purposeSvg_circleWrapper{
             will-change: transform;
-
             transform: translate3d( calc(var(--x) - var(--left)),calc(var(--y) - var(--top)  ),0);
             transition: transform 400ms easing(ease-out-quint);
         }

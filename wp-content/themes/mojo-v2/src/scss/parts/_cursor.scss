@@ -1,22 +1,5 @@
 .cursor{
     display: none;
-    //transform: translate3d(var(--x,50vw),var(--y,50vh),0);
-
-    /*
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: s(35);
-    height: s(35);
-    margin-top: s(-35/2);
-    margin-left: s(-35/2);
-    
-    will-change: transform;
-    z-index: 600;
-    user-select: none;
-    pointer-events: none;
-    */
-
 
     &__bg{
         position: fixed;
@@ -31,7 +14,6 @@
         background-color: color(yellow);
         mix-blend-mode: multiply;
         opacity: 1;
-        //mix-blend-mode: color;
 
         will-change: opacity, color, transform;
         transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(0.1);
@@ -151,7 +133,11 @@
     }
 
 
-
+    &--below{
+        .cursor__bg{ 
+            z-index: 10;
+        }
+    }
 
 
     &--hidden{
