@@ -1,4 +1,4 @@
-<div class="homeIntro darkSection js-in-view">
+<div class="homeIntro darkSection">
     <div class="wrapper">
         <div class="homeIntro__inside">
             <?php if($text): ?>
@@ -8,9 +8,11 @@
                     $text = str_replace("\n", "", $text);
                     $lines = explode('<br />',$text);
                 ?>
-                <?php foreach($lines as $line): ?>
-                <p class="homeIntro__titleLine">
+                <?php foreach($lines as $key => $line): ?>
+                <p class="homeIntro__titleLine homeIntro__titleLine--<?= $key ?>">
+                    <span>
                     <?= $line ?>
+                    </span>
                 </p>
                 <?php endforeach ?>
 

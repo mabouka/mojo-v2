@@ -12,6 +12,20 @@
 
     &:after{
         //@extend .photoNoise;
+        content: '';
+        @include cover();
+        background-color: color(dark);
+        z-index: 2;
+        will-change: opacity;
+        opacity: 1;
+        transition: 400ms opacity linear;
+
+
+    }
+    &--inview.homeVideo--playing{
+        &:after{
+            opacity: 0;
+        }
     }
 
 

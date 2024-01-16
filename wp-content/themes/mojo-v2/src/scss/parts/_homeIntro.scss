@@ -2,6 +2,7 @@
     background-color: color(dark);
     overflow: hidden;
     position: relative;
+    z-index: 1;
 
     &__inside{
         height: s(833);
@@ -13,9 +14,43 @@
         color: color(sand);
         font-family: 'Cambon', serif;
         font-size: s(100);
-        line-height: 100%;
+        
 
-        margin-bottom: s(121);
+        margin-bottom: s(121-15);
+    }
+
+    &__titleLine{
+        padding-bottom: s(15);
+        overflow: hidden;
+        span{
+            display: block;
+            transform: translate3d(0,100px,0);
+            transition: 500ms transform easing(ease-in-sine) 00ms; 
+        }
+
+        .homeIntro--inview &{
+            span{
+                transform: translate3d(0,0,0);
+                transition: 1000ms transform easing(ease-in-sine); 
+            }
+
+
+            /*
+            &--0 span{
+                transition: 500ms transform easing(ease-in-sine); 
+            }
+            &--1 span{
+                transition: 500ms transform easing(ease-in-sine) 00ms; 
+            }
+            &--2 span{
+                transition: 500ms transform easing(ease-in-sine) 0ms; 
+            }*/
+
+        }
+
+        & + &{
+            margin-top: s(-15);
+        }
     }
 
     &__shape{

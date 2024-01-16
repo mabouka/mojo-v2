@@ -1,4 +1,6 @@
 import {gsap} from "gsap";
+//import SplitText from "../classes/splitText";
+import inview from "../classes/InView";
 
 export default class HomeIntro {
 
@@ -7,55 +9,122 @@ export default class HomeIntro {
     }
 
     constructor(el) {
-        return
         this.el = el;
         this.body= document.querySelector('body');
+        
+        this.header = document.querySelector('.header');
+        this.homeVideo = document.querySelector('.homeVideo');
+        this.stars = document.querySelector('.homeIntro__stars');
 
         //shapes
         this.poly = this.el.querySelector('#poly');
         this.moon = this.el.querySelector('#moon');
 
-        //stars 
-        this.point = this.el.querySelector('.point');
-        this.bubble = this.el.querySelector('.bublle');
-        this.crushDisc = this.el.querySelector('.crushDisc');
-        this.discStar = this.el.querySelector('.discStar');
-        this.squareStar = this.el.querySelector('.squareStar');
+        // title
+        this.lines = this.getLines();
 
-        this.rect =this.body.getBoundingClientRect();
-        this.mouse = {x: 0, y: 0, moved: false};
 
-        // Ticker event will be called on every frame
-        gsap.ticker.add(this.doOneFrame.bind(this));
+        //gsap.ticker.add(this.doOneFrame.bind(this));
 
         this.setEvents();
+        this.lockPage();
 
+        inview.addElement(this.el);
     }
 
-    doOneFrame() {
-        if (!this.mouse.moved) return;
-        this.parallaxIt(this.moon, 150, 0.2, "power4.out");
-        this.parallaxIt(this.poly, 40, 0.2,"power4.out");
+    lockPage() {
+        window.scrollTo(0,0);
 
-        this.parallaxIt('.squareStar', -5, 0.2, "power4.out");
-        this.parallaxIt('.bubble', 10, 0.2,"power4.out");
-        this.parallaxIt('.crushDisc', 23, 0.2, "power4.out");
-        this.parallaxIt('.discStar', -7, 0.2,"power4.out");
-        this.parallaxIt('.point', 5, 0.2,"power4.out");
-    }
+            window.lenis.stop();
 
-    parallaxIt(target, movement, duration, ease) {
-        gsap.to(target, {
-            duration: duration,
-            ease: ease,
-            x: (this.mouse.x - this.rect.width / 2) / this.rect.width * movement,
-            y: (this.mouse.y - this.rect.height / 2) / this.rect.height * movement
+
+        
+        console.log(window.lenis);
+        
+        gsap.set(this.moon, {
+            scale : 0,
+            x: -100,
+            autoAlpha: 0,
+            transformOrigin: '50% 50%'
         });
+
+        gsap.set(this.stars, {
+            autoAlpha: 0,
+            scale: 0.5,
+            transformOrigin: '50% 0%'
+        });
+  
+
+        gsap.set(this.poly, {
+            "scale" : '2',
+            x: '50vw',
+            transformOrigin: '60% 60%'
+        });
+        
     }
+
+    doAnimation() {
+        //
+
+        const main = gsap.timeline({
+        })
+
+        main.to(this.moon, { 
+            autoAlpha: 1,
+            scale: 1,
+            x: 0,
+            rotate: 0,
+            duration: 0.8,
+            ease: "power3.out",
+        }, 0.3);
+        main.add( () => {
+            this.el.classList.add('homeIntro--inview')
+
+        }, 0.7)
+
+        main.to(this.poly, {
+            scale: 1,
+            x: 0,
+            rotate: 0,
+            duration: 0.5,
+            ease: "power3.out",
+        }, 0.5);
+
+        main.to(this.stars, {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 1.5,
+            ease: "power3.out",
+        }, 0)
+
+        main.eventCallback("onComplete",() => {
+
+            window.lenis.start();
+            inview.addElement(this.homeVideo);
+            inview.addElement(this.header);
+        })
+    }
+
+    getLines() {
+        let lines = [];
+        let elements = this.el.querySelectorAll('.homeIntro__titleLine');
+        Array.from(elements).forEach((element) => {
+            let line = {};
+                line.el = element;
+                line.span = element.querySelector('span');
+                line.isShow = false;
+
+            lines.push(line);
+        })
+    }
+
+    raf() {
+
+    }
+
 
     setEvents() {
-        this.body.addEventListener('mousemove', this.e_mousemove.bind(this));
-        this.body.addEventListener('resize', this.e_resize.bind(this));
+        this.el.addEventListener('inView', this.e_inview.bind(this))
     }
 
 
@@ -63,10 +132,11 @@ export default class HomeIntro {
      * Handlers
      */
 
-    e_mousemove(e) {
-        this.mouse.moved = true;
-        this.mouse.x = e.clientX - this.rect.left;
-        this.mouse.y = e.clientY - this.rect.top;
+    e_inview(e) {
+        console.log('inview');
+        setTimeout(() => {
+            this.doAnimation();
+        }, 200);
     }
 
     e_resize(e) {
