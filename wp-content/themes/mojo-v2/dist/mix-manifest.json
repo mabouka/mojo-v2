@@ -1,5 +1,6 @@
 {
     "/js/main.js": "/js/main.js",
+    "/js/manifest.js": "/js/manifest.js",
     "/css/blocks/textgallery/textgallery.css": "/css/blocks/textgallery/textgallery.css",
     "/css/blocks/textimage/textimage.css": "/css/blocks/textimage/textimage.css",
     "/css/blocks/quoteimage/quoteimage.css": "/css/blocks/quoteimage/quoteimage.css",
@@ -8,6 +9,7 @@
     "/css/blocks/imagesslider/imagesslider.css": "/css/blocks/imagesslider/imagesslider.css",
     "/css/blocks/fullimage/fullimage.css": "/css/blocks/fullimage/fullimage.css",
     "/css/blocks/fullblackimage/fullblackimage.css": "/css/blocks/fullblackimage/fullblackimage.css",
+    "/js/vendor.js": "/js/vendor.js",
     "/images/backgroundClient.svg": "/images/backgroundClient.svg",
     "/images/logo.svg": "/images/logo.svg",
     "/images/noise.jpg": "/images/noise.jpg",
