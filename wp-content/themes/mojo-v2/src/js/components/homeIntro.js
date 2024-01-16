@@ -43,21 +43,19 @@ export default class HomeIntro {
         
         gsap.set(this.moon, {
             scale : 0,
-            x: -100,
+            x: '70vw',
             autoAlpha: 0,
             transformOrigin: '50% 50%'
         });
 
         gsap.set(this.stars, {
             autoAlpha: 0,
-            scale: 0.5,
-            transformOrigin: '50% 0%'
+
         });
   
 
         gsap.set(this.poly, {
-            "scale" : '2',
-            x: '50vw',
+            x: '70vw',
             transformOrigin: '60% 60%'
         });
         
@@ -80,21 +78,20 @@ export default class HomeIntro {
         main.add( () => {
             this.el.classList.add('homeIntro--inview')
 
-        }, 0.7)
+        }, 1)
 
         main.to(this.poly, {
-            scale: 1,
             x: 0,
             rotate: 0,
-            duration: 0.5,
+            duration: 0.6,
             ease: "power3.out",
-        }, 0.5);
+        }, 0.8);
 
         main.to(this.stars, {
             autoAlpha: 1,
             scale: 1,
-            duration: 1.5,
-            ease: "power3.out",
+            duration: 2,
+            ease: 'none'
         }, 0)
 
         main.eventCallback("onComplete",() => {

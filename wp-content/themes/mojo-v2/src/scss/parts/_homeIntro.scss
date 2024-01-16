@@ -1,8 +1,7 @@
 .homeIntro{
     background-color: color(dark);
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
-    z-index: 1;
 
     &__inside{
         height: s(833);
@@ -24,14 +23,14 @@
         overflow: hidden;
         span{
             display: block;
+            will-change: transform;
             transform: translate3d(0,100px,0);
-            transition: 500ms transform easing(ease-in-sine) 00ms; 
+            transition: 500ms transform easing(ease-out-sine); 
         }
 
         .homeIntro--inview &{
             span{
                 transform: translate3d(0,0,0);
-                transition: 1000ms transform easing(ease-in-sine); 
             }
 
 
