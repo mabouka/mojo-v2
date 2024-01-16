@@ -51,8 +51,10 @@
         }
 
         #purposeSvg_circleWrapper{
+            will-change: transform;
+
             transform: translate3d( calc(var(--x) - var(--left)),calc(var(--y) - var(--top)  ),0);
-            will-change: transform, opacity;
+            transition: transform 400ms easing(ease-out-quint);
         }
     }
 }

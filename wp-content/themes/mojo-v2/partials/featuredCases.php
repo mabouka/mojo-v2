@@ -12,7 +12,6 @@
                     </div>
                 <?php endif; ?>
 
-
                 <?php if ($cases) : ?>
                     <div class="featuredCases__gallery">
                         <?php foreach ($cases as $key => $case) : ?>

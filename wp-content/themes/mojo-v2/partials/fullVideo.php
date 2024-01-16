@@ -23,8 +23,6 @@
 
         </picture>
     </figure>
-
-    
     <?php endif; ?>
 
 </section>
