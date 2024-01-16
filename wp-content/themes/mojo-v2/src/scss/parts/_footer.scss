@@ -93,34 +93,14 @@
 
     .footerSvg{
         #footerSvg_circleWrapper{
-            transform: translate3d(var(--x),var(--y),0);
+            transform: translate3d( calc(var(--x) - var(--left)),calc(var(--y) - var(--top)  ),0);
             will-change: transform, opacity;
-        }
-    
-        #footerSvg_circle{
-            opacity: 0;
-        }
-    
-        &.show{
-            #footerSvg_circle{
-                opacity: 1;
-            }
-        }
-    
-        &.showAnim{
-            #footerSvg_circleWrapper{
-                transition: opacity 100ms easing(ease-out-quint),
-                            transform 400ms easing(ease-out-quint);
-            }
         }
     }
 
     #footerSvg{
         display: block;
     }
-
-  
-
 
     #footer_limit{
         fill: none;
