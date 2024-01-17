@@ -69,6 +69,20 @@ export default class HomeService {
           rotate: '-2deg',
         });
 
+        const intro = gsap.timeline({
+          scrollTrigger: {
+              trigger: this.el,
+              start: 'top-=200px',
+
+              endTrigger: '.homeService__triggerStart',
+              scrub: true,
+          }
+        })
+        .to('.homeService__cardSlide', {
+          "x" : 0,
+          autoAlpha:1,
+        },0)
+
 
 
 
@@ -92,10 +106,7 @@ export default class HomeService {
             1.2
         )
 
-        .to('.homeService__cardSlide', {
-          "x" : 0,
-          autoAlpha:1,
-        },0)
+
 
         .to(this.card1, {
           "y" : 0,
@@ -146,21 +157,6 @@ export default class HomeService {
           duration:1,
         },2.1)
 
-
-    }
-
-
-
-    setEvents() {
-
-    }
-
-
-    /**
-     * Handlers
-     */
-
-    e_error(e) {
 
     }
 }
