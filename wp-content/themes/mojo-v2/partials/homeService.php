@@ -9,16 +9,14 @@ $the_query = new WP_Query([
 <div class="homeService__pin">
 
     <section class="homeService darkSection">
-
-
         <div class="wrapper">
             <div class="homeService__inside">
                 <h2 class=" sro"><?= __('Our services', 'mj'); ?></h2>
 
                 <?php if ($text) : ?>
-                    <div class="homeService__text js-in-view appear-fade">
-                        <?= $text; ?>
-                    </div>
+                <div class="homeService__text js-in-view appear-fade">
+                    <?= $text; ?>
+                </div>
                 <?php endif; ?>
 
                 <?php if ($the_query->have_posts()) : ?>
@@ -44,9 +42,7 @@ $the_query = new WP_Query([
                 <a href="<?= get_post_type_archive_link('services'); ?>" class="btn btn--light">
                     <?= __('All services', 'mj'); ?>
                 </a>
-
             </div>
         </div>
     </section>
-
 </div>
