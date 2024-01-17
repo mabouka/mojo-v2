@@ -4,6 +4,30 @@
     padding-bottom: s(177);
     overflow: hidden;
 
+    &__pin{
+
+    }
+    &__triggerStart,
+    &__triggerEnd{
+        position: absolute;
+        top: 50%;
+        height: 1px;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+    }
+
+    &__cardContainer{
+        position: relative;
+    }
+    &__triggerStart{
+        margin-top: -50vh;
+    }
+
+    &__triggerEnd{
+        margin-top: 50vh;
+    }
+
     &__inside{
         display: flex;
         flex-direction: column;

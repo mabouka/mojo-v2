@@ -22,7 +22,7 @@
 
 
     }
-    &--inview.homeVideo--playing{
+    &--inview/*.homeVideo--playing*/{
         &:after{
             opacity: 0;
         }

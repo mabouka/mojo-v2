@@ -1,5 +1,4 @@
 import {gsap} from "gsap";
-//import SplitText from "../classes/splitText";
 import inview from "../classes/InView";
 
 export default class HomeIntro {

@@ -74,11 +74,14 @@ export default class HomeService {
 
         const main = gsap.timeline({
             scrollTrigger: {
-                trigger: this.el,
+                trigger: '.homeService__triggerStart',
+                endTrigger: '.homeService__triggerEnd',
                 start: 'top',
                 end: "+=" + 660,
                 scrub: true,
-                pin: true,
+                pin: '.homeService__pin',
+                //id:'homeService',
+                //markers: true
             }
         })
         .to(this.groupSlide, {
