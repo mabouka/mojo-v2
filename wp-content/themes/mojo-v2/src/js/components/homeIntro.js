@@ -34,13 +34,8 @@ export default class HomeIntro {
 
     lockPage() {
         window.scrollTo(0,0);
+        window.lenis.stop(); 
 
-            window.lenis.stop();
-
-
-        
-        console.log(window.lenis);
-        
         gsap.set(this.moon, {
             scale : 0,
             x: '70vw',
@@ -50,7 +45,8 @@ export default class HomeIntro {
 
         gsap.set(this.stars, {
             autoAlpha: 0,
-
+            scale : 0.8,
+            transformOrigin: '50% 0%'
         });
   
 
@@ -72,26 +68,26 @@ export default class HomeIntro {
             scale: 1,
             x: 0,
             rotate: 0,
-            duration: 0.8,
+            duration: 1,
             ease: "power3.out",
-        }, 0.3);
+        }, 0);
+
         main.add( () => {
             this.el.classList.add('homeIntro--inview')
-
-        }, 1)
+        }, 1.2)
 
         main.to(this.poly, {
             x: 0,
             rotate: 0,
-            duration: 0.6,
+            duration: 1.2,
             ease: "power3.out",
-        }, 0.8);
+        }, 0.1);
 
         main.to(this.stars, {
             autoAlpha: 1,
             scale: 1,
-            duration: 2,
-            ease: 'none'
+            duration: 2.5,
+            ease: "power3.out",
         }, 0)
 
         main.eventCallback("onComplete",() => {

@@ -1,21 +1,32 @@
+<?php 
+function splitCharWord($text) {
+    $output = '';
+    $charIndex = 0;
+    $lines = explode("<br />",trim($text));
+    foreach ($lines as $key => $line) {
+        $words = explode(" ",trim($line));
+        foreach($words as $word){
+            $output .= '<span class="fx-word">';
+            foreach(str_split($word) as $char){
+                $charIndex++;
+                $output .= '<span class="fx-letter fx-letter--'. $charIndex .'">';
+                $output .= $char;
+                $output .= '</span>';
+            }
+            $output .= '</span>&nbsp;';
+        }
+        $output .= '<br />';
+    }
+    return $output;
+}
+?>
+
 <div class="homeIntro darkSection">
     <div class="wrapper">
         <div class="homeIntro__inside">
             <?php if($text): ?>
-            <h1 class="homeIntro__title">
-
-                <?php 
-                    $text = str_replace("\n", "", $text);
-                    $lines = explode('<br />',$text);
-                ?>
-                <?php foreach($lines as $key => $line): ?>
-                <p class="homeIntro__titleLine homeIntro__titleLine--<?= $key ?>">
-                    <span>
-                    <?= $line ?>
-                    </span>
-                </p>
-                <?php endforeach ?>
-
+            <h1 class="homeIntro__title fx-parent">
+                <?= splitCharWord($text); ?>
             </h1>
             <?php endif; ?>
         </div>

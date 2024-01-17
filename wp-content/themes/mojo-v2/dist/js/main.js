@@ -1934,7 +1934,6 @@ var HomeIntro = /*#__PURE__*/function () {
     value: function lockPage() {
       window.scrollTo(0, 0);
       window.lenis.stop();
-      console.log(window.lenis);
       gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(this.moon, {
         scale: 0,
         x: '70vw',
@@ -1942,7 +1941,9 @@ var HomeIntro = /*#__PURE__*/function () {
         transformOrigin: '50% 50%'
       });
       gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(this.stars, {
-        autoAlpha: 0
+        autoAlpha: 0,
+        scale: 0.8,
+        transformOrigin: '50% 0%'
       });
       gsap__WEBPACK_IMPORTED_MODULE_1__.gsap.set(this.poly, {
         x: '70vw',
@@ -1961,23 +1962,23 @@ var HomeIntro = /*#__PURE__*/function () {
         scale: 1,
         x: 0,
         rotate: 0,
-        duration: 0.8,
+        duration: 1,
         ease: "power3.out"
-      }, 0.3);
+      }, 0);
       main.add(function () {
         _this.el.classList.add('homeIntro--inview');
-      }, 1);
+      }, 1.2);
       main.to(this.poly, {
         x: 0,
         rotate: 0,
-        duration: 0.6,
+        duration: 1.2,
         ease: "power3.out"
-      }, 0.8);
+      }, 0.1);
       main.to(this.stars, {
         autoAlpha: 1,
         scale: 1,
-        duration: 2,
-        ease: 'none'
+        duration: 2.5,
+        ease: "power3.out"
       }, 0);
       main.eventCallback("onComplete", function () {
         window.lenis.start();

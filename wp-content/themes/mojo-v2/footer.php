@@ -111,7 +111,6 @@
 <?php getPartial('cursor'); ?>
 
 <?php getPartial('menu'); ?>
-
 <script src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
 <script src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
 <script src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>

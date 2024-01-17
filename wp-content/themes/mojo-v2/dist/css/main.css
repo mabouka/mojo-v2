@@ -1883,34 +1883,6 @@ body.menuOpen .mainContent:before {
   font-size: 6.25rem;
   margin-bottom: 6.625rem;
 }
-.homeIntro__titleLine {
-  padding-bottom: 0.9375rem;
-  overflow: hidden;
-}
-.homeIntro__titleLine span {
-  display: block;
-  will-change: transform;
-  transform: translate3d(0, 100px, 0);
-  transition: 500ms transform cubic-bezier(0.39, 0.575, 0.565, 1);
-}
-.homeIntro--inview .homeIntro__titleLine {
-  /*
-  &--0 span{
-      transition: 500ms transform easing(ease-in-sine); 
-  }
-  &--1 span{
-      transition: 500ms transform easing(ease-in-sine) 00ms; 
-  }
-  &--2 span{
-      transition: 500ms transform easing(ease-in-sine) 0ms; 
-  }*/
-}
-.homeIntro--inview .homeIntro__titleLine span {
-  transform: translate3d(0, 0, 0);
-}
-.homeIntro__titleLine + .homeIntro__titleLine {
-  margin-top: -0.9375rem;
-}
 .homeIntro__shape {
   z-index: 1;
   position: absolute;
@@ -1924,13 +1896,489 @@ body.menuOpen .mainContent:before {
 }
 .homeIntro__stars {
   position: absolute;
-  left: 50%;
-  transform: translate3d(-45.8%, 0, 0);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   top: 10.3241296519%;
   height: 84.1536614646%;
   bottom: 0;
   width: auto;
   pointer-events: none;
+}
+
+.fx-word {
+  display: inline-flex;
+}
+
+.fx-parent {
+  perspective: 2000;
+}
+
+.fx-letter {
+  transform: translate3d(80px, 50px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
+  transform-origin: 0 100%;
+  transform-style: preserve-3d;
+  transition: all 1.2s cubic-bezier(0.245, 0.495, 0, 0.99);
+  opacity: 0;
+}
+.fx-letter--1 {
+  transition-delay: 0.1s;
+}
+.fx-letter--2 {
+  transition-delay: 0.115s;
+}
+.fx-letter--3 {
+  transition-delay: 0.13s;
+}
+.fx-letter--4 {
+  transition-delay: 0.145s;
+}
+.fx-letter--5 {
+  transition-delay: 0.16s;
+}
+.fx-letter--6 {
+  transition-delay: 0.175s;
+}
+.fx-letter--7 {
+  transition-delay: 0.19s;
+}
+.fx-letter--8 {
+  transition-delay: 0.205s;
+}
+.fx-letter--9 {
+  transition-delay: 0.22s;
+}
+.fx-letter--10 {
+  transition-delay: 0.235s;
+}
+.fx-letter--11 {
+  transition-delay: 0.25s;
+}
+.fx-letter--12 {
+  transition-delay: 0.265s;
+}
+.fx-letter--13 {
+  transition-delay: 0.28s;
+}
+.fx-letter--14 {
+  transition-delay: 0.295s;
+}
+.fx-letter--15 {
+  transition-delay: 0.31s;
+}
+.fx-letter--16 {
+  transition-delay: 0.325s;
+}
+.fx-letter--17 {
+  transition-delay: 0.34s;
+}
+.fx-letter--18 {
+  transition-delay: 0.355s;
+}
+.fx-letter--19 {
+  transition-delay: 0.37s;
+}
+.fx-letter--20 {
+  transition-delay: 0.385s;
+}
+.fx-letter--21 {
+  transition-delay: 0.4s;
+}
+.fx-letter--22 {
+  transition-delay: 0.415s;
+}
+.fx-letter--23 {
+  transition-delay: 0.43s;
+}
+.fx-letter--24 {
+  transition-delay: 0.445s;
+}
+.fx-letter--25 {
+  transition-delay: 0.46s;
+}
+.fx-letter--26 {
+  transition-delay: 0.475s;
+}
+.fx-letter--27 {
+  transition-delay: 0.49s;
+}
+.fx-letter--28 {
+  transition-delay: 0.505s;
+}
+.fx-letter--29 {
+  transition-delay: 0.52s;
+}
+.fx-letter--30 {
+  transition-delay: 0.535s;
+}
+.fx-letter--31 {
+  transition-delay: 0.55s;
+}
+.fx-letter--32 {
+  transition-delay: 0.565s;
+}
+.fx-letter--33 {
+  transition-delay: 0.58s;
+}
+.fx-letter--34 {
+  transition-delay: 0.595s;
+}
+.fx-letter--35 {
+  transition-delay: 0.61s;
+}
+.fx-letter--36 {
+  transition-delay: 0.625s;
+}
+.fx-letter--37 {
+  transition-delay: 0.64s;
+}
+.fx-letter--38 {
+  transition-delay: 0.655s;
+}
+.fx-letter--39 {
+  transition-delay: 0.67s;
+}
+.fx-letter--40 {
+  transition-delay: 0.685s;
+}
+.fx-letter--41 {
+  transition-delay: 0.7s;
+}
+.fx-letter--42 {
+  transition-delay: 0.715s;
+}
+.fx-letter--43 {
+  transition-delay: 0.73s;
+}
+.fx-letter--44 {
+  transition-delay: 0.745s;
+}
+.fx-letter--45 {
+  transition-delay: 0.76s;
+}
+.fx-letter--46 {
+  transition-delay: 0.775s;
+}
+.fx-letter--47 {
+  transition-delay: 0.79s;
+}
+.fx-letter--48 {
+  transition-delay: 0.805s;
+}
+.fx-letter--49 {
+  transition-delay: 0.82s;
+}
+.fx-letter--50 {
+  transition-delay: 0.835s;
+}
+.fx-letter--51 {
+  transition-delay: 0.85s;
+}
+.fx-letter--52 {
+  transition-delay: 0.865s;
+}
+.fx-letter--53 {
+  transition-delay: 0.88s;
+}
+.fx-letter--54 {
+  transition-delay: 0.895s;
+}
+.fx-letter--55 {
+  transition-delay: 0.91s;
+}
+.fx-letter--56 {
+  transition-delay: 0.925s;
+}
+.fx-letter--57 {
+  transition-delay: 0.94s;
+}
+.fx-letter--58 {
+  transition-delay: 0.955s;
+}
+.fx-letter--59 {
+  transition-delay: 0.97s;
+}
+.fx-letter--60 {
+  transition-delay: 0.985s;
+}
+.fx-letter--61 {
+  transition-delay: 1s;
+}
+.fx-letter--62 {
+  transition-delay: 1.015s;
+}
+.fx-letter--63 {
+  transition-delay: 1.03s;
+}
+.fx-letter--64 {
+  transition-delay: 1.045s;
+}
+.fx-letter--65 {
+  transition-delay: 1.06s;
+}
+.fx-letter--66 {
+  transition-delay: 1.075s;
+}
+.fx-letter--67 {
+  transition-delay: 1.09s;
+}
+.fx-letter--68 {
+  transition-delay: 1.105s;
+}
+.fx-letter--69 {
+  transition-delay: 1.12s;
+}
+.fx-letter--70 {
+  transition-delay: 1.135s;
+}
+.fx-letter--71 {
+  transition-delay: 1.15s;
+}
+.fx-letter--72 {
+  transition-delay: 1.165s;
+}
+.fx-letter--73 {
+  transition-delay: 1.18s;
+}
+.fx-letter--74 {
+  transition-delay: 1.195s;
+}
+.fx-letter--75 {
+  transition-delay: 1.21s;
+}
+.fx-letter--76 {
+  transition-delay: 1.225s;
+}
+.fx-letter--77 {
+  transition-delay: 1.24s;
+}
+.fx-letter--78 {
+  transition-delay: 1.255s;
+}
+.fx-letter--79 {
+  transition-delay: 1.27s;
+}
+.fx-letter--80 {
+  transition-delay: 1.285s;
+}
+.fx-letter--81 {
+  transition-delay: 1.3s;
+}
+.fx-letter--82 {
+  transition-delay: 1.315s;
+}
+.fx-letter--83 {
+  transition-delay: 1.33s;
+}
+.fx-letter--84 {
+  transition-delay: 1.345s;
+}
+.fx-letter--85 {
+  transition-delay: 1.36s;
+}
+.fx-letter--86 {
+  transition-delay: 1.375s;
+}
+.fx-letter--87 {
+  transition-delay: 1.39s;
+}
+.fx-letter--88 {
+  transition-delay: 1.405s;
+}
+.fx-letter--89 {
+  transition-delay: 1.42s;
+}
+.fx-letter--90 {
+  transition-delay: 1.435s;
+}
+.fx-letter--91 {
+  transition-delay: 1.45s;
+}
+.fx-letter--92 {
+  transition-delay: 1.465s;
+}
+.fx-letter--93 {
+  transition-delay: 1.48s;
+}
+.fx-letter--94 {
+  transition-delay: 1.495s;
+}
+.fx-letter--95 {
+  transition-delay: 1.51s;
+}
+.fx-letter--96 {
+  transition-delay: 1.525s;
+}
+.fx-letter--97 {
+  transition-delay: 1.54s;
+}
+.fx-letter--98 {
+  transition-delay: 1.555s;
+}
+.fx-letter--99 {
+  transition-delay: 1.57s;
+}
+.fx-letter--100 {
+  transition-delay: 1.585s;
+}
+
+.homeIntro .fx-letter {
+  transform: translate3d(180px, 37px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
+  transition: all 1s cubic-bezier(0.245, 0.495, 0, 0.99);
+}
+.homeIntro .fx-letter--1 {
+  transition-delay: 0s;
+}
+.homeIntro .fx-letter--2 {
+  transition-delay: 0.008s;
+}
+.homeIntro .fx-letter--3 {
+  transition-delay: 0.016s;
+}
+.homeIntro .fx-letter--4 {
+  transition-delay: 0.024s;
+}
+.homeIntro .fx-letter--5 {
+  transition-delay: 0.032s;
+}
+.homeIntro .fx-letter--6 {
+  transition-delay: 0.04s;
+}
+.homeIntro .fx-letter--7 {
+  transition-delay: 0.048s;
+}
+.homeIntro .fx-letter--8 {
+  transition-delay: 0.056s;
+}
+.homeIntro .fx-letter--9 {
+  transition-delay: 0.064s;
+}
+.homeIntro .fx-letter--10 {
+  transition-delay: 0.072s;
+}
+.homeIntro .fx-letter--11 {
+  transition-delay: 0.08s;
+}
+.homeIntro .fx-letter--12 {
+  transition-delay: 0.088s;
+}
+.homeIntro .fx-letter--13 {
+  transition-delay: 0.096s;
+}
+.homeIntro .fx-letter--14 {
+  transition-delay: 0.104s;
+}
+.homeIntro .fx-letter--15 {
+  transition-delay: 0.112s;
+}
+.homeIntro .fx-letter--16 {
+  transition-delay: 0.12s;
+}
+.homeIntro .fx-letter--17 {
+  transition-delay: 0.128s;
+}
+.homeIntro .fx-letter--18 {
+  transition-delay: 0.136s;
+}
+.homeIntro .fx-letter--19 {
+  transition-delay: 0.144s;
+}
+.homeIntro .fx-letter--20 {
+  transition-delay: 0.152s;
+}
+.homeIntro .fx-letter--21 {
+  transition-delay: 0.16s;
+}
+.homeIntro .fx-letter--22 {
+  transition-delay: 0.168s;
+}
+.homeIntro .fx-letter--23 {
+  transition-delay: 0.176s;
+}
+.homeIntro .fx-letter--24 {
+  transition-delay: 0.184s;
+}
+.homeIntro .fx-letter--25 {
+  transition-delay: 0.192s;
+}
+.homeIntro .fx-letter--26 {
+  transition-delay: 0.2s;
+}
+.homeIntro .fx-letter--27 {
+  transition-delay: 0.208s;
+}
+.homeIntro .fx-letter--28 {
+  transition-delay: 0.216s;
+}
+.homeIntro .fx-letter--29 {
+  transition-delay: 0.224s;
+}
+.homeIntro .fx-letter--30 {
+  transition-delay: 0.232s;
+}
+.homeIntro .fx-letter--31 {
+  transition-delay: 0.24s;
+}
+.homeIntro .fx-letter--32 {
+  transition-delay: 0.248s;
+}
+.homeIntro .fx-letter--33 {
+  transition-delay: 0.256s;
+}
+.homeIntro .fx-letter--34 {
+  transition-delay: 0.264s;
+}
+.homeIntro .fx-letter--35 {
+  transition-delay: 0.272s;
+}
+.homeIntro .fx-letter--36 {
+  transition-delay: 0.28s;
+}
+.homeIntro .fx-letter--37 {
+  transition-delay: 0.288s;
+}
+.homeIntro .fx-letter--38 {
+  transition-delay: 0.296s;
+}
+.homeIntro .fx-letter--39 {
+  transition-delay: 0.304s;
+}
+.homeIntro .fx-letter--40 {
+  transition-delay: 0.312s;
+}
+.homeIntro .fx-letter--41 {
+  transition-delay: 0.32s;
+}
+.homeIntro .fx-letter--42 {
+  transition-delay: 0.328s;
+}
+.homeIntro .fx-letter--43 {
+  transition-delay: 0.336s;
+}
+.homeIntro .fx-letter--44 {
+  transition-delay: 0.344s;
+}
+.homeIntro .fx-letter--45 {
+  transition-delay: 0.352s;
+}
+.homeIntro .fx-letter--46 {
+  transition-delay: 0.36s;
+}
+.homeIntro .fx-letter--47 {
+  transition-delay: 0.368s;
+}
+.homeIntro .fx-letter--48 {
+  transition-delay: 0.376s;
+}
+.homeIntro .fx-letter--49 {
+  transition-delay: 0.384s;
+}
+.homeIntro .fx-letter--50 {
+  transition-delay: 0.392s;
+}
+.homeIntro--inview .fx-letter {
+  transform: translateZ(0) scaleY(1) rotateX(0) rotate(0);
+  opacity: 1;
 }
 
 .homeVideo {
