@@ -38,11 +38,11 @@
     &__videoContainer,
     &__image{
         clip-path: circle(100%);
-        transition: 200ms clip-path linear 0ms;
+        transition: 300ms clip-path easing(ease-in-quad) 0ms;
     }
 
     &__videoContainer{
-        transition: 200ms clip-path linear 200ms;
+        transition: 300ms clip-path easing(ease-in-quad) 200ms;
     }
 
     &__link{
@@ -55,7 +55,7 @@
             & + .caseCard__image,
             & + .caseCard__videoContainer{
                 clip-path: circle(44%);
-                transition: 500ms clip-path linear 0ms;
+                transition: 400ms clip-path easing(ease-out-quad) 0ms;
             }
         }
     }
@@ -68,7 +68,7 @@
         .caseCard--playing &{
             opacity: 0;
             visibility: hidden;
-            transition: 200ms opacity easing(ease-out-quad) 500ms, 0ms visibility linear 200ms + 500ms ;
+            transition: 200ms opacity easing(ease-out-quad) 400ms, 0ms visibility linear 200ms + 400ms ;
         }
     }
 
