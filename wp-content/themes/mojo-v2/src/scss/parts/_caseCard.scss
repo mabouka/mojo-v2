@@ -4,7 +4,6 @@
     flex-wrap: wrap;
     position: relative;
 
-
     &__image{
         width: 100%;
         padding-top: s(500);
@@ -12,11 +11,9 @@
         position: relative;
         margin-bottom: s(16);
 
-
         &:after{
             //@extend .photoNoise;
         }
-
 
         img{
             width: 100%;
@@ -30,10 +27,8 @@
         width: 100%;
         padding-top: s(500);
         height: 0;
-
         position: relative;
         margin-bottom: s(16);
-
 
         &:after{
             //@extend .photoNoise;
@@ -43,24 +38,24 @@
     &__videoContainer,
     &__image{
         clip-path: circle(100%);
-        transition: 200ms clip-path linear 200ms;
+        transition: 200ms clip-path linear 0ms;
     }
 
+    &__videoContainer{
+        transition: 200ms clip-path linear 200ms;
+    }
 
     &__link{
         @include cover();
         text-indent: -9999px;
         z-index: 2;
 
-        
         &:focus,
         &:hover{
-            
             & + .caseCard__image,
             & + .caseCard__videoContainer{
                 clip-path: circle(44%);
                 transition: 500ms clip-path linear 0ms;
-
             }
         }
     }
@@ -85,16 +80,15 @@
         object-fit: cover;
     }
 
-
     &__video{
         width: 100%/625*500;
         margin: 0 auto;
     }
+
     &__categories{
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
-
         justify-self: flex-end;
         margin-left: auto;
     }
@@ -103,7 +97,6 @@
     &__title{
         max-width: 50%;
     }
-    
 
     &__title,
     &__category{
