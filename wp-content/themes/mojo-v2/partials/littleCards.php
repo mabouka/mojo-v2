@@ -24,6 +24,11 @@
                 <div class="littleCards__itemText">
                     <?= $item['text'] ?>
                 </div>
+
+                <?php if ($item['url']): ?>
+                <a href="<?= $item['url'] ?>" class="littleCards__itemLink"><?= $item['title'] ?></a>
+                <?php endif ?>
+
             </section>
             <?php endforeach ?>
             </div>

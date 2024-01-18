@@ -4,6 +4,7 @@
     padding-top: s(170);
     padding-bottom: s(123);
 
+
     &:before{
         content: '';
         @include cover();
@@ -44,6 +45,14 @@
         border: 2px solid #000;
         background: color(sand);
         padding: s(76) s(48);
+
+        transform: translate3d(0, 0, 0);
+        transition: 200ms transform easing(ease-out-quad);
+        will-change: transform;
+        &:focus,
+        &:hover{
+            transform: translate3d(0, -30px, 0);
+        }
     }
 
     &__star{
@@ -92,6 +101,14 @@
         text-align: center;
 
     }
+
+    
+    &__itemLink{
+        text-indent: -9999px;
+        z-index: 1;
+        @include cover();
+    }
+
 
     &--dodgerblue{
         background-color: #784FE0;
