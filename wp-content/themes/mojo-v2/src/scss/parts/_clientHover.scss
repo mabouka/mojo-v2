@@ -13,8 +13,12 @@
         background-color: color(sand);
         z-index: 1;
         position: relative;
-        width: col(8,12);
+        max-width: col(8,12);
+        width: s(846);
         display: flex;
+        justify-content: flex-end;
+        padding: 0;
+        margin: 0;
     }
 
     
