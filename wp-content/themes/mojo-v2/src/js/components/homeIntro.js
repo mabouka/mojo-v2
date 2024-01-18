@@ -8,6 +8,7 @@ export default class HomeIntro {
     }
 
     constructor(el) {
+        //return;
         this.el = el;
         this.body= document.querySelector('body');
         
@@ -32,7 +33,14 @@ export default class HomeIntro {
     }
 
     lockPage() {
-        window.scrollTo(0,0);
+        document.documentElement.scrollTo(0,0);
+        console.log(window.lenis);
+        window.lenis.scrollTo({
+            target: 0,
+            onComplete: () => {
+                console.log('scrollTop');
+            }
+        });
         window.lenis.stop(); 
 
         gsap.set(this.moon, {
@@ -47,7 +55,6 @@ export default class HomeIntro {
             scale : 0.8,
             transformOrigin: '50% 0%'
         });
-  
 
         gsap.set(this.poly, {
             x: '70vw',
@@ -59,8 +66,7 @@ export default class HomeIntro {
     doAnimation() {
         //
 
-        const main = gsap.timeline({
-        })
+        const main = gsap.timeline({})
 
         main.to(this.moon, { 
             autoAlpha: 1,
