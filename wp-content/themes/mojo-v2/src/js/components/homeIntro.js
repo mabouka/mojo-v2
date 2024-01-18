@@ -75,23 +75,23 @@ export default class HomeIntro {
             rotate: 0,
             duration: 1,
             ease: "power3.out",
-        }, 0);
+        }, 1);
 
         main.add( () => {
             this.el.classList.add('homeIntro--inview')
-        }, 1.2)
+        }, 0.2)
 
         main.to(this.poly, {
             x: 0,
             rotate: 0,
             duration: 1.2,
             ease: "power3.out",
-        }, 0.1);
+        }, 1.1);
 
         main.to(this.stars, {
             autoAlpha: 1,
             scale: 1,
-            duration: 2.5,
+            duration: 2,
             ease: "power3.out",
         }, 0)
 

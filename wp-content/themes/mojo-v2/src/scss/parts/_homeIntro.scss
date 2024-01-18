@@ -71,8 +71,8 @@
 
 .homeIntro {
     .fx-letter {
-        transform: translate3d(180px, 37px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
-        transition: all 1s cubic-bezier(0.245, 0.495, 0.000, 0.990);
+        transform: translate3d(-120px, 57px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
+        transition: all 1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990);
 
         @for $n from 1 through 50 {
             &--#{$n} {
