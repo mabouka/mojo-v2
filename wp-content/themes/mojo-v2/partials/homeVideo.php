@@ -7,4 +7,5 @@
         </div>
     </div>
     <video class="homeVideo__video" src="<?= $url ?>" loop autoplay playsinline muted></video>
+    <div class="homeVideo__noise"></div>
 </div>

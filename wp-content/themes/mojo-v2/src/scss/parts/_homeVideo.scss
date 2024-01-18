@@ -11,16 +11,18 @@
     }
 
     &:after{
-        //@extend .photoNoise;
         content: '';
         @include cover();
         background-color: color(dark);
-        z-index: 2;
+        z-index: 3;
         will-change: opacity;
         opacity: 1;
         transition: 400ms opacity linear;
+    }
 
-
+    &__noise{
+        z-index: 2;
+        @extend .photoNoise;
     }
     &--inview/*.homeVideo--playing*/{
         &:after{

@@ -69,6 +69,11 @@
         position: relative;
         max-height: s(260);
 
+        &:before{
+            z-index: 2;
+            @extend .photoNoise;
+        }
+
         &--big{
             width: 100%;
             margin-bottom: s(40);
@@ -284,6 +289,13 @@
         border-radius: 100%;
 
         height: 0;
+        &:before{
+            z-index: 2;
+            @extend .photoNoise;
+            border-radius: 100%;
+
+        }
+
     }
 
     &__video{

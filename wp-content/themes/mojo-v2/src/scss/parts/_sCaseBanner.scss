@@ -3,6 +3,10 @@
     overflow: hidden;
     position: relative;
     background-color: var(--pagecolor, color(dark));
+    &:before{
+        z-index: 2;
+        @extend .photoNoise;
+    }
 
 
     &__video{

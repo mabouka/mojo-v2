@@ -10,6 +10,12 @@
         visibility: visible;
         position: relative;
 
+        &:before{
+            z-index: 1;
+            @extend .photoNoise;
+        }
+
+
         img{
             @include cover();
             object-fit: cover;
@@ -39,6 +45,7 @@
         padding: s(30);
         display: flex;
         flex-direction: column;
+        z-index: 2;
 
         &:before{
             content: '';

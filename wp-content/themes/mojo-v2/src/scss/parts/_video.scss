@@ -3,6 +3,12 @@
     overflow: hidden;
     height: s(500);
 
+    &:before{
+        z-index: 2;
+        @extend .photoNoise;
+    }
+
+
     &__video{
         position: absolute;
         top: 50%; 

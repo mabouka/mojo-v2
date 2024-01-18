@@ -11,15 +11,17 @@
         position: relative;
         margin-bottom: s(16);
 
-        &:after{
-            //@extend .photoNoise;
-        }
 
         img{
             width: 100%;
             height: 100%;
             @include cover();
             object-fit: cover;
+        }
+
+        &:before{
+            z-index: 2;
+            @extend .photoNoise;
         }
     }
 
@@ -43,6 +45,10 @@
 
     &__videoContainer{
         transition: 300ms clip-path easing(ease-in-quad) 200ms;
+        &:before{
+            z-index: 2;
+            @extend .photoNoise;
+        }
     }
 
     &__link{

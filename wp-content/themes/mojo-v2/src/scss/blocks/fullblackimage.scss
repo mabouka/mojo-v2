@@ -5,12 +5,13 @@
     margin: s(80) 0;
 
     &__image{
-       height: 700px;
-       margin-bottom: 0;
-       img{
-           width: auto;
-           height: 700px;
-           display: block;
-       }
+        position: relative;
+        height: 700px;
+        margin-bottom: 0;
+        img{
+            width: auto;
+            height: 700px;
+            display: block;
+        }
     }
 }

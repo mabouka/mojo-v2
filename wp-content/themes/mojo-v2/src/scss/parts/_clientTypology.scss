@@ -78,5 +78,11 @@
 
         }
         //z-index: -1;
+
+        &:before{
+            @extend .photoNoise;
+            border-radius: 100%;
+        }
+
     }
 }

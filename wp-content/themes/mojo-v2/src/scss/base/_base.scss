@@ -45,6 +45,47 @@ body{
 .photoNoise{
     content : '';
     @include cover();
+    pointer-events: none;
+    z-index: 2;
+    background-image: url('../images/transparentNoise.jpg');
+    @supports (gap: 1px) {
+        background-image: url('../images/transparentNoise.webp');
+    }
+    background-size: s(300) s(300);
+
+    @media only screen and (min-device-pixel-ratio: 2), 
+    only screen and (min-resolution: 192dpi) {
+        background-size: s(150) s(150);
+
+    }
+
+}
+.wrapperImage__image,
+.wp-block-image,
+.fullImage__image,
+.fullBlackImage__image{
+    position: relative;
+}
+
+.sCaseNext__image,
+.imagesslider__item,
+.wrapperImage__image,
+.wp-block-image,
+.fullImage__image,
+.textGallery__image,
+.fullBlackImage__image,
+.textImage__image,
+.quoteImage__image,
+.twoImages__item{
+    &:before{
+        @extend .photoNoise;
+    }
+}
+
+/*
+.photoNoise{
+    content : '';
+    @include cover();
     z-index: 2;
     background-image: url('../images/noise.jpg');
     @supports (gap: 1px) {
@@ -54,3 +95,4 @@ body{
     mix-blend-mode:lighten;
     opacity: 0.25;
 }
+*/
