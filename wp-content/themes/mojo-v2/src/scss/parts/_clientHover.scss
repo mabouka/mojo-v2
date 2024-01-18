@@ -13,12 +13,12 @@
         background-color: color(sand);
         z-index: 1;
         position: relative;
-        max-width: col(8,12);
+        width: col(8,12);
         width: s(846);
         display: flex;
         justify-content: flex-end;
-        padding: 0;
-        margin: 0;
+        border-right: 1px solid black;
+        overflow: hidden;
     }
 
     
@@ -55,19 +55,12 @@
     .client{
         border: 1px solid black;
         border-right: none;
-        
         overflow: hidden;
         width: 12%;
         flex-grow: 1;
         transition: 200ms width easing(ease-out-quad);
         position: relative;
-
-        &:last-child{
-            border-right: 1px solid black;
-
-            margin-right: auto;
-        }
-    
+        
         &__container{
             //display: flex;
             padding-left: s(30);
