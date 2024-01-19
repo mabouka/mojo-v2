@@ -1,4 +1,4 @@
-<section class="commitmentsPurpose">
+<section class="commitmentsPurpose darkSection">
     <div class="wrapper">
         <div class="commitmentsPurpose__inside">
             <h2 class="sro"><?= __('Iniatives', 'mj'); ?></h2>

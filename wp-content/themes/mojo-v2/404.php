@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div data-router-view="404" class="error view">
+<div data-router-view="404" class="error darkSection view">
     <div class="wrapper">
         <div class="error__inside">
 

@@ -52,15 +52,21 @@ class Mojo {
     }
     
     constructor() {
-        
         this.initCursor();
         this.inview = InView;
-
         this.mobileMenu = new MobileMenu();
         this.parts = new Pluton();
     }
 }
 let scrollSetup = () => {
+    if(document.body.classList.contains('home')){
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    }
+
+
     window.lenis = new Lenis({
         lerp: 0.13,
     });
@@ -70,16 +76,15 @@ let scrollSetup = () => {
         requestAnimationFrame(raf)
     }
     
-    requestAnimationFrame(raf)
+    requestAnimationFrame(raf);
     gsap.registerPlugin(ScrollTrigger);
-    
-    window.lenis.on('scroll', ScrollTrigger.update)
-    
+    window.lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time)=>{
         window.lenis.raf(time * 1000);
     })
-    
     gsap.ticker.lagSmoothing(0);
+
+
     
 }
 

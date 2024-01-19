@@ -33,7 +33,8 @@
     </script>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> <body data-barba="wrapper">
+
 
     <a class="gotocontent sro" href="#mainContent">
         <?php _e('Go to the main content', 'mj'); ?>
@@ -97,4 +98,4 @@
     <?php endif ?>
     
     <div class="scrollContainer">
-        <main class="mainContent" id="mainContent" role="main" data-router-wrapper>
+        <main class="mainContent" id="mainContent" role="main">

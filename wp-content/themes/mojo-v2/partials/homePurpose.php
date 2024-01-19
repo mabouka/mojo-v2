@@ -50,7 +50,7 @@
                 <rect width="100%" height="100%" fill="#FFC833" mask="url(#purposeSvg_logoMask)" />
             </g>
 
-            <rect id="purposeSensible" x="0" y="4600" width="1344.5" height="400" fill="none"/>
+            <rect id="purposeSensible" x="0" y="4650" width="1300" height="350" fill="none"/>
 
         </svg>
     </div>

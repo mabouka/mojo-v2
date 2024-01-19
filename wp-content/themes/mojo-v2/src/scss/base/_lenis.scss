@@ -1,8 +1,15 @@
 html.lenis {
-    height: auto;
+    //height: auto;
 
-     margin-top: 0 !important
+     
 }
+
+html { 
+    height: 100%; 
+    overflow:auto;
+    margin-top: 0 !important
+}
+body { height: 100%; }
   
 .lenis.lenis-smooth {
     scroll-behavior: auto;

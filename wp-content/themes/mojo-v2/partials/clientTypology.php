@@ -1,6 +1,5 @@
 <?php if ($items): ?>
-
-<div class="clientTypology">
+<div class="clientTypology darkSection">
     <h2 class="clientTypology__title"><?= $title; ?></h2>
     <div class="clientTypology__list">
         <?php foreach ($items as $item): ?>

@@ -68,6 +68,15 @@
         margin-bottom: s(35);
         position: relative;
         max-height: s(260);
+        .featuredCases__gallery--hovered &{
+            opacity: 0.2 !important;
+            transition: 500ms opacity easing(ease-out-quad) !important;
+
+            &:hover,
+            &:focus{
+                opacity: 1 !important;
+            }
+        }
 
         &:before{
             z-index: 2;
@@ -120,7 +129,6 @@
 
         &:first-child{
             border-top: 1px solid black;
-
         }
     }
     
@@ -193,12 +201,10 @@
             svg{
                 path{
                     fill: color(sand);
-
                 }
             }
         }
     }
-
 
     &__right{
         width: colGut(6,0,12,0);

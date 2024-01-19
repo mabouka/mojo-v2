@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div class="clientIntro__second">
+    <div class="clientIntro__second darkSection">
         <img class="clientIntro__secondBg" src="<?= getUrl('dist/images/backgroundClient.svg') ?>" alt="">
 
         <div class="clientIntro__secondCircle">

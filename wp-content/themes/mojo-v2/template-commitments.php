@@ -17,7 +17,7 @@ $items = $the_query->posts;
 
 get_header();
 ?>
-<div class="view commitments" data-router-view="commitments">
+<div class="view commitments" data-barba="container" data-barba-namespace="commitments">
     <?php
     getPartial('commitmentsIntro', [
         'title1'     => get_field('intro_title_line1'),
@@ -32,7 +32,7 @@ get_header();
         'cards'         => get_field('purposes'),
     ]);
     ?>
-    <section class="commitments__case">
+    <section class="commitments__case darkSection">
         <h2 class="commitments__caseTitle sro"><?= __('Cases where we took iniatives', 'mj') ?></h2>
         <?php 
         getPartial('caseAccordion', [

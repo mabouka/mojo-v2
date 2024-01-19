@@ -3,7 +3,7 @@
 
 get_header(); ?>
 
-<div class="view"  data-router-view="archivecase">
+<div class="view" data-barba="container" data-barba-namespace="archivecase">
 <?php
 
     getPartial('casesIntro', [

@@ -4,7 +4,7 @@
 ?>
 <?php get_header(); ?>
 <?php if ($parent): ?>
-<div class="view"  data-router-view="singleserviceparent-child" s>
+<div class="view"  data-barba="container" data-barba-namespace="singleserviceparent-child">
     <?php getPartial('serviceChHeader', [
         'parent' =>  $parent[0]
     ]); ?>

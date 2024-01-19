@@ -2,7 +2,7 @@
 /* Template Name: Our Clients */
 get_header();
 ?>
-<div class="view pageclient" data-router-view="ourclients">
+<div class="view pageclient" data-barba="container" data-barba-namespace="ourclients">
     <?php 
         getPartial('clientIntro', [
             'title1'         => get_field('intro_title_1'),

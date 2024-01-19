@@ -50,13 +50,19 @@
     }
 
     &__secondaryItem{
-        opacity: 0.5;
         text-decoration: none;
         color: color(dark);
         margin-top: s(6);
 
         color: color(sand);
         opacity: 0.5;
+        transition: 200ms opacity line easing(ease-out-quad)ar, 200ms color easing(ease-out-quad);
+
+        &:hover,
+        &:focus{
+            color: color(yellow);
+            opacity: 1;
+        }
     }
 
     &__copyright{

@@ -9,7 +9,7 @@
     get_header();
     
 ?>
-<div class="view contact"  data-router-view="contact">
+<div class="view contact darkSection" data-barba="container" data-barba-namespace="contact">
 
 <img class="contact__svg" src="<?= getUrl('dist/images/star-illustration.svg'); ?>" alt="" width="1299" height="773">
 

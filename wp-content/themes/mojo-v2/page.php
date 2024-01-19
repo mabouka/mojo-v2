@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div data-router-view="pageTemplate" class="pageTemplate view">
+<div data-barba="container" data-barba-namespace="pageTemplate" class="pageTemplate view">
     <div class="wrapper">
         <div class="pageTemplate__inside">
             <h1 class="pageTemplate__title">

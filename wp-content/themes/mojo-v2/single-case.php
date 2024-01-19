@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="view singleCase"  data-router-view="singlecase" <?= get_field('color') ? ' style="--pagecolor:' . get_field('color') . ';"' : '' ?> >
+<div class="view singleCase"  data-barba="container" data-barba-namespace="singlecase" <?= get_field('color') ? ' style="--pagecolor:' . get_field('color') . ';"' : '' ?> >
 
     <?php
         getPartial('sCaseBanner', [

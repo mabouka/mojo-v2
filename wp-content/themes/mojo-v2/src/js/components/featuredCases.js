@@ -7,6 +7,7 @@ export default class featuredCases {
 
     constructor(el) {
         this.el = el;
+        this.gallery = this.el.querySelector('.featuredCases__gallery');
         this.videos = this.getVideos();
         this.setEvents();
 
@@ -59,7 +60,7 @@ export default class featuredCases {
         video.videoContainer.classList.add('featuredCases__video--active');
         video.imageContainer.classList.add('featuredCases__galleryItem--active');
         video.link.classList.add('featuredCases__caseLink--active');
-
+        this.gallery.classList.add('featuredCases__gallery--hovered');
         if(video.video) video.video.play();
     }
 
@@ -67,6 +68,7 @@ export default class featuredCases {
         video.videoContainer.classList.remove('featuredCases__video--active');
         video.imageContainer.classList.remove('featuredCases__galleryItem--active');
         video.link.classList.remove('featuredCases__caseLink--active');
+        this.gallery.classList.remove('featuredCases__gallery--hovered');
         if(video.video) video.video.pause();
     }
 }

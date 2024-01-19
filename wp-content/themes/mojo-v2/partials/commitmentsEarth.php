@@ -1,4 +1,4 @@
-<section class="commitmentsEarth">
+<section class="commitmentsEarth darkSection">
     <img class="commitmentsEarth__svg" src="<?= getUrl('dist/images/star-illustration2.svg'); ?>" width="1398" height="991" alt="">
 
     <div class="commitmentsEarth__planets">

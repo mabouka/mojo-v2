@@ -1,6 +1,6 @@
 import {gsap} from "gsap";
 import inview from "../classes/InView";
-
+import cookies from "../utils/cookies";
 export default class HomeIntro {
 
     static get selector() {
@@ -16,12 +16,12 @@ export default class HomeIntro {
         this.homeVideo = document.querySelector('.homeVideo');
         this.stars = document.querySelector('.homeIntro__stars');
 
+
         //shapes
         this.poly = this.el.querySelector('#poly');
-        this.moon = this.el.querySelector('#moon');
+        this.moon = this.el.querySelector('#moon');        
 
         // title
-        this.lines = this.getLines();
 
 
         //gsap.ticker.add(this.doOneFrame.bind(this));
@@ -29,19 +29,12 @@ export default class HomeIntro {
         this.setEvents();
         this.lockPage();
 
-        inview.addElement(this.el);
+        inview.addElement(this.el); // call Appearing animation
     }
 
     lockPage() {
-        document.documentElement.scrollTo(0,0);
-        console.log(window.lenis);
-        window.lenis.scrollTo({
-            target: 0,
-            onComplete: () => {
-                console.log('scrollTop');
-            }
-        });
         window.lenis.stop(); 
+        this.body.classList.add('loading');
 
         gsap.set(this.moon, {
             scale : 0,
@@ -64,8 +57,6 @@ export default class HomeIntro {
     }
 
     doAnimation() {
-        //
-
         const main = gsap.timeline({})
 
         main.to(this.moon, { 
@@ -96,30 +87,43 @@ export default class HomeIntro {
         }, 0)
 
         main.eventCallback("onComplete",() => {
-
+            this.body.classList.remove('loading');
             window.lenis.start();
             inview.addElement(this.homeVideo);
             inview.addElement(this.header);
+            this.launchScroll();
         })
+
+        cookies.setCookie('mojo-animation', 'done', 1);
     }
 
-    getLines() {
-        let lines = [];
-        let elements = this.el.querySelectorAll('.homeIntro__titleLine');
-        Array.from(elements).forEach((element) => {
-            let line = {};
-                line.el = element;
-                line.span = element.querySelector('span');
-                line.isShow = false;
-
-            lines.push(line);
+    launchScroll() {
+        this.main = gsap.timeline({
+            scrollTrigger: {
+                trigger: this.el,
+                start: '+=1',
+                scrub: true,
+                markers: true,
+                id: "Intro",
+            }
         })
+
+        .to(this.poly, {
+            duration: 1, 
+            y: -250
+        }, 0)
+
+        .to(this.moon, {
+            duration: 1, 
+            y: -165
+        }, 0)
+
+        .to(this.stars, {
+            duration: 1, 
+            y: -75
+        },0);
     }
-
-    raf() {
-
-    }
-
+ 
 
     setEvents() {
         this.el.addEventListener('inView', this.e_inview.bind(this))
@@ -132,12 +136,7 @@ export default class HomeIntro {
 
     e_inview(e) {
         console.log('inview');
-        setTimeout(() => {
-            this.doAnimation();
-        }, 200);
+        this.doAnimation();
     }
 
-    e_resize(e) {
-        this.rect =this.body.getBoundingClientRect();
-    }
 }

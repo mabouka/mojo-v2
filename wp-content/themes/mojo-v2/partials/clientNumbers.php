@@ -1,5 +1,5 @@
 <?php if ($items): ?>
-<div class="clientNumbers">
+<div class="clientNumbers darkSection">
     <img class="clientNumbers__svg" src="<?= getUrl('dist/images/star-illustration.svg'); ?>" alt="" width="1299" height="773">
 
     <div class="wrapper">

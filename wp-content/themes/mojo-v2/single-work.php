@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="view"  data-router-view="singlework">
+<div class="view" data-barba="container" data-barba-namespace="singlework">
 
     <?php  getPartial('workIntro'); ?>
     <?php if($modules = get_field('modules')): ?>

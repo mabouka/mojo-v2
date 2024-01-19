@@ -3,7 +3,7 @@ get_header();
 ?>
 
 
-<div class="view" data-router-view="archiveservice">
+<div class="view" data-barba="container" data-barba-namespace="archiveservice">
     <?php
 
     getPartial('serviceIntro', [

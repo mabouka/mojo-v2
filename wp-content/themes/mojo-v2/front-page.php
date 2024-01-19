@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="view" data-router-view="home">
+<div class="view" data-barba="container" data-barba-namespace="home">
     <?php
     getPartial('homeIntro', [
         "text"      => get_field('intro')
