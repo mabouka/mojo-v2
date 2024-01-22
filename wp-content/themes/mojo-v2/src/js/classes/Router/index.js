@@ -18,7 +18,7 @@ export default class Router {
                 transitions: [
                     curtainTransition,
                 ],
-                cacheIgnore: ['/contact/']
+                //cacheIgnore: ['/contact/']
         });
 
         barba.hooks.leave(() => {
