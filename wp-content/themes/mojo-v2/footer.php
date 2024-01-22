@@ -111,7 +111,7 @@
 </div>
 
 <?php getPartial('cursor'); ?>
-
+<?php getPartial('menu'); ?>
 
 <?php 
     $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();

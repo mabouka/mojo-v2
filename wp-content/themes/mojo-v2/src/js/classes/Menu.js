@@ -6,6 +6,7 @@ class MenuClass{
 
     initialize() {
         this.menu       = document.querySelector('.menu');
+        console.log(this.menu);
         this.links      = this.menu.querySelectorAll('.menu__mainItem');
         this.openMenu   = document.querySelectorAll('.openMenu');
         this.closeMenu  = document.querySelector('.closeMenu');
