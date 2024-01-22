@@ -6,7 +6,6 @@ class MenuClass{
 
     initialize() {
         this.menu       = document.querySelector('.menu');
-        console.log(this.menu);
         this.links      = this.menu.querySelectorAll('.menu__mainItem');
         this.openMenu   = document.querySelectorAll('.openMenu');
         this.closeMenu  = document.querySelector('.closeMenu');
@@ -27,8 +26,8 @@ class MenuClass{
             }
         });        
 
-        this.openMenu = document.querySelectorAll('.openMenu');
-        this.openMenu.forEach((link) => {
+        let otherOpen = data.next.container.querySelectorAll('.openMenu');
+        otherOpen.forEach((link) => {
             link.addEventListener('click', (e)=>{ this.e_clickopenMenu(e); } , false);
         })
     }
