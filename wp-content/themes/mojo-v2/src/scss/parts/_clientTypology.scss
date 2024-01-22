@@ -2,17 +2,19 @@
     background-color: color(dark);
     padding-top: s(132);
     padding-bottom: s(140);
+
     &__title{
         @extend .subtitle;
         color: color(white);
         text-align: center;
         margin-bottom: s(50);
     }
+
     &__list{
         display: flex;
         flex-direction: column;
-
     }
+
     &__item{
         padding: s(35/2) 0;
         color: color(sand);
@@ -20,6 +22,7 @@
         @extend .title80;
         text-decoration: none;
         position: relative;
+
         span{
             z-index: 2;
             position: relative;
@@ -38,7 +41,6 @@
     
             }
         }
-
 
         &:hover,
         &:focus{
