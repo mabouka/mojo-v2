@@ -20,7 +20,9 @@
         <svg class="homePurpose__svg" id="purposeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5000 5000">
             <defs>
                 <g id="purposeSvg_circleWrapper">
-                    <circle id="purposeSvg_circle" cx="0" cy="0" r="18" />
+                    <g id="purposeSvg_circleWrapperPos">
+                        <circle id="purposeSvg_circle" cx="0" cy="0" r="18" />
+                    </g>
                 </g>
                 <g id="purposeSvg_logo">
                     <path d="M302.57,4721h-53.61l-158.63,261.43v-261.43H25.3l-169.3,279h77.07l145.84-240.34v240.34h77.83l145.84-240.34v240.34h11.43v-279h-11.43Z" stroke-width="0"/>

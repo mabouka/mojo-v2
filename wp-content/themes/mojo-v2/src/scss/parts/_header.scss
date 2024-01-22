@@ -16,6 +16,10 @@
         transition: 200ms opacity linear, 0s visibility linear 0ms;
     }
 
+    &--hidden{
+        display: none;
+    }
+
 
     &__inside{
         display: flex;
@@ -26,10 +30,6 @@
     &__logo{
         justify-self: flex-start;
         margin-right: auto;
-
-        .single-services &{
-            @include hidden();
-        }
     }
 
     &__language{
@@ -79,6 +79,12 @@
             g, path{
                 fill: color(dark);
             }
+        }
+    }
+
+    &--withoutLogo{
+        .header__logo{
+            @include hidden();
         }
     }
 }

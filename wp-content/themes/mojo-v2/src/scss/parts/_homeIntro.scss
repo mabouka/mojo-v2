@@ -104,7 +104,7 @@
         transform: translate3d(-120px, 57px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
         transition: all 1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990);
 
-        @for $n from 1 through 50 {
+        @for $n from 1 through 80 {
             &--#{$n} {
             transition-delay: ($n - 1) * .008s;
             }

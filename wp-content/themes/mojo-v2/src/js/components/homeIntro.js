@@ -8,7 +8,6 @@ export default class HomeIntro {
     }
 
     constructor(el) {
-        //return;
         this.el = el;
         this.body= document.querySelector('body');
         
@@ -16,23 +15,16 @@ export default class HomeIntro {
         this.homeVideo = document.querySelector('.homeVideo');
         this.stars = document.querySelector('.homeIntro__stars');
 
-
         //shapes
         this.poly = this.el.querySelector('#poly');
         this.moon = this.el.querySelector('#moon');        
 
-        // title
-
-
-        //gsap.ticker.add(this.doOneFrame.bind(this));
-
         this.setEvents();
-        this.lockPage();
-
+        this.preparePage();
         inview.addElement(this.el); // call Appearing animation
     }
 
-    lockPage() {
+    preparePage() {
         window.lenis.stop(); 
         this.body.classList.add('loading');
 
@@ -94,7 +86,7 @@ export default class HomeIntro {
             this.launchScroll();
         })
 
-        cookies.setCookie('mojo-animation', 'done', 1);
+        cookies.set('mojo-animation', 'done', 1);
     }
 
     launchScroll() {
@@ -103,8 +95,8 @@ export default class HomeIntro {
                 trigger: this.el,
                 start: '+=1',
                 scrub: true,
-                markers: true,
-                id: "Intro",
+                //markers: true,
+                id: "scroll",
             }
         })
 
@@ -124,18 +116,15 @@ export default class HomeIntro {
         },0);
     }
  
-
     setEvents() {
         this.el.addEventListener('inView', this.e_inview.bind(this))
     }
-
 
     /**
      * Handlers
      */
 
     e_inview(e) {
-        console.log('inview');
         this.doAnimation();
     }
 

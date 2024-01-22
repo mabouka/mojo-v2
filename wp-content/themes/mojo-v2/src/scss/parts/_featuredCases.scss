@@ -72,6 +72,7 @@
             opacity: 0.2 !important;
             transition: 500ms opacity easing(ease-out-quad) !important;
 
+            &--active,
             &:hover,
             &:focus{
                 opacity: 1 !important;

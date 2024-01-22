@@ -9,8 +9,18 @@ export default class Contactform {
     constructor(el) {
         this.el = el;
         this.svg = this.el.querySelector('.contact__svg');
+        this.fields = this.el.querySelectorAll(".wpcf7-validates-as-required");
+        this.form   = this.el.querySelector(".wpcf7-form");
+        this.captchaFields = this.el.querySelectorAll('form.wpcf7-form input[name="_wpcf7_recaptcha_response"]');
+
+        this.form.removeAttribute("novalidate");
+
+        this.fields.forEach(field => {
+            field.setAttribute("required","required");
+
+        });
         
-        const main = gsap.timeline({
+        this.main = gsap.timeline({
             scrollTrigger: {
                 trigger: this.el,
                 start: "top top",
@@ -27,5 +37,23 @@ export default class Contactform {
             },
             0
         )
+
+        this.setEvents();
+    }
+
+    setEvents() {
+        this.form.addEventListener('submit', this.e_submit.bind(this));
+    }
+
+    e_submit(e) {
+        e.preventDefault();
+        grecaptcha.ready(() => {
+            grecaptcha.execute(recaptchaKey, {action: 'submit'}).then((token) => {
+                Array.from(this.captchaFields).forEach(field => {
+                    field.setAttribute("value", token);
+                });
+                this.form.submit();
+            });
+        });
     }
 }

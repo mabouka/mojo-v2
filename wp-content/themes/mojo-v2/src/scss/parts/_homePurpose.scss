@@ -53,8 +53,11 @@
 
         #purposeSvg_circleWrapper{
             will-change: transform;
-            transform: translate3d( calc(var(--x) - var(--left)),calc(var(--y) - var(--top)  ),0);
+            transform: translate3d( var(--x),var(--y),0);
             transition: transform 400ms easing(ease-out-quint);
+        }
+        #purposeSvg_circleWrapperPos{
+            transform: translate3d( var(--left),var(--top),0);
         }
     }
 }

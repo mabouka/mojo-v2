@@ -55,7 +55,9 @@
                 <svg id="footerSvg" class="footerSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5000 1500">
                     <defs>
                         <g id="footerSvg_circleWrapper">
-                            <circle id="footerSvg_circle" cx="0" cy="0" r="18" />
+                            <g id="footerSvg_circleWrapperPos">
+                                <circle id="footerSvg_circle" cx="0" cy="0" r="18" />
+                            </g>
                         </g>
                         <g id="footerSvg_logo">
                             <path d="M2139.82,1283.16h-33.84l-100.13,156.13v-144.3v-11.83h-7.21h-33.84l-106.87,166.62h48.65l92.06-143.54v143.54
@@ -109,12 +111,25 @@
 </div>
 
 <?php getPartial('cursor'); ?>
-
 <?php getPartial('menu'); ?>
-<script src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
-<script src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
-<script src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
-<?php wp_footer(); ?>
+
+
+<?php 
+    $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
+?>
+<script type="text/javascript">
+    var recaptchaKey = '<?= $recaptcha ?>';
+</script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=<?= $recaptcha ?>&amp;ver=3.0" id="google-recaptcha-js"></script>
+<script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
+<script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
+<script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
+
+<!-- WPFOOTER START -->
+<?php //wp_footer(); ?>
+<!-- WPFOOTER END -->
+
+
 
 </body>
 

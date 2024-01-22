@@ -432,22 +432,25 @@ function mojo_register_acf_blocks() {
 add_action( 'init', 'mojo_register_acf_blocks' );
 
 
-/**
- * Change submit from input to button
- *
- * Do not use example provided by Gravity Forms as it strips out the button attributes including onClick
- */
-function wd_gf_update_submit_button( $button_input, $form ) {
 
-    //save attribute string to $button_match[1]
-    preg_match( "/<input([^\/>]*)(\s\/)*>/", $button_input, $button_match );
-
-    //remove value attribute (since we aren't using an input)
-    $button_atts = str_replace( "value='" . $form['button']['text'] . "' ", "", $button_match[1] );
-
-    // create the button element with the button text inside the button element instead of set as the value
-    return '<button ' . $button_atts . '><span>' . $form['button']['text'] . '</span></button>';
+function rjs_lwp_contactform_css_js() {
+    wp_dequeue_script( 'contact-form-7' );
+    wp_dequeue_style( 'contact-form-7' );
+    wp_dequeue_script( 'wpcf7-recaptcha-js' );
+    wp_dequeue_script( 'wp-polyfill-js' );
 
 }
-add_filter('gform_submit_button', 'wd_gf_update_submit_button', 10, 2);
-add_filter( 'gform_disable_css', '__return_true' );
+add_action( 'wp_enqueue_scripts', 'rjs_lwp_contactform_css_js');
+
+
+add_filter( 'wpcf7_load_js', '__return_false' );
+add_filter( 'wpcf7_load_css', '__return_false' );
+
+function deregister_polyfill(){
+
+    //wp_deregister_script( 'wp-polyfill' );
+    //wp_deregister_script( 'regenerator-runtime' );
+  
+  }
+  add_action( 'wp_enqueue_scripts', 'deregister_polyfill');
+  

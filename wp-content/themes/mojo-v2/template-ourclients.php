@@ -2,7 +2,8 @@
 /* Template Name: Our Clients */
 get_header();
 ?>
-<div class="view pageclient" data-barba="container" data-barba-namespace="ourclients">
+<div data-barba="container" data-barba-namespace="ourclients">
+    <div class="pageclient">
     <?php 
         getPartial('clientIntro', [
             'title1'         => get_field('intro_title_1'),
@@ -35,6 +36,8 @@ get_header();
             'image'          => get_field('client_image'),
             'clients'        => get_field('client_items'),
         ]);
+        
     ?>
+    </div>
 </div>
 <?php get_footer();

@@ -8,6 +8,9 @@ html {
 }
 
 body{
+
+
+
     &.loading{
         //cursor: wait;
     }
@@ -23,6 +26,22 @@ body{
     }
 }
 
+.curtain{
+    @include cover();
+    position: fixed;
+    background-color: color(orange);
+    transform: translate3d(0, -100vh, 0);
+
+    z-index: 1000;
+    /*
+    &:before{
+        @extend .photoNoise;
+    }*/
+}
+
+.mainContent{
+    min-height: 100vh;
+}
 .sro {
     @include hidden();
 }
@@ -61,7 +80,6 @@ body{
         background-size: s(150) s(150);
 
     }
-
 }
 .wrapperImage__image,
 .wp-block-image,

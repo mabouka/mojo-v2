@@ -16,6 +16,10 @@ export default class PageClient {
         this.setEvents();
     }
 
+    destroy() {
+        
+    } 
+
     setEvents() {
         window.addEventListener("resize", this.e_resize.bind(this));
     }

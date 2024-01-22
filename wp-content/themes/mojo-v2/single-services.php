@@ -4,7 +4,8 @@
 ?>
 <?php get_header(); ?>
 <?php if ($parent): ?>
-<div class="view"  data-barba="container" data-barba-namespace="singleserviceparent-child">
+<div data-barba="container" data-barba-namespace="singleservicechild">
+
     <?php getPartial('serviceChHeader', [
         'parent' =>  $parent[0]
     ]); ?>
@@ -28,14 +29,11 @@
         "title"     => __('Our expertises', 'mj')
     ]); ?>
 
+    <?php getPartial('ourServices'); ?>    
 
-    <?php getPartial('ourServices'); ?>
-
-
-    
 </div>
 <?php else: ?>
-<div class="view"  data-router-view="singleserviceparent-parent">
+<div data-barba="container" data-barba-namespace="singleserviceparent">
     <?php
         getPartial('serviceHeader', [
             'title' => get_field('header_title') ? get_field('header_title') : get_the_title(), 
@@ -63,5 +61,4 @@
     ?>    
 </div>
 <?php endif ?>
-
 <?php get_footer();

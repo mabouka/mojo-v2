@@ -6,7 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="<?php bloginfo('charset'); ?>">
 
+
+    
+    <!-- WPHEAD START -->
     <?php wp_head(); ?>
+    <!-- WPHEAD END -->
+
+
 
     <!-- Preload -->
     <link rel="preload" href="<?= getUrlVersion('dist/css/main.css'); ?>" as="style">
@@ -34,6 +40,9 @@
 </head>
 
 <body <?php body_class(); ?> <body data-barba="wrapper">
+    <div class="curtain">
+
+    </div>
 
 
     <a class="gotocontent sro" href="#mainContent">
@@ -45,6 +54,7 @@
     <?php
     $isDark = true;
     $show = true;
+    $withoutLogo = false;
 
     // dark light
     if (is_front_page()) $isDark = false;
@@ -64,13 +74,15 @@
         if($parent) {
             $show = false;
         }
+        else{
+            $withoutLogo = true;
+        }
     }
 
 
     ?>
 
-    <?php if ($show): ?>
-    <header class="header<?= $isDark ? ' header--dark' : ' header--light' ?>" role="banner">
+    <header class="header<?= $isDark ? ' header--dark' : ' header--light' ?><?= $withoutLogo ? ' header--withoutLogo' : '' ?><?= $show ? ' ' : ' header--hidden' ?>" role="banner">
         <div class="wrapper">
             <div class="header__inside">
                 <a class="header__logo" href="<?= home_url(); ?>" title="<?= __('Go back home', 'mj'); ?>">
@@ -95,7 +107,6 @@
         </div>
 
     </header><!-- header -->
-    <?php endif ?>
     
     <div class="scrollContainer">
         <main class="mainContent" id="mainContent" role="main">

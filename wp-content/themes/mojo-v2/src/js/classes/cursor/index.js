@@ -108,6 +108,10 @@ export default class CustomCursor {
     
     return this
   }
+
+  reset() {
+    this.destroy().initialize();
+  }
   
   hideTrueCursor() {
     document.documentElement.classList.add('hiddenCursor')

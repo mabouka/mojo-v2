@@ -23,13 +23,14 @@ export default class homeTransformation {
             autoAlpha: 0
         });
 
-        const main = gsap.timeline({
+        this.main = gsap.timeline({
             scrollTrigger: {
                 trigger: this.el,
                 start: 'top-=400',
                 end: "+=" + "100%",
                 scrub: true,
-                //pin: true,
+                id:"homeTransformation",
+                //markers: true                
           }
         })
         .to(this.circle, {
@@ -52,25 +53,9 @@ export default class homeTransformation {
             duration: 2,
             scale: 1 
         }, 0);
-
-        
-
-
-
-        
-
     }
 
-    setEvents() {
-
-    }
-
-
-    /**
-     * Handlers
-     */
-
-    e_error(e) {
-
+    destroy() {
+        this.main.kill(true);
     }
 }

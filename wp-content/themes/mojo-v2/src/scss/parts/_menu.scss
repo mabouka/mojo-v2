@@ -9,7 +9,7 @@ body{
     .mainContent{
         //will-change: transform;
         //transform: translate3d(0,0,0);
-        transition: 100ms transform $easing;
+        transition: 0ms transform $easing;
 
         &:before{
             content: '';
@@ -35,6 +35,17 @@ body{
             }
         }
     }
+
+    &.menuNoTransition{
+        .mainContent{
+            transition: none !important;
+
+            &:before{
+                transition: none !important;
+
+            }
+        }
+    }
 }
 .menu{
     position: fixed;
@@ -50,7 +61,7 @@ body{
     opacity: 0;
     will-change: opacity, transforms;
     transform: translate3d(0, -100vh, 0);
-    transition: 0ms transform $easing 500ms,400ms opacity easing(ease-out-quad) 100ms ;
+    transition: $duration opacity $easing 100ms;
 
 
     .wrapper{

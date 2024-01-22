@@ -18,6 +18,13 @@ class InView {
         });
     }
 
+    addView(view) {
+        let defaultElements = view.querySelectorAll('.js-in-view');
+        defaultElements.forEach(element => {
+            this.addElement(element);
+        });
+    }
+
     callback(elements) {
         elements.forEach(element => {
             if (element.intersectionRatio > 0) {

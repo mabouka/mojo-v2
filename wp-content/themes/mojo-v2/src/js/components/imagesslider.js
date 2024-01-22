@@ -25,20 +25,12 @@ export default class ImagesSlider {
             grabCursor: true,
           });
 
-        console.log(this.swiper)
           
     }
-
-    setEvents() {
-
+    
+    destroy() {
+        this.swiper.destroy();      
     }
 
 
-    /**
-     * Handlers
-     */
-
-    e_error(e) {
-
-    }
 }

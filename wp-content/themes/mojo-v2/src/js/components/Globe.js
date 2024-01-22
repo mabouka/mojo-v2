@@ -11,16 +11,11 @@ export default class Globe {
 
     static get selector() {
         //return '.globe';
-        
     }
 
     constructor(el) {
-        console.log('start globe');
-
         this.el              = el;
-
         this.baseUrl         = el.dataset.baseUrl;
-
         this.canvas          = el.querySelector('.globe__anim');
         this.context         = this.canvas.getContext('2d');
         this.canvas.width    = 1285;
@@ -40,8 +35,6 @@ export default class Globe {
         }, 200);
         this.images[0].onload = this.render.bind(this); // render first image
         
-
-
         this.animation = gsap.to(this.anim, {
             frame: this.frameCount - 1,
             snap: "frame",
@@ -60,10 +53,6 @@ export default class Globe {
                 this.render();
             }, // use animation onUpdate instead of scrollTrigger's onUpdate
         });
-
-
-        
-        console.log(' end globe');
     }
 
     currentFrame(i) {
@@ -80,8 +69,6 @@ export default class Globe {
     }
     
     render(e) {
-        console.log(this.anim.frame);
-        //console.error(this.anim.frame >= 190, this.anim.frame);
         this.renderText();
 
         try {
@@ -92,12 +79,11 @@ export default class Globe {
             console.error(error);
             console.log('imageError', this.anim.frame)
         }
-
     }
 
     renderText() {
-        if(this.anim.frame >= 190) this.el.classList.add('globe--complete');
-        else this.el.classList.remove('globe--complete');
+        if(this.anim.frame >= 190)  this.el.classList.add('globe--complete');
+        else                        this.el.classList.remove('globe--complete');
     }
 
     /*

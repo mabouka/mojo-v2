@@ -1,4 +1,7 @@
 <?php 
+
+
+
 function splitCharWord($text) {
     $output = '';
     $charIndex = 0;
@@ -7,7 +10,7 @@ function splitCharWord($text) {
         $words = explode(" ",trim($line));
         foreach($words as $word){
             $output .= '<span class="fx-word">';
-            foreach(str_split($word) as $char){
+            foreach(mb_str_split($word) as $char){
                 $charIndex++;
                 $output .= '<span class="fx-letter fx-letter--'. $charIndex .'">';
                 $output .= $char;

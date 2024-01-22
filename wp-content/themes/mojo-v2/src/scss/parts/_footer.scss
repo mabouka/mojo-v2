@@ -6,12 +6,10 @@
     position: relative;
     z-index: 11;
 
-
     &__inside{
         position: relative;
         display: flex;
         padding-bottom: s(461);
-
     }
 
     &__text{
@@ -93,9 +91,13 @@
 
     .footerSvg{
         #footerSvg_circleWrapper{
-            transform: translate3d( calc(var(--x) - var(--left)),calc(var(--y) - var(--top)  ),0);
+            transform: translate3d( var(--x),var(--y),0);
             will-change: transform;
             transition: transform 400ms easing(ease-out-quint);
+        }
+
+        #footerSvg_circleWrapperPos{
+            transform: translate3d( var(--left),var(--top),0);
         }
     }
 

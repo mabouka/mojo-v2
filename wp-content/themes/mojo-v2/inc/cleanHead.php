@@ -37,8 +37,8 @@ function remove_xmlrpc_pingback_ping( $methods ) {
 
         }
         else{
-            wp_dequeue_style( 'wp-block-library' );
-            wp_dequeue_style( 'wp-block-library-theme' );
+            //wp_dequeue_style( 'wp-block-library' );
+            //wp_dequeue_style( 'wp-block-library-theme' );
         }
     } 
 
@@ -51,8 +51,8 @@ function remove_xmlrpc_pingback_ping( $methods ) {
 
         }
         else{
-            wp_dequeue_style( 'classic-theme-styles' );
-            wp_dequeue_style( 'global-styles' );
+            //wp_dequeue_style( 'classic-theme-styles' );
+            //wp_dequeue_style( 'global-styles' );
         }
     }, 20 );
 

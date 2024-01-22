@@ -195,7 +195,7 @@
             position: absolute;
             top: s(73);
             z-index: 2;
-            mix-blend-mode: overlay;
+            //mix-blend-mode: overlay;
             opacity: 0;
             transition: 200ms opacity easing(ease-out-quad);
         }

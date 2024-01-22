@@ -14,9 +14,18 @@ export default class HomeVideo {
         this.setEvents();
     }
 
+    destroy() {
+        this.removeEvents();        
+    }
+
     setEvents() {
         this.el.addEventListener('inView', this.e_inview.bind(this))
         this.video.addEventListener('playing', this.e_playing.bind(this))
+    }
+
+    removeEvents() {
+        this.el.removeEventListener('inView', this.e_inview.bind(this))
+        this.video.removeEventListener('playing', this.e_playing.bind(this))
     }
 
 
