@@ -19,14 +19,11 @@ export default class Router {
                     curtainTransition,
                 ],
                 cacheIgnore: ['/contact/']
-
         });
-
 
         barba.hooks.leave(() => {
             window.MJ.parts.destroy();
             window.MJ.parts.clear();
-
         });
 
         barba.hooks.before(() => {

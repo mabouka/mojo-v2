@@ -7,7 +7,7 @@ class MenuClass{
     initialize() {
         this.menu       = document.querySelector('.menu');
         this.links      = this.menu.querySelectorAll('.menu__mainItem');
-        this.openMenu   = document.querySelector('.openMenu');
+        this.openMenu   = document.querySelectorAll('.openMenu');
         this.closeMenu  = document.querySelector('.closeMenu');
 
         this.isOpen     = false;
@@ -25,6 +25,11 @@ class MenuClass{
                 link.classList.remove('menu__mainItem--current');
             }
         });        
+
+        this.openMenu = document.querySelectorAll('.openMenu');
+        this.openMenu.forEach((link) => {
+            link.addEventListener('click', (e)=>{ this.e_clickopenMenu(e); } , false);
+        })
     }
 
     toggle() {
@@ -65,17 +70,17 @@ class MenuClass{
     }
     
     setEvents() {
-        this.openMenu.addEventListener('click', (e)=>{ this.e_clickopenMenu(e); } , false);
+        this.openMenu.forEach((link) => {
+            link.addEventListener('click', (e)=>{ this.e_clickopenMenu(e); } , false);
+        })
+        
         this.closeMenu.addEventListener('click', (e)=>{ this.e_clickClose(e); } , false);
     }
-
-
 
     e_clickopenMenu(e) {
         e.preventDefault();
         this.toggle();
     }
-
 
     e_clickClose(e) {
         e.preventDefault();

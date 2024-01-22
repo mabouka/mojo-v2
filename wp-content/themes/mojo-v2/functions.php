@@ -393,7 +393,7 @@ function getLanguageLinks($class = "header__language")
     if (!empty($languages)) {
         foreach ($languages as $c => $l) {
             if (!$l['active']) {
-                $link .= '<a href="' . $l['url'] . '" class="' . $class.'">';
+                $link .= '<a href="' . $l['url'] . '" class="' . $class.'" data-barba-prevent>';
                 $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
                 $link .= '</a>';
             }
