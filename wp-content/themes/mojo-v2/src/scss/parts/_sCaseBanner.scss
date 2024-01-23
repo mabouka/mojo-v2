@@ -38,4 +38,71 @@
             height: 100%;
         }
     }
+
+    .purposeDisc{
+        position: absolute;
+        bottom: s(40);
+        right: 0;
+        width: s(174);
+        height: s(174);
+        background-color: #1C6ECF;
+        color: color(sand);
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+        overflow: hidden;
+
+        &:before{
+            content: '';
+            @include cover();
+            pointer-events: none;
+
+            background-image: url('../images/noise.jpg');
+            @supports (gap: 1px) {
+                background-image: url('../images/noise.webp');
+            }
+
+            background-size: 200px 200px;
+            mix-blend-mode:darken;
+            opacity: 0.23;
+        }
+
+        &__text{
+            text-align: center;
+            font-family: Cambon, serif;
+            font-size: s(24);
+            font-weight: 600;
+            line-height: 1.2em;
+            width: s(100);
+            position: relative;
+            z-index: 1;
+            em{
+                display: block;
+                font-size: s(18);
+                line-height: em(16,18);
+                margin-top: s(3);
+                margin-bottom: s(-3);
+            }
+        }
+
+
+        &--denimblue{
+            background-color: #1C6ECF;
+        }
+
+        &--sungloworange{
+            background-color: #FFC833;
+            color: color(dark);
+
+            &:before{
+                opacity: 0.15;
+            }
+        }
+
+        &--outrageousorange{
+            background-color: #FF542E;
+        }
+    }
 }
