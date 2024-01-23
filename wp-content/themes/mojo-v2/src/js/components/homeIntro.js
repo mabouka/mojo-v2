@@ -9,6 +9,7 @@ export default class HomeIntro {
 
     constructor(el) {
         this.el = el;
+
         this.body= document.querySelector('body');
         
         this.header = document.querySelector('.header');
@@ -20,8 +21,16 @@ export default class HomeIntro {
         this.moon = this.el.querySelector('#moon');        
 
         this.setEvents();
-        this.preparePage();
-        inview.addElement(this.el); // call Appearing animation
+        console.log(window.homeAnimationDone)
+        if(window.homeAnimationDone === undefined) {
+            this.preparePage();
+        }
+        else{
+            this.launchScroll();
+            inview.addElement(this.homeVideo);
+            inview.addElement(this.header);
+            this.el.classList.add('homeIntro--inview')
+        }
     }
 
     preparePage() {
@@ -45,7 +54,7 @@ export default class HomeIntro {
             x: '70vw',
             transformOrigin: '60% 60%'
         });
-        
+        inview.addElement(this.el); // call Appearing animation
     }
 
     doAnimation() {
@@ -85,8 +94,7 @@ export default class HomeIntro {
             inview.addElement(this.header);
             this.launchScroll();
         })
-
-        cookies.set('mojo-animation', 'done', 1);
+        window.homeAnimationDone = true;
     }
 
     launchScroll() {

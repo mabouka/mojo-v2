@@ -11,6 +11,13 @@
         z-index: 1;
         background-color: color(sand);
         overflow: hidden;
+
+        #circle1{
+            transform: translate3d(-50%,0,0);
+        }
+        #circle2{
+            transform: translate3d(50%,0,0);
+        }
     }
 
     &__container{
