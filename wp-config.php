@@ -17,7 +17,7 @@ define('WP_CACHE', false);
  * @package WordPress
  */
 if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
-        define('DB_NAME', 'mojo2');
+        define('DB_NAME', 'mojo');
         define('DB_USER', 'root');
         define('DB_PASSWORD', '');
         define('DB_HOST', '127.0.0.1');

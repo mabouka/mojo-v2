@@ -1,6 +1,9 @@
 <?php 
-global $post;
-$sectors = get_the_terms( $post->ID, 'sector' );
+    global $post;
+    $sectors        = get_the_terms( $post->ID, 'sector' );
+    $services       = get_the_terms( $post->ID, 'category' );
+    $clients        = get_the_terms( $post->ID, 'client' );
+    $territories    = get_the_terms( $post->ID, 'territory' );
 ?>
 
 
@@ -8,10 +11,14 @@ $sectors = get_the_terms( $post->ID, 'sector' );
     <div class="wrapper">
         <div class="sCaseFeatures__inside">
 
-            <?php if ($client): ?>
+            <?php if ($clients): ?>
             <div class="sCaseFeatures__item">
                 <p class="sCaseFeatures__itemTitle"><?= __('Client', 'mj'); ?></p>
-                <div class="sCaseFeatures__itemContent"><?= $client;?></div>
+                <ul class="sCaseFeatures__itemList">
+                    <?php foreach ($clients as $key => $client): ?>
+                    <li><?= $client->name ?></li>
+                    <?php endforeach ?>
+                </ul>
             </div>
             <?php endif ?>
 
@@ -22,22 +29,29 @@ $sectors = get_the_terms( $post->ID, 'sector' );
                     <?php foreach ($sectors as $key => $sector): ?>
                     <li><?= $sector->name ?></li>
                     <?php endforeach ?>
-                    <li></li>
                 </ul>
             </div>
             <?php endif ?>
 
-            <?php if ($location): ?>
+            <?php if ($territories): ?>
             <div class="sCaseFeatures__item">
                 <p class="sCaseFeatures__itemTitle"><?= __('Country', 'mj'); ?></p>
-                <div class="sCaseFeatures__itemContent"><?= $location; ?></div>
+                <ul class="sCaseFeatures__itemList">
+                    <?php foreach ($territories as $key => $territory): ?>
+                    <li><?= $territory->name ?></li>
+                    <?php endforeach ?>
+                </ul>
             </div>
             <?php endif ?>
 
-            <?php if ($delivrables): ?>
+            <?php if ($services): ?>
             <div class="sCaseFeatures__item">
-                <p class="sCaseFeatures__itemTitle"><?= __('Delivrables', 'mj'); ?></p>
-                <div class="sCaseFeatures__itemContent"><?= $delivrables; ?></div>
+                <p class="sCaseFeatures__itemTitle"><?= __('Services', 'mj'); ?></p>
+                <ul class="sCaseFeatures__itemList">
+                    <?php foreach ($services as $key => $service): ?>
+                    <li><?= $service->name ?></li>
+                    <?php endforeach ?>
+                </ul>
             </div>
             <?php endif ?>
 

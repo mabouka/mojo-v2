@@ -19,7 +19,7 @@
                             $image = getCustomThumbnail($case['case']->ID, ['featuredCases--big', 'featuredCases--big@2x', 'featuredCases--small', 'featuredCases--small@2x']);
                             ?>
                             <a href="<?= get_the_permalink($case['case']); ?>" id="featuredImage-<?= $key ?>" class="darkSection featuredCases__galleryItem<?= $key === 0 ? ' featuredCases__galleryItem--big' : '' ?> js-in-view appear-fadeup">
-                                <img src="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?>" srcset="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?> 1x, <?= $image->src[$key === 0 ? 'featuredCases--big@2x' :  'featuredCases--small@2x']; ?> 2x" alt="<?= $image->alt; ?> width=" 294" height="260">
+                                <img src="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?>" srcset="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?> 1x, <?= $image->src[$key === 0 ? 'featuredCases--big@2x' :  'featuredCases--small@2x']; ?> 2x" alt="<?= $image->alt; ?>" width="294" height="260">
                                 <div class="featuredCases__galleryItemHover darkSection">
                                     <span class="btn btn--light btn--mini">
                                         <?= __('See case', 'mj'); ?>
