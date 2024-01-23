@@ -41,12 +41,17 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
+        &--overmoon{
+            z-index: 3;
+        }
     }
     
 
     &__itemNumber{
         @extend .title80;
         color: color(sand);
+        background-color: color(dark);
         border: 1px solid color(sand);
         border-radius: 100%;
         min-width: s(213);

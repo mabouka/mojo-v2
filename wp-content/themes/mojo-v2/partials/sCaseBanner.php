@@ -1,5 +1,6 @@
 <?php 
     global $post;
+    $isDark = true;
     $purpose = [];
     $terms = get_the_terms( $post, 'purpose' );
     if($terms && $terms[0]){
@@ -8,9 +9,12 @@
             'text'  => get_field('text', $terms[0])
         ];
     }
+
+    $headerColor = get_field('header_color', $post);
+    if($headerColor === 'light') $isDark = false;
     
 ?>
-<div class="sCaseBanner">
+<div class="sCaseBanner<?= !$isDark ? ' darkSection' : '' ?>">
 
     <?php if ($video): ?>
     <div class="sCaseBanner__video">

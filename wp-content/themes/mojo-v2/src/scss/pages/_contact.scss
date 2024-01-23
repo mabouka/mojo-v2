@@ -86,8 +86,10 @@
         .wpcf7 {
             form.sent{
                 .wpcf7-response-output{
-                    border-color: color(orange);
                     padding: s(20);
+                    border: 1px dashed color(white);
+                    border-radius: s(20);
+                    margin-top: s(20)
                 }
             } 
         }
@@ -115,6 +117,14 @@
                 color: color(sand);
                 @extend .body18;
                 text-wrap: nowrap;
+            }
+
+            &--required .field__label{
+                &:after{
+                    content : '*';
+                    margin-left: s(4);
+                    color: color(orange)
+                }
             }
 
 

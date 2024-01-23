@@ -8,7 +8,7 @@
             <div class="clientNumbers__moon"></div>
 
             <?php foreach ($items as $item): ?>
-            <div class="clientNumbers__item" style="top: <?=  $item['position_y'];?>%; left: <?=  $item['position_x'];?>%; ">
+            <div class="clientNumbers__item<?= $item['over_moon'] ? ' clientNumbers__item--overmoon' : '' ?>" style="top: <?=  $item['position_y'];?>%; left: <?=  $item['position_x'];?>%; ">
                 <span class="clientNumbers__itemNumber">
                     <?= $item['number']; ?> 
                 </span>

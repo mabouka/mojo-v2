@@ -15,6 +15,8 @@
 
 
     <!-- Preload -->
+    <link rel="prefetch" href="https://ssl.google-analytics.com">
+
     <link rel="preload" href="<?= getUrlVersion('dist/css/main.css'); ?>" as="style">
     <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
@@ -30,6 +32,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?= getUrlVersion('dist/css/main.css'); ?>">
 
+    <?php 
+        $gtag = 'GTM-KCC9J67B';
+    ?>
     <!-- InView & JS -->
     <script>
         document.documentElement.classList.remove('no-js');
@@ -37,13 +42,29 @@
         if ('IntersectionObserver' in window) document.documentElement.classList.add('inview'); 
         else document.documentElement.classList.add('no-inview'); 
     </script>
-</head>
+
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){
+            dataLayer.push(arguments)
+        };
+        gtag('js', new Date());
+        gtag('config', '<?= $gtag ?>', {
+            send_page_view: false,
+            });
+    </script>
+    </head>
 
 <body <?php body_class(); ?> <body data-barba="wrapper">
-    <div class="curtain">
 
-    </div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $gtag ?>"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
+    <div class="curtain">&nbsp;</div>
 
     <a class="gotocontent sro" href="#mainContent">
         <?php _e('Go to the main content', 'mj'); ?>
@@ -62,7 +83,7 @@
     if (is_singular('services')) $isDark = false;
     if (is_singular('case')){
         $headerColor = get_field('header_color');
-        if($headerColor == 'light') $isDark = false;
+        if($headerColor === 'light') $isDark = false;
     } 
     if(is_404()) $isDark = false;
     if(is_page_template( 'template-contact.php' )) $isDark = false;
