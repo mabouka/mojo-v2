@@ -4,8 +4,8 @@
     $terms = get_the_terms( $post, 'purpose' );
     if($terms && $terms[0]){
         $purpose = [
-            'color' => get_field('color', $term),
-            'text'  => get_field('text', $term)
+            'color' => get_field('color', $terms[0]),
+            'text'  => get_field('text', $terms[0])
         ];
     }
     
