@@ -42,6 +42,10 @@ export default class Router {
             window.MJ.parts.clear();
         });
 
+        barba.hooks.afterLeave(() => {
+            Menu.closeQuick();
+        })
+
         barba.hooks.before(() => {
             document.documentElement.classList.add('loading');
             window.lenis.stop();    
@@ -50,7 +54,6 @@ export default class Router {
         barba.hooks.beforeEnter((data) => {
             this.updateHeader(data);
             Menu.update(data);
-            Menu.closeQuick();
             ScrollTrigger.killAll();
             ScrollTrigger.refresh();
         });
@@ -63,12 +66,13 @@ export default class Router {
         });
 
         barba.hooks.afterEnter((data) => {
+            window.MJ.parts.setup(data.next.container);
+
             window.lenis.resize();
             forceAutoplay(data)
             window.MJ.cursor.reset();
             InView.addView(data.next.container);
             document.documentElement.classList.remove('loading');
-            window.MJ.parts.setup(data.next.container);
             setTimeout(() => {
                 window.lenis.resize();
                 ScrollTrigger.refresh();
