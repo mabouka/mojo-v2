@@ -23,6 +23,11 @@
         text-decoration: none;
         position: relative;
 
+        span{
+            z-index: 2;
+            position: relative;
+        }
+
         &:hover,
         &:focus{
             .clientTypology__video,
@@ -35,8 +40,7 @@
 
         &--link{
             span{
-                z-index: 2;
-                position: relative;
+ 
                 &:before{
                     background: color(sand);
                     bottom: 1px;
