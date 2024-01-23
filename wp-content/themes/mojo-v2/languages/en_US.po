@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mojo V2\n"
-"POT-Creation-Date: 2024-01-11 14:11-0300\n"
-"PO-Revision-Date: 2024-01-11 14:11-0300\n"
+"POT-Creation-Date: 2024-01-23 14:13-0300\n"
+"PO-Revision-Date: 2024-01-23 14:13-0300\n"
 "Last-Translator: \n"
 "Language-Team: Mojo\n"
 "Language: en_US\n"
@@ -14,23 +14,23 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: 404.php:6
+#: 404.php:7
 msgid "Oops. <br>bad draw"
 msgstr ""
 
-#: 404.php:11 footer.php:32 functions.php:190
+#: 404.php:13 footer.php:33 functions.php:190
 msgid "Sitemap"
 msgstr ""
 
-#: 404.php:22 functions.php:188
+#: 404.php:24 functions.php:188
 msgid "More"
 msgstr ""
 
-#: 404.php:37
+#: 404.php:39
 msgid "Error"
 msgstr ""
 
-#: footer.php:43 functions.php:189
+#: footer.php:44 functions.php:189
 msgid "Social"
 msgstr ""
 
@@ -38,19 +38,19 @@ msgstr ""
 msgid "Main"
 msgstr ""
 
-#: header.php:37
+#: header.php:49
 msgid "Go to the main content"
 msgstr ""
 
-#: header.php:73 partials/menu.php:8
+#: header.php:88 partials/menu.php:8
 msgid "Go back home"
 msgstr ""
 
-#: header.php:83
+#: header.php:98
 msgid "Menu"
 msgstr ""
 
-#: header.php:84
+#: header.php:99
 msgid "Open menu"
 msgstr ""
 
@@ -58,40 +58,40 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: partials/casesGrid.php:23 partials/sCaseFeatures.php:20
+#: partials/casesGrid.php:24 partials/sCaseFeatures.php:20
 msgid "Sectors"
 msgstr ""
 
-#: partials/casesGrid.php:30
+#: partials/casesGrid.php:38
 msgid "Territories"
 msgstr ""
 
-#: partials/casesGrid.php:37
+#: partials/casesGrid.php:51
 msgid "Clients"
 msgstr ""
 
-#: partials/casesGrid.php:44
+#: partials/casesGrid.php:64
 msgid "Services"
 msgstr ""
 
 #: partials/commitmentsPurpose.php:4
-msgid "Iniatives"
+msgid "Initiatives"
 msgstr ""
 
-#: partials/featuredCases.php:26
+#: partials/featuredCases.php:25
 msgid "See case"
 msgstr ""
 
-#: partials/featuredCases.php:45 partials/serviceProjects.php:12
+#: partials/featuredCases.php:44 partials/serviceProjects.php:12
 #: template-commitments.php:45
 msgid "See all cases"
 msgstr ""
 
-#: partials/homeService.php:13
+#: partials/homeService.php:14
 msgid "Our services"
 msgstr ""
 
-#: partials/homeService.php:40
+#: partials/homeService.php:43
 msgid "All services"
 msgstr ""
 
@@ -143,10 +143,10 @@ msgstr ""
 msgid "Our team"
 msgstr ""
 
-#: single-services.php:28
+#: single-services.php:29
 msgid "Our expertises"
 msgstr ""
 
 #: template-commitments.php:36
-msgid "Cases where we took iniatives"
+msgid "Cases where we took initiatives"
 msgstr ""

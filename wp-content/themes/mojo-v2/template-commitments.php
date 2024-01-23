@@ -33,7 +33,7 @@ get_header();
     ]);
     ?>
     <section class="commitments__case darkSection">
-        <h2 class="commitments__caseTitle sro"><?= __('Cases where we took iniatives', 'mj') ?></h2>
+        <h2 class="commitments__caseTitle sro"><?= __('Cases where we took initiatives', 'mj') ?></h2>
         <?php 
         getPartial('caseAccordion', [
             'items'         => $items,

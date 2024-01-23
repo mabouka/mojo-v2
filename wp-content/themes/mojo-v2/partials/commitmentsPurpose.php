@@ -1,7 +1,7 @@
 <section class="commitmentsPurpose darkSection">
     <div class="wrapper">
         <div class="commitmentsPurpose__inside">
-            <h2 class="sro"><?= __('Iniatives', 'mj'); ?></h2>
+            <h2 class="sro"><?= __('Initiatives', 'mj'); ?></h2>
             
             <?php if ($text): ?>
             <div class="commitmentsPurpose__text">
