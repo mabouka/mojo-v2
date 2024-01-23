@@ -18,6 +18,15 @@ export default class ClientIntro {
         this.text    = this.el.querySelector('.clientIntro__secondText');
         this.text2   = this.el.querySelector('.clientIntro__secondText2');
 
+
+        gsap.set(this.circle1, {
+            x: -1440/2
+        })
+
+        gsap.set(this.circle2, {
+            x: 1440/2
+        })
+
         this.main = gsap.timeline({
             scrollTrigger: {
                 trigger: this.el,
@@ -28,26 +37,19 @@ export default class ClientIntro {
                 //markers: true,
                 id: "Intro",
                 //invalidateOnRefresh: true,
-
             }
         })
 
-        .from(this.ray, {
-            duration: 1.8, 
-            ease: "expoScale(0.5,7,none)",
-            scale: 0.05
-        }, 2.2)
-
-        .from(this.circle1, {
+        .to(this.circle1, {
             duration: 1, 
             ease: "power1.out",
-            x: -1440/2
+            x: 0
         }, 0)
 
-        .from(this.circle2, {
+        .to(this.circle2, {
             duration: 1, 
             ease: "power1.out",
-            x: 1440/2
+            x: 0
         }, 0)
 
         .to(this.circleSection, {
@@ -56,6 +58,12 @@ export default class ClientIntro {
             maxHeight: 0,
             overwrite: true
         }, 2)
+
+        .from(this.ray, {
+            duration: 1.8, 
+            ease: "expoScale(0.5,7,none)",
+            scale: 0.05
+        }, 2.2)
 
 
         console.log('end Client Intro');
