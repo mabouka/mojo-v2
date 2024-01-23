@@ -117,9 +117,8 @@
     $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
 ?>
 <script type="text/javascript">
-    var recaptchaKey = '<?= $recaptcha ?>';
+    window.recaptchaKey = '<?= $recaptcha ?>';
 </script>
-<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=<?= $recaptcha ?>&amp;ver=3.0" id="google-recaptcha-js"></script>
 <script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
 <script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
 <script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>

@@ -1,6 +1,7 @@
-import Swiper from 'swiper';
+//import Swiper from 'swiper';
 // import Swiper styles
-import 'swiper/css';
+//import 'swiper/css';
+
 
 export default class ImagesSlider {
 
@@ -12,25 +13,25 @@ export default class ImagesSlider {
         this.el         = el;
         this.wrapper    = el.querySelector('.imagesslider__wrapper');
         this.items      = el.querySelectorAll('.imagesslider__item');
+        setTimeout(() => {
+            this.initialize();
 
+        }, 200);
+    }
+
+    initialize() {
         this.swiper = new Swiper('.swiper', {
-            // Optional parameters
             direction: 'horizontal',
             loop: true,
             autoHeight: true,
             slidesPerView: 'auto',
             spaceBetween: 35,
-            //centeredSlides : true,
-            //centerInsufficientSlides : true,
             grabCursor: true,
           });
-
-          
     }
     
     destroy() {
-        this.swiper.destroy();      
+        if(this.swiper) this.swiper.destroy();
     }
-
 
 }

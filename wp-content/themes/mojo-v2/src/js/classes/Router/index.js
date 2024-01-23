@@ -1,4 +1,6 @@
 import barba             from '@barba/core';
+//import barbaPrefetch     from '@barba/prefetch';
+
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import InView            from '../InView';
@@ -10,13 +12,27 @@ import {forceAutoplay}   from './utils/video';
 // transitions
 import curtainTransition from './transitions/curtain';
 
+// views
+import contact              from './views/contact';
+import singlecase           from './views/singlecase';
+import singleservicechild   from './views/singleservicechild';
+import pageTemplate         from './views/pageTemplate';
+
+
 export default class Router {
     constructor() {
+        //barba.use(barbaPrefetch);
 
         barba.init({
                 logLevel: 'error',
                 transitions: [
                     curtainTransition,
+                ],
+                views: [
+                    contact,
+                    singlecase,
+                    singleservicechild,
+                    pageTemplate
                 ],
                 //cacheIgnore: ['/contact/']
         });
@@ -43,6 +59,7 @@ export default class Router {
             data.current.container.remove();
             window.lenis.start();
             window.lenis.scrollTo(0,{duration:0, force: true, immediate: true});
+            window.MJ.cursor.reset();
         });
 
         barba.hooks.afterEnter((data) => {

@@ -438,10 +438,16 @@ function rjs_lwp_contactform_css_js() {
     wp_dequeue_style( 'contact-form-7' );
     wp_dequeue_script( 'wpcf7-recaptcha-js' );
     wp_dequeue_script( 'wp-polyfill-js' );
+    wp_dequeue_script( 'regenerator-runtime-js' );
+    wp_dequeue_script( 'wp-polyfill-inert-js' );
+    wp_dequeue_script( 'wpcf7-recaptcha-js-extra' );
+    wp_dequeue_script( 'wpcf7-recaptcha-js' );
+
 
 }
 add_action( 'wp_enqueue_scripts', 'rjs_lwp_contactform_css_js');
-
+add_action( 'wpcf7_enqueue_styles', function() { wp_deregister_style( 'contact-form-7' ); } );
+add_action( 'wpcf7_enqueue_scripts', function() { wp_deregister_script( 'jquery-form' ); });
 
 add_filter( 'wpcf7_load_js', '__return_false' );
 add_filter( 'wpcf7_load_css', '__return_false' );

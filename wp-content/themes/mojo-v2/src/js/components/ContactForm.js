@@ -48,10 +48,11 @@ export default class Contactform {
     e_submit(e) {
         e.preventDefault();
         grecaptcha.ready(() => {
-            grecaptcha.execute(recaptchaKey, {action: 'submit'}).then((token) => {
+            grecaptcha.execute(window.recaptchaKey, {action: 'submit'}).then((token) => {
                 Array.from(this.captchaFields).forEach(field => {
                     field.setAttribute("value", token);
                 });
+                console.log(grecaptcha);
                 this.form.submit();
             });
         });
