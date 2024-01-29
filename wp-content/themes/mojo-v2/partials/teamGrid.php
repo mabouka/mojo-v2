@@ -23,7 +23,8 @@ $people = $query->posts;
                         </div>
                     <?php endif ?>
                     <?php getPartial('teamCard', [
-                        'person' => $person
+                        'person' => $person,
+                        'class' => "teamGrid__item"
                     ]) ?>
 
                     <?php if ($key === 6 && $text) : ?>
