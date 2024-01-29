@@ -21,12 +21,46 @@
 <footer class="footer">
     <div class="wrapper">
         <div class="footer__inside">
-            <?php if ($text = get_field('footer_text', 'option')) : ?>
-                <div class="footer__text">
+
+            <div class="footer__section footer__section--contact">
+                <?php if ($text = get_field('footer_contactText', 'option')) : ?>
+                <div class="footer__sectionText">
                     <?= $text ?>
                 </div>
-            <?php endif ?>
+                <?php endif ?>
 
+                <?php if ($link = get_field('footer_contactLink', 'option')) : ?>
+                <a class="footer__sectionLink"  href="<?= $link['url'] ?>">
+                    <?= $link['title'] ?>
+                </a>
+                <?php endif ?>
+            </div>
+
+            <div class="footer__section footer__section--newsletter">
+                <?php if ($text = get_field('footer_newsletterText', 'option')) : ?>
+                <div class="footer__sectionText">
+                    <?= $text ?>
+                </div>
+                <?php endif ?>
+
+                <?php if ($link = get_field('footer_newsletterLink', 'option')) : ?>
+                <a class="footer__sectionLink"  href="<?= $link['url'] ?>">
+                    <?= $link['title'] ?>
+                </a>
+                <?php endif ?>
+            </div>
+                
+
+            <?php if ($social = getCustomMenu('social')) : ?>
+                <nav class="footer__menu footer__menu--social">
+                    <h2 class="footer__menuTitle"><?= __('Social', 'mj'); ?></h2>
+                    <?php foreach ($social as $key => $item) : ?>
+                        <a class="footer__menuItem" href="<?= $item['url'] ?>" target="_blank">
+                            <?= $item['title'] ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
+            <?php endif; ?>
 
             <?php if ($sitemap = getCustomMenu('Sitemap')) : ?>
                 <nav class="footer__menu footer__menu--sitemap">
@@ -39,16 +73,7 @@
                 </nav>
             <?php endif; ?>
 
-            <?php if ($social = getCustomMenu('social')) : ?>
-                <nav class="footer__menu footer__menu--social">
-                    <h2 class="footer__menuTitle"><?= __('Social', 'mj'); ?></h2>
-                    <?php foreach ($social as $key => $item) : ?>
-                        <a class="footer__menuItem" href="<?= $item['url'] ?>" target="_blank">
-                            <?= $item['title'] ?>
-                        </a>
-                    <?php endforeach; ?>
-                </nav>
-            <?php endif; ?>
+
 
             <span class="footer__copyright">© MOJO Agency <?= date('Y'); ?></span>
             <div class="footer__svgWrapper">
@@ -100,9 +125,21 @@
 
                 </svg>
             </div>
+            <?php 
+                $old_tree_nation = false;
+                $new_tree_nation = true;
+            ?>
+            <?php if ($old_tree_nation): ?>
+            <a class="footer__carbon" href="https://tree-nation.com/fr/profil/impact/mojo-agency#co2">
+                <img src="https://tree-nation.com/images/tracking/label-co2-website-black-en.png" alt="Three Nation" width="157" height="50"style="width:157px;height:auto;">
+            </a>
+            <?php endif; ?>
 
 
-
+            <?php if ($new_tree_nation): ?>
+            <div class="footer__carbon">
+            </div>
+            <?php endif ?>
         </div>
     </div>
 </footer>
@@ -122,6 +159,17 @@
 <script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
 <script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
 <script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
+
+<?php if($old_tree_nation): ?>
+<script src="https://tree-nation.com/js/track.js"></script>
+<script>treenation_track("6322d1badbb2d");</script>
+<?php endif ?>
+
+<?php if ($new_tree_nation): ?>
+<script src="https://widgets.tree-nation.com/js/widgets/v1/widgets.min.js?v=1.0"></script>
+<script>TreeNationOffsetWebsite({code: '6322d1badbb2d', lang: '<?= ICL_LANGUAGE_CODE ?>', theme: 'dark'}).render('.footer__carbon');</script>
+<?php endif ?>
+
 
 <!-- WPFOOTER START -->
 <?php //wp_footer(); ?>

@@ -12,8 +12,12 @@ let curtainTransition = {
             duration: 0.5,
         });
     },
-
+    beforeEnter(data){
+        data.next.container.classList.add('curtainTransitionEntered');
+        window.lenis.scrollTo(0,{duration:0, force: true, immediate: true});
+    },
     enter(data) {
+
         return gsap.to(curtain, {
             y: '100vh',
             ease: "power1.out",

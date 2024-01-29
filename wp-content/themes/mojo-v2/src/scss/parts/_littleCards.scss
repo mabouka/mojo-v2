@@ -4,7 +4,6 @@
     padding-top: s(170);
     padding-bottom: s(123);
 
-
     &:before{
         content: '';
         @include cover();
@@ -99,23 +98,22 @@
         font-weight: 400;
         line-height: em(22,14);
         text-align: center;
-
     }
 
-    
     &__itemLink{
         text-indent: -9999px;
         z-index: 1;
         @include cover();
     }
 
+    &--light {
+        .littleCards__title{
+            color: color(dark);
+        }
+    }
 
     &--dodgerblue{
         background-color: #784FE0;
-
-        &:before{
-            mix-blend-mode:lighten;
-        }
     }
 
     &--lightblue{
@@ -144,5 +142,18 @@
 
     &--darkgreyblue{
         background-color: #1D2B33;
+    }
+
+    &--dodgerblue,
+    &--outrageousorange,
+    &--denimblue,
+    &--greenpea,
+    &--darkgreyblue{
+
+        &:before{
+            mix-blend-mode: lighten;
+            opacity: 0.14;
+        }
+        
     }
 }

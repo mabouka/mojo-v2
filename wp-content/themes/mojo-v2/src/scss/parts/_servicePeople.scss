@@ -40,12 +40,14 @@
         }
     }
 
+    &--light{
+        .servicePeople__title{
+            color: color(dark);
+        }
+    }
+
     &--dodgerblue{
         background-color: #784FE0;
-
-        &:before{
-            mix-blend-mode:lighten;
-        }
     }
 
     &--lightblue{
@@ -74,5 +76,18 @@
 
     &--darkgreyblue{
         background-color: #1D2B33;
+    }
+
+    &--dodgerblue,
+    &--outrageousorange,
+    &--denimblue,
+    &--greenpea,
+    &--darkgreyblue{
+
+        &:before{
+            mix-blend-mode: lighten;
+            opacity: 0.14;
+        }
+        
     }
 }

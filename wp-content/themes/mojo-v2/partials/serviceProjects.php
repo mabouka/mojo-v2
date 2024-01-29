@@ -1,5 +1,5 @@
 <?php if ($items): ?>
-<section class="serviceProjects serviceProjects--<?= get_field("color") ?>">
+<section class="serviceProjects serviceProjects--<?= get_field("color") ?><?= $isLight ? ' serviceProjects--light' : '' ?>">
     <h2 class="serviceProjects__title"><?= $title; ?></h2>
 
     <?php 
@@ -8,7 +8,7 @@
         ]);
     ?>
 
-    <a class="serviceProjects__seeAll btn btn--light" href="<?= get_post_type_archive_link('case') ?>">
+    <a class="serviceProjects__seeAll btn<?= $isLight ? ' btn--dark' : ' btn--light' ?>" href="<?= get_post_type_archive_link('case') ?>">
         <?= __('See all cases', 'mj'); ?>
     </a>
 </section>

@@ -1,7 +1,27 @@
 .aboutIntro{
     padding-top: s(175);
-    padding-bottom: s(150);
-    border-bottom: 1px solid color(black);
+    padding-bottom: s(150+1);
+    position: relative;
+    &:before{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: color(dark);
+
+        opacity: 0;
+        //transform: scaleX(0.01);
+        transition: 500ms opacity easing(ease-out-quad) 1200ms, 500ms transform easing(ease-out-quad) 1200ms;
+    }
+
+    &.in-view{
+        &:before{
+            opacity: 1;
+            transform: scaleX(1);
+        }
+    }
 
     &__inside{
         display: flex;

@@ -21,7 +21,6 @@ export default class HomeIntro {
         this.moon = this.el.querySelector('#moon');        
 
         this.setEvents();
-        console.log(window.homeAnimationDone)
         if(window.homeAnimationDone === undefined) {
             this.preparePage();
         }
@@ -30,6 +29,23 @@ export default class HomeIntro {
             inview.addElement(this.homeVideo);
             inview.addElement(this.header);
             this.el.classList.add('homeIntro--inview')
+
+            gsap.to(this.moon, { 
+                autoAlpha: 1,
+                scale: 1,
+                x: 0,
+                rotate: 0,
+                duration: 1,
+                ease: "power3.out",
+            }, 0);
+    
+    
+            gsap.to(this.poly, {
+                x: 0,
+                rotate: 0,
+                duration: 1.2,
+                ease: "power3.out",
+            }, 0);
         }
     }
 

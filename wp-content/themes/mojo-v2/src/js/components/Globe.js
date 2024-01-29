@@ -14,66 +14,125 @@ export default class Globe {
     }
 
     constructor(el) {
+        console.log('start Globe');
         this.el              = el;
         this.baseUrl         = el.dataset.baseUrl;
+        this.right           = el.querySelector('.globe__right');
+
         this.canvas          = el.querySelector('.globe__anim');
         this.context         = this.canvas.getContext('2d');
         this.canvas.width    = 1285;
         this.canvas.height   = 952;
 
-        this.frameIndex      = 0;
+        this.currentFrame    = -1;
+        this.firstFrame      = 53;
         this.frameCount      = 250;
-        this.images = [];
+        this.fileType        = this.support_format_webp() ? 'webp' : 'jpg';
         this.anim = {
             frame: 0
         }
+        this.images = this.getImages();
 
-        this.preloadImages();
 
-        setTimeout(() => {
-            this.preloadImages();
-        }, 200);
-        this.images[0].onload = this.render.bind(this); // render first image
-        
+        //gsap.ticker.add(this.render.bind(this));
+
+        this.images[this.anim.frame].image.onload = this.render.bind(this); // render first image
+
         this.animation = gsap.to(this.anim, {
-            frame: this.frameCount - 1,
+            frame: this.images.length - 1,
             snap: "frame",
             ease: "none",
             scrollTrigger: {
                 trigger: this.el,
-                pin: true,
-                start: "top",
-                end: "+=2000",
+                //endTrigger: this.el.querySelector('.globe__animEndTrigger'),
+                start: "top-=" + (window.innerHeight/2),
+                end: "bottom-=" + (window.innerHeight/8*5),
                 scrub: true,
                 //markers: true,
-                id: "globe",
+                id: "globe-canvas",
 
             },
             onUpdate: (self) => {
                 this.render();
             }, // use animation onUpdate instead of scrollTrigger's onUpdate
         });
+        
+
+        this.main = gsap.timeline({
+            scrollTrigger: {
+                trigger: this.el,
+                start: "top-=200",
+                end: "bottom-=850",
+                scrub: true,
+                //markers: true,
+                id: "globe",
+                ease: "none"
+            }
+        })
+        .to(this.right, {
+            y: 660,
+            ease: "none",
+            duration: 1
+        },0);
+        
+
+        console.log('end Globe');
+
     }
 
     currentFrame(i) {
         i = i.toString().padStart(4, '0');
-        return `${this.baseUrl}globe-1285-${i}.webp`;
+        return `${this.baseUrl}globe-1285-${i}.${this.fileType}`;
     }
 
-    preloadImages() {
-        for (let i = 1; i <= this.frameCount; i++) {
-            const img = new Image()
-                  img.src =this.currentFrame(i)
-            this.images.push(img);
+    getImages() {
+        let images = [];
+        for (let i = this.firstFrame; i <= this.frameCount; i++) {
+            let item = {};
+                item.frameIndex = i,
+                item.src = this.getImageUrl(i);
+                item.loaded = false;
+                item.image = this.preloadImage(item.src);
+                item.image.onload = () => {
+                    item.loaded = true;
+                }
+
+                setTimeout(() => {
+                    item.loaded ? this.preloadImage(item.src) : null
+                }, 1000);
+                
+            images.push(item);
+            
+
         }
+        return images;
+    }
+
+    getImageUrl(index) {
+        let paddedIndex = index.toString().padStart(4, '0');
+        let url = `${this.baseUrl}globe-1285-${paddedIndex}.${this.fileType}`;
+        return url;
+    }
+    preloadImage(src) {
+        const img = new Image()
+              img.src = src;
+        return img;
+    }
+
+    support_format_webp()
+    {
+        let elem = document.createElement('canvas');
+        if (!!(elem.getContext && elem.getContext('2d'))) return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
+        else return false;
     }
     
     render(e) {
-        this.renderText();
-
         try {
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.context.drawImage(this.images[Math.ceil(this.anim.frame, 1)], 0, 0); 
+            if (this.anim.frame !== this.currentFrame) { 
+                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.context.drawImage(this.images[this.anim.frame].image, 0, 0); 
+                this.currentFrame = this.anim.frame;    
+            }
         } catch (error) {
             console.log(this.images);
             console.error(error);
@@ -81,10 +140,6 @@ export default class Globe {
         }
     }
 
-    renderText() {
-        if(this.anim.frame >= 190)  this.el.classList.add('globe--complete');
-        else                        this.el.classList.remove('globe--complete');
-    }
 
     /*
      * Events
@@ -92,7 +147,7 @@ export default class Globe {
 
     e_resize() {
         console.log('globe resize');
-        this.animation.scrollTrigger.refresh();
+        this.main.scrollTrigger.refresh();
     }
 
 }

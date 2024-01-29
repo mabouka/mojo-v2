@@ -38,6 +38,18 @@
         }
     }
 
+    &__item--service .sCaseFeatures__itemList{
+        li{
+            @extend .tag-underline;
+            display: inline-block;
+            margin-left: 0 !important;
+            margin-right: s(8);
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+
     &__link{
         align-self: center;
         text-align: right;

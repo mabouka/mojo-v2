@@ -26,18 +26,25 @@
         bottom: 0;
         width: auto;
         pointer-events: none;
+
+        #moon,
+        #poly{
+            transform: translate3d(100%, 0,0);
+        }
     }
 
     &__stars{
         position: absolute;
         left: 50%;
-        transform: translate3d(-50%,0%,0);
+        will-change: transform;
+        transform: translate3d(-50%,0%,0) scale(0.8);
         right: 0;
         top: 7%;
         height: 86%;
         bottom: 0;
         width: auto;
         pointer-events: none;
+
         & > path,
         & > g{
             opacity: 0.4;
@@ -73,31 +80,6 @@
     }
 }
 
-// General animations
-.fx-word {
-    display: inline-flex;
-}
-  
-// Title FX
-// -----------------------------------------------------------------------------
-.fx-parent {
-    perspective: 2000;
-}
-  
-.fx-letter {
-    transform: translate3d(80px, 50px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
-    transform-origin: 0 100%;
-    transform-style: preserve-3d;
-    transition: all 1.2s cubic-bezier(0.245, 0.495, 0.000, 0.990);
-    opacity: 0;
-
-    @for $n from 1 through 100 {
-        &--#{$n} {
-            transition-delay: .1s + (($n - 1) * .015s);
-        }
-    }
-}
-  
 
 .homeIntro {
     .fx-letter {

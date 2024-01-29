@@ -1,4 +1,4 @@
-<?php if ($cases): ?>
+<?php if ($casesLines || $casesGallery): ?>
 <section class="featuredCases">
     <div class="wrapper">
         <div class="featuredCases__inside">
@@ -12,13 +12,13 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if ($cases) : ?>
+                <?php if ($casesGallery) : ?>
                     <div class="featuredCases__gallery">
-                        <?php foreach ($cases as $key => $case) : ?>
+                        <?php foreach ($casesGallery as $key => $case) : ?>
                             <?php
-                            $image = getCustomThumbnail($case['case']->ID, ['featuredCases--big', 'featuredCases--big@2x', 'featuredCases--small', 'featuredCases--small@2x']);
+                            $image = getCustomThumbnail($case->ID, ['featuredCases--big', 'featuredCases--big@2x', 'featuredCases--small', 'featuredCases--small@2x']);
                             ?>
-                            <a href="<?= get_the_permalink($case['case']); ?>" id="featuredImage-<?= $key ?>" class="darkSection featuredCases__galleryItem<?= $key === 0 ? ' featuredCases__galleryItem--big' : '' ?> js-in-view appear-fadeup">
+                            <a href="<?= get_the_permalink($case); ?>" data-hover-target="#featuredVideo-<?= $key ?>" id="featuredImage-<?= $key ?>" class="darkSection featuredCases__galleryItem<?= $key === 0 ? ' featuredCases__galleryItem--big' : '' ?> js-in-view appear-fadeup">
                                 <img src="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?>" srcset="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?> 1x, <?= $image->src[$key === 0 ? 'featuredCases--big@2x' :  'featuredCases--small@2x']; ?> 2x" alt="<?= $image->alt; ?>" width="294" height="260">
                                 <div class="featuredCases__galleryItemHover darkSection">
                                     <span class="btn btn--light btn--mini">
@@ -30,12 +30,12 @@
                     </div>
                 <?php endif; ?>
 
-                <?php if ($cases) : ?>
+                <?php if ($casesLines) : ?>
                     <ul class="featuredCases__cases darkSection">
-                        <?php foreach ($cases as $key => $case) : ?>
+                        <?php foreach ($casesLines as $key => $case) : ?>
                             <li class="featuredCases__case js-in-view appear-fade">
-                                <a class="featuredCases__caseLink" href="<?= get_the_permalink($case['case']); ?>" data-hover-target="#featuredVideo-<?= $key ?>" data-image-target="#featuredImage-<?= $key ?>">
-                                    <?= get_the_title($case['case']); ?>
+                                <a class="featuredCases__caseLink" href="<?= get_the_permalink($case); ?>" data-hover-target="#featuredVideo-<?= count($casesGallery) + $key ?>" data-image-target="#featuredImage-<?= count($casesGallery) + $key ?>">
+                                    <?= get_the_title($case); ?>
                                 </a>
                             </li>
                         <?php endforeach; ?>
@@ -57,34 +57,69 @@
                         <path d="M342.112 0H301.042L179.518 201.19V15.2469V0H170.763H129.699L0 214.71H59.0391L170.763 29.75V214.71H171.354H179.518H230.388L342.112 29.75V214.71H350.872V15.2469V0H342.112Z" fill="#FAF6ED" />
                     </svg>
                 </div>
-
-                <?php
-                getPartial('starSky');
-                ?>
+                <div class="featuredCases__starsky" src="<?= getUrl('dist/images/starsky.svg'); ?>"></div>
 
                 <div class="featuredCases__videos">
-                    <?php foreach ($cases as $key => $case) : ?>
+                    <?php $combined = array_merge($casesGallery, $casesLines); ?>
+                    <?php foreach ($combined  as $key => $case) : ?>
+                        <?php 
+                            $categories = get_the_category($case); 
+                            $video   = get_field('card_video', $case);
+                            $picture = get_field('card_image', $case);
+
+                            if(!$picture) {
+                                $mainPicture = getCustomThumbnail($case->ID, [ 'featuredVideo', 'featuredVideo@2x']);
+                            }
+                            $sentence = get_field('video_sentence', $case);
+                        ?>
+
                         <div class="featuredCases__video" id="featuredVideo-<?= $key ?>">
                             <div class="featuredCases__videoWrapper">
-                                <?php if ($case['video']) : ?>
-                                    <video src="<?= $case['video']; ?>" playsinline muted loop></video>
-                                <?php else : ?>
-                                    <img src="<?= $case['picture']['sizes']['featuredVideo']; ?>" alt="<?= $case['picture']['alt'] ?>">
+                                <?php if ($video) : ?>
+                                    <video 
+                                        src="<?= $video; ?>" 
+                                        poster="<?= $picture['sizes']['featuredVideo']; ?>"
+                                        playsinline muted loop
+                                    >
+                                    </video>
+                                <?php elseif($picture) : ?>
+                                    <img 
+                                        src="<?= $picture['sizes']['featuredVideo']; ?>"
+                                        srcset="<?= $picture['sizes']['featuredVideo']; ?> 1x, <?= $case['picture']['sizes']['featuredVideo']; ?> 2x"
+                                        alt="<?= $picture['alt'] ?>"
+                                    >
+                                <?php else: ?>
+                                    <img 
+                                        src="<?= $mainPicture->src['featuredVideo'] ?>"
+                                        srcset="<?= $mainPicture->src['featuredVideo'] ?> 1x, <?= $mainPicture->src['featuredVideo@2x'] ?> 2x"
+                                        alt="<?= $mainPicture->alt ?>"
+                                    >
                                 <?php endif; ?>
                             </div>
+
+                            
                             <div class="featuredCases__videoDescription">
-                                <span class="featuredCases__videoTitle"><?= get_the_title($case['case']) ?></span>
-                                <?php
-                                $categories = get_the_category($case['case']);
-                                if ($categories) : ?>
-                                    <ul class="featuredCases__videoCategories">
-                                        <?php foreach ($categories as $category) : ?>
-                                            <li class="featuredCases__videoCategory">
-                                                <?= $category->name; ?>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
+
+                                <span class="featuredCases__videoTitle">
+                                    <?= get_the_title($case) ?>
+                                </span>
+                                
+                                <?php if ($sentence): ?>
+                                <p class="featuredCases__videoText">
+                                    <?= $sentence ?>
+                                </p>
+                                <?php endif ?>
+
+                                <?php if ($categories) : ?>
+                                <ul class="featuredCases__videoCategories">
+                                    <?php foreach ($categories as $category) : ?>
+                                        <li class="featuredCases__videoCategory">
+                                            <?= $category->name; ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
                                 <?php endif; ?>
+                                
                             </div>
                         </div>
                     <?php endforeach; ?>

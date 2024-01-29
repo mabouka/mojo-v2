@@ -20,12 +20,14 @@ $the_query = new WP_Query([
                 <?php endif ?>
 
                 <div class="serviceGrid__grid">
-                <?php foreach ($the_query->posts as $key => $service) : ?>
-                    <?php getPartial('serviceCard', [
-                        'service' => $service,
-                        'modifier' => 'full'
-                    ]); ?>
-                <?php endforeach; ?>
+                    <?php foreach ($the_query->posts as $key => $service) : ?>
+                    <div class="serviceGrid__item">
+                        <?php getPartial('serviceCard', [
+                            'service' => $service,
+                            'modifier' => 'full'
+                        ]); ?>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
 
             </div>

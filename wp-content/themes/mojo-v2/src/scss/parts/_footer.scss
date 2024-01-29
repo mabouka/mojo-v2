@@ -12,6 +12,34 @@
         padding-bottom: s(461);
     }
 
+    &__section{
+        width: colGut(3,0,12,0);
+        margin-right: gutter(12);
+        position: relative;
+        z-index: 1;
+    }
+
+    &__sectionText{
+        @extend .title30;
+        color: color(sand);
+        margin-bottom: s(30);
+    }
+
+    &__sectionLink{
+        color: color(sand);
+        font-family: Cambon, serif;
+        font-size: s(18);
+        font-weight: 600;
+        line-height: em(23,18); /* 127.778% */
+        text-decoration-line: underline;
+        transition: 200ms color easing(ease-out-quad);
+
+        &:hover,
+        &:focus{
+            color: color(yellow);
+        }
+    }
+
     &__text{
         position: relative;
         z-index: 1;
@@ -44,7 +72,7 @@
         width: col(2,12);
         justify-self: flex-end;
         margin-left: auto;
-        &--social{
+        &--sitemap{
             margin-left: gutter(12);
         }
     }
@@ -78,8 +106,15 @@
     &__copyright{
         position: absolute;
         z-index: 1;
-        right: s(35);
+        right: s(0);
         bottom: s(50);
+    }
+
+    &__carbon{
+        position: absolute;
+        right: s(0);
+        bottom: s(95);
+        mix-blend-mode: lighten;
     }
 
     &__svgWrapper{

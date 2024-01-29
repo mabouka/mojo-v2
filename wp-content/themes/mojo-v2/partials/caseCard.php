@@ -4,7 +4,7 @@
     $video = get_field('card_video', $case);
 ?>
 
-<section class="caseCard<?= $video ? ' caseCard--video' :'' ?>">
+<section class="js-is-center caseCard<?= $video ? ' caseCard--video' :'' ?> ">
     <a class="caseCard__link" href="<?= get_the_permalink($case); ?>">
         <?= get_the_title($case); ?>
     </a>

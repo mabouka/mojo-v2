@@ -4,9 +4,6 @@
             <h1 class="sCaseIntro__title">
                 <?= $title; ?>
             </h1>
-            <div class="sCaseIntro__text">
-                <?= $text; ?>
-            </div>
         </div>
     </div>
 </div>

@@ -4,6 +4,7 @@ import Cursor       from './classes/Cursor';
 import cursorOption from './classes/cursorOption';
 import Menu         from './classes/Menu';
 import InView       from './classes/InView';
+import InViewCenter       from './classes/IsCentered';
 import Router       from './classes/Router';
 import Footer       from './classes/Footer';
 import Header       from './classes/Header';
@@ -20,7 +21,7 @@ class Mojo {
         this.cursorEl    = document.querySelector('.cursor');
         this.header      = new Header();
         this.parts       = Pluton;
-        //this.parts.setup(); //only uncomment if you swith off router
+        this.parts.setup(); //only uncomment if you swith off router
         this.menu        = Menu.initialize();
         this.footer      = new Footer();
         this.cursor      = new Cursor(this.cursorEl, cursorOption).initialize();

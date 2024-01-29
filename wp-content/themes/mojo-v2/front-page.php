@@ -21,7 +21,9 @@
         "title"     => get_field('featured_title'),
         "text"      => get_field('featured_text'),
         "gallery"   => get_field('featured_galery'),
-        "cases"     => get_field('featured_cases'),
+        "casesGallery"   => get_field('featured_casesGallery'),
+        "casesLines"     => get_field('featured_casesLines'),
+
     ]);
 
     getPartial('homeService', [

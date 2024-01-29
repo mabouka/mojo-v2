@@ -27,17 +27,4 @@ export default class CommitmentsEarth {
             0
         )
     }
-
-    setEvents() {
-
-    }
-
-
-    /**
-     * Handlers
-     */
-
-    e_error(e) {
-
-    }
 }

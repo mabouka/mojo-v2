@@ -30,22 +30,25 @@
     &__title{
         @extend .body18;
         color: color(white);
-        margin-right: s(8);
+        margin-right: s(30);
     }
 
     &__categories{
         display: flex;
         flex-wrap: wrap;
+        margin-top: s(9);
+
     }
 
     &__category{
-        @extend .body18;
+        @extend .tag-underline;
         color: color(white);
-        opacity: 0.5;
+        &:after{
+            background-color: color(white);
+        }
 
-        & + &:before{
-            margin-left: s(6);
-            content: '/';
+        & + &{
+            margin-left: s(10);
         }
     }
 

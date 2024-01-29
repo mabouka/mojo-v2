@@ -15,7 +15,6 @@ export default class ImagesSlider {
         this.items      = el.querySelectorAll('.imagesslider__item');
         setTimeout(() => {
             this.initialize();
-
         }, 200);
     }
 

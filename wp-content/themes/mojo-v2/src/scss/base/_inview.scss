@@ -1,7 +1,7 @@
 .inview{
-    .js-in-view{
 
-        &.appear{
+        .appear{
+            
             &-fade{
                 visibility: hidden;
                 opacity: 0;
@@ -13,8 +13,11 @@
                 opacity: 0;
                 transform: translate3d(0,#{s(30)},0);
                 will-change: transform, opacity;
-                transition: visibility 0ms linear .1s, opacity .8s easing(ease-out-cubic) .1s,transform .8s easing(ease-out-quad) .1s;
+                transition: visibility 0ms linear .1s, 
+                            opacity    .8s easing(ease-out-quad) .1s,
+                            transform  .8s easing(ease-out-quad) .1s;
                 @media screen and (max-width: s(1024)) {
+                    transition: visibility 0ms linear .1s, opacity .5s easing(ease-out-cubic);
                     transform: none;
                 }
             }
@@ -23,54 +26,25 @@
                 opacity: 0;
                 transform: translate3d(0,#{s(-30)},0);
                 will-change: transform, opacity;
-                transition: visibility 0ms linear .1s, opacity .8s easing(ease-out-cubic) .1s,transform .8s easing(ease-out-quad) .1s;
+                transition: visibility 0ms linear .1s, opacity 1.2s easing(ease-out-cubic) .1s,transform 1.2s easing(ease-out-quad) .1s;
                 @media screen and (max-width: s(1024)) {
                     transform: none;
                 }
             }
-            &-delay2{
-                transition-delay: .2s;
-            }
-    
-            &-delay3{
-                transition-delay: .3s;
-            }
-    
-            &-delay4{
-                transition-delay: .4s;
-            }
+            @for $n from 1 through 50 {
+                &-delay#{$n}{
+                    transition-delay: $n/10 * 1s;
+                }
 
-            &-delay5{
-                transition-delay: .5s;
-            }
-
-            &-delay6{
-                transition-delay: .6s;
-            }
-
-            &-delay7{
-                transition-delay: .7s;
-            }
-
-            &-delay8{
-                transition-delay: .8s;
-            }
-
-            @media screen and (max-width: s(1024)) {
-                &-delay1,
-                &-delay2,
-                &-delay3,
-                &-delay4,
-                &-delay5,
-                &-delay6,
-                &-delay7,
-                &-delay8{
-                    transition-delay: .1s;
+                @media screen and (max-width: s(1024)) {
+                    &-delay#{$n}{
+                        transition-delay: 0.1s
+                    }
                 }
             }
         }
     
-        &.in-view{
+        .in-view{
             &.appear{
                 &-fade{
                     opacity: 1;
@@ -87,5 +61,51 @@
                 }
             }
         }
+    
+}
+
+
+
+  
+// Title FX
+// -----------------------------------------------------------------------------
+.fx-parent {
+    perspective: 2000;
+    margin-right: -0.2em
+}
+
+// General animations
+.fx-word {
+    display: inline-flex;
+    margin-right: 0.2em
+}
+  
+.fx-letter {
+
+    transform: translate3d(-0.7em, 0.6em, -5em) scaleY(0.01) rotateX(15deg) rotateZ(-15deg);
+    transform-origin: 0 100%;
+    transform-style: preserve-3d;
+    transition: all 1.2s cubic-bezier(0.245, 0.495, 0.000, 0.990);
+    opacity: 0;
+
+    @for $n from 1 through 100 {
+        &--#{$n} {
+            transition-delay: .1s + (($n - 1) * .01s);
+        }
+    }
+}
+.fx-parent.in-view{
+    .fx-letter {
+        opacity: 1;
+        transform: translateZ(0) scaleY(1) rotateX(0) rotate(0);
+    }
+}
+
+
+.fadeTransitionEntered{
+
+    .fx-letter{
+        transform: translateZ(0) scaleY(1) rotateX(0) rotate(0);
+        transition: none !important;
     }
 }

@@ -128,6 +128,11 @@
         width: calc(50vw + 16.5px);
         border-bottom: 1px solid black;
 
+        @media screen and (max-width: 1285px){
+            width: calc(100% + 30px);
+            margin-left: s(-30);
+        }
+
         &:first-child{
             border-top: 1px solid black;
         }
@@ -136,6 +141,11 @@
     &__caseLink{
         position: relative;
         padding-left: calc(50vw - 642.5px);
+
+        @media screen and (max-width: 1285px){
+            padding-left: 30px;
+        }
+
         text-decoration: none;
         padding-top: s(28);
         padding-bottom: s(28);
@@ -167,11 +177,19 @@
 
     &__seeAll{
         width: calc(50vw + 16.5px);
+        @media screen and (max-width: 1285px){
+            width: calc(100% + 30px);
+            margin-left: s(-30);
+        }
         border-bottom: 1px solid black;
     }
 
     &__seeAllLink{
         padding-left: calc(50vw - 642.5px);
+
+        @media screen and (max-width: 1285px){
+            padding-left: 30px;
+        }
         text-decoration: none;
         padding-top: s(28);
         padding-bottom: s(28);
@@ -182,7 +200,7 @@
         color: color(dark);
         font-size: s(22);
         font-weight: 600;
-        line-height: em(30, 22); /* 104.545% */
+        line-height: em(30, 22);
         position: relative;
 
         svg{
@@ -214,7 +232,15 @@
         margin-left: s(40);
         margin-right: s(-40);
         margin-top: s(57);
-        margin-bottom: s(40+170);
+        margin-bottom: s(40+250);
+
+        @media screen and (max-width: 1285px){
+            width: calc( #{colGut(6,0,12,0)} - 30px);
+            margin-left: s(30);
+            margin-top: s(30);
+        }
+
+
     }
 
     &__videos{
@@ -223,18 +249,39 @@
         top: s(40);
         width: 100%;
         padding-top: 100%;
- 
         margin-top: -100%;
         pointer-events: none;
+
+        @media screen and (max-height: 1000px){
+            width: 80%;
+            padding-top: 80%;
+            margin-top: -80%;
+            margin-left: 10%;
+            top: s(30);
+        }
+
+        @media screen and (max-width: 1285px){
+            top: s(30);
+        }
     }
 
     &__starsky{
         position: absolute;
         top: 0;
+        bottom: s(40+250) * -1;
         left: s(128);
-        max-height: 100%;
+        width: s(498);
+
         mix-blend-mode: difference;
         pointer-events: none;
+        background-image: url(./../images/starsky.svg);
+        background-size: 498px;
+
+        @media screen and (max-width: 1285px){
+            left: 0;
+            right: 0;
+            width: 40vw;
+        }
     }
 
     &__videoDescription{
@@ -247,6 +294,19 @@
         .featuredCases__video--active &{
             opacity: 1;
         }
+
+        @media screen and (max-height: 1000px){
+            padding-top: s(30);
+            position: relative;
+            left: -10%;
+            width: 120%;
+        }
+        @media screen and (max-width: 1285px){
+            padding-top: s(30);
+
+        
+        }
+
     }
 
     &__videoTitle{
@@ -254,36 +314,30 @@
         font-family: Cambon, serif;
         font-size: s(50);
         line-height: 110%;
-        margin-bottom: s(20);
+        margin-bottom: s(28);
         display: block;
+        @media screen and (max-height: 1000px){
+            margin-left: -5%;
+            width: 110%;
+            margin-right: -5%;
+        }
+    }
+
+    &__videoText{
+        @extend .body18;
+        max-width: s(294);
+        width: 100%;
+        margin: 0 auto s(30) auto;
     }
 
     &__videoCategories{
         justify-content: center;
         display: flex;
+        flex-wrap: wrap;
     }
 
     &__videoCategory{
-        font-family: Cambon, serif;
-        font-size: s(9);
-        font-weight: 600;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        position: relative;
-
-        & + &{
-            margin-left: s(20);
-        }
-        &:after{
-            content: '';
-            position: absolute;
-            position: absolute;
-            left: 0;
-            height: 1px;
-            right: 0;
-            bottom: -8px;
-            background-color: color(black);
-        }
+        @extend .tag-underline;
     }
 
     &__videoWrapper{
@@ -312,6 +366,7 @@
         right: 0;
         width: 100%;
         height: 100%;
+        
 
         opacity: 0;
         transition: opacity 200ms easing(ease-out-quad) 200ms;
@@ -366,7 +421,19 @@
             left: 0;
             right: s(30);
             margin: auto;
+            width: 350/548*100%;
+            height: auto;
+        }
+        @media screen and (max-height: 1000px){
+            width: 80%;
+            padding-top: 80%;
+            margin-left: 10%;
+            top: s(30);
+        }
 
+        @media screen and (max-width: 1285px){
+            top: s(30);
         }
     }
+    
 }

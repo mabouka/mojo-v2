@@ -5,17 +5,17 @@
         <?php foreach ($items as $item): ?>
 
         <?php if ($item['url']): ?>
-        <a class="clientTypology__item clientTypology__item--link" href="<?= $item['url'] ?>">
+        <a class="clientTypology__item clientTypology__item--link<?=  $item['video'] ? ' clientTypology__item--video' : '' ?>" href="<?= $item['url'] ?>">
         <?php else: ?>
-        <span class="clientTypology__item">
+        <span class="clientTypology__item<?=  $item['video'] ? ' clientTypology__item--video' : '' ?>">
         <?php endif ?>
             <span class="clientTypology__itemText">
                 <?= $item['title']; ?>
             </span>
 
             <?php if (isset($item['video']) && $item['video']): ?>
-            <div class="clientTypology__video">
-                <video autoplay playsinline muted src="<?= $item['video'] ?>" poster="<?= $item['image']['sizes']['imagesslider@2x']?>" ></video>
+            <div class="clientTypology__image">
+                <video  playsinline muted  src="<?= $item['video'] ?>" poster="<?= $item['image']['sizes']['imagesslider@2x']?>" ></video>
             </div>
             <?php else: ?>
             <figure class="clientTypology__image">

@@ -1,6 +1,7 @@
 .serviceGrid{
     background-color: color(dark);
     padding-bottom: s(160);
+
     &__inside{
 
     }
@@ -8,31 +9,36 @@
     &__grid{
         display: flex;
         flex-wrap: wrap;
+        will-change: transform, opacity;
+        opacity: 0;
+        transform: translate3d(0,30px, 0);
+        transition: opacity .6s easing(ease-out-quad) .1s, transform .6s easing(ease-out-quad) .1s;
 
-        .serviceCard{
+        .serviceGrid--inview &{
+            opacity: 1;
             transform: translate3d(0, 0, 0);
-            transition: 200ms transform easing(ease-out-quad);
-            &:hover{
-                transform: translate3d(0, -30px, 0);
-            }
 
-            &:nth-child(1n+5){
-                &:hover{
-                    //transform: translate3d(0, 30px, 0);
-                }
-            }
+        }
+    }
 
+    &__item{
+        width: col(3, 12);
+        margin-left: gutter(12);
+        &:nth-child(4n+1){
+            margin-left: 0;
+        }
 
+        &:nth-child(1n+5){
+            margin-top: s(35);
+        }
+    }
 
-            width: col(3, 12);
-            margin-left: gutter(12);
-            &:nth-child(4n+1){
-                margin-left: 0;
-            }
-
-            &:nth-child(1n+5){
-                margin-top: s(35);
-            }
+    .serviceCard{
+        width: 100%;
+        transform: translate3d(0, 0, 0);
+        transition: 200ms transform easing(ease-out-quad);
+        &:hover{
+            transform: translate3d(0, -30px, 0);
         }
     }
 
@@ -44,7 +50,10 @@
 
     &--service{
         background-color: color(sand);
-
         padding-bottom: s(110);
+    }
+
+    &--inview{
+        
     }
 }

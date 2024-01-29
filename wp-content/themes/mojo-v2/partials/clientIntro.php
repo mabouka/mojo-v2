@@ -8,15 +8,15 @@
             <defs>
                 <circle id="circle1" cx="720" cy="276" r="275"/>
                 <circle id="circle2" cx="720" cy="276" r="275" />
-                <text id="text1" font-family="Cambon" text-anchor="middle"  font-size="100" x="720" y="202" dy="0">
+                <text class="clientIntro__svgTitle" id="text1" font-family="Cambon" text-anchor="middle"  font-size="100" x="720" y="202" dy="0">
                     <?= $title1 ?>
                 </text>
 
-                <text id="text2" font-family="Cambon" text-anchor="middle"  font-size="100" x="720" y="302" dy="0">
+                <text class="clientIntro__svgTitle" id="text2" font-family="Cambon" text-anchor="middle"  font-size="100" x="720" y="302" dy="0">
                     <?= $title2 ?>
                 </text>
 
-                <text id="text3" font-family="Cambon" text-anchor="middle" font-size="100" x="720" y="402" dy="0">
+                <text class="clientIntro__svgTitle" id="text3" font-family="Cambon" text-anchor="middle" font-size="100" x="720" y="402" dy="0">
                     <?= $title3 ?>
                 </text>
 

@@ -135,6 +135,11 @@ require_once('inc/images.php');
  */
 //require_once('inc/posttype/work.php');
 
+/*
+ * Filter Query from cases
+ */
+require_once('inc/mainQuery.php');
+
 
 /*
  * Menus Helpers;
@@ -457,6 +462,30 @@ function deregister_polyfill(){
     //wp_deregister_script( 'wp-polyfill' );
     //wp_deregister_script( 'regenerator-runtime' );
   
-  }
-  add_action( 'wp_enqueue_scripts', 'deregister_polyfill');
+}
+add_action( 'wp_enqueue_scripts', 'deregister_polyfill');
+
+function splitCharWord($text, $charIndex = 0) {
+    $text = str_replace('<br>','£',$text);
+    $output = '';
+    
+    $lines = explode("<br />",trim($text));
+    foreach ($lines as $key => $line) {
+        $words = explode(" ",trim($line));
+        foreach($words as $word){
+            $output .= '<span class="fx-word">';
+            foreach(mb_str_split($word) as $char){
+                $charIndex++;
+                $output .= '<span class="fx-letter fx-letter--'. $charIndex .'">';
+                $output .= $char;
+                $output .= '</span>';
+            }
+            $output .= '</span>';
+        }
+        $output .= '<br />';
+    }
+    $output = str_replace('£','<br>',$output);
+
+    return $output;
+}
   

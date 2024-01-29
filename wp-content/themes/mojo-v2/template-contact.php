@@ -26,10 +26,10 @@
 
         <div class="wrapper">
             <div class="contact__inside">
-                <h1 class="contact__title">
-                    <?= $title; ?>
+                <h1 class="contact__title js-in-view fx-parent">
+                    <?= splitCharWord($title); ?>
                 </h1>
-                <div class="contact__content">
+                <div class="contact__content  js-in-view appear-fadeup appear-delay4">
                     <div class="contact__text">
                         <?= $text; ?>
                     </div>

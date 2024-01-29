@@ -25,7 +25,22 @@ if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         define('DB_COLLATE', '');
         define('WP_DEBUG', true);
         define('WP_REDIS_DISABLED', true);
-        define( 'WP_ALLOW_REPAIR', true );
+        define('WP_ALLOW_REPAIR', true );
+
+        /*
+        define('.COOKIE_DOMAIN.', 'mojo-agency.test');
+        define('.SITECOOKIEPATH.', '.');
+    
+        if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $list = explode(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
+                $_SERVER['REMOTE_ADDR'] = $list[0];
+        }
+        define( 'WP_HOME', 'https://mojo-agency.test' );
+        define( 'WP_SITEURL', 'https://mojo-agency.test' );
+        $_SERVER['HTTP_HOST'] = 'mojo-agency.test';
+        $_SERVER['REMOTE_ADDR'] = 'https://mojo-agency.test';
+        $_SERVER[ 'SERVER_ADDR' ] = 'mojo-agency.test';
+        */
 
 } else {
 

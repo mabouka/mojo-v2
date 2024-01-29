@@ -1,5 +1,5 @@
 <?php if ($items): ?>
-<section class="servicePeople servicePeople--<?= get_field("color") ?>">
+<section class="servicePeople servicePeople--<?= get_field("color") ?><?= $isLight ? ' servicePeople--light' : '' ?>">
     <div class="wrapper">
         <div class="servicePeople__inside">
             <h2 class="servicePeople__title"><?= $title ?></h2>

@@ -28,9 +28,8 @@
             <?php endforeach; ?>
             </nav>
             <?php endif ?>
-
             <?php if ($svg): ?>
-            <?= str_replace('serviceCard__picture', 'serviceHeader__picture',  $svg) ?>
+            <img class="serviceHeader__picture" src="<?= $svg['url'] ?>" alt="<?= $svg['alt'] ?>">
             <?php endif ?>
 
         </div>

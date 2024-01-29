@@ -6,16 +6,14 @@ get_header(); ?>
 <div class="view" data-barba="container" data-barba-namespace="archivecase">
 <?php
 
-    getPartial('casesIntro', [
+    getPartial('casesGrid', [
         'title'     => get_field('casepage_intro_title', 'options'),
     ]);
 
-    getPartial('casesGrid');
-
     getPartial('casesServices', [
         'title'     => get_field('casepage_expertise_title', 'options'),
-        'text'     => get_field('casepage_expertise_text', 'options'),
-        'button'     => get_field('casepage_expertise_button', 'options'),
+        'text'      => get_field('casepage_expertise_text', 'options'),
+        'button'    => get_field('casepage_expertise_button', 'options'),
     ]);
 
 ?>

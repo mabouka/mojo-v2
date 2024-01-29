@@ -1,5 +1,15 @@
 .casesGrid{
-    overflow: hidden;
+    padding-top: s(175);
+    min-height: 100vh;
+    // /overflow: hidden;
+
+    &__title{
+        max-width: s(695+20);
+        color: color(dark);
+        @extend .title100;
+        margin-bottom: s(110);
+
+    }
 
     &__filters{
         display: flex;
@@ -20,6 +30,54 @@
 
     &__seeAll,
     &__filterLink{
+
+
+    }
+
+    &__form{
+        display: flex;
+        align-items: center;
+        padding-bottom: s(18);
+        position: relative;
+        
+        &:after{ 
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -50vw;
+            width: 100vw;
+            height: 1px;
+            background-color: color(dark);
+        }
+        html.js & button{
+            display: none;
+        }
+        opacity: 0;
+        visibility: hidden;
+        transition: 500ms opacity easing(ease-out-quad), 0ms visibility linear 200ms;
+
+        .fadeTransitionEntered &,
+        .no-js &,
+        &--inview{
+            opacity: 1;
+            visibility: visible;
+            transition: 500ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
+        }
+    }
+
+    &__filterReset{
+        text-decoration: none;
+    }
+    &__filter{
+        margin-left: s(37);
+        display: flex;
+        align-items: flex-end;   
+        position: relative;
+    }
+
+    &__filterReset,
+    &__filterLabel{
         overflow: hidden;
         color: color(dark);
         font-family: Cambon, sans-serif;
@@ -28,28 +86,121 @@
         font-weight: 600;
         line-height: em(23,22); /* 104.545% */
         text-decoration-line: none;
-
-    }
-
-    &__seeAll{
-        text-decoration-line: underline;
-
-    }
-
-    &__filter{
-        margin-left: s(37);
+        padding-bottom: s(18);
         display: flex;
         align-items: flex-end;
-        
+
+        &:hover,
+        &:focus{
+            text-decoration: underline;
+        }
     }
 
-    &__filterLink{
-        
-    }
-
-    &__star{
+    &__filterStar{
         margin-left: s(10);
+        transform: rotate(0);
+        will-change: transform;
+        transition: 200ms transform easing(ease-out-quad);
+
+        .casesGrid__filter:hover &,
+        .casesGrid__filter:focus &{
+            transform: rotate(90deg);
+        }
     }
+
+    &__filterStarDiag{
+        transform: rotate(0) scale(1);
+        will-change: transform;
+        transform-origin: center center;
+        transition: 200ms transform easing(ease-out-quad);
+
+
+        .casesGrid__filter:hover &,
+        .casesGrid__filter:focus &{
+            transform: scale(0.1);
+        }
+    }
+
+    &__filterSelect{
+        //position: absolute;
+        //left: -9999px;
+        //top: 0;
+        -webkit-appearance: none;
+        
+        position: absolute;
+        //bottom: 300%;
+        left: -9999px;
+        top: 0;
+    }
+
+
+    &__dropDown{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: s(293);
+        opacity: 0;
+        visibility: hidden;
+        will-change: opacity, transform;
+        transition: 200ms opacity easing(ease-out-quad), 0ms visibility easing(ease-out-quad) 200ms;
+
+        border-radius: s(10);
+        border: 1px solid color(black);
+        background: color(sand);
+        padding: s(20);
+        z-index: 5;
+
+        .casesGrid__filter:hover &,
+        .casesGrid__filter:focus &{
+            opacity: 1;
+            visibility: visible;
+            transition: 200ms opacity easing(ease-out-quad), 0ms visibility easing(ease-out-quad) 0ms;
+        }
+    }
+
+    &__dropDownLink{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        text-decoration: none;
+        @extend .body16;
+        color: color(dark);
+
+        &+&{
+            margin-top: s(16);
+        }
+
+        &--active,
+        &:hover{
+            .casesGrid__dropDownName{
+                text-decoration: underline;
+            }
+
+            .casesGrid__dropDownCount{
+                opacity: 1;
+            }
+        }
+    }
+
+    &__dropDownCount{
+        opacity: 0.5;
+        transition: 200ms opacity easing(ease-out-quad);
+    }
+
+    &__noItem{
+        margin-top: s(50);
+
+    }
+
+    &__noItemTitle{
+        @extend .body18serif;
+        font-size: 36px;
+    }
+
+    &__noItemText{
+        @extend .body18;
+    }
+
 
     &__grid{
         margin-top: s(50);

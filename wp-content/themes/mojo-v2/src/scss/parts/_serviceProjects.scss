@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 
     &:before{
         content: '';
@@ -24,19 +25,24 @@
         margin-bottom: s(80);
         text-align: center;
         @extend .title50;
+        z-index: 5;
     }
 
     &__seeAll{
         margin-top: s(70);
         margin-bottom: s(35);
+        z-index: 5;
+
+    }
+
+    &--light{
+        .serviceProjects__title{
+            color: color(dark);
+        }
     }
 
     &--dodgerblue{
         background-color: #784FE0;
-
-        &:before{
-            mix-blend-mode:lighten;
-        }
     }
 
     &--lightblue{
@@ -65,5 +71,16 @@
 
     &--darkgreyblue{
         background-color: #1D2B33;
+    }
+
+    &--dodgerblue,
+    &--outrageousorange,
+    &--denimblue,
+    &--greenpea,
+    &--darkgreyblue{
+        &:before{
+            mix-blend-mode: lighten;
+            opacity: 0.14;
+        }   
     }
 }

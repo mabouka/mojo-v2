@@ -8,9 +8,7 @@ html {
 }
 
 body{
-
-
-
+    
     &.loading{
         //cursor: wait;
     }
@@ -24,6 +22,21 @@ body{
             display:none;
         }
     }
+
+    /*
+    &:after{
+        content: '';
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        height: 50%;
+        left: 0;
+        right: 0;
+        z-index: 10000;
+        background-color: red;
+        opacity: 0.2;
+    }
+    */
 }
 
 .curtain{
@@ -54,14 +67,11 @@ body{
 
     @media screen and (max-width: 1285px) {
         max-width: 100%;
-        padding-left: s(40);
-        padding-right: s(40);
+        padding-left: s(30);
+        padding-right: s(30);
     }
 
-    @media screen and (max-width: 600px) {
-        padding-left: s(24);
-        padding-right: s(24);
-    }
+
 }
 
 .photoNoise{
@@ -74,6 +84,7 @@ body{
         background-image: url('../images/transparentNoise.webp');
     }
     background-size: s(300) s(300);
+    image-rendering: pixelated;
 
     @media only screen and (min-device-pixel-ratio: 2), 
     only screen and (min-resolution: 192dpi) {

@@ -3,6 +3,7 @@
     background-color: color(dark);
     color: color(sand);
     padding-bottom: s(104);
+    min-height: 100vh;
 
     &__inside{
         @include clearfix();
@@ -85,12 +86,24 @@
 
         .wpcf7 {
             form.sent{
+                position: relative;
+                padding-top: s(100);
                 .wpcf7-response-output{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
                     padding: s(20);
                     border: 1px dashed color(white);
                     border-radius: s(20);
                     margin-top: s(20)
                 }
+                .wpcf7-submit,
+                .field{
+                    display: none;
+                }
+
+
             } 
         }
 

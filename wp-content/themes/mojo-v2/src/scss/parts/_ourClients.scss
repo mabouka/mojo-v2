@@ -62,6 +62,9 @@
         filter: grayscale(100%);
         margin-left: s(200);
         transition: 200ms filter linear, 200ms -webkit-filter linear;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &:hover{
             filter: grayscale(0%);
@@ -70,10 +73,12 @@
 
 
         img{
-            height: 100%;
+            height: auto;
             width: auto;
             display: block;
+            object-fit: contain;
             max-width: s(300);
+            max-height: s(70);
         }
     }
 

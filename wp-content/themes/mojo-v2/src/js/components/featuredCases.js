@@ -15,16 +15,13 @@ export default class featuredCases {
 
     getVideos() {
         let videos = [];
-        let links = this.el.querySelectorAll('.featuredCases__caseLink');
+        let links = this.el.querySelectorAll('.featuredCases__caseLink, .featuredCases__galleryItem');
         Array.from(links).forEach(link => {
             let el = {};
+                el.link = link;             
                 el.target = link.dataset.hoverTarget;
                 el.videoContainer = this.el.querySelector(el.target);
-                el.imageTarget = link.dataset.imageTarget;
-                el.imageContainer = this.el.querySelector(el.imageTarget);
-
                 el.video = el.videoContainer.querySelector("video");
-                el.link = link;             
             videos.push(el);
         });
 
@@ -37,15 +34,7 @@ export default class featuredCases {
                 this.e_mouseEnter(e, video);
             });
 
-            video.imageContainer.addEventListener('mouseover', (e) => {
-                this.e_mouseEnter(e, video);
-            });
-
             video.link.addEventListener('mouseleave', (e) => {
-                this.e_mouseLeave(e, video);
-            });
-
-            video.imageContainer.addEventListener('mouseleave', (e) => {
                 this.e_mouseLeave(e, video);
             });
         })
@@ -58,7 +47,6 @@ export default class featuredCases {
     e_mouseEnter(e, video) {
         if(video.video) video.video.currentTime = 0;
         video.videoContainer.classList.add('featuredCases__video--active');
-        video.imageContainer.classList.add('featuredCases__galleryItem--active');
         video.link.classList.add('featuredCases__caseLink--active');
         this.gallery.classList.add('featuredCases__gallery--hovered');
         if(video.video) video.video.play();
@@ -66,7 +54,6 @@ export default class featuredCases {
 
     e_mouseLeave(e, video) {
         video.videoContainer.classList.remove('featuredCases__video--active');
-        video.imageContainer.classList.remove('featuredCases__galleryItem--active');
         video.link.classList.remove('featuredCases__caseLink--active');
         this.gallery.classList.remove('featuredCases__gallery--hovered');
         if(video.video) video.video.pause();

@@ -107,22 +107,14 @@
         margin-left: auto;
         justify-self: flex-end;
         position: absolute;
-        height: s(550);
-        width: s(550);
+        height: 100%;
+        width: auto;
         right: 0;
         top: 0;
-
-        mix-blend-mode: overlay;
-        opacity: 0.5;
     }
 
     &--dodgerblue{
         background-color: #784FE0;
-
-        &:before{
-            mix-blend-mode:lighten;
-
-        }
     }
 
     &--lightblue{
@@ -150,7 +142,34 @@
     }
 
     &--darkgreyblue{
-        background-color: #1D2B33;
+        background-color: #384349;
+    }
+
+    &--pink,
+    &--sungloworange,
+    &--lightblue{
+        .serviceHeader__back,
+        .serviceHeader__navItem,
+        .serviceHeader__title{
+            color: color(dark);
+        }
+
+        .serviceHeader__navItem:after{
+            background-color: color(dark);
+        }
+    }
+
+    &--dodgerblue,
+    &--outrageousorange,
+    &--denimblue,
+    &--greenpea,
+    &--darkgreyblue{
+
+        &:before{
+            mix-blend-mode: lighten;
+            opacity: 0.14;
+        }
+        
     }
 
 }

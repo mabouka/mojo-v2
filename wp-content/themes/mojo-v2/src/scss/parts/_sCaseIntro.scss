@@ -8,15 +8,7 @@
 
     &__title{
         @extend .title50;
-        width: colGut(4,1,12,0);
-        margin-right: colGut(1,1,12,0);
+        width: 100%;
         color: color(dark);
-    }
-
-    &__text{
-        margin-top: s(15);
-        @extend .body;
-        @extend .body18;
-        width: col(6,12);
     }
 }

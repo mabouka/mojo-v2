@@ -3,23 +3,28 @@
         <div class="commitmentsIntro__inside">
 
 
-            <div class="commitmentsIntro__content">
+            <div class="commitmentsIntro__content js-in-view appear-fadeup appear-delay5">
                 <?php if ($intro): ?>
-                <div class="commitmentsIntro__intro inview">
-                    <?= $intro; ?>
+                <div class="commitmentsIntro__intro">
+                    <?= ($intro); ?>
                 </div>
                 <?php endif ?>
 
                 <?php if ($text): ?>
-                <div class="commitmentsIntro__text inview">
+                <div class="commitmentsIntro__text">
                     <?= $text; ?>
                 </div>
                 <?php endif ?>
             </div>
             <h1 class="sro"><?= $title1 . ' ' . $title2; ?></h1>
+            <?php if (1): ?>
+            <span class="commitmentsIntro__titleLine1 fx-parent js-in-view"><?= splitCharWord($title1); ?></span>
+            <span class="commitmentsIntro__titleLine2 fx-parent js-in-view"><?= splitCharWord($title2, strlen($title1)); ?></span>
+            <?php else: ?>
             <span class="commitmentsIntro__titleLine1"><?= $title1; ?></span>
             <span class="commitmentsIntro__titleLine2"><?= $title2; ?></span>
- 
+            <?php endif ?>
+
             <svg class="commitmentsIntro__svg" width="606" height="701" fill="none" viewBox="0 0 606 701" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <!-- define the shapes in the image, which we will use for the outlines

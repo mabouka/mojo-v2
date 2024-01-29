@@ -57,7 +57,6 @@ export default class CommitmentsFaq {
         });
     }
 
-
     setEvents() {
         this.items.forEach((item, index) =>{
             item.el.addEventListener('click', (e) => { this.e_click(e, item, index)});

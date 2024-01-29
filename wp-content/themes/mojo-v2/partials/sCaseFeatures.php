@@ -45,7 +45,7 @@
             <?php endif ?>
 
             <?php if ($services): ?>
-            <div class="sCaseFeatures__item">
+            <div class="sCaseFeatures__item sCaseFeatures__item--service">
                 <p class="sCaseFeatures__itemTitle"><?= __('Services', 'mj'); ?></p>
                 <ul class="sCaseFeatures__itemList">
                     <?php foreach ($services as $key => $service): ?>

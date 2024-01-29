@@ -9,9 +9,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: 200ms opacity easing(ease-out-quad);
+    transition: 200ms opacity easing(ease-out-quad), 200ms border-color easing(ease-out-quad);
     text-decoration: none;
     overflow: hidden;
+
+    &:focus,
+    &:hover{
+        //border-color: transparent;
+    }
 
     &--animated{
         transition-duration: 300ms;
@@ -43,7 +48,7 @@
             transition: 350ms transform easing(ease-out-quad);
 
             &--hover{
-                opacity: 0.5;
+                opacity: 0;
             }
         }
 
@@ -85,7 +90,7 @@
         right: s(25);
         top: 50%;
         transform: translate3d(0, -50%, 0);
-        z-index: 7;
+        z-index: 5;
         opacity: 0;
         visibility: hidden;
         transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 200ms;
@@ -101,32 +106,29 @@
         display: block;
         color: color(dark);
         text-align: center;
-        @extend .body18serif;
+        @extend .tag;
+        line-height: 12px;
         text-decoration: none;
         padding: s(12) 0;
-        border-bottom: 1px solid color(dark);
+        border-top: 1px solid color(dark);
 
-        &:first-child{
-            border-top: 1px solid color(dark);
+        &:last-child{
+            border-bottom: 1px solid color(dark);
         }
     }
 
     &__hoverMenuTitle{
         text-align: center;
-        /* tag */
-        font-family: Cambon, serif;
-        font-size: s(9);
-        font-weight: 600;
-        line-height: 1.3em;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: s(68);
-        text-decoration: none;   
         color: color(dark);
-     
+        font-family: Cambon;
+        font-size: s(15);
+        font-weight: 700;
+        line-height: em(23,15);
+        letter-spacing: 4.502px;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: s(30);
+        display: block;
     }
 
     &:after,
@@ -159,8 +161,8 @@
         position: absolute;
 
         &--hover{
-            z-index: 2;
-            mix-blend-mode: overlay;
+            z-index: 8;
+            mix-blend-mode: normal;
             opacity: 0;
             transition: 200ms opacity easing(ease-out-quad);
         }
@@ -190,7 +192,6 @@
         height: s(200);
         position: relative;
 
-
         &--hover{
             position: absolute;
             top: s(73);
@@ -215,6 +216,7 @@
         transition: 200ms color easing(ease-out-quad);
     }
 
+
     &--dodgerblue,
     &--outrageousorange,
     &--denimblue,
@@ -223,6 +225,7 @@
         &:hover .serviceCard__title{
             color: color(sand);
         }
+
 
         .serviceCard__hoverMenuTitle,
         .serviceCard__hoverItem{
@@ -241,11 +244,14 @@
     }
 
     &--dodgerblue{
-
-
         &:after{
             background-color: #784FE0;
         }
+        .serviceCard__star--hover{
+            mix-blend-mode: normal;
+            opacity: 0.14 ;
+        }
+        
     }
 
     &--lightblue{
@@ -254,22 +260,25 @@
             background-color: color(lightblue);
         }
 
-        .serviceCard__picture--hover{
-            z-index: 5;
-            mix-blend-mode: multiply;
-            opacity: 0.7 !important;
+        .serviceCard__star--hover{
+            mix-blend-mode: normal;
         }
+
     }
 
     &--outrageousorange{
         &:after{
             background-color: #FF542E;
-        }        
+        }     
+        .serviceCard__star--hover{
+            mix-blend-mode: normal;
+        }
     }
     &--pink{
         &:after{
             background-color: #FEC5D4;
         }
+
     }
     &--denimblue{
         &:after{
@@ -278,14 +287,12 @@
     }
     &--greenpea{
         &:hover:before{
-            opacity: 0.12;
+            opacity: 0.05;
         }
 
         &:after{
             background-color: #1F5C40;
         }
-
-
     }
     &--sungloworange{
         &:after{
@@ -295,11 +302,7 @@
 
     &--darkgreyblue{
         &:after{
-            background-color: #1D2B33;
-        }
-
-        .serviceCard__picture--hover{
-            z-index: 5;
+            background-color: #384349;
         }
     }
 
@@ -313,12 +316,32 @@
         &:after{
             opacity: 1;
         }
+
         .serviceCard__picture--hover{
             opacity: 1;
         }
 
         .serviceCard__star--hover{
-            opacity: 1;
+            opacity: 0.4;
+        }
+
+    }
+    &--dodgerblue:hover,
+    &--dodgerblue:focus{
+        .serviceCard__star--hover{
+            opacity: 0.8;
         }
     }
+    &--outrageousorange
+    &--pink,
+    &--denimblue,
+    &--sungloworange,
+    &--lightblue{
+        &:hover,
+        &:focus{
+            .serviceCard__star--hover{
+                //opacity: 0.4;
+            }
+        }
+}
 }

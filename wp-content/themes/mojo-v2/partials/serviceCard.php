@@ -4,11 +4,11 @@
         'post_type'   => 'services',
         'post_status' => 'publish'
     );
-    
+    $color = get_field('color', $service);
     $children = get_children( $child_args );
 ?>
 
-<section class="serviceCard serviceCard--<?= get_field('color', $service) ?><?= isset($modifier) ? ' serviceCard--'.$modifier : '' ?> " >
+<section class="serviceCard serviceCard--<?= $color ?><?= isset($modifier) ? ' serviceCard--'.$modifier : '' ?> " >
 
     <a class="serviceCard__link" href="<?= get_the_permalink($service) ?>">
         <?= get_the_title($service); ?>
@@ -27,7 +27,13 @@
         <use xlink:href="#star"></use>
     </svg>
 
+    <?php 
+    $whitecard = [
+        'dodgerblue'
+    ];?>
 
+    <?php if(!in_array($color, $whitecard)): ?>
+    
     <svg class="serviceCard__star serviceCard__star--hover serviceCard__star--tl " width="11" height="11">
         <use xlink:href="#star"></use>
     </svg>
@@ -41,32 +47,47 @@
         <use xlink:href="#star"></use>
     </svg>
 
-    <?php $svg = get_field('svg', $service); ?>
+    <?php else: ?>
 
-    <?= $svg ?>
+    <svg class="serviceCard__star serviceCard__star--hover serviceCard__star--tl " width="11" height="11">
+        <use xlink:href="#whiteStar"></use>
+    </svg>
+    <svg class="serviceCard__star serviceCard__star--hover serviceCard__star--tr" width="11" height="11">
+        <use xlink:href="#whiteStar"></use>
+    </svg>
+    <svg class="serviceCard__star serviceCard__star--hover serviceCard__star--bl" width="11" height="11">
+        <use xlink:href="#whiteStar"></use>
+    </svg>
+    <svg class="serviceCard__star serviceCard__star--hover serviceCard__star--br" width="11" height="11">
+        <use xlink:href="#whiteStar"></use>
+    </svg>
 
-    <?= str_replace("serviceCard__picture", "serviceCard__picture serviceCard__picture--hover", $svg); ?>
+    <?php endif ?>
+
+    <?php if($static = get_field('svg_static', $service)): ?>
+    <img class="serviceCard__picture" src="<?= $static['url'] ?>" alt="<?= $static['alt'] ?>">
+    <?php endif ?>
+
+
+    <?php if($hover = get_field('svg_hover', $service)): ?>
+    <img class="serviceCard__picture serviceCard__picture--hover" src="<?= $hover['url'] ?>" alt="<?= $hover['alt'] ?>">
+    <?php endif ?>
+
 
     <h3 class="serviceCard__title"><?= get_the_title($service); ?></h3>
 
-    <?php if (0 && str_contains($modifier, 'animated')): ?>
-    <div class="glow"></div>
-    <?php endif ?>
+    <div class="serviceCard__hoverMenu">
+        <span class="serviceCard__hoverMenuTitle">
+            <?= get_the_title($service); ?>
+        </span>
+        <?php if ( $children && isset($modifier) && str_contains($modifier, 'full')): ?>
+        <?php foreach($children as $child): ?>
+        <span class="serviceCard__hoverItem">
+            <?= get_the_title($child) ?>
+        </span>
+        <?php endforeach; ?>
+        <?php endif ?>
 
-    <?php if ( $children && isset($modifier) && str_contains($modifier, 'full')): ?>
-        <div class="serviceCard__hoverMenu">
-            <?php foreach($children as $child): ?>
-            <a class="serviceCard__hoverItem" href="<?= get_the_permalink($child) ?>">
-                <?= get_the_title($child) ?>
-            </a>
-            <?php endforeach; ?>
-            <a class="serviceCard__hoverMenuTitle" href="<?= get_the_permalink($service) ?>">
-                <?= get_the_title($service); ?>
-            </a>
-        </div>
+    </div>
 
-    <?php endif ?>
-
-
-
-            </section>
+</section>

@@ -1,32 +1,7 @@
-<?php 
-
-
-
-function splitCharWord($text) {
-    $output = '';
-    $charIndex = 0;
-    $lines = explode("<br />",trim($text));
-    foreach ($lines as $key => $line) {
-        $words = explode(" ",trim($line));
-        foreach($words as $word){
-            $output .= '<span class="fx-word">';
-            foreach(mb_str_split($word) as $char){
-                $charIndex++;
-                $output .= '<span class="fx-letter fx-letter--'. $charIndex .'">';
-                $output .= $char;
-                $output .= '</span>';
-            }
-            $output .= '</span>&nbsp;';
-        }
-        $output .= '<br />';
-    }
-    return $output;
-}
-?>
-
 <div class="homeIntro darkSection">
 
-    <!-- 
+    <?php if (0): ?>
+    
     <svg class="homeIntro__stars" width="2344" height="998" viewBox="0 0 2344 998" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M915.203 8.58253L917.794 2.41583L911.247 3.79411L915.203 8.58253Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
         <path fill-rule="evenodd" clip-rule="evenodd" d="M285.582 689.794L282.991 683.627L289.539 685.006L285.582 689.794Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
@@ -63,7 +38,8 @@ function splitCharWord($text) {
         <path fill-rule="evenodd" clip-rule="evenodd" d="M2310.43 972.884L2312.52 997.785L2311.49 972.817L2316.69 997.259L2312.53 972.618L2320.75 996.215L2313.54 972.29L2324.66 994.669L2314.5 971.837L2328.34 992.647L2315.4 971.268L2331.73 990.18L2316.22 970.591L2334.79 987.307L2316.94 969.817L2337.47 984.072L2317.57 968.957L2339.72 980.528L2318.08 968.027L2341.5 976.73L2318.47 967.039L2342.8 972.738L2318.73 966.01L2343.59 968.615L2318.87 964.956L2343.85 964.425L2318.87 963.894L2343.59 960.236L2318.73 962.84L2342.8 956.113L2318.47 961.812L2341.5 952.121L2318.08 960.824L2339.72 948.323L2317.57 959.893L2337.47 944.778L2316.94 959.034L2334.79 941.544L2316.22 958.26L2331.73 938.671L2315.4 957.582L2328.34 936.203L2314.5 957.013L2324.66 934.181L2313.54 956.561L2320.75 932.636L2312.53 956.233L2316.69 931.592L2311.49 956.034L2312.52 931.066L2310.43 955.967L2308.33 931.066L2309.37 956.034L2304.16 931.592L2308.32 956.233L2300.1 932.636L2307.31 956.561L2296.19 934.181L2306.35 957.013L2292.52 936.203L2305.45 957.582L2289.12 938.671L2304.64 958.26L2286.06 941.544L2303.91 959.034L2283.38 944.778L2303.28 959.893L2281.13 948.323L2302.77 960.824L2279.35 952.121L2302.38 961.812L2278.05 956.113L2302.12 962.84L2277.26 960.236L2301.98 963.894L2277 964.425L2301.98 964.956L2277.26 968.615L2302.12 966.01L2278.05 972.738L2302.38 967.039L2279.35 976.73L2302.77 968.027L2281.13 980.528L2303.28 968.957L2283.38 984.072L2303.91 969.817L2286.06 987.307L2304.64 970.591L2289.12 990.18L2305.45 971.268L2292.52 992.647L2306.35 971.837L2296.19 994.669L2307.31 972.29L2300.1 996.215L2308.32 972.618L2304.16 997.259L2309.37 972.817L2308.33 997.785L2310.43 972.884Z" fill="white"/>
     </svg>
 
-            -->
+    <?php endif ?>
+
 
     
 
@@ -118,13 +94,9 @@ function splitCharWord($text) {
 
     <svg class="homeIntro__shape" width="2560" height="833" fill="none" viewBox="0 0 2560 833" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-            <!-- define the shapes in the image, which we will use for the outlines
-                and for creating intersection masks -->
-
             <path id="poly" d="M1925.1,174.8h-107.4l-279.5,453.8h386.8V174.8z"/>
             <path id="moon" d="M1850.6,427c-54.2,91.6-142.3,147.8-235.8,137.9c-99.3-10.4-177.2-92.4-207.8-202.9l-26.6-2.8
                 c-0.9,6-2.2,11.8-2.9,17.9c-18.9,179.5,79.7,337.1,220.1,351.8c137.5,14.5,264-113.6,286.8-287.6L1850.6,427z"/>
-            <!-- the masks -->
             <mask id="moonMask">
                 <use xlink:href="#moon" fill="white"/>
             </mask>
@@ -136,12 +108,11 @@ function splitCharWord($text) {
             </clipPath>
         </defs>
 
-
         <use xlink:href="#poly" stroke="#FEC5D4" stroke-width="2" clip-path="url(#clipPoly)"/>
         <use xlink:href="#moon" fill="#FF542E"/>
         
         <g mask="url(#polyMask)" stroke="#FEC5D4">
-                <rect width="100%" height="100%" stroke="#FEC5D4" fill="#FEC5D4" mask="url(#moonMask)" />
+            <rect width="100%" height="100%" stroke="#FEC5D4" fill="#FEC5D4" mask="url(#moonMask)" />
         </g>
     </svg>
 

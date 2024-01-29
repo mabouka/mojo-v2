@@ -4,6 +4,17 @@
     flex-wrap: wrap;
     position: relative;
 
+    opacity: 0;
+    transform: translate3d(0, 80px, 0);
+    transition: 500ms opacity easing(ease-out-quint), 500ms transform easing(ease-out-quad);
+
+    .no-js,
+    .fadeTransitionEntered &,
+    &--inview{
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+
     &__image{
         width: 100%;
         padding-top: s(500);
@@ -55,7 +66,6 @@
         @include cover();
         text-indent: -9999px;
         z-index: 2;
-
         &:focus,
         &:hover{
             & + .caseCard__image,
@@ -97,6 +107,7 @@
         justify-content: flex-end;
         justify-self: flex-end;
         margin-left: auto;
+        margin-top: s(8);
     }
 
     &__categories,
@@ -104,23 +115,11 @@
         max-width: 50%;
     }
 
-    &__title,
-    &__category{
+    &__title{
         @extend .body18;
     }
 
     &__category{
-        opacity: 0.4;
-        mix-blend-mode: plus-darker;
-        display: flex;
-
-        & + &{
-            &:before{
-                content: '/';
-                margin-left: 6px;
-                margin-right: 6px;
-
-            }
-        }
+        @extend .tag-underline;
     }
 }

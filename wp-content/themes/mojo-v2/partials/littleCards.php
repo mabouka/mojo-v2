@@ -1,5 +1,5 @@
 <?php if ($items): ?>
-<div class="littleCards littleCards--<?= get_field("color") ?>">
+<div class="littleCards littleCards--<?= get_field("color") ?><?= $isLight ? ' littleCards--light' : '' ?>">
     <div class="wrapper">
         <div class="littleCards__inside">
             <h2 class="littleCards__title"><?= $title; ?></h2>

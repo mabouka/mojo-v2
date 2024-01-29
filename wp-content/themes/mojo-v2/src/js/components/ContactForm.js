@@ -17,7 +17,6 @@ export default class Contactform {
 
         this.fields.forEach(field => {
             field.setAttribute("required","required");
-
         });
         
         this.main = gsap.timeline({

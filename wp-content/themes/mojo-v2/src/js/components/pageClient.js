@@ -13,6 +13,15 @@ export default class PageClient {
         this.intro  = new ClientIntro(this.el.querySelector('.clientIntro'));
         this.number = new ClientNumbers(this.el.querySelector('.clientNumbers'))
         this.globe  = new Globe(this.el.querySelector('.globe'));
+        /*
+        this.intro.promise.then(() => {
+            setTimeout(() =>{
+                window.lenis.resize();
+
+            },)
+
+        })
+        */
         this.setEvents();
     }
 

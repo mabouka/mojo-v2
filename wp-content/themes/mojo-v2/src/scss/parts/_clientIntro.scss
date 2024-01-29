@@ -8,10 +8,18 @@
         right: 0;
         height: 100vh;
         max-height: 100vh;
+
+        height: 100svh;
+        max-height: 100svh;
         z-index: 1;
         background-color: color(sand);
         overflow: hidden;
 
+        
+        #text1,
+        #text2,
+        #text3{
+        }
         #circle1{
             transform: translate3d(-50%,0,0);
         }
@@ -41,13 +49,15 @@
 
     &__second{
         position: relative;
-        height: 133vw;
+        height: 135vw;
         //width: ;
         background-color: color(dark);
         overflow: hidden;
         transform: translate3d(0,0,0);
 
-
+        @media screen and (max-width(1024px)){
+            height: 200vh;
+        }
     }
 
 

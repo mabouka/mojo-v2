@@ -1,5 +1,6 @@
 
 import gsap from "gsap";
+import Observer from "gsap/Observer";
 
 export default class HomeService {
     
@@ -13,6 +14,7 @@ export default class HomeService {
         this.groupSlide  = this.el.querySelector('.homeService__groupSlide');
         this.realSection = this.el.querySelector('.homeService__realSize');
         this.allCard     = this.el.querySelectorAll('.homeService__cardSlide');
+
 
         gsap.set(this.allCard, {
             "y" : 300,
@@ -53,12 +55,14 @@ export default class HomeService {
             },0.50 * index);
         }
         
-        
+
 
         const main = gsap.timeline({
             scrollTrigger: {
                 trigger: '.homeService__triggerStart',
                 endTrigger: '.homeService__triggerEnd',
+
+                type: "pointer,touch",
                 start: 'top',
                 end: "100vh",
                 scrub: true,
@@ -94,8 +98,30 @@ export default class HomeService {
                 },
                 0.15 * index 
             )
-
-        }            
-            
         }
+
+        this.el.addEventListener('dragstart', event => {
+            event.preventDefault();
+        });
+
+        this.el.addEventListener('drop', event => {
+            event.preventDefault();
+        });
+
+        Observer.create({
+            target: this.el,
+            type: "wheel,touch,pointer",
+            id: "homeService",
+            onPress: (self) => {
+                self.startScroll = main.scrollTrigger.scroll();
+            },
+            onDrag: (self) => {
+                gsap.to(main.scrollTrigger, {
+                    duration: 0.4,
+                    ease: "power1.out",
+                    scroll: self.startScroll + (self.startX - self.x) * 2
+                })
+            }
+        });
     }
+}
