@@ -1,0 +1,14 @@
+.sCaseRandom{
+    margin-top: s(120);
+    padding-bottom: s(80);
+
+    &__title{
+        @extend .title50;
+        margin-bottom: s(50);
+    }
+    &__grid{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}

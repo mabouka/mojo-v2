@@ -4,6 +4,8 @@
 
     // My function to modify the main query object
     function my_modify_main_query( $query ) {
+        if(is_singular('case')) return $query;
+        if(!$_GET)  return $query;
 
         if($query->get('post_type') != 'case' && is_post_type_archive('case')) return; //only on archive case !!!
 

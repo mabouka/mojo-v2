@@ -1,7 +1,7 @@
 <?php
     $image = getCustomThumbnail($case->ID, ['caseCard', 'caseCard@2x']);
     $imageCard  = get_field('card_image', $case);
-    $video = get_field('card_video', $case);
+    $video = get_field('card_video', $case);    
 ?>
 
 <section class="js-is-center caseCard<?= $video ? ' caseCard--video' :'' ?> ">
@@ -12,7 +12,7 @@
     <?php if($video): ?>
     <div class="caseCard__videoContainer">
         <img class="caseCard__videoPoster" src="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>" src="<?= $video ?>" alt="">
-        <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>" src="<?= $video ?>"  playsinline muted lazyload></video>
+        <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>" src="<?= $video ?>" loop playsinline muted lazyload></video>
     </div>
 
     <?php elseif($imageCard): ?>

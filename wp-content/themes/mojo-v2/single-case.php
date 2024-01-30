@@ -28,9 +28,7 @@
     </div>
 
     <?php 
-        getPartial('sCaseNext', [
-            
-        ]);
+        getPartial('sCaseRandom');
     ?>
    
 </div>

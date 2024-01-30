@@ -1,6 +1,5 @@
 
 import inview from "../classes/InView";
-import {gsap} from "gsap";
 import wait   from "../utils/wait";
 
 export default class ServiceGrid {
