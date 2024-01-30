@@ -78,7 +78,9 @@
                                 <?php if ($video) : ?>
                                     <video 
                                         src="<?= $video; ?>" 
+                                        <?php if ($picture): ?>
                                         poster="<?= $picture['sizes']['featuredVideo']; ?>"
+                                        <?php endif ?>
                                         playsinline muted loop
                                     >
                                     </video>
@@ -97,7 +99,7 @@
                                 <?php endif; ?>
                             </div>
 
-                            
+
                             <div class="featuredCases__videoDescription">
 
                                 <span class="featuredCases__videoTitle">
