@@ -10,7 +10,7 @@ add_image_size('featuredCases--small@2x', 294 * 2, 260 * 2, true);
 add_image_size('featuredVideo', 625, 625, true);
 add_image_size('featuredVideo@2x', 625*2, 625*2, true);
 
-add_image_size('logo', 9999, 130, false);
+add_image_size('logo', 9999, 70, false);
 add_image_size('logo@2x', 9999 * 2, 130 * 2, false);
 
 add_image_size('teamCard', 405, 405, true);
