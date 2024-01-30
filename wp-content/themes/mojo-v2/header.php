@@ -20,7 +20,7 @@
     <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
-    <link rel="preload" href="<?= getUrl('dist/images/transparentNoise.webp'); ?>" as="image">
+    <link rel="preload" href="<?= getUrl('dist/images/transparentNoise.webp'); ?>" fetchpriority="high" as="image">
 
     <link rel="preload" href="<?= getUrl('dist/fonts/dm-sans-4.woff2'); ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?= getUrl('dist/fonts/Cambon-Regular.woff2'); ?>" as="font" type="font/woff2" crossorigin>
