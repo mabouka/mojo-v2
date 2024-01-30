@@ -67,9 +67,8 @@
                             $video   = get_field('card_video', $case);
                             $picture = get_field('card_image', $case);
 
-                            if(!$picture) {
-                                $mainPicture = getCustomThumbnail($case->ID, [ 'featuredVideo', 'featuredVideo@2x']);
-                            }
+                            $mainPicture = getCustomThumbnail($case->ID, [ 'featuredVideo', 'featuredVideo@2x']);
+                            
                             $sentence = get_field('video_sentence', $case);
                         ?>
 
