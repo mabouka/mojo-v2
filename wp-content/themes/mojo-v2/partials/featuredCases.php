@@ -57,7 +57,7 @@
                         <path d="M342.112 0H301.042L179.518 201.19V15.2469V0H170.763H129.699L0 214.71H59.0391L170.763 29.75V214.71H171.354H179.518H230.388L342.112 29.75V214.71H350.872V15.2469V0H342.112Z" fill="#FAF6ED" />
                     </svg>
                 </div>
-                <div class="featuredCases__starsky" src="<?= getUrl('dist/images/starsky.svg'); ?>"></div>
+                <div class="featuredCases__starsky" ></div>
 
                 <div class="featuredCases__videos">
                     <?php $combined = array_merge($casesGallery, $casesLines); ?>

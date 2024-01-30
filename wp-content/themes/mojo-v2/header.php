@@ -57,7 +57,7 @@
     </script>
     </head>
 
-<body <?php body_class(); ?> <body data-barba="wrapper">
+<body <?php body_class(); ?> data-barba="wrapper">
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $gtag ?>"
@@ -113,7 +113,7 @@
 
     ?>
 
-    <header class="header<?= $isDark ? ' header--dark' : ' header--light' ?><?= $withoutLogo ? ' header--withoutLogo' : '' ?><?= $show ? ' ' : ' header--hidden' ?>" role="banner">
+    <header class="header<?= $isDark ? ' header--dark' : ' header--light' ?><?= $withoutLogo ? ' header--withoutLogo' : '' ?><?= $show ? ' ' : ' header--hidden' ?>">
         <div class="wrapper">
             <div class="header__inside">
                 <a class="header__logo" href="<?= home_url(); ?>" title="<?= __('Go back home', 'mj'); ?>">
@@ -140,4 +140,4 @@
     </header><!-- header -->
     
     <div class="scrollContainer">
-        <main class="mainContent" id="mainContent" role="main">
+        <main class="mainContent" id="mainContent" >

@@ -131,7 +131,7 @@
             ?>
             <?php if ($old_tree_nation): ?>
             <a class="footer__carbon" href="https://tree-nation.com/fr/profil/impact/mojo-agency#co2">
-                <img src="https://tree-nation.com/images/tracking/label-co2-website-black-en.png" alt="Three Nation" width="157" height="50"style="width:157px;height:auto;">
+                <img src="https://tree-nation.com/images/tracking/label-co2-website-black-en.png" alt="Three Nation" width="157" height="50" style="width:157px;height:auto;">
             </a>
             <?php endif; ?>
 
