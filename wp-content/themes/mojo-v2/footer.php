@@ -126,8 +126,8 @@
                 </svg>
             </div>
             <?php 
-                $old_tree_nation = false;
-                $new_tree_nation = true;
+                $old_tree_nation = true;
+                $new_tree_nation = false;
             ?>
             <?php if ($old_tree_nation): ?>
             <a class="footer__carbon" href="https://tree-nation.com/fr/profil/impact/mojo-agency#co2">
