@@ -103,7 +103,8 @@ export default class Router {
         let classes = [
             'header--hidden',
             'header--dark',
-            'header--light'
+            'header--light',
+            'header--withoutLogo'
         ];
         classes.forEach( (className) => {
             if(newHeader.classList.contains(className)) this.header.classList.add(className);
