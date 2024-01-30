@@ -85,12 +85,14 @@
                                     </video>
                                 <?php elseif($picture) : ?>
                                     <img 
+                                        loading="lazy"
                                         src="<?= $picture['sizes']['featuredVideo']; ?>"
                                         srcset="<?= $picture['sizes']['featuredVideo']; ?> 1x, <?= $case['picture']['sizes']['featuredVideo']; ?> 2x"
                                         alt="<?= $picture['alt'] ?>"
                                     >
-                                <?php else: ?>
+                                <?php elseif($mainPicture): ?>
                                     <img 
+                                        loading="lazy"
                                         src="<?= $mainPicture->src['featuredVideo'] ?>"
                                         srcset="<?= $mainPicture->src['featuredVideo'] ?> 1x, <?= $mainPicture->src['featuredVideo@2x'] ?> 2x"
                                         alt="<?= $mainPicture->alt ?>"
