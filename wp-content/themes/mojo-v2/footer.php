@@ -49,6 +49,17 @@
                 </a>
                 <?php endif ?>
             </div>
+            
+            <?php if ($sitemap = getCustomMenu('Sitemap')) : ?>
+                <nav class="footer__menu footer__menu--sitemap">
+                    <h2 class="footer__menuTitle"><?= __('Sitemap', 'mj'); ?></h2>
+                    <?php foreach ($sitemap as $key => $item) : ?>
+                        <a class="footer__menuItem" href="<?= $item['url'] ?>">
+                            <?= $item['title'] ?>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
+            <?php endif; ?>
                 
 
             <?php if ($social = getCustomMenu('social')) : ?>
@@ -62,16 +73,7 @@
                 </nav>
             <?php endif; ?>
 
-            <?php if ($sitemap = getCustomMenu('Sitemap')) : ?>
-                <nav class="footer__menu footer__menu--sitemap">
-                    <h2 class="footer__menuTitle"><?= __('Sitemap', 'mj'); ?></h2>
-                    <?php foreach ($sitemap as $key => $item) : ?>
-                        <a class="footer__menuItem" href="<?= $item['url'] ?>">
-                            <?= $item['title'] ?>
-                        </a>
-                    <?php endforeach; ?>
-                </nav>
-            <?php endif; ?>
+
 
 
 
