@@ -209,6 +209,7 @@
         padding-bottom: s(150);
         position: relative;
         align-items: flex-start;
+        overflow: hidden;
 
         .caseCard{
             margin-left: gutter(12);
@@ -230,6 +231,16 @@
             right: -9999px;
             height: 1px;
             background-color: color(dark);
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        overflow: hidden;
+
+        &__dropDown{
+
+            left: 0;
+            transform: translate3d(-25%, 0, 0);
         }
     }
 

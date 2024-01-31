@@ -11,8 +11,10 @@
 
     <?php if($video): ?>
     <div class="caseCard__videoContainer">
-        <img class="caseCard__videoPoster" src="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>" src="<?= $video ?>" alt="">
-        <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>" src="<?= $video ?>" loop playsinline muted lazyload></video>
+        <img class="caseCard__videoPoster" src="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  alt="">
+        <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  loop playsinline muted lazyload>
+            <source src="<?= $video ?>" media="all and (min-width: 700px) and (any-pointer: fine)">
+        </video>
     </div>
 
     <?php elseif($imageCard): ?>

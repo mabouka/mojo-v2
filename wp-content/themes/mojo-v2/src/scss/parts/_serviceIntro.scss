@@ -22,4 +22,33 @@
         @extend .body18;
         @extend .body;
     }
+
+    @media screen and (max-width: 1100px) {
+        padding-top: s(140);
+        padding-bottom: s(140);
+
+        &__title{
+            width: col(7,12);
+        }
+        &__text{
+            width: col(5,12);
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+
+        serviceIntro__inside {
+            flex-wrap: wrap;
+        }
+
+        &__title{
+            width: col(12,12);
+        }
+        &__text{
+            margin-top: s(50);
+            width: col(7,12);
+        }
+    }
+
+
 }

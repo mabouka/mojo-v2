@@ -18,9 +18,6 @@ get_header();
             'items'          => get_field('typo_items'),
         ]);
 
-        getPartial('clientNumbers', [
-            'items'          => get_field('numbers'),
-        ]);
 
         getPartial('globe', [
             'titleBefore'    => get_field('globe_before_title'),

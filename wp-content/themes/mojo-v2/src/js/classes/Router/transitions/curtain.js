@@ -19,12 +19,12 @@ let curtainTransition = {
     enter(data) {
 
         return gsap.to(curtain, {
-            y: '100vh',
+            y: '100%',
             ease: "power1.out",
             duration: 0.5,
             delay: 0.1,
             onComplete: () => {
-                gsap.set(curtain, { y: '-100vh'})
+                gsap.set(curtain, { y: '-100%'})
             }
         });
     }

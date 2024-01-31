@@ -217,6 +217,9 @@ body{
             transform: scaleX(0);
             transform-origin: right center;
             transition: transform .5s easing(ease-in-out-quint);
+            @media (any-pointer: coarse) {
+                display: none;
+            }
         }
         
 
@@ -249,6 +252,10 @@ body{
             }
         }
 
+    }
+
+    &__copyright{
+        display: none;
     }
 
     .menuOpen &,
@@ -311,6 +318,121 @@ body{
         .menu__secondary{
             opacity: 1;
             transition: 500ms opacity linear $duration+370ms;
+        }
+
+
+    }
+
+
+    @media screen and (max-width: 1100px){
+
+
+        &__secondary{
+            flex-direction: column;
+        }
+
+        &__mainItem{
+            font-size: s(80);
+        }
+
+        &__secondaryItem{
+            margin-right: 0;
+            margin-top: s(10);
+        }
+    }
+
+    @media screen and (max-width: 700px){
+        padding-bottom: 0;
+
+        &__header{
+            height: s(82);
+            top: 0;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid color(dark);
+            margin-left: s(-15);
+            margin-right: s(-15);
+            padding-left: s(15);
+            padding-right: s(15);
+
+            .menu__headerLogo{
+                align-self: center;
+            }
+        }
+
+        &__inside{
+            align-items: flex-start;
+            padding-top: s(110);
+            padding-bottom: s(97);
+        }
+
+        &__copyright{
+            position: absolute;
+            bottom: 0;
+            left: s(-15);
+            right: s(-15);
+            height: s(56);
+            display: flex;
+            border-top: 1px solid color(dark);
+            justify-content: center;
+            align-items: center;
+
+            font-size: s(14);
+
+        }
+
+        &__main{
+            order: 0;
+            align-items: flex-start;
+            margin-left: 0;
+            align-self: flex-start;
+        }
+
+        &__secondary{
+            margin-top: auto;
+            justify-self: flex-end;
+        }
+
+        &__secondaryItem{
+            margin-right: 0;
+            margin-top: s(10);
+        }
+
+        &__mainItem{
+            font-size: s(55);
+            &--current{
+                span{
+                    padding-left: s(45);
+                    padding-right: 0;
+    
+                    &:after{
+           
+                        right: auto;
+                        left: 0;
+                        margin-top: s(-18);
+                        width: s(36);
+                        height: s(36);
+                        border-radius: s(36);
+                    }
+                    &:before{
+                        display: none !important;
+                    }
+                }
+            }
+
+        }
+        
+
+        &__inside{
+            flex-direction: column;
+        }
+    }
+
+    @media screen and ((max-width: 374px) or (max-height: 700px)){
+
+
+        &__mainItem{
+            font-size: s(45);
         }
     }
 }

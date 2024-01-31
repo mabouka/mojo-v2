@@ -70,8 +70,6 @@
             filter: grayscale(0%);
         }
 
-
-
         img{
             height: auto;
             width: auto;
@@ -81,6 +79,38 @@
             max-height: s(70);
         }
     }
+
+    @media screen and (max-width: 1100px) {
+        padding-top: s(100);
+
+        &__carousel{
+            padding: s(100) 0;
+        }
+
+        &__content{
+            width: col(6,12);
+            margin-bottom: s(60);
+        }
+
+        &__container {
+            width: 100%;
+        }
+
+        &__presentation{
+            flex-direction: column;
+        }
+
+        &__text{
+            font-size: s(25);
+        }
+
+        &__image{
+            margin-right: 0;
+            width: col(6,12);
+            height: auto;
+        }
+    }
+
 
     .client{
         border: 1px solid black;
@@ -147,6 +177,25 @@
             font-weight: 500;
             line-height: em(17,13); 
             text-transform: uppercase;
+        }
+
+        @media screen and (max-width: 800px) {
+
+            &:first-child{
+                border-left: none;
+            }
+            &:last-child{
+                border-right: none;
+            }
+
+            &__container{
+                width: s(430);
+                padding-right: 0;
+            }
+
+            &__text{
+                font-size: s(18);
+            }
         }
     }
 }

@@ -9,14 +9,11 @@
     }
 
     &__title{
+        @extend .title80;
         margin-left: colGut(2,1,12,0);
         margin-bottom: s(100);
         width: col(7,12);
         color: color(dark);
-        font-family: Cambon, sans-serif;
-        font-size: s(80);
-        line-height: 1em; /* 100% */
-
     }
 
     &__content{
@@ -30,5 +27,32 @@
         font-family: dm, sans-serif;
         font-size: s(18);
         line-height: em(26,18);
+    }
+
+    @media screen and (max-width: 1100px){
+
+        &__svg{
+            left: -2%;
+            width: 70%;
+            top: -200px;
+            height: auto;
+        }
+    }
+    @media screen and (max-width: 800px){
+        padding-top: s(180);
+        padding-bottom: s(80);
+
+        &__svg{
+            top: -150px
+        }
+
+        &__content{
+            width: col(8,12);
+            margin-left: colGut(4,1,12,0);
+
+        }
+        &__text{
+            max-width: s(880);
+        }
     }
 }

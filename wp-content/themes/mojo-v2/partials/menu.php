@@ -53,6 +53,10 @@
             </section>
             <?php endif; ?>
 
+            <div class="menu__copyright">
+                © MOJO Agency <?= date('Y'); ?>
+            </div>
+
 
 
 

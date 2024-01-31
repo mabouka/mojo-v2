@@ -2,6 +2,7 @@
     overflow: hidden;
     margin-top: s(88);
     padding-bottom: s(123);
+
     &__inside{
         display: flex;
         flex-wrap: wrap;
@@ -28,24 +29,87 @@
         flex-wrap: wrap;
         width: 100%;
         justify-content: flex-start;
-
         .serviceCard{
-            
+                
             transform: translate3d(0, 0, 0);
             transition: 200ms transform easing(ease-out-quad);
             &:hover{
                 transform: translate3d(0, -30px, 0);
             }
+        }
+    }
+    @media screen and (min-width: 1101px) {
+        &__grid{
 
-            margin-left: gutter(12);
-            &:nth-child(4n+1){
-                margin-left: 0;
+            .serviceCard{
+                
+                margin-left: gutter(12);
+                &:nth-child(4n+1){
+                    margin-left: 0;
+                }
+    
+                &:nth-child(1n+5){
+                    margin-top: s(32);
+                }
             }
+        }
 
-            &:nth-child(1n+5){
-                margin-top: s(32);
+    }
+
+    @media screen and (max-width: 1100px) and (min-width: 801px){
+
+        &__grid{
+
+            .serviceCard{
+                margin-left: gutter(12);
+                &:nth-child(3n+1){
+                    margin-left: 0;
+                }
+    
+                &:nth-child(1n+4){
+                    margin-top: s(32);
+                }
             }
         }
     }
+
+    @media screen and (max-width: 800px) {
+
+        &__grid{
+
+            justify-content: center;
+
+            .serviceCard{
+                margin-left: gutter(12);
+                &:nth-child(2n+1){
+                    margin-left: 0;
+                }
+    
+                &:nth-child(1n+3){
+                    margin-top: s(32);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1100px) {
+        &__inside{
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__title{
+            font-size: s(67.5);
+            br{
+                display: none;
+            }
+        }
+
+        &__text{
+            width: col(5,12);
+        }
+    }
+
+
     
 }

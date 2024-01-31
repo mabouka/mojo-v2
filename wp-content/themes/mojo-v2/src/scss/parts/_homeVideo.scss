@@ -64,4 +64,27 @@
         line-height: em(55,50);
         text-shadow: 0px 0px 25px rgba(0,0,0,0.20);
     }
+
+    @media screen and (max-width: 1100px) {
+        &__inside{
+            display: flex;
+            height: s(510);
+        }
+
+        &__text{
+            font-size: s(35);
+            margin-bottom: s(40);
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        &__inside{
+            height: s(370);
+        }
+
+        &__text{
+            font-size: s(25);
+            margin-bottom: s(30);
+        }
+    }
 }

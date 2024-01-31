@@ -15,6 +15,7 @@ import { enter } from './core/events/enter'
 import { leave } from './core/events/leave'
 import { track } from './core/events/track'
 import { clicking } from './core/events/clicking'
+import { isTouchDevice } from '../../utils/detect'
 
 export default class CustomCursor {
   
@@ -28,6 +29,8 @@ export default class CustomCursor {
     this.styleTag = null
     this.initialized = false
     this.disabled = false
+    if(isTouchDevice()) this.disabled = true;
+
     
     this.position = {
       X: null,

@@ -1,5 +1,6 @@
 .caseCard{
     width: s(625);
+    max-width: col(6,12);
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -17,7 +18,7 @@
 
     &__image{
         width: 100%;
-        padding-top: s(500);
+        padding-top: 500/626*100%;
         height: 0;
         position: relative;
         margin-bottom: s(16);
@@ -38,7 +39,7 @@
 
     &__videoContainer{
         width: 100%;
-        padding-top: s(500);
+        padding-top: 500/626*100%;
         height: 0;
         position: relative;
         margin-bottom: s(16);
@@ -50,8 +51,11 @@
 
     &__videoContainer,
     &__image{
-        clip-path: circle(100%);
-        transition: 300ms clip-path easing(ease-in-quad) 0ms;
+        @media screen and (any-pointer: fine){
+            clip-path: circle(100%);
+            transition: 300ms clip-path easing(ease-in-quad) 0ms;
+        }
+
     }
 
     &__videoContainer{
@@ -70,8 +74,11 @@
         &:hover{
             & + .caseCard__image,
             & + .caseCard__videoContainer{
-                clip-path: circle(44%);
-                transition: 400ms clip-path easing(ease-out-quad) 0ms;
+                @media screen and (any-pointer: fine){
+                    clip-path: circle(44%);
+                    transition: 400ms clip-path easing(ease-out-quad) 0ms;
+                }
+
             }
         }
     }
@@ -97,7 +104,8 @@
     }
 
     &__video{
-        width: 100%/625*500;
+        width: 100%;
+        max-width: s(500);
         margin: 0 auto;
     }
 
@@ -121,5 +129,39 @@
 
     &__category{
         @extend .tag-underline;
+    }
+    @media screen and (max-width: 1100px) and (min-width: 701px){ 
+        &__categories,
+        &__title{
+            width: 100%;
+            max-width: 100%;
+        }
+
+        &__categories{
+            justify-content: flex-start;
+        }
+
+        &__category{
+            & + &{
+                margin-left: 0;
+            }
+            margin-right: s(15);
+        }
+
+        &__link{
+            &:focus,
+            &:hover{
+                & + .caseCard__image,
+                & + .caseCard__videoContainer{
+                   // clip-path: circle(40%);
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 700px){ 
+
+        width: 100%;
+        max-width: 100%;
     }
 }

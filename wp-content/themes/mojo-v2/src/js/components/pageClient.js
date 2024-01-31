@@ -11,7 +11,7 @@ export default class PageClient {
     constructor(el) {
         this.el     = el;
         this.intro  = new ClientIntro(this.el.querySelector('.clientIntro'));
-        this.number = new ClientNumbers(this.el.querySelector('.clientNumbers'))
+        //this.number = new ClientNumbers(this.el.querySelector('.clientNumbers'))
         this.globe  = new Globe(this.el.querySelector('.globe'));
         /*
         this.intro.promise.then(() => {
@@ -36,7 +36,7 @@ export default class PageClient {
 
     e_resize(e) {
         this.intro.e_resize();
-        this.number.e_resize();
+        //this.number.e_resize();
         this.globe.e_resize();
     }
 }

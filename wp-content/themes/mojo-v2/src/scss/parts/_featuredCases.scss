@@ -34,12 +34,17 @@
             left: -9999px;
             border-bottom: 1px solid color(black);
         }
+
+        @media screen and (max-width: 800px){
+            &:after{
+                right: -9999px;
+            }
+        }
     }
 
     &__title{
-        font-family: 'Cambon', serif;
-        font-size: s(80);
-        line-height: 100%;
+        @extend .title80;
+
         margin-top: s(57);
         width: colGut(6,0,6,1);
         margin-bottom: s(40);
@@ -116,7 +121,6 @@
         transition: 200ms opacity linear;
     }
 
-
     &__cases{
         display: flex;
         justify-content: flex-end;
@@ -128,11 +132,6 @@
         width: calc(50vw + 16.5px);
         border-bottom: 1px solid black;
 
-        @media screen and (max-width: 1285px){
-            width: calc(100% + 30px);
-            margin-left: s(-30);
-        }
-
         &:first-child{
             border-top: 1px solid black;
         }
@@ -142,9 +141,7 @@
         position: relative;
         padding-left: calc(50vw - 642.5px);
 
-        @media screen and (max-width: 1285px){
-            padding-left: 30px;
-        }
+
 
         text-decoration: none;
         padding-top: s(28);
@@ -177,19 +174,11 @@
 
     &__seeAll{
         width: calc(50vw + 16.5px);
-        @media screen and (max-width: 1285px){
-            width: calc(100% + 30px);
-            margin-left: s(-30);
-        }
         border-bottom: 1px solid black;
     }
 
     &__seeAllLink{
         padding-left: calc(50vw - 642.5px);
-
-        @media screen and (max-width: 1285px){
-            padding-left: 30px;
-        }
         text-decoration: none;
         padding-top: s(28);
         padding-bottom: s(28);
@@ -233,14 +222,6 @@
         margin-right: s(-40);
         margin-top: s(57);
         margin-bottom: s(40+250);
-
-        @media screen and (max-width: 1285px){
-            width: calc( #{colGut(6,0,12,0)} - 30px);
-            margin-left: s(30);
-            margin-top: s(30);
-        }
-
-
     }
 
     &__videos{
@@ -251,18 +232,6 @@
         padding-top: 100%;
         margin-top: -100%;
         pointer-events: none;
-
-        @media screen and (max-height: 1000px){
-            width: 80%;
-            padding-top: 80%;
-            margin-top: -80%;
-            margin-left: 10%;
-            top: s(30);
-        }
-
-        @media screen and (max-width: 1285px){
-            top: s(30);
-        }
     }
 
     &__starsky{
@@ -271,17 +240,10 @@
         bottom: s(40+250) * -1;
         left: s(128);
         width: s(498);
-
         mix-blend-mode: difference;
         pointer-events: none;
         background-image: url(./../images/starsky.svg);
         background-size: 498px;
-
-        @media screen and (max-width: 1285px){
-            left: 0;
-            right: 0;
-            width: 40vw;
-        }
     }
 
     &__videoDescription{
@@ -294,19 +256,6 @@
         .featuredCases__video--active &{
             opacity: 1;
         }
-
-        @media screen and (max-height: 1000px){
-            padding-top: s(30);
-            position: relative;
-            left: -10%;
-            width: 120%;
-        }
-        @media screen and (max-width: 1285px){
-            padding-top: s(30);
-
-        
-        }
-
     }
 
     &__videoTitle{
@@ -316,11 +265,6 @@
         line-height: 110%;
         margin-bottom: s(28);
         display: block;
-        @media screen and (max-height: 1000px){
-            margin-left: -5%;
-            width: 110%;
-            margin-right: -5%;
-        }
     }
 
     &__videoText{
@@ -343,20 +287,15 @@
     &__videoWrapper{
         position: relative;
         width: 100%;
-        
-
         padding-top:  100%;
         overflow: hidden;
         border-radius: 100%;
-
         height: 0;
         &:before{
             z-index: 2;
             @extend .photoNoise;
             border-radius: 100%;
-
         }
-
     }
 
     &__video{
@@ -367,10 +306,8 @@
         width: 100%;
         height: 100%;
         
-
         opacity: 0;
         transition: opacity 200ms easing(ease-out-quad) 200ms;
-
 
         &--active{
             opacity: 1;
@@ -392,7 +329,6 @@
             height: 100%;
             width: 100%;
             object-fit: cover;
-
         }
 
         img{
@@ -424,15 +360,118 @@
             width: 350/548*100%;
             height: auto;
         }
-        @media screen and (max-height: 1000px){
+    }
+
+    @media screen and (max-height: 1000px){
+        &__circle{
             width: 80%;
             padding-top: 80%;
             margin-left: 10%;
             top: s(30);
         }
+        &__videoTitle{
+            margin-left: -5%;
+            width: 110%;
+            margin-right: -5%;
+        }
 
-        @media screen and (max-width: 1285px){
+        &__videoDescription{
+            padding-top: s(30);
+            position: relative;
+            left: -10%;
+            width: 120%;
+        }
+
+        &__videos{
+            width: 80%;
+            padding-top: 80%;
+            margin-top: -80%;
+            margin-left: 10%;
             top: s(30);
+        }
+    }
+
+    @media screen and (max-width: 1400px){
+        &__right{
+            width: calc( #{colGut(6,0,12,0)} - 30px);
+            margin-left: s(30);
+            margin-top: s(30);
+        }
+    }
+
+    @media screen and (max-width: 1285px){
+        &__circle{
+            top: s(30);
+        }
+
+        &__videoDescription{
+            padding-top: s(30);
+        }
+
+        &__starsky{
+            left: 0;
+            right: 0;
+            width: 40vw;
+        }
+
+        &__case{
+            width: calc(100% + 30px);
+            margin-left: s(-30);
+        }
+
+        &__caseLink{
+            padding-left: 30px;
+        }
+
+        &__seeAll{
+            width: calc(100% + 30px);
+            margin-left: s(-30);
+        }
+
+        &__seeAllLink{
+            padding-left: 30px;
+        }
+    }
+
+
+    @media screen and (max-width: 800px){
+        overflow: hidden;
+
+        &__case{
+            width: 100vw;
+            margin-right: s(-30);
+        }
+
+        &__left{
+            width: 100%;
+            border-right: none;
+        }
+
+        &__right{
+            display: none;
+        }
+
+        &__case{
+            width: 100vw;
+            margin-right: s(-30);
+        }
+
+        &__caseLink{
+            padding-right: 30px;
+        }
+
+        &__seeAll{
+            width: 100vw;
+            margin-right: s(-30);
+        }
+
+        &__seeAllLink{
+            padding-right: 30px;
+        }
+
+        &__title,
+        &__gallery{
+            width: 100%;
         }
     }
     

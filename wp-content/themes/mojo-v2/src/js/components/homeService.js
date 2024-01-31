@@ -1,6 +1,7 @@
 
 import gsap from "gsap";
 import Observer from "gsap/Observer";
+import { isTouchDevice } from "../utils/detect";
 
 export default class HomeService {
     
@@ -99,29 +100,32 @@ export default class HomeService {
                 0.15 * index 
             )
         }
+        if(!isTouchDevice()){
+            this.el.addEventListener('dragstart', event => {
+                event.preventDefault();
+            });
 
-        this.el.addEventListener('dragstart', event => {
-            event.preventDefault();
-        });
+            this.el.addEventListener('drop', event => {
+                event.preventDefault();
+            });
 
-        this.el.addEventListener('drop', event => {
-            event.preventDefault();
-        });
-
-        Observer.create({
-            target: this.el,
-            type: "wheel,touch,pointer",
-            id: "homeService",
-            onPress: (self) => {
-                self.startScroll = main.scrollTrigger.scroll();
-            },
-            onDrag: (self) => {
-                gsap.to(main.scrollTrigger, {
-                    duration: 0.4,
-                    ease: "power1.out",
-                    scroll: self.startScroll + (self.startX - self.x) * 2
-                })
-            }
-        });
+            Observer.create({
+                axis: 'x',
+                lockAxis: true,
+                target: this.el,
+                type: "wheel,pointer",
+                id: "homeService",
+                onDragStart	: (self) => {
+                    self.startScroll = main.scrollTrigger.scroll();
+                },
+                onDrag: (self) => {
+                    gsap.to(main.scrollTrigger, {
+                        duration: 0.4,
+                        ease: "power1.out",
+                        scroll: self.startScroll + (self.startX - self.x) * 2
+                    })
+                }
+            });
+        }
     }
 }

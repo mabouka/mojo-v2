@@ -172,4 +172,8 @@
             transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(1 / 36)}) !important;
         }
     }
+
+    @media (any-pointer: coarse) {
+        display: none !important;
+    }
 }
