@@ -39,7 +39,7 @@ function remove_xmlrpc_pingback_ping( $methods ) {
         wp_dequeue_style( 'global-styles' );
         wp_dequeue_style( 'wp-block-library' );
         wp_dequeue_style( 'wp-block-library-theme' );
-        
+
         if ( is_single() && 'case' == get_post_type() ) {
 
         }
@@ -49,7 +49,13 @@ function remove_xmlrpc_pingback_ping( $methods ) {
     } 
 
     add_action( 'wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100 );
-
+    add_action('wp_head', '_remove_wpml_generator', 0);
+    function _remove_wpml_generator()
+    {
+        if (!empty($GLOBALS['sitepress'])) {
+            remove_action(current_filter(), array($GLOBALS['sitepress'], 'meta_generator_tag'));
+        }
+    }
 
 
     //WPML

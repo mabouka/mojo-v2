@@ -10,7 +10,7 @@
         <?php if ($urlMobile): ?>
         <source src="<?= $urlMobile ?>" media="screen and (max-width: 600px)">
         <?php endif ?>
-        <source src="<?= $url ?>" type="application/x-mpegURL">
+        <source src="<?= $url ?>">
     </video>
     <div class="homeVideo__noise"></div>
 </div>
