@@ -1,17 +1,48 @@
 <?php
-    $image = getCustomThumbnail($case->ID, ['caseCard', 'caseCard@2x']);
+    $image = getCustomThumbnail($case->ID, ['caseCard', 'caseCard@2x', 'caseCardMobile', 'caseCardMobile@2x']);
     $imageCard  = get_field('card_image', $case);
     $video = get_field('card_video', $case);    
 ?>
 
-<section class="js-is-center caseCard<?= $video ? ' caseCard--video' :'' ?> ">
+<section class="caseCard<?= $video ? ' caseCard--video' :'' ?> ">
     <a class="caseCard__link" href="<?= get_the_permalink($case); ?>">
         <?= get_the_title($case); ?>
     </a>
 
     <?php if($video): ?>
     <div class="caseCard__videoContainer">
-        <img class="caseCard__videoPoster" src="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  alt="">
+        <picture>
+
+        <?php if ($imageCard): ?>
+            <source 
+                srcset="<?= $imageCard['sizes']['caseCardMobile'] ?> 1x, <?= $imageCard['sizes']['caseCardMobile@2x'] ?> 2x" 
+            >
+            <img 
+                class="caseCard__videoPoster"
+                src="<?= $imageCard['sizes']['caseCard'] ?>" 
+                srcset="<?= $imageCard['sizes']['caseCard'] ?> 1x, <?= $imageCard['sizes']['caseCard@2x'] ?> 2x" 
+                alt="<?= $imageCard['alt']?>"
+                width="625"
+                height="500"
+                lazyload
+            >
+        <?php else: ?>
+            <source 
+                srcset="<?= $image->src['caseCardMobile'] ?> 1x, <?= $image->src['caseCardMobile@2x'] ?> 2x" 
+            >
+
+            <img 
+                class="caseCard__videoPoster"
+                src="<?= $image->src['caseCard'] ?>" 
+                srcset="<?= $image->src['caseCard'] ?> 1x, <?= $image->src['caseCard@2x'] ?> 2x" 
+                alt="<?= $image->alt ?>"
+                width="625"
+                height="500"
+                lazyload
+            >
+        
+        <?php endif ?>        
+        </picture>
         <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  loop playsinline muted lazyload>
             <source src="<?= $video ?>" media="all and (min-width: 700px) and (any-pointer: fine)">
         </video>

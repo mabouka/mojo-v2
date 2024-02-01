@@ -111,6 +111,44 @@
         }
     }
 
+    @media screen and (max-width: 600px) {
+        padding-top: s(58);
+        &__inside{
+            flex-direction: column-reverse;
+        }
+
+        &__title{
+            display: none;
+        }
+
+        &__content{
+            margin-bottom: s(114);
+        }
+
+        &__container{
+            display: block;
+        }
+
+        &__text{
+            font-size: s(22);
+            margin-bottom: 0;
+        }
+
+        &__image,
+        &__content{
+            width: 100%;
+        }
+
+        &__carousel{
+            padding: s(100) 0 s(80) 0;
+        }
+
+        &__carouselItem{
+            margin-left: s(60);
+        }
+    
+    }
+
 
     .client{
         border: 1px solid black;
@@ -195,6 +233,61 @@
 
             &__text{
                 font-size: s(18);
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            border: none;
+            border-top: 1px solid color(dark);
+            width: 100%;
+            display: block;
+            //max-height: s(70);
+            //transition: 200ms max-height linear;
+            //overflow: hidden;
+
+            &__container{
+                width: 100%;
+                display: flex;
+                padding-left: s(15);
+                padding-right: s(15);
+                padding-top: s(20);
+                padding-bottom: s(20);
+            }
+
+            &__letter{
+                margin-right: s(22);
+                margin-top: s(-22);
+
+                //transition: 200ms transform easing(ease-out-quad);
+                //transform: translate3d(calc(-15px + 50vw - 50%), 0,0);
+
+
+            }
+
+
+
+            &__content{
+
+                //transform: translate3d(calc(-15px + 50vw), 0,0);
+                //opacity: 0;
+                //transition: 200ms transform easing(ease-out-quad), 200ms opacity linear;
+            }
+
+            &__name{
+                margin-top: s(10);
+            }
+        }
+
+        &--active{
+            @media screen and (max-width: 600px) {
+                max-height: 500px;
+                .client__letter{
+                    //transform: translate3d(0, 0,0);
+                }
+                .client__content{
+                    //transform: translate3d(0, 0,0);
+                    //opacity: 1;
+                }
             }
         }
     }

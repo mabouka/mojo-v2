@@ -56,6 +56,10 @@
             <div class="menu__copyright">
                 © MOJO Agency <?= date('Y'); ?>
             </div>
+            <nav class="menu__mobileLang">
+                <?= get2LanguageLinks('menu__mobileLangItem') ?> 
+            </nav>
+
 
 
 

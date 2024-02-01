@@ -5,6 +5,7 @@ import cursorOption from './classes/cursorOption';
 import Menu         from './classes/Menu';
 import InView       from './classes/InView';
 import InViewCenter       from './classes/IsCentered';
+
 import Router       from './classes/Router';
 import Footer       from './classes/Footer';
 import Header       from './classes/Header';
@@ -12,6 +13,7 @@ import Header       from './classes/Header';
 class Mojo {
     constructor() {
         this.inview      = InView;
+
         this.setupElements();
         this.router      = new Router();
     }

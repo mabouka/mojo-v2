@@ -126,6 +126,7 @@
         //left: -9999px;
         //top: 0;
         -webkit-appearance: none;
+        display: none;
         
         position: absolute;
         //bottom: 300%;
@@ -209,7 +210,7 @@
         padding-bottom: s(150);
         position: relative;
         align-items: flex-start;
-        overflow: hidden;
+        // /overflow: hidden;
 
         .caseCard{
             margin-left: gutter(12);
@@ -241,6 +242,72 @@
 
             left: 0;
             transform: translate3d(-25%, 0, 0);
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-top: s(157);
+        
+
+        .caseCard{
+            margin-left: 0;
+            margin-bottom: s(20);
+            &:nth-child(1n+3){
+                margin-top: 0;
+            }
+        }
+        &__title{
+            font-size: s(50);
+            margin-bottom: s(159);
+        }
+        
+        &__form{
+            flex-wrap: wrap;
+            padding-bottom: 0;
+            margin-left: s(-15);
+            width: 100vw;
+            transform: translate3d(0,0,0);
+            z-index: 1;
+        }
+
+        &__filter{
+            margin-left: 0;
+            flex-grow: 5;
+
+            &:nth-child(4){
+                .casesGrid__filterLabel{
+                    border-left: none;
+                }
+            }
+        }
+
+        &__filterReset,
+        &__filterLabel{
+            border-top: 1px solid color(dark);
+            padding: s(20);
+            font-size: s(18);
+            
+        }
+
+        &__filterReset{
+            background-color: color(dark);
+            color: color(sand);
+        }
+
+        &__filterLabel{
+            border-left: 1px solid color(dark);
+            width: 100%;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        &__dropDown{
+            position: fixed;
+            top: 100%;
+            left: 50vw;
+            transform: translate3d(-50%,0, 0);
+            margin-top: s(20);
         }
     }
 

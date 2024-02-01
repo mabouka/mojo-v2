@@ -17,20 +17,26 @@ $the_query = new WP_Query([
             <?php endif ?>
 
             <?php if ($the_query->have_posts()) : ?>
-            <div class="casesServices__grid">
-                <?php foreach ($the_query->posts as $key => $service) : ?>
-                        <?php getPartial('serviceCard', [
-                            'service' => $service,
-                            'modifier' => 'full'
-                        ]); ?>
-                <?php endforeach; ?>
+            <div class="casesServices__gridContainer">
+                <div class="casesServices__grid">
+                    <?php foreach ($the_query->posts as $key => $service) : ?>
+                            <?php getPartial('serviceCard', [
+                                'service' => $service,
+                                'modifier' => 'full'
+                            ]); ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
+
             <?php endif; ?>
 
 
+            <?php if ($button): ?>
             <a class="casesServices__button btn btn--dark" href="<?= $button['url'] ?>">
                 <?= $button['title'] ?>
             </a>
+            <?php endif ?>
+
         </div>
     </div>
 </div>

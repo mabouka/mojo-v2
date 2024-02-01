@@ -1,5 +1,16 @@
+
+.wp-block-group{box-sizing:border-box;}
+.wp-block-image img{box-sizing:border-box;height:auto;max-width:100%;vertical-align:bottom;}
+ul{box-sizing:border-box;}
+.wp-block-video{box-sizing:border-box;}
+.wp-block-video video{vertical-align:middle;width:100%;}
+html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
+:where(figure){margin:0 0 1em;}
+    
+
 .gutenberg{
 
+    
 }
 
 .fullWidthBlock{

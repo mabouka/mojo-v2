@@ -25,10 +25,12 @@
 
     .serviceCard{
         width: 100%;
-        transform: translate3d(0, 0, 0);
-        transition: 200ms transform easing(ease-out-quad);
-        &:hover{
-            transform: translate3d(0, -30px, 0);
+        @media (any-pointer: fine) {
+            transform: translate3d(0, 0, 0);
+            transition: 200ms transform easing(ease-out-quad);
+            &:hover{
+                transform: translate3d(0, -30px, 0);
+            }
         }
     }
 
@@ -57,7 +59,7 @@
         }
     }
 
-    @media screen and (max-width: 1100px) {
+    @media screen and (max-width: 1100px) and (min-width: 801px) {
         &__item{
             width: col(4, 12);
             margin-left: gutter(12);
@@ -68,6 +70,35 @@
             &:nth-child(1n+4){
                 margin-top: s(35);
             }
+        }
+    }
+
+    @media screen and (max-width: 800px)  and (min-width: 601px)  {
+        &__item{
+            width: col(6, 12);
+            margin-left: gutter(12);
+            &:nth-child(2n+1){
+                margin-left: 0;
+            }
+    
+            &:nth-child(1n+3){
+                margin-top: s(35);
+            }
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-bottom: s(50);
+        &__item{
+            width: col(12, 12);
+            & + & {
+                margin-top: s(40);
+            }
+        }
+
+        .serviceCard{
+            width: s(295);
+            margin: 0 auto;
         }
     }
 }

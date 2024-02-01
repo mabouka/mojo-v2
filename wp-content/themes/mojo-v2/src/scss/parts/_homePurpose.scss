@@ -27,10 +27,10 @@
         font-family: 'dm', sans-serif;
         font-size: s(20);
         line-height: s(28); /* 140% */
-
         .btn{
             margin-top: s(60);
         }
+
     }
 
     &__svgWrapper{
@@ -107,5 +107,31 @@
         &__inside{
             flex-direction: column;
         }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-top: s(80);
+        padding-bottom: s(230);
+
+        &__title{
+            font-size: s(50);
+        }
+
+        &__text{
+            font-size: s(16);
+
+            .btn{
+                margin-top: s(80);
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+        }
+
+        &__svgWrapper{
+            width: 1750px;
+            height: 1750px;
+        }
+
     }
 }

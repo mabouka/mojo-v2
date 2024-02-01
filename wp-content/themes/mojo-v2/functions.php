@@ -407,6 +407,24 @@ function getLanguageLinks($class = "header__language")
     return $link;
 }
 
+function get2LanguageLinks($class = "header__language")
+{
+    if (!function_exists('icl_get_languages')) {
+        return '';
+    }
+    $languages = icl_get_languages('skip_missing=0');
+    $active = $languages[ICL_LANGUAGE_CODE];
+    $link = '';
+    if (!empty($languages)) {
+        foreach ($languages as $c => $l) {
+            $link .= '<a href="' . $l['url'] . '" class="' . $class. ($l['active'] ? (' ' .$class.'--current'): '') .'" data-barba-prevent>';
+            $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
+            $link .= '</a>';
+        }
+    }
+    return $link;
+}
+
 
 
 /**

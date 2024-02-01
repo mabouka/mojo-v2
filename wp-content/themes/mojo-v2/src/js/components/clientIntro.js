@@ -97,11 +97,12 @@ export default class ClientIntro {
             scrollTrigger: {
                 trigger: this.el,
                 start: 'top',
-                end: '+=2000',
+                end: '+=2000', // +=600
                 scrub: true,
                 pin: true,
                 //markers: true,
                 id: "Intro",
+                //normalizeScroll: true
                 //invalidateOnRefresh: true,
             }
         })

@@ -7,27 +7,50 @@
                 <h2 class="featuredCases__title js-in-view appear-fade"><?= $title; ?></h2>
 
                 <?php if ($text) : ?>
-                    <div class="featuredCases__text js-in-view appear-fade">
-                        <?= $text ?>
-                    </div>
+                <div class="featuredCases__text js-in-view appear-fade">
+                    <?= $text ?>
+                </div>
                 <?php endif; ?>
 
                 <?php if ($casesGallery) : ?>
-                    <div class="featuredCases__gallery">
-                        <?php foreach ($casesGallery as $key => $case) : ?>
-                            <?php
-                            $image = getCustomThumbnail($case->ID, ['featuredCases--big', 'featuredCases--big@2x', 'featuredCases--small', 'featuredCases--small@2x']);
-                            ?>
-                            <a href="<?= get_the_permalink($case); ?>" data-hover-target="#featuredVideo-<?= $key ?>" id="featuredImage-<?= $key ?>" class="darkSection featuredCases__galleryItem<?= $key === 0 ? ' featuredCases__galleryItem--big' : '' ?> js-in-view appear-fadeup">
-                                <img src="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?>" srcset="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?> 1x, <?= $image->src[$key === 0 ? 'featuredCases--big@2x' :  'featuredCases--small@2x']; ?> 2x" alt="<?= $image->alt; ?>" width="294" height="260">
+                <div class="featuredCases__gallery">
+                    <?php foreach ($casesGallery as $key => $case) : ?>
+                        <?php
+                        $image = getCustomThumbnail($case->ID, ['featuredCases--big', 'featuredCases--big@2x', 'featuredCases--small', 'featuredCases--small@2x', 'caseCardMobile', 'caseCardMobile@2x']);
+                        ?>
+                        <a href="<?= get_the_permalink($case); ?>" data-hover-target="#featuredVideo-<?= $key ?>" id="featuredImage-<?= $key ?>" class="darkSection featuredCases__galleryItem<?= $key === 0 ? ' featuredCases__galleryItem--big' : '' ?> js-in-view appear-fadeup">
+                            <figure class="featuredCases__galleryItemFigure">
+                                <picture>
+
+                                    <source srcset="<?= $image->src['caseCardMobile'] ?> 1x, <?= $image->src['caseCardMobile@2x'] ?> 2x" media="(max-with:600px)" />
+                                    <img src="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?>" srcset="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?> 1x, <?= $image->src[$key === 0 ? 'featuredCases--big@2x' :  'featuredCases--small@2x']; ?> 2x" alt="<?= $image->alt; ?>" width="294" height="260">
+
+                                </picture>
                                 <div class="featuredCases__galleryItemHover darkSection">
                                     <span class="btn btn--light btn--mini">
                                         <?= __('See case', 'mj'); ?>
                                     </span>
                                 </div>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
+                            </figure>
+                            <div class="featuredCases__galleryItemContent">
+                                <p class="featuredCases__galleryItemTitle"><?= get_the_title($case); ?></p>
+
+                                <?php
+                                $categories = get_the_category($case);
+                                if ($categories) : ?>
+                                    <ul class="featuredCases__galleryItemCategories">
+                                        <?php foreach ($categories as $category) : ?>
+                                            <li class="featuredCases__galleryItemCategory">
+                                                <?= $category->name; ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </div>
+
+                        </a>
+                    <?php endforeach; ?>
+                </div>
                 <?php endif; ?>
 
                 <?php if ($casesLines) : ?>

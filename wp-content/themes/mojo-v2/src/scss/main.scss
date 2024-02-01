@@ -29,7 +29,7 @@
 @import "base/lenis";
 
 // Vendor
-@import "lib/swiper";
+@import "base/basicSwiper";
 
 // Blocks
 @import "blocks-render/quoteImage";
@@ -95,8 +95,8 @@
     @import "parts/sCaseBanner";
     @import "parts/sCaseFeatures";
     @import "parts/sCaseIntro";
-    //@import "parts/sCaseNext";
     @import "parts/sCaseRandom";
+
     // Commitments
     @import "parts/commitmentsIntro";
     @import "parts/commitmentsPurpose";

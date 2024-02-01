@@ -28,7 +28,7 @@
 
     <?php if ($clients): ?>
     
-    <div class="ourClients__presentation js-in-view appear-fadeup">
+    <div class="ourClients__presentation js-in-view appear-fade">
         <div class="ourClients__container ">
             <?php foreach ($clients as $client) : ?>
                 <div class="client ">

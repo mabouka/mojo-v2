@@ -8,8 +8,6 @@
         user-select: none;
     }
 
-
-
     &__triggerStart,
     &__triggerEnd{
         position: absolute;
@@ -82,5 +80,46 @@
             width: col(9,12);
             font-size: s(25);
         }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-bottom: s(95);
+        padding-top: s(84);
+
+        &__text{
+            width: 100%;
+            font-size: s(22);
+            margin-bottom: 0;
+        }
+
+        &__groupSlide{
+            width: s(295);
+            width: 100vw;
+            padding-left: s(15);
+            margin-left: s(-15);
+            padding-top: s(50);
+        }
+
+        &__cardSlide{
+            float: left;
+            width: auto;
+            perspective: 1500px;
+            transform: translate3d(0,0,0) rotate(0);
+
+            transition: 200ms transform easing(ease-out-quad);
+    
+            & + &{
+                margin-left:0;
+            }
+
+            &.swiper-slide-next{
+                transform: translate3d(0,-15px,0) rotate(2deg);
+            }
+        }
+
+        .btn{
+            margin-top: s(50);
+        }
+        
     }
 }

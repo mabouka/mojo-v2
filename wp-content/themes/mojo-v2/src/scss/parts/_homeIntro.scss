@@ -29,7 +29,7 @@
 
         #moon,
         #poly{
-            transform: translate3d(100%, 0,0);
+            transform: translate3d(150%, 0,0);
         }
     }
 
@@ -95,6 +95,32 @@
         &__shape{
             left: 31%;
             height: 70%;
+        }
+    }
+
+    @media screen and (max-width: 700px){
+
+        &__shape{
+            left: -10%;
+            width: 416%;
+            height: auto;
+            bottom: 0;
+            top: inherit;
+        }
+
+        &__inside{
+            height: 100vh;
+            height: 100svh;
+            z-index: 2;
+            position: relative;
+        }
+
+        &__title{
+            font-size: s(50);
+            margin-bottom: 0;
+            position: absolute;
+            top: 50%;
+            transform: translate3d(0, -50%, 0);
         }
     }
 }

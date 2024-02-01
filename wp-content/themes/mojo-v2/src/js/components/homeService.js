@@ -2,6 +2,7 @@
 import gsap from "gsap";
 import Observer from "gsap/Observer";
 import { isTouchDevice } from "../utils/detect";
+import Swiper from "swiper";
 
 export default class HomeService {
     
@@ -16,7 +17,31 @@ export default class HomeService {
         this.realSection = this.el.querySelector('.homeService__realSize');
         this.allCard     = this.el.querySelectorAll('.homeService__cardSlide');
 
+        const mq = window.matchMedia( "(max-width: 600px)" );
 
+        if(!mq.matches){
+            this.initIntro();
+            this.initScroller();
+        }
+        else{
+            this.groupSlide.classList.add('swiper');
+            this.realSection.classList.add('swiper-wrapper');
+            this.allCard.forEach(card => {
+                card.classList.add('swiper-slide');
+            });
+
+            this.slider = new Swiper(this.groupSlide, {
+                direction: 'horizontal',
+                loop: true,
+                autoHeight: true,
+                slidesPerView: 'auto',
+                spaceBetween: 35,
+                grabCursor: true,
+            });
+        }
+    }
+
+    initIntro() {
         gsap.set(this.allCard, {
             "y" : 300,
             "x" : 100,
@@ -24,7 +49,7 @@ export default class HomeService {
             autoAlpha: 0
         });
         
-        const intro = gsap.timeline({
+        this.intro = gsap.timeline({
             duration: 1,
             scrollTrigger: {
                 trigger: this.el,
@@ -42,12 +67,13 @@ export default class HomeService {
             if(index === 1 ) rotate = '-1deg';
             let y = -25 * index * index / 3.5;
             if(index === 0 ) rotate = 0;
-            intro.to(this.allCard[index], {
+
+            this.intro.to(this.allCard[index], {
                 autoAlpha: 1,
                 duration: 0.2,
             },0.50 * index);
 
-            intro.to(this.allCard[index], {
+            this.intro.to(this.allCard[index], {
                 "y" :y,
                 "x" : 0,
                 rotate: rotate,
@@ -55,10 +81,12 @@ export default class HomeService {
                 ease: "power3.out",
             },0.50 * index);
         }
-        
+    }
 
 
-        const main = gsap.timeline({
+    initScroller() {
+
+        this.main = gsap.timeline({
             scrollTrigger: {
                 trigger: '.homeService__triggerStart',
                 endTrigger: '.homeService__triggerEnd',
@@ -72,7 +100,7 @@ export default class HomeService {
                 //markers: true
             }
         })
-        .to(this.groupSlide, 
+        this.main.to(this.groupSlide, 
             {
                 x: () => {
                    return -(this.realSection.offsetWidth - this.container.offsetWidth)
@@ -84,14 +112,14 @@ export default class HomeService {
         0
         );
         for (let index = 0; index < this.allCard.length; index++) {
-            main.to(this.allCard[index], 
+            this.main.to(this.allCard[index], 
                 {
                     "y" : 0,
                     duration:0.8,
                 },
                 0.15 * index 
             )
-            main.to(this.allCard[index], 
+            this.main.to(this.allCard[index], 
                 {
                     rotate: 0,
                     duration:0.8,
@@ -100,6 +128,10 @@ export default class HomeService {
                 0.15 * index 
             )
         }
+        this.addSwipeMovement();
+    }
+
+    addSwipeMovement() {
         if(!isTouchDevice()){
             this.el.addEventListener('dragstart', event => {
                 event.preventDefault();
@@ -115,11 +147,13 @@ export default class HomeService {
                 target: this.el,
                 type: "wheel,pointer",
                 id: "homeService",
+
                 onDragStart	: (self) => {
-                    self.startScroll = main.scrollTrigger.scroll();
+                    self.startScroll = this.main.scrollTrigger.scroll();
                 },
+
                 onDrag: (self) => {
-                    gsap.to(main.scrollTrigger, {
+                    gsap.to(this.main.scrollTrigger, {
                         duration: 0.4,
                         ease: "power1.out",
                         scroll: self.startScroll + (self.startX - self.x) * 2

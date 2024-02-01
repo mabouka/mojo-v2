@@ -1,7 +1,4 @@
-//import Swiper from 'swiper';
-// import Swiper styles
-//import 'swiper/css';
-
+import Swiper from 'swiper';
 
 export default class ImagesSlider {
 
@@ -13,9 +10,7 @@ export default class ImagesSlider {
         this.el         = el;
         this.wrapper    = el.querySelector('.imagesslider__wrapper');
         this.items      = el.querySelectorAll('.imagesslider__item');
-        setTimeout(() => {
-            this.initialize();
-        }, 200);
+        this.initialize();    
     }
 
     initialize() {
@@ -26,7 +21,7 @@ export default class ImagesSlider {
             slidesPerView: 'auto',
             spaceBetween: 35,
             grabCursor: true,
-          });
+        });
     }
     
     destroy() {

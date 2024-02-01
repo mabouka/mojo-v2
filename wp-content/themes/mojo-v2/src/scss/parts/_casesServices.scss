@@ -73,7 +73,25 @@
         }
     }
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 1100px) {
+        &__inside{
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__title{
+            font-size: s(67.5);
+            br{
+                display: none;
+            }
+        }
+
+        &__text{
+            width: col(5,12);
+        }
+    }
+
+    @media screen and (max-width: 800px)  and (min-width: 601px) {
 
         &__grid{
 
@@ -92,23 +110,61 @@
         }
     }
 
-    @media screen and (max-width: 1100px) {
-        &__inside{
-            justify-content: space-between;
-            align-items: center;
-        }
-
+    @media screen and (max-width: 800px) {
         &__title{
-            font-size: s(67.5);
-            br{
-                display: none;
-            }
+            width: 100%;
         }
 
         &__text{
-            width: col(5,12);
+            width: 100%;
+            max-width: s(500);
+        }
+
+        &__grid{
+            margin-top: s(80);
         }
     }
+
+    @media screen and (max-width: 600px) {
+        padding-bottom: s(140);
+        padding-bottom: s(50);
+
+        &__title{
+            font-size: s(50);
+        }
+
+        &__text{
+            margin-top: s(40);
+        }
+
+        &__button{
+            display: none;
+        }
+
+        &__gridContainer{
+            width: 100vw;
+            margin-left: s(-15);
+            padding-left: s(15);
+        }
+
+        
+        &__grid{
+            margin-bottom: 0;
+            display: flex;
+            flex-wrap: inherit;
+            justify-content: inherit;
+            width: 100%;
+
+            .serviceCard{
+                &.swiper-slide-next{
+                    transform: translate3d(0,-15px,0) rotate(2deg);
+                }
+            }
+
+        }
+    }
+
+
 
 
     

@@ -37,7 +37,7 @@
 
     @media screen and (max-width: 800px) {
 
-        serviceIntro__inside {
+        &__inside {
             flex-wrap: wrap;
         }
 
@@ -47,6 +47,19 @@
         &__text{
             margin-top: s(50);
             width: col(7,12);
+        }
+    }
+    @media screen and (max-width: 600px) {
+        padding-top: s(167);
+        padding-bottom: s(80);
+
+        &__title{
+            width: col(12,12);
+            font-size: s(50);
+        }
+        &__text{
+            margin-top: s(40);
+            width: 100%
         }
     }
 

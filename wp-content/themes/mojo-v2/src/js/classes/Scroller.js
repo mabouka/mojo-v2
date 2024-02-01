@@ -18,7 +18,7 @@ export default class Scroller {
             gestureDirection: "vertical",
             smooth: true,
             smoothTouch: false,
-            touchMultiplier: 2,
+            touchMultiplier: 2.2
         });
         
         function raf(time) {

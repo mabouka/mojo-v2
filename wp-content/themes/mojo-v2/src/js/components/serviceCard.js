@@ -7,6 +7,9 @@ export default class ServiceCard {
     }
 
     constructor(el) {
+        const mq = window.matchMedia( "any-pointer: coarse" );
+        if(mq.matches) return;
+
         this.el = el;
         this.isActive = false;
         this.bounds = this.el.getBoundingClientRect();

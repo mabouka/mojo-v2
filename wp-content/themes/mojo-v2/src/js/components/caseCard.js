@@ -23,9 +23,6 @@ export default class caseCard {
         if(this.isVideo) {
             this.link.addEventListener('mouseenter', this.e_enter.bind(this));
             this.link.addEventListener('mouseleave', this.e_leave.bind(this));
-
-            this.el.addEventListener('inCenter', this.e_enter.bind(this));
-            this.el.addEventListener('outCenter', this.e_leave.bind(this));
         }
         this.el.addEventListener('inView', this.e_inview.bind(this))
     }

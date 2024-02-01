@@ -32,46 +32,30 @@ function remove_xmlrpc_pingback_ping( $methods ) {
 
     //Remove Gutenberg Block Library CSS from loading on the frontend
     function smartwp_remove_wp_block_library_css(){
-
+        if ( class_exists( 'WPML\BlockEditor\Loader' ) ) {
+            wp_deregister_style( WPML\BlockEditor\Loader::SCRIPT_NAME );
+        }
+        wp_dequeue_style( 'classic-theme-styles' );
+        wp_dequeue_style( 'global-styles' );
+        wp_dequeue_style( 'wp-block-library' );
+        wp_dequeue_style( 'wp-block-library-theme' );
+        
         if ( is_single() && 'case' == get_post_type() ) {
 
         }
         else{
-            //wp_dequeue_style( 'wp-block-library' );
-            //wp_dequeue_style( 'wp-block-library-theme' );
+
         }
     } 
 
     add_action( 'wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100 );
 
-    add_action( 'wp_enqueue_scripts', function() {
 
-
-        if ( is_single() && 'case' == get_post_type() ) {
-
-        }
-        else{
-            //wp_dequeue_style( 'classic-theme-styles' );
-            //wp_dequeue_style( 'global-styles' );
-        }
-    }, 20 );
 
     //WPML
     define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true);
 
-    function prefix_disable_wpml_block_styles() {
-
-        if ( is_single() && 'case' == get_post_type() ) {
-
-        }
-        else{
-            if ( class_exists( 'WPML\BlockEditor\Loader' ) ) {
-                wp_deregister_style( WPML\BlockEditor\Loader::SCRIPT_NAME );
-            }
-        }
-    }
-     
-    add_action( 'wp_enqueue_scripts', 'prefix_disable_wpml_block_styles', 11 );
+ 
 
     //YOAST
     add_filter( 'wpseo_debug_markers', '__return_false' );

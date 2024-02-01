@@ -87,4 +87,18 @@
             margin-bottom: s(30);
         }
     }
+
+    @media screen and (max-width: 600px) {
+        &__inside{
+            height: 90vh;
+            height: 90svh;
+        }
+
+        &__text{
+            font-size: s(35);
+            margin-bottom: s(30);
+            width: 100%;
+            text-align: center;
+        }
+    }
 }

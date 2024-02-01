@@ -20,4 +20,8 @@
         height: s(300);
     }
 
+    @media screen and (max-width: 600px){
+        height: s(640);
+    }
+
 }

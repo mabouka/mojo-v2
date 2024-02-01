@@ -7,13 +7,19 @@
 
     opacity: 0;
     transform: translate3d(0, 80px, 0);
-    transition: 500ms opacity easing(ease-out-quint), 500ms transform easing(ease-out-quad);
+    transition: 500ms opacity linear, 500ms transform easing(ease-out-quad);
 
+    @media screen and (max-width: s(600)) {
+        transform: translate3d(0, 40px, 0);
+
+    }
     .no-js,
     .fadeTransitionEntered &,
     &--inview{
         opacity: 1;
         transform: translate3d(0, 0, 0);
+        transition: 500ms opacity easing(ease-out-cubic), 500ms transform easing(ease-out-quad);
+
     }
 
     &__image{
@@ -163,5 +169,18 @@
 
         width: 100%;
         max-width: 100%;
+        &__image{
+            margin-bottom: s(11);
+        }
+
+        &__title{
+            font-size: s(16);
+        }
+
+        &__categories{
+            margin-top: s(3);
+        }
     }
+
+    
 }

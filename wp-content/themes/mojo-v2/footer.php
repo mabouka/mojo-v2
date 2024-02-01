@@ -50,6 +50,8 @@
                 <?php endif ?>
             </div>
             
+            <img class="footer__mobileLogo" src="<?= getUrl('dist/images/logoFooter.svg'); ?>" alt="Mojo" width="205" height="539">
+            
             <?php if ($sitemap = getCustomMenu('Sitemap')) : ?>
                 <nav class="footer__menu footer__menu--sitemap">
                     <h2 class="footer__menuTitle"><?= __('Sitemap', 'mj'); ?></h2>

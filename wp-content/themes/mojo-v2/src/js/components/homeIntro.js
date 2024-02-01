@@ -55,7 +55,7 @@ export default class HomeIntro {
 
         gsap.set(this.moon, {
             scale : 0,
-            x: '70vw',
+            x: '120vw',
             autoAlpha: 0,
             transformOrigin: '50% 50%'
         });
@@ -67,7 +67,7 @@ export default class HomeIntro {
         });
 
         gsap.set(this.poly, {
-            x: '70vw',
+            x: '120vw',
             transformOrigin: '60% 60%'
         });
         inview.addElement(this.el); // call Appearing animation

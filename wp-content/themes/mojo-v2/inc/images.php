@@ -19,6 +19,9 @@ add_image_size('teamCard@2x', 405 * 2, 405 * 2, true);
 add_image_size('caseCard', 625, 500, true);
 add_image_size('caseCard@2x', 625 * 2, 500 * 2, true);
 
+add_image_size('caseCardMobile', 345, 274, true);
+add_image_size('caseCardMobile@2x', 345 * 2, 274 * 2, true);
+
 add_image_size('caseLong', 1440, 440, true);
 
 add_image_size('caseFull', 1440, 720, true);

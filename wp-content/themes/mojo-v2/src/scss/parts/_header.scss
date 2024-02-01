@@ -87,5 +87,19 @@
             @include hidden();
         }
     }
+
+    @media screen and (max-width: 600px){
+        height: s(82);
+        top: 0;
+        display: flex;
+        align-items: center;
+        &--hidden{
+            display: none;
+        }
+        
+        &__language{
+            display: none;
+        }
+    }
 }
 

@@ -1,67 +1,47 @@
 .inview{
+    .appear{
+        &-fade,
+        &-fadeup,
+        &-fadedown{
+            opacity: 0;
+        }
 
-        .appear{
-            
+        &-fade{
+            will-change: opacity;
+            transition: opacity 500ms linear 0ms;
+        }
+        
+        &-fadeup{
+            transform: translate3d(0,#{s(80)},0);
+            will-change: transform, opacity;
+            transition: opacity 500ms linear 0ms, transform  500ms easing(ease-out-quad) 0ms;
+        }
+        &-fadedown{
+            transform: translate3d(0,#{s(-80)},0);
+            will-change: transform, opacity;
+            transition: opacity 500ms linear 0ms, transform  500ms easing(ease-out-quad) 0ms;
+        }
+
+        @for $n from 1 through 15 {
+            &-delay#{$n}{
+                transition-delay: $n/10 * 1s;
+            }
+        }
+    }
+
+    .in-view{
+        &.appear{
+            &-fadedown,
+            &-fadeup,
             &-fade{
-                visibility: hidden;
-                opacity: 0;
-                transition: opacity .8s easing(ease-out-cubic) .1s;
+                opacity: 1;
             }
-    
+            &-fadedown,
             &-fadeup{
-                visibility: hidden;
-                opacity: 0;
-                transform: translate3d(0,#{s(30)},0);
-                will-change: transform, opacity;
-                transition: visibility 0ms linear .1s, 
-                            opacity    .8s easing(ease-out-quad) .1s,
-                            transform  .8s easing(ease-out-quad) .1s;
-                @media screen and (max-width: s(1024)) {
-                    transition: visibility 0ms linear .1s, opacity .5s easing(ease-out-cubic);
-                    transform: none;
-                }
-            }
-            &-fadedown{
-                visibility: hidden;
-                opacity: 0;
-                transform: translate3d(0,#{s(-30)},0);
-                will-change: transform, opacity;
-                transition: visibility 0ms linear .1s, opacity 1.2s easing(ease-out-cubic) .1s,transform 1.2s easing(ease-out-quad) .1s;
-                @media screen and (max-width: s(1024)) {
-                    transform: none;
-                }
-            }
-            @for $n from 1 through 50 {
-                &-delay#{$n}{
-                    transition-delay: $n/10 * 1s;
-                }
-
-                @media screen and (max-width: s(1024)) {
-                    &-delay#{$n}{
-                        transition-delay: 0.1s
-                    }
-                }
+                transform: translate3d(0,0,0);
             }
         }
-    
-        .in-view{
-            &.appear{
-                &-fade{
-                    opacity: 1;
-                    visibility: visible;
-                }
-                &-fadedown,
-                &-fadeup{
-                    opacity: 1;
-                    visibility: visible;
-                    transform: translate3d(0,0,0);
-                    @media screen and (max-width: s(1024)) {
-                        transform: none;
-                    }
-                }
-            }
-        }
-    
+    }
 }
 
 

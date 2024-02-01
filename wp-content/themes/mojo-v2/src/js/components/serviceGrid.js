@@ -1,6 +1,7 @@
 
 import inview from "../classes/InView";
 import wait   from "../utils/wait";
+import isTop  from "../classes/IsTop";
 
 export default class ServiceGrid {
 
@@ -22,6 +23,15 @@ export default class ServiceGrid {
             inview.addElement(this.el);
         }
 
+        
+        const mq = window.matchMedia( "(max-width: 600px) and (any-pointer: coarse)" );
+
+        if(mq.matches){
+            this.items.forEach(item => {
+                isTop.addElement(item);
+            });
+        }
+
 
         this.setEvents();
     }
@@ -31,7 +41,11 @@ export default class ServiceGrid {
 
     setEvents() {
         this.el.addEventListener('inView',this.e_inview.bind(this));
+        this.items.forEach(item => {
+            item.addEventListener('inTop', (e) => {item.querySelector('.serviceCard').classList.add('swiper-slide-active')});
+            item.addEventListener('outTop', (e) => {item.querySelector('.serviceCard').classList.remove('swiper-slide-active')})
 
+        });
     }
 
     e_inview() {
