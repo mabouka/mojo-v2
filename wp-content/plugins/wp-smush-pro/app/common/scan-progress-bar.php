@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<p>
 				<?php
 					/* translators: 1: Open span tag <span> 2: Close span tag </span> */
-					printf( esc_html__( 'Image re-check in progress - %1$s0 seconds%2$s remaining', 'wp-smushit' ), '<span class="wp-smush-remaining-time">', '</span>' );			   				  		 	 	 		
+					printf( esc_html__( 'Image re-check in progress - %1$s0 seconds%2$s remaining', 'wp-smushit' ), '<span class="wp-smush-remaining-time">', '</span>' );
 				?>
 				</p>
 				<p class="wp-smush-scan-hold-on-notice sui-hidden">

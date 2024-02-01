@@ -73,7 +73,7 @@ class Smush_Optimization_Global_Stats extends Media_Item_Optimization_Global_Sta
 	public function subtract( $subtrahend ) {
 		parent::subtract( $subtrahend );
 
-		$this->set_lossy_count( max( $this->get_lossy_count() - $subtrahend->get_lossy_count(), 0 ) );
+		$this->set_lossy_count( max( $this->get_lossy_count() - $subtrahend->get_lossy_count(), 0 ) );			   				  		 	 	 		
 	}
 
 	/**
