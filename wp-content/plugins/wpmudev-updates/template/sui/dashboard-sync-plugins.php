@@ -6,6 +6,7 @@
  * @var WPMUDEV_Dashboard_Sui_Page_Urls $urls
  * @var string                          $type
  * @var array                           $membership_data
+ * @var int                             $hub_site_id
  *
  * @package WPMUDEV Dashboard 4.9.0
  */
@@ -55,6 +56,13 @@ $show_success = isset( $_GET['show'] ) && 'success' === $_GET['show'] ? true : f
 // Current membership type.
 $membership_type = WPMUDEV_Dashboard::$api->get_membership_status();
 
+$is_hosted_third_party = WPMUDEV_Dashboard::$api->is_hosted_third_party();
+
+$hub_site_url = $urls->hub_url;
+if ( ! empty( $hub_site_id ) ) {
+	$hub_site_url = trailingslashit( $hub_site_url ) . "site/$hub_site_id/overview/quick-setup";
+}
+
 ?>
 
 
@@ -87,7 +95,7 @@ $membership_type = WPMUDEV_Dashboard::$api->get_membership_status();
 				<h2><?php esc_html_e( 'Connected to The Hub', 'wpmudev' ); ?></h2>
 				<span class="sui-description">
 					<?php
-					if ( 'free' === $membership_type ) {
+					if ( 'free' === $membership_type || $is_hosted_third_party ) {
 						esc_html_e( 'Your site was successfully connected. You can now configure site services, manage updates, and so much more directly from The Hub.', 'wpmudev' );
 					} else {
 						printf(
@@ -100,7 +108,7 @@ $membership_type = WPMUDEV_Dashboard::$api->get_membership_status();
 
 				<div class="dashui-connect">
 					<div class="dashui-connect-actions">
-						<?php if ( 'free' === $membership_type ) : ?>
+						<?php if ( 'free' === $membership_type || $is_hosted_third_party ) : ?>
 							<a
 								class="sui-button sui-button-ghost sui-button-lg"
 								href="<?php echo esc_url( $urls->dashboard_url ); ?>"
@@ -121,7 +129,7 @@ $membership_type = WPMUDEV_Dashboard::$api->get_membership_status();
 						<?php endif; ?>
 						<a
 							class="sui-button sui-button-blue sui-button-lg"
-							href="<?php echo esc_url( $urls->hub_url ); ?>"
+							href="<?php echo esc_url( $hub_site_url ); ?>"
 							target="_blank"
 							role="button"
 						>

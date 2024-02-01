@@ -206,7 +206,7 @@ class WPMUDEV_Dashboard_Sui_Page_Urls {
 
 		// External URLs.
 		$this->hub_url              = $this->remote_site . 'hub2';
-		$this->external_support_url = $this->remote_site . 'hub/support/';
+		$this->external_support_url = $this->remote_site . 'hub2/#ask-question';
 		$this->community_url        = $this->remote_site . 'hub/community/';
 		$this->academy_url          = $this->remote_site . 'academy/';
 		$this->hub_account_url      = $this->remote_site . 'hub/account';

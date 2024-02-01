@@ -398,7 +398,7 @@ class WPMUDEV_Dashboard_Site {
 		// If upgrading to 4.11.10.
 		if ( version_compare( $old_version, '4.11.10', '<' ) ) {
 			// Upgrade settings.
-			WPMUDEV_Dashboard::$settings->_upgrade_41110();
+			WPMUDEV_Dashboard::$settings->upgrade_41110();
 		}
 	}
 
@@ -412,7 +412,7 @@ class WPMUDEV_Dashboard_Site {
 	 */
 	public function first_time_actions() {
 		// On our hosting, if it's first time activation enable few services.
-		if ( defined( 'WPMUDEV_HOSTING_SITE_ID' ) || isset( $_SERVER['WPMUDEV_HOSTED'] ) ) {
+		if ( WPMUDEV_Dashboard::$api->is_wpmu_dev_hosting() ) {
 			$user_id = get_current_user_id();
 			// If we couldn't find a user.
 			if ( empty( $user_id ) ) {
@@ -551,14 +551,18 @@ class WPMUDEV_Dashboard_Site {
 	 */
 	protected function _process_action( $action ) {
 		do_action( 'wpmudev_dashboard_action-' . $action );
-		$success = 'SILENT';
-		$type    = WPMUDEV_Dashboard::$api->get_membership_status();
+		$success               = 'SILENT';
+		$type                  = WPMUDEV_Dashboard::$api->get_membership_status();
+		$is_wpmudev_host       = WPMUDEV_Dashboard::$api->is_wpmu_dev_hosting();
+		$is_standalone_hosting = WPMUDEV_Dashboard::$api->is_standalone_hosting_plan();
+		$has_hosted_access     = $is_wpmudev_host && ! $is_standalone_hosting && 'free' === $type;
+		$has_support_access    = WPMUDEV_Dashboard::$api->is_support_allowed() || $has_hosted_access;
 
 		switch ( $action ) {
 			// Tab: Support
 			// Function Grant support access.
 			case 'remote-grant':
-				if ( ! is_wpmudev_member() && 'unit' !== $type ) {
+				if ( ! $has_support_access ) {
 					$success = false;
 				} else {
 					$success = WPMUDEV_Dashboard::$api->enable_remote_access( 'start' );
@@ -579,7 +583,7 @@ class WPMUDEV_Dashboard_Site {
 			// Tab: Support
 			// Function Extend support access.
 			case 'remote-extend':
-				if ( ! is_wpmudev_member() && 'unit' !== $type ) {
+				if ( ! $has_support_access ) {
 					$success = false;
 				} else {
 					$success = WPMUDEV_Dashboard::$api->enable_remote_access( 'extend' );
@@ -956,7 +960,7 @@ class WPMUDEV_Dashboard_Site {
 	 * @return mixed The option value.
 	 */
 	public function get_option( $name, $prefix = true, $default = false ) {
-		$mapped = WPMUDEV_Dashboard::$settings->_deprecated_get_field_mapping( $name );
+		$mapped = WPMUDEV_Dashboard::$settings->deprecated_get_field_mapping( $name );
 
 		return WPMUDEV_Dashboard::$settings->get( $mapped['name'], $mapped['group'], $default );
 	}
@@ -976,7 +980,7 @@ class WPMUDEV_Dashboard_Site {
 	 * @return bool
 	 */
 	public function set_option( $name, $value ) {
-		$mapped = WPMUDEV_Dashboard::$settings->_deprecated_get_field_mapping( $name );
+		$mapped = WPMUDEV_Dashboard::$settings->deprecated_get_field_mapping( $name );
 
 		return WPMUDEV_Dashboard::$settings->set( $mapped['name'], $value, $mapped['group'] );
 	}
@@ -996,7 +1000,7 @@ class WPMUDEV_Dashboard_Site {
 	 * @param  mixed  $value The new option value.
 	 */
 	public function add_option( $name, $value ) {
-		$mapped = WPMUDEV_Dashboard::$settings->_deprecated_get_field_mapping( $name );
+		$mapped = WPMUDEV_Dashboard::$settings->deprecated_get_field_mapping( $name );
 
 		return WPMUDEV_Dashboard::$settings->add( $mapped['name'], $value, $mapped['group'] );
 	}
@@ -1090,6 +1094,7 @@ class WPMUDEV_Dashboard_Site {
 		}
 		WPMUDEV_Dashboard::$settings->reset();
 		WPMUDEV_Dashboard::$api->set_key( '' );
+		WPMUDEV_Dashboard::$settings->set( 'connected_admin', 0, 'general' );
 		WPMUDEV_Dashboard::$api->hub_sync( false, true ); // force a sync so that site is removed from user's hub.
 
 		if ( $redirect ) {
@@ -1222,6 +1227,7 @@ class WPMUDEV_Dashboard_Site {
 				'can_autoupdate'      => false, // If plugin should auto-update?
 				'is_compatible'       => true, // Site has all requirements to install project?
 				'incompatible_reason' => '', // If is_compatible is false.
+				'requires_min_php'    => WPMUDEV_Dashboard::$upgrader->min_php, // Minimum PHP version required.
 				'need_upfront'        => false, // Only used by themes.
 				'is_installed'        => false, // Installed on current site?
 				'is_active'           => false, // WordPress state, i.e. plugin activated?
@@ -1268,17 +1274,18 @@ class WPMUDEV_Dashboard_Site {
 			$system_projects = WPMUDEV_Dashboard::$site->get_system_projects();
 
 			// General details.
-			$res->type           = ( 'theme' === $remote['type'] ? 'theme' : 'plugin' );
-			$res->name           = $remote['name'];
-			$res->info           = strip_tags( $remote['short_description'] );
-			$res->description    = isset( $remote['long_description'] ) ? $remote['long_description'] : '';
-			$res->version_latest = $remote['version'];
-			$res->features       = $remote['features'];
-			$res->default_order  = isset( $remote['_order'] ) ? intval( $remote['_order'] ) : 0;
-			$res->downloads      = intval( $remote['downloads'] );
-			$res->popularity     = intval( $remote['popularity'] );
-			$res->release_stamp  = intval( $remote['released'] );
-			$res->update_stamp   = intval( $remote['updated'] );
+			$res->type             = ( 'theme' === $remote['type'] ? 'theme' : 'plugin' );
+			$res->name             = $remote['name'];
+			$res->info             = strip_tags( $remote['short_description'] );
+			$res->description      = isset( $remote['long_description'] ) ? $remote['long_description'] : '';
+			$res->version_latest   = $remote['version'];
+			$res->features         = $remote['features'];
+			$res->default_order    = isset( $remote['_order'] ) ? intval( $remote['_order'] ) : 0;
+			$res->downloads        = intval( $remote['downloads'] );
+			$res->popularity       = intval( $remote['popularity'] );
+			$res->release_stamp    = intval( $remote['released'] );
+			$res->update_stamp     = intval( $remote['updated'] );
+			$res->requires_min_php = empty( $remote['requires_min_php'] ) ? WPMUDEV_Dashboard::$upgrader->min_php : $remote['requires_min_php'];
 
 			// Project tags.
 			if ( 'plugin' === $res->type ) {
@@ -1436,6 +1443,10 @@ class WPMUDEV_Dashboard_Site {
 
 					case 'buddypress':
 						$res->incompatible_reason = __( 'Requires BuddyPress', 'wpmudev' );
+						break;
+
+					case 'php':
+						$res->incompatible_reason = sprintf( __( 'Requires PHP %s or above', 'wpmudev' ), $res->requires_min_php );
 						break;
 
 					default:
@@ -1699,6 +1710,16 @@ class WPMUDEV_Dashboard_Site {
 		$allowed[] = $user_id;
 		WPMUDEV_Dashboard::$settings->set( 'limit_to_user', $allowed, 'general' );
 
+		/**
+		 * Action hook to trigger when a admin user is added to permissions.
+		 *
+		 * @since 4.11.18
+		 *
+		 * @param int   $user_id Added user ID.
+		 * @param array $allowed Allowed user IDs.
+		 */
+		do_action( 'wpmudev_after_add_allowed_user', $user_id, $allowed );
+
 		return true;
 	}
 
@@ -1727,6 +1748,16 @@ class WPMUDEV_Dashboard_Site {
 		unset( $allowed[ $key ] );
 		$allowed = array_values( $allowed );
 		WPMUDEV_Dashboard::$settings->set( 'limit_to_user', $allowed, 'general' );
+
+		/**
+		 * Action hook to trigger when a admin user is removed from permissions.
+		 *
+		 * @since 4.11.18
+		 *
+		 * @param int   $user_id Removed user ID.
+		 * @param array $allowed Allowed user IDs.
+		 */
+		do_action( 'wpmudev_after_remove_allowed_user', $user_id, $allowed );
 
 		return true;
 	}
@@ -2033,71 +2064,19 @@ class WPMUDEV_Dashboard_Site {
 	/**
 	 * Check user permissions to see if we can install this project.
 	 *
-	 * @since  1.0.0
+	 * NOTE: Not sure why this duplicate exist. Since it's a public function we can not
+	 * remove it for now. So deprecating.
 	 *
-	 * @param  int  $project_id   The project to check.
-	 * @param  bool $only_license Skip permission check, only validate license.
+	 * @since      1.0.0
+	 * @deprecated 4.11.17
+	 *
+	 * @param int  $project_id   The project to check.
+	 * @param bool $only_license Skip permission check, only validate license.
 	 *
 	 * @return bool
 	 */
 	public function user_can_install( $project_id, $only_license = false ) {
-		$data              = WPMUDEV_Dashboard::$api->get_projects_data();
-		$membership_type   = WPMUDEV_Dashboard::$api->get_membership_status();
-		$licensed_projects = WPMUDEV_Dashboard::$api->get_membership_projects();
-
-		if ( 'unit' === $membership_type ) {
-			foreach ( $licensed_projects as $p ) {
-				$is_allowed = intval( $project_id ) === $p;
-				if ( $is_allowed ) {
-					return true;
-				}
-			}
-		}
-
-		// Basic check if we have valid data.
-		if ( empty( $data['projects'] ) ) {
-			return false;
-		}
-		if ( empty( $data['projects'][ $project_id ] ) ) {
-			return false;
-		}
-
-		$project = $data['projects'][ $project_id ];
-
-		if ( ! $only_license ) {
-			if ( ! $this->allowed_user() ) {
-				return false;
-			}
-			if ( ! WPMUDEV_Dashboard::$upgrader->can_auto_install( $project['type'] ) ) {
-				return false;
-			}
-		}
-
-		$is_upfront = WPMUDEV_Dashboard::$site->id_upfront == $project_id;
-		$package    = isset( $project['package'] ) ? $project['package'] : '';
-		$access     = false;
-
-		if ( 'full' == $membership_type ) {
-			// User has full membership.
-			$access = true;
-		} elseif ( 'single' == $membership_type && $licensed_projects == $project_id ) {
-			// User has single membership for the requested project.
-			$access = true;
-		} elseif ( 'free' == $project['paid'] ) {
-			// It's a free project. All users can install this.
-			$access = true;
-		} elseif ( 'lite' == $project['paid'] ) {
-			// It's a lite project. All users can install this.
-			$access = true;
-		} elseif ( 'single' == $membership_type && $package && $package == $licensed_projects ) {
-			// A packaged project that the user bought.
-			$access = true;
-		} elseif ( $is_upfront && 'single' == $membership_type ) {
-			// User wants to get Upfront parent theme.
-			$access = true;
-		}
-
-		return $access;
+		return WPMUDEV_Dashboard::$upgrader->user_can_install( $project_id, $only_license );
 	}
 
 	/**
@@ -2599,7 +2578,7 @@ class WPMUDEV_Dashboard_Site {
 		);
 
 		// Add download link only if not plugins page and updates page.
-		if ( ! in_array( $pagenow, array( 'plugins.php', 'update-core.php', 'plugin-install.php' ), true ) ) {
+		if ( ! in_array( $pagenow, array( 'plugins.php', 'update-core.php', 'plugin-install.php' ), true ) && $project->is_compatible ) {
 			$result->download_link = WPMUDEV_Dashboard::$api->rest_url_auth( 'install/' . $pid );
 		}
 
@@ -2672,9 +2651,13 @@ class WPMUDEV_Dashboard_Site {
 					$autoupdate = false;
 					$local      = $this->get_cached_projects( $id );
 					// $last_changes = $plugin['changelog'];
+					$compatible = WPMUDEV_Dashboard::$upgrader->is_project_compatible( $id );
 
-					if ( '1' == $plugin['autoupdate'] && WPMUDEV_Dashboard::$api->has_key() ) {
+					if ( $compatible && '1' == $plugin['autoupdate'] && WPMUDEV_Dashboard::$api->has_key() ) {
 						$package = WPMUDEV_Dashboard::$api->rest_url_auth( 'download/' . $id );
+					} elseif ( $compatible && 119 === (int) $id ) {
+						// Public download url for Dashboard.
+						$package = WPMUDEV_Dashboard::$api->rest_url( 'download-dashboard' );
 					}
 
 					$thumb = isset( $plugin['thumbnail'] ) ? $plugin['thumbnail'] : '';
@@ -3203,6 +3186,12 @@ class WPMUDEV_Dashboard_Site {
 
 		}
 
+		// Plugins with same folder name.
+		$special_plugins = array(
+			51      => 'beehive-analytics',
+			2097296 => 'forminator',
+		);
+
 		$free_filename            = '';
 		$is_free_installed        = false;
 		$is_pro_success_installed = false;
@@ -3226,13 +3215,12 @@ class WPMUDEV_Dashboard_Site {
 				}
 			}
 		}
-		// Forminator is special case, this might apply to other plugins as well when free and pro merge.
-		$forminator_pid = 2097296;
-		if ( $forminator_pid === $pid && $is_free_installed ) {
-			// Move free forminator to another directory.
-			WPMUDEV_Dashboard::$utils->rename_plugin( 'forminator', 'forminator-free' );
+
+		// Handle special plugins.
+		if ( isset( $special_plugins[ $pid ] ) && $is_free_installed ) {
+			// Move free free to another directory.
+			WPMUDEV_Dashboard::$utils->rename_plugin( $special_plugins[ $pid ], $special_plugins[ $pid ] . '-free' );
 		}
-		// End Forminator special case.
 
 		$local = WPMUDEV_Dashboard::$site->get_cached_projects( $pid );
 		// means its not installed yet
@@ -3245,10 +3233,9 @@ class WPMUDEV_Dashboard_Site {
 					$this->send_json_error( $err );
 				}
 
-				// Undo Forminator free move.
-				if ( $forminator_pid === $pid && $is_free_installed ) {
-					// Move free forminator to another directory.
-					WPMUDEV_Dashboard::$utils->rename_plugin( 'forminator-free', 'forminator' );
+				// Undo free move.
+				if ( isset( $special_plugins[ $pid ] ) && $is_free_installed ) {
+					WPMUDEV_Dashboard::$utils->rename_plugin( $special_plugins[ $pid ] . '-free', $special_plugins[ $pid ] );
 				}
 
 				return false;
@@ -3272,45 +3259,47 @@ class WPMUDEV_Dashboard_Site {
 		// clear local cache, because we need if fresh data
 		$this->clear_local_file_cache();
 		$local        = WPMUDEV_Dashboard::$site->get_cached_projects( $pid );
-		$pro_filename = $local['filename'];
+		$pro_filename = isset( $local['filename'] ) ? $local['filename'] : false;
 
 		// Set with previous state if is not
 		if ( $orig_active_blog || $orig_active_network ) {
-			$active_blog    = is_plugin_active( $pro_filename );
-			$active_network = is_multisite() && is_plugin_active_for_network( $pro_filename );
+			if ( $pro_filename ) {
+				$active_blog    = is_plugin_active( $pro_filename );
+				$active_network = is_multisite() && is_plugin_active_for_network( $pro_filename );
 
-			if ( $orig_active_blog && ! $active_blog ) {
-				$activated = activate_plugin( $pro_filename, false, false, true );
-				if ( is_wp_error( $activated ) ) {
+				if ( $orig_active_blog && ! $active_blog ) {
+					$activated = activate_plugin( $pro_filename, false, false, true );
+					if ( is_wp_error( $activated ) ) {
 
-					if ( $is_free_installed ) {
-						// attempt restore
-						activate_plugin( $free_filename, false, false, true );
+						if ( $is_free_installed ) {
+							// attempt restore
+							activate_plugin( $free_filename, false, false, true );
+						}
+
+						if ( $doing_ajax ) {
+							$this->send_json_error( array( 'message' => $activated->get_error_message() ) );
+						}
+
+						return false;
+
 					}
-
-					if ( $doing_ajax ) {
-						$this->send_json_error( array( 'message' => $activated->get_error_message() ) );
-					}
-
-					return false;
-
 				}
-			}
-			if ( $orig_active_network && ! $active_network ) {
-				$activated = activate_plugin( $pro_filename, false, true, true );
-				if ( is_wp_error( $activated ) ) {
+				if ( $orig_active_network && ! $active_network ) {
+					$activated = activate_plugin( $pro_filename, false, true, true );
+					if ( is_wp_error( $activated ) ) {
 
-					if ( $is_free_installed ) {
-						// attempt restore
-						activate_plugin( $free_filename, false, true, true );
+						if ( $is_free_installed ) {
+							// attempt restore
+							activate_plugin( $free_filename, false, true, true );
+						}
+
+						if ( $doing_ajax ) {
+							$this->send_json_error( array( 'message' => $activated->get_error_message() ) );
+						}
+
+						return false;
+
 					}
-
-					if ( $doing_ajax ) {
-						$this->send_json_error( array( 'message' => $activated->get_error_message() ) );
-					}
-
-					return false;
-
 				}
 			}
 		}
@@ -3318,8 +3307,8 @@ class WPMUDEV_Dashboard_Site {
 		if ( $is_free_installed && $is_pro_success_installed ) {
 			// DELETE FREE Plugin
 			$delete_free = true;
-			if ( $forminator_pid === $pid ) {
-				$this->delete_plugin_directory( WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'forminator-free' );
+			if ( isset( $special_plugins[ $pid ] ) ) {
+				$this->delete_plugin_directory( WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $special_plugins[ $pid ] . '-free' );
 			} else {
 				$delete_free = WPMUDEV_Dashboard::$upgrader->delete_plugin( $free_filename, true );
 			}

@@ -80,16 +80,31 @@ class WPMUDEV_Dashboard_Settings {
 			// Get option value.
 			$group_value = $this->get_option( $group, array() );
 			// Merge values.
-			$value = wp_parse_args(
+			$values = wp_parse_args(
 				array( $name => $value ),
 				$group_value
 			);
-
-			// Name should be group.
-			$name = $group;
+		} else {
+			$group  = $name;
+			$values = $value;
 		}
 
-		return $this->set_option( $name, $value );
+		$success = $this->set_option( $group, $values );
+
+		if ( $success ) {
+			/**
+			 * Action hook to run after Dashboard option is updated.
+			 *
+			 * @since 4.11.22
+			 *
+			 * @param string $name  Name of the option.
+			 * @param mixed  $value Value to update.
+			 * @param string $group Group name.
+			 */
+			do_action( 'wpmudev_dashboard_settings_after_set', $name, $value, $group );
+		}
+
+		return $success;
 	}
 
 	/**
@@ -106,7 +121,21 @@ class WPMUDEV_Dashboard_Settings {
 	 * @return bool
 	 */
 	public function set_option( $name, $value ) {
-		return update_site_option( 'wdp_un_' . $name, $value );
+		$success = update_site_option( 'wdp_un_' . $name, $value );
+
+		if ( $success ) {
+			/**
+			 * Action hook to run after Dashboard option is updated.
+			 *
+			 * @since 4.11.22
+			 *
+			 * @param string $name  Name of the option.
+			 * @param mixed  $value Value to update.
+			 */
+			do_action( 'wpmudev_dashboard_settings_after_set_option', $name, $value );
+		}
+
+		return $success;
 	}
 
 	/**
@@ -372,15 +401,17 @@ class WPMUDEV_Dashboard_Settings {
 			),
 			// Other small options.
 			'general'                       => array(
-				'last_run_updates'   => 0,
-				'last_run_profile'   => 0,
-				'last_run_sync'      => 0,
-				'staff_notes'        => '',
-				'translation_locale' => 'en_US',
-				'version'            => WPMUDEV_Dashboard::$version,
-				'limit_to_user'      => '',
-				'auth_user'          => null,
-				'hub_nonce'          => '',
+				'last_run_updates'     => 0,
+				'last_run_profile'     => 0,
+				'last_run_sync'        => 0,
+				'last_run_translation' => 0,
+				'staff_notes'          => '',
+				'translation_locale'   => 'en_US',
+				'version'              => WPMUDEV_Dashboard::$version,
+				'limit_to_user'        => '',
+				'auth_user'            => null,
+				'hub_nonce'            => '',
+				'connected_admin'      => 0,
 			),
 		);
 
@@ -448,8 +479,8 @@ class WPMUDEV_Dashboard_Settings {
 	 *
 	 * @return void
 	 */
-	public function _upgrade_41110() {
-		$mapping = $this->_deprecated_mappings();
+	public function upgrade_41110() {
+		$mapping = $this->deprecated_mappings();
 
 		// Upgrade old options.
 		foreach ( $mapping as $name => $item ) {
@@ -486,13 +517,15 @@ class WPMUDEV_Dashboard_Settings {
 	 *
 	 * This is here only for backward compatibility.
 	 *
+	 * @param string $name Field name.
+	 *
 	 * @since      4.11.10
 	 * @deprecated 4.11.10 For backward compatibility only.
 	 *
 	 * @return array
 	 */
-	public function _deprecated_get_field_mapping( $name ) {
-		$mapping = $this->_deprecated_mappings();
+	public function deprecated_get_field_mapping( $name ) {
+		$mapping = $this->deprecated_mappings();
 
 		$mapped = array(
 			'name'  => $name,
@@ -526,7 +559,7 @@ class WPMUDEV_Dashboard_Settings {
 	 *
 	 * @return array
 	 */
-	private function _deprecated_mappings() {
+	private function deprecated_mappings() {
 		return array(
 			'limit_to_user'                       => array(
 				'group' => 'general',

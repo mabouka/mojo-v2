@@ -177,20 +177,22 @@ if ( WPMUDEV_LIMIT_TO_USER ) {
 						</div>
 
 						<div class="sui-box-settings-col-2">
-
-							<label class="sui-toggle">
-								<input
-									type="checkbox"
-									name="autoupdate_dashboard"
-									value="1"
-									id="autoupdate_dashboard"
-									<?php checked( $auto_update ); ?>
-								/>
-								<span class="sui-toggle-slider"></span>
-							</label>
-
-							<label for="autoupdate_dashboard"><?php esc_html_e( 'Automatically update the WPMU DEV Dashboard plugin', 'wpmudev' ); ?></label>
-
+							<div class="sui-form-field">
+								<label for="autoupdate_dashboard" class="sui-toggle">
+									<input
+										type="checkbox"
+										value="1"
+										id="autoupdate_dashboard"
+										name="autoupdate_dashboard"
+										aria-labelledby="autoupdate_dashboard-label"
+										<?php checked( $auto_update ); ?>
+									/>
+									<span class="sui-toggle-slider" aria-hidden="true"></span>
+									<span id="autoupdate_dashboard-label" class="sui-toggle-label">
+										<?php esc_html_e( 'Automatically update the WPMU DEV Dashboard plugin', 'wpmudev' ); ?>
+									</span>
+								</label>
+							</div>
 						</div>
 
 					</div>
@@ -206,18 +208,20 @@ if ( WPMUDEV_LIMIT_TO_USER ) {
 						</div>
 
 						<div class="sui-box-settings-col-2">
-
-							<label class="sui-toggle">
+							<label for="enable_sso" class="sui-toggle">
 								<input
 									type="checkbox"
-									name="enable_sso"
 									value="1"
+									name="enable_sso"
 									id="enable_sso"
+									aria-labelledby="enable_sso-label"
 									<?php checked( $enable_sso ); ?>
 								/>
-								<span class="sui-toggle-slider"></span>
+								<span class="sui-toggle-slider" aria-hidden="true"></span>
+								<span id="enable_sso-label" class="sui-toggle-label">
+									<?php esc_html_e( 'Enable Single Sign-on for this website', 'wpmudev' ); ?>
+								</span>
 							</label>
-							<label for="enable_sso"><?php esc_html_e( 'Enable Single Sign-on for this website', 'wpmudev' ); ?></label>
 
 							<div class="enable_sso_label">
 								<div class="sui-notice">
@@ -387,18 +391,24 @@ if ( WPMUDEV_LIMIT_TO_USER ) {
 									</div>
 								<?php endif; ?>
 								<div class="translation-box">
-									<label class="sui-toggle" for="enable_auto_translation">
+									<label for="enable_auto_translation" class="sui-toggle">
 										<input
 											type="checkbox"
+											value="1"
 											name="enable_auto_translation"
 											id="enable_auto_translation"
-											value="1"
+											aria-labelledby="enable_auto_translation-label"
+											aria-describedby="enable_auto_translation-desc"
 											<?php checked( $enable_auto_translation, '1' ); ?>
 										/>
-										<span class="sui-toggle-slider"></span>
+										<span class="sui-toggle-slider" aria-hidden="true"></span>
+										<span id="enable_sso-label" class="sui-toggle-label">
+											<?php esc_html_e( 'Automatically update translations.', 'wpmudev' ); ?>
+										</span>
+										<span id="enable_auto_translation-desc" class="sui-description">
+											<?php esc_html_e( 'We’ll automatically download language files for each of the plugins you install.', 'wpmudev' ); ?>
+										</span>
 									</label>
-									<label for="enable_auto_translation" class="sui-toggle-label"><?php esc_html_e( 'Automatically update translations.', 'wpmudev' ); ?></label>
-									<span class="sui-description"><?php esc_html_e( 'We’ll automatically download language files for each of the plugins you install.', 'wpmudev' ); ?></span>
 								</div>
 							</div>
 						</div>

@@ -29,7 +29,7 @@ $defaults = array(
 );
 
 // Get settings values.
-$settings = isset( $settings['labels_config'][ $project->pid ] ) ? (array) $settings['labels_config'][ $project->pid ] : array();			 	     	  		   	 
+$settings = isset( $settings['labels_config'][ $project->pid ] ) ? (array) $settings['labels_config'][ $project->pid ] : array();
 // Merge with default values.
 $settings = wp_parse_args( $settings, $defaults );
 
