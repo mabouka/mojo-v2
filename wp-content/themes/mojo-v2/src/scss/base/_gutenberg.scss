@@ -6,7 +6,12 @@ ul{box-sizing:border-box;}
 .wp-block-video video{vertical-align:middle;width:100%;}
 html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
 :where(figure){margin:0 0 1em;}
-    
+
+.wp-block-gallery.has-nested-images figure.wp-block-image img{display:block;height:auto;max-width:100%!important;width:auto;}
+.wp-block-gallery.has-nested-images.is-cropped figure.wp-block-image:not(#individual-image) img{flex:1 0 0%;height:100%;object-fit:cover;width:100%;}
+.wp-block-image img{box-sizing:border-box;height:auto;max-width:100%;vertical-align:bottom;}
+html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
+
 
 .gutenberg{
 
