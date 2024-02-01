@@ -54,19 +54,21 @@
     margin-right: -0.2em
 }
 
-// General animations
 .fx-word {
     display: inline-flex;
     margin-right: 0.2em
 }
   
 .fx-letter {
-
     transform: translate3d(-0.7em, 0.6em, -5em) scaleY(0.01) rotateX(15deg) rotateZ(-15deg);
     transform-origin: 0 100%;
-    transform-style: preserve-3d;
-    transition: all 1.2s cubic-bezier(0.245, 0.495, 0.000, 0.990);
     opacity: 0;
+
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    transition: transform 1000ms cubic-bezier(0.245, 0.495, 0.000, 0.990), 
+                opacity   1200ms cubic-bezier(0.245, 0.495, 0.000, 0.990);
 
     @for $n from 1 through 100 {
         &--#{$n} {
@@ -74,6 +76,9 @@
         }
     }
 }
+
+.no-js,
+.fadeTransitionEntered,
 .fx-parent.in-view{
     .fx-letter {
         opacity: 1;
@@ -81,11 +86,8 @@
     }
 }
 
-
 .fadeTransitionEntered{
-
     .fx-letter{
-        transform: translateZ(0) scaleY(1) rotateX(0) rotate(0);
         transition: none !important;
     }
 }

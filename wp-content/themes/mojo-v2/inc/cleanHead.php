@@ -38,7 +38,7 @@ function remove_xmlrpc_pingback_ping( $methods ) {
         wp_dequeue_style( 'classic-theme-styles' );
         wp_dequeue_style( 'global-styles' );
         wp_dequeue_style( 'wp-block-library' );
-        wp_dequeue_style( 'wp-block-library-theme' );
+    //wp_dequeue_style( 'wp-block-library-theme' );
 
         if ( is_single() && 'case' == get_post_type() ) {
 
