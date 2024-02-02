@@ -290,8 +290,14 @@
         }
 
         &__filterReset{
-            background-color: color(dark);
-            color: color(sand);
+            background-color: color(sand);
+            color: color(dark);
+            
+            &--active{
+                background-color: color(dark);
+                color: color(sand);
+            }
+
         }
 
         &__filterLabel{
@@ -300,14 +306,25 @@
             text-align: center;
             display: flex;
             justify-content: center;
+
+            background-color: color(sand);
+            color: color(dark);
+            
+            .casesGrid__filter--active &{
+                background-color: color(dark);
+                color: color(sand);
+                .casesGrid__filterStar path{
+                    fill: color(sand);
+                }
+            }
+
         }
 
         &__dropDown{
             position: fixed;
-            top: 100%;
+            top: initial;
             left: 50vw;
-            transform: translate3d(-50%,0, 0);
-            margin-top: s(20);
+            transform: translate3d(-50%,calc(100% + 20px),0);
         }
     }
 

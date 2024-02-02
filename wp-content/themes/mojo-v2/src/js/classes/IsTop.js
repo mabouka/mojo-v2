@@ -12,7 +12,7 @@ class IsTop {
 
     initialize() {
         let options = {
-            rootMargin: '50% 0% -75% 0%',
+            rootMargin: '50% 0% -70% 0%',
             threshold: 0
         };
         this.observer = new IntersectionObserver(this.callback.bind(this) , options);

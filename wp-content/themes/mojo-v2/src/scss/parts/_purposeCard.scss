@@ -101,7 +101,7 @@
         justify-content: flex-start;
         align-items: center;
 
-        padding: s(32) s(30) s(45) s(30);
+        padding: s(32) s(30) s(32) s(30);
         color: color(dark);
         flex-direction: column;
         
@@ -125,8 +125,9 @@
         @extend .body;
         @extend .body18;
         text-align: center;
-        justify-self: flex-end;
+        justify-self: center;
         margin-top: auto;
+        margin-bottom: auto;
 
         max-height: s(26*13); 
         overflow: hidden;

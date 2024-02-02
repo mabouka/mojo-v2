@@ -471,13 +471,19 @@ body{
             flex-direction: column;
         }
     }
-    @media screen and (max-height: 850px){
+
+    @media screen and (max-height: 900px){
+        &__mainItem{
+            font-size: s(75);
+        }
+    }
+    @media screen and (max-height: 900px) and (max-width: 800px){
         &__mainItem{
             font-size: s(40);
         }
     }
 
-    @media screen and ((max-width: 374px) or (max-height: 850px)){
+    @media screen and ((max-width: 374px) and (max-height: 850px)){
 
 
         &__mainItem{

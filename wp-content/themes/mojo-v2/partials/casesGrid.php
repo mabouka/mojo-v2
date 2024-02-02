@@ -55,8 +55,9 @@
                    <?= __('All', 'mj'); ?>
                 </a>
                 <?php foreach ( $categories  as $filterName => $category ): ?>
+                
 
-                <div class="casesGrid__filter">
+                <div class="casesGrid__filter<?= (isset($_GET[$filterName]) && $_GET[$filterName]) ? ' casesGrid__filter--active' : '' ?>"">
                     <label class="casesGrid__filterLabel" for="<?= $filterName ?>">
                         <?= $category['label']  ?>
                         <svg class="casesGrid__filterStar" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +68,7 @@
                         </svg>
 
                     </label>
-                    <select multiple class="casesGrid__filterSelect<?= !(empty($_GET[$filterName])) ? ' casesGrid__filterSelect--active' : '' ?>" name="<?= $filterName ?>" id="<?= $filterName ?>">
+                    <select multiple class="casesGrid__filterSelect<?= (isset($_GET[$filterName])) ? ' casesGrid__filterSelect--active' : '' ?>" name="<?= $filterName ?>" id="<?= $filterName ?>">
                         <option value="">---</option>
                         <?php foreach ($category['terms'] as $term): ?>
                         <option value="<?= $term->slug ?>"<?= isset($_GET[$filterName]) && $term->slug === $_GET[$filterName] ? ' selected' : '' ?>>

@@ -239,6 +239,7 @@
     &--greenpea,
     &--darkgreyblue{
         &.swiper-slide-active  .serviceCard__title,
+        .swiper-slide-active & .serviceCard__title,
         &:hover .serviceCard__title{
             color: color(sand);
         }
