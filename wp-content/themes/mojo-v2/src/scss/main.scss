@@ -51,53 +51,53 @@
 @import "parts/caseAccordion";
 @import "parts/video";
 
-    // Home
-    @import "parts/homeIntro";
-    @import "parts/homeVideo";
-    @import "parts/homePurpose";
-    @import "parts/featuredCases";
-    @import "parts/homeService";
-    @import "parts/ourClients";
-    @import "parts/homeTransformation";
+    // Home 36kb
+    @import "parts/homeIntro"; //10kb
+    @import "parts/homeVideo"; //2kb
+    @import "parts/homePurpose"; //3kb
+    @import "parts/featuredCases"; // 13kb -> 11kb
+    @import "parts/homeService"; //4kb
+    @import "parts/ourClients"; //4kb
+    @import "parts/homeTransformation"; //2kb
 
-    // About
+    // About 3kb
     @import "parts/aboutIntro";
     @import "parts/teamGrid";
 
-    // Services
+    // Services 4kb
     @import "parts/serviceIntro";
     @import "parts/serviceGrid";
 
-    // Cases (archive)
+    // Cases (archive) 14kb
     @import "parts/casesGrid";
     @import "parts/casesServices";
     @import "parts/caseCard";
 
-    // Our clients
+    // Our clients 11kb
     @import "parts/globe";
     @import "parts/clientIntro";
     @import "parts/clientNumbers";
     @import "parts/clientHover";
     @import "parts/clientTypology";
 
-    // Single Service
+    // Single Service 11kb
     @import "parts/serviceHeader";
     @import "parts/littleCards";
     @import "parts/serviceProjects";
     @import "parts/servicePeople";
     @import "parts/serviceContent";
 
-    // Single Service Child
+    // Single Service Child 3kb
     @import "parts/serviceChHeader";
     @import "parts/serviceChIntro";
     
-    // Single Case
+    // Single Case 5kb
     @import "parts/sCaseBanner";
     @import "parts/sCaseFeatures";
     @import "parts/sCaseIntro";
     @import "parts/sCaseRandom";
 
-    // Commitments
+    // Commitments 10kb
     @import "parts/commitmentsIntro";
     @import "parts/commitmentsPurpose";
     @import "parts/purposeCard";

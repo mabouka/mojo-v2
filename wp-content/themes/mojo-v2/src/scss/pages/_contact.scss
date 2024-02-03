@@ -84,6 +84,7 @@
     &__form{
         margin-top: s(70);
         text-align: center;
+        overflow: hidden;
 
         .wpcf7 {
             form.sent{
@@ -238,6 +239,64 @@
         line-height: em(22,14); /* 157.143% */
         opacity: 0.5;
         text-align: left;
+    }
+
+
+    @media screen and (max-width: 800px){
+        &__title{
+            width: 100%;
+            float: none;
+            position: relative;
+            top: 0;
+            margin-bottom: s(60);
+            max-width: s(500);
+
+        }
+
+        &__content{
+            width: 100%;
+            float: none;
+            max-width: s(500);
+        }
+    }
+
+    @media screen and (max-width: 600px){
+        padding-top: s(167);
+        &__title{
+            font-size: s(50);
+            br{
+                display: none;
+            }
+        }
+
+        &__text{
+            margin-bottom: s(120);
+        }
+
+        &__contactText,
+        &__address{
+            width: col(3,6);
+        }
+
+        .contact__form .field--file{
+            p {
+                display: block;
+                width: 100%;
+            }
+            label{
+                display: block;
+                text-align: center;
+            }
+            .wpcf7-form-control-wrap{
+                width: 0;
+                height: 0;
+                position: absolute;
+            }
+        }
+
+        & .wpcf7-submit {
+            margin-top: s(70);
+        }
     }
 }
 

@@ -10,9 +10,9 @@
     }
 
     &__title{
-        color: color(sand);
         font-family: 'Cambon', serif;
         font-size: s(100);
+        color: color(sand);
         margin-bottom: s(121-15);
     }
 
@@ -44,25 +44,10 @@
         bottom: 0;
         width: auto;
         pointer-events: none;
-
-        & > path,
-        & > g{
-            opacity: 0.4;
-            animation: sparkle 3000ms infinite alternate;
-            transform-origin: center center;
-            transform-origin: 50%;
-            transform-box:fill-box;
-            will-change: transform, opacity;
-
-            @for $i from 1 through 30 {
-                &:nth-child(#{$i}){
-                    animation-delay: #{random(2000) + ms}
-                }
-            }
-        }
     }
-    @media screen and (max-width: 1100px) {
 
+
+    @media screen and (max-width: 1100px) {
 
         &__title{
             font-size: s(85);
@@ -126,31 +111,14 @@
 }
 
 
-
-@keyframes sparkle {
-    60% {
-        opacity: 0.4;
-        transform: scale(1);
-    }
-    80% {
-      opacity: 0.8;
-      transform: scale(1.2);
-    }
-    100% {
-        opacity: 0.4;
-      transform: scale(1);
-    }
-}
-
-
 .homeIntro {
     .fx-letter {
         transform: translate3d(-120px, 57px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
         transition: all 1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990);
 
-        @for $n from 1 through 80 {
+        @for $n from 1 through 35 {
             &--#{$n} {
-            transition-delay: ($n - 1) * .008s;
+                transition-delay: ($n - 1) * .008s;
             }
         }
     }

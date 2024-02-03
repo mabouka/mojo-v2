@@ -8,9 +8,8 @@ html {
 }
 
 body{
-    
     &.loading{
-        //cursor: wait;
+        cursor: wait;
     }
     &:before{
         content: '';
@@ -22,21 +21,6 @@ body{
             display:none;
         }
     }
-
-    /*
-    &:after{
-        content: '';
-        pointer-events: none;
-        position: fixed;
-        top: 0;
-        height: 50%;
-        left: 0;
-        right: 0;
-        z-index: 10000;
-        background-color: red;
-        opacity: 0.2;
-    }
-    */
 }
 
 .curtain{
@@ -44,12 +28,7 @@ body{
     position: fixed;
     background-color: color(orange);
     transform: translate3d(0, -100%, 0);
-
     z-index: 1000;
-    /*
-    &:before{
-        @extend .photoNoise;
-    }*/
 }
 
 .mainContent{
@@ -118,18 +97,3 @@ body{
         @extend .photoNoise;
     }
 }
-
-/*
-.photoNoise{
-    content : '';
-    @include cover();
-    z-index: 2;
-    background-image: url('../images/noise.jpg');
-    @supports (gap: 1px) {
-        background-image: url('../images/noise.webp');
-    }
-    background-size: 200px 200px;
-    mix-blend-mode:lighten;
-    opacity: 0.25;
-}
-*/

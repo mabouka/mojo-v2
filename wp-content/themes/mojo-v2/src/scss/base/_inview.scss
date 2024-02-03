@@ -70,7 +70,7 @@
     transition: transform 1000ms cubic-bezier(0.245, 0.495, 0.000, 0.990), 
                 opacity   1200ms cubic-bezier(0.245, 0.495, 0.000, 0.990);
 
-    @for $n from 1 through 100 {
+    @for $n from 1 through 40 {
         &--#{$n} {
             transition-delay: .1s + (($n - 1) * .01s);
         }
