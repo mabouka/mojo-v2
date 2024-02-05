@@ -30,6 +30,7 @@
         <?php else: ?>
             <source 
                 srcset="<?= $image->src['caseCardMobile'] ?> 1x, <?= $image->src['caseCardMobile@2x'] ?> 2x" 
+                media="screen and (max-width: 600px)"
             >
 
             <img 
