@@ -1,8 +1,15 @@
 .clientIntro{
     position: relative;
 
+    .no-js &{
+        padding-top: 100vh;
+    }
+
     &__circles{
         position: fixed;
+        .no-js &{
+            position: absolute;
+        }
         top: 0;
         left: 0;
         right: 0;

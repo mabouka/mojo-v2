@@ -74,12 +74,11 @@ export default class Router {
             window.lenis.resize();
             window.MJ.parts.setup(data.next.container);
             InView.addView(data.next.container);
-
+            document.documentElement.classList.remove('loading');
         });
 
         barba.hooks.afterEnter((data) => {
             forceAutoplay(data)
-            document.documentElement.classList.remove('loading');
             setTimeout(() => {
                 window.lenis.resize();
                 ScrollTrigger.refresh();

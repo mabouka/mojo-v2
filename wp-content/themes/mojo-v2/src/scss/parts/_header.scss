@@ -10,6 +10,8 @@
     visibility: hidden;
     transition: 200ms opacity linear, 0s visibility linear 200ms;
 
+    .no-js &,
+    .no-inview &,
     &--inview{
         opacity: 1;
         visibility: visible;

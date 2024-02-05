@@ -24,6 +24,9 @@
     <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrl('dist/images/transparentNoise.webp'); ?>" fetchpriority="high" as="image">
+    <?php if (is_front_page()): ?>
+    <link rel="preload" href="<?= getUrl('mojo-v2/dist/images/homeIntroStars.svg'); ?>" fetchpriority="high" as="image" type="image/svg+xml">
+    <?php endif ?>
 
     <link rel="preload" href="<?= getUrl('dist/fonts/dm-sans-4.woff2'); ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?= getUrl('dist/fonts/Cambon-Regular.woff2'); ?>" as="font" type="font/woff2" crossorigin>

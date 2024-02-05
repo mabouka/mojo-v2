@@ -24,6 +24,8 @@
         z-index: 2;
         @extend .photoNoise;
     }
+    .no-js &,
+    .no-inview &, 
     &--inview/*.homeVideo--playing*/{
         &:after{
             opacity: 0;

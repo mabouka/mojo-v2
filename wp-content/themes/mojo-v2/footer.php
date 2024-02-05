@@ -53,26 +53,26 @@
             <img class="footer__mobileLogo" src="<?= getUrl('dist/images/logoFooter.svg'); ?>" alt="Mojo" width="205" height="539">
             
             <?php if ($sitemap = getCustomMenu('Sitemap')) : ?>
-                <nav class="footer__menu footer__menu--sitemap">
-                    <h2 class="footer__menuTitle"><?= __('Sitemap', 'mj'); ?></h2>
+                <div class="footer__menu footer__menu--sitemap">
+                    <p class="footer__menuTitle"><?= __('Sitemap', 'mj'); ?></p>
                     <?php foreach ($sitemap as $key => $item) : ?>
                         <a class="footer__menuItem" href="<?= $item['url'] ?>">
                             <?= $item['title'] ?>
                         </a>
                     <?php endforeach; ?>
-                </nav>
+                </div>
             <?php endif; ?>
                 
 
             <?php if ($social = getCustomMenu('social')) : ?>
-                <nav class="footer__menu footer__menu--social">
-                    <h2 class="footer__menuTitle"><?= __('Social', 'mj'); ?></h2>
+                <div class="footer__menu footer__menu--social">
+                    <p class="footer__menuTitle"><?= __('Social', 'mj'); ?></p>
                     <?php foreach ($social as $key => $item) : ?>
                         <a class="footer__menuItem" href="<?= $item['url'] ?>" target="_blank">
                             <?= $item['title'] ?>
                         </a>
                     <?php endforeach; ?>
-                </nav>
+                </div>
             <?php endif; ?>
 
 

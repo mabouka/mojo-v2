@@ -16,6 +16,7 @@
         <?php if ($imageCard): ?>
             <source 
                 srcset="<?= $imageCard['sizes']['caseCardMobile'] ?> 1x, <?= $imageCard['sizes']['caseCardMobile@2x'] ?> 2x" 
+                media="screen and (max-width: 600px)"
             >
             <img 
                 class="caseCard__videoPoster"

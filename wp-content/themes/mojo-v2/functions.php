@@ -498,7 +498,7 @@ function splitCharWord($text, $charIndex = 0) {
                 $output .= $char;
                 $output .= '</span>';
             }
-            $output .= '</span>';
+            $output .= '</span><span class="fx-space"> </span>';
         }
         $output .= '<br />';
     }
@@ -506,4 +506,3 @@ function splitCharWord($text, $charIndex = 0) {
 
     return $output;
 }
-  

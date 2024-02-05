@@ -14,6 +14,7 @@
         transform: translate3d(0,30px, 0);
         transition: opacity .6s easing(ease-out-quad) .1s, transform .6s easing(ease-out-quad) .1s;
 
+        .no-js &,
         .serviceGrid--inview &{
             opacity: 1;
             transform: translate3d(0, 0, 0);

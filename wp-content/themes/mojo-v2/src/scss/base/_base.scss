@@ -27,8 +27,11 @@ body{
     @include cover();
     position: fixed;
     background-color: color(orange);
+    will-change: transform;
     transform: translate3d(0, -100%, 0);
     z-index: 1000;
+    cursor: wait;
+
 }
 
 .mainContent{

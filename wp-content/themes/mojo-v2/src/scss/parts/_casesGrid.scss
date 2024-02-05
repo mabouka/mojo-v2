@@ -132,6 +132,12 @@
         //bottom: 300%;
         left: -9999px;
         top: 0;
+
+        .no-js &{
+            display: block;
+            position: relative;
+            left: 0;
+        }
     }
 
 

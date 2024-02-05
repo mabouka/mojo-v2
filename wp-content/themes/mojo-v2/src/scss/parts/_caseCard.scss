@@ -13,7 +13,8 @@
         transform: translate3d(0, 40px, 0);
 
     }
-    .no-js,
+    .no-js &,
+    .no-inview &,
     .fadeTransitionEntered &,
     &--inview{
         opacity: 1;
