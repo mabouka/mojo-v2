@@ -30,7 +30,7 @@ $color = get_field('color', $person);
     </div>
 
     <div class="teamCard__info">
-        <h2 class="teamCard__infoName"><?= get_the_title($person); ?></h2>
+        <ph2 class="teamCard__infoName"><?= get_the_title($person); ?></p>
         <p class="teamCard__infoTitle"><?= get_field('function', $person); ?></p>
     </div>
 </section>

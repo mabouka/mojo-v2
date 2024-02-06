@@ -192,6 +192,7 @@ body{
         overflow: hidden;
         padding-bottom: s(14);
         margin-top: s(-9);
+        text-align: right;
 
         span{
             will-change: transform;
@@ -349,6 +350,14 @@ body{
         &__secondaryItem{
             margin-right: 0;
             margin-top: s(10);
+        }
+    }
+    @media screen and (max-width: 800px){
+        &__main{
+            width: col(10,12);
+        }
+        &__mainItem{
+            font-size: s(70);
         }
     }
 

@@ -28,16 +28,44 @@
         display: flex;
         flex-wrap: wrap;
 
-        .teamCard{
-            margin-left: gutter(12);
-            &:nth-child(3n+1){
-                margin-left: 0;
-            }
-
-            &:nth-child(1n+4){
-                margin-top: s(20);
+        @media screen and (min-width: 1100px){
+            .teamCard{
+                margin-left: gutter(12);
+                &:nth-child(3n+1){
+                    margin-left: 0;
+                }
+    
+                &:nth-child(1n+4){
+                    margin-top: s(20);
+                }
             }
         }
+
+
+        @media screen and (max-width: 1100px) and (min-width: 801px){
+            justify-content: center;
+            .teamCard{
+                margin-left: gutter(12);
+                &:nth-child(2n+1){
+                    margin-left: 0;
+                }
+    
+                &:nth-child(1n+3){
+                    margin-top: s(20);
+                }
+            }
+        }
+
+        @media screen and (max-width: 800px){
+            justify-content: center;
+            .teamCard{
+                & + & {
+                    margin-top: s(40);
+                }
+            }
+        }
+
+
     }
 
     &--light{

@@ -16,13 +16,13 @@
     &__grid{
         display: flex;
         flex-wrap: wrap;
+    }
 
-        .teamCard{
+    &__item{
+        @media screen and (min-width: 1101px){
             width: col(4,12);
-        }
-
-        & > *{
             margin-left: gutter(12);
+
             &:nth-child(3n+1){
                 margin-left: 0;
             }
@@ -30,10 +30,49 @@
             &:nth-child(1n+4){
                 margin-top: s(20);
             }
-        }
-    }
 
-    &__item{
+            &.teamCitation,
+            &.teamText{
+                padding-top: col(4,12);
+            }
+        }
+        @media screen and (max-width: 1100px) and (min-width: 601px){
+            width: col(6,12);
+            margin-left: gutter(12);
+
+            &:nth-child(2n+1){
+                margin-left: 0;
+            }
+
+            &:nth-child(1n+3){
+                margin-top: s(20);
+            }
+
+            &.teamCitation,
+            &.teamText{
+                padding-top: col(6,12);
+            }
+        }
+
+        @media screen and (max-width: 600px){
+            width: col(12,12);
+            margin-left: 0;
+
+            & + &{
+                margin-top: s(20);
+            }
+
+            &.teamCitation{
+                margin-bottom: s(50);
+            }
+
+ 
+            &.teamCitation,
+            &.teamText{
+                padding-top: col(12,12);
+            }
+        }
+
 
         opacity: 0;
         transform: translate3d(0, 80px, 0);
@@ -53,27 +92,22 @@
 
 .teamCitation,
 .teamText{
-    width: col(4,12);
-    padding-top: col(4,12);
-    height: 0;
     position: relative;
-}
-
-.teamCitation{
-    width: col(4,12);
-    padding-top: col(4,12);
     height: 0;
-    position: relative;
 
     &__text{
-        padding-right: s(33);
-        @extend .title50;
         color: color(dark);
-
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
+    }
+}
+
+.teamCitation{
+    &__text{
+        padding-right: s(33);
+        @extend .title50;
     }
 }
 
@@ -83,10 +117,39 @@
         color: color(dark);
         padding-bottom: s(30);
         border-bottom: 1px solid color(dark);
+    }
+}
 
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
+
+@media screen and (max-width: 1100px)  and (min-width: 801px){
+
+    .teamCitation__text{
+        font-size: 4vw;
+    }
+
+    .teamText__text{
+        font-size: 16px;
+    }
+
+    .teamCard__infoName{
+        font-size: s(22);
+    }
+}
+
+@media screen and (max-width: 600px){
+    .teamGrid{
+        padding-top: s(80);
+
+        &__title{
+            margin-bottom: s(30);
+            display: block;
+            position: relative;
+        }
+    }
+
+    .teamCitation{
+        &__text{
+            padding-right: 0;
+        }
     }
 }

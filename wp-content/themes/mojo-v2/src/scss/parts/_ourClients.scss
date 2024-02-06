@@ -71,12 +71,12 @@
         }
 
         img{
-            height: auto;
+            height: s(70);
             width: auto;
             display: block;
             object-fit: contain;
             max-width: s(300);
-            max-height: s(70);
+
         }
     }
 

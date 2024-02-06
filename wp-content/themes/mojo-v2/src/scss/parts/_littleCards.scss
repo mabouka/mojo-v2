@@ -156,4 +156,13 @@
         }
         
     }
+
+
+    @media screen and (max-width: 600px){
+        padding-top: s(80);
+        padding-bottom: s(42);
+        &__title{
+            margin-bottom: s(60);
+        }
+    }
 }
