@@ -2,10 +2,6 @@
     background-color: color(dark);
     padding-bottom: s(160);
 
-    &__inside{
-
-    }
-
     &__grid{
         display: flex;
         flex-wrap: wrap;
@@ -21,8 +17,6 @@
 
         }
     }
-
-
 
     .serviceCard{
         width: 100%;
@@ -90,10 +84,43 @@
 
     @media screen and (max-width: 600px) {
         padding-bottom: s(50);
+        overflow: hidden;
+
+        .serviceGrid--service .serviceGrid__title{
+            font-size: s(50);
+            margin-bottom: s(105);
+        }
+
+
+ 
         &__item{
             width: col(12, 12);
             & + & {
-                margin-top: s(40);
+                margin-top: s(40)
+            }
+        }
+
+        .swiper{
+            width: s(295);
+            padding-left: s(15);
+            margin-left: s(-15);
+            overflow: visible;
+
+            .serviceGrid__grid{
+                flex-wrap: nowrap;           
+            }
+
+            .serviceGrid__item{
+                transform: translate3d(0,0,0) rotate(0);
+                transition: 200ms transform easing(ease-out-quad);
+                
+                & + .serviceGrid__item{
+                    margin-top: 0;
+                }
+
+                &.swiper-slide-next{
+                    transform: translate3d(0,-15px,0) rotate(2deg);
+                }
             }
         }
 

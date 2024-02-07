@@ -8,12 +8,41 @@
     justify-content: center;
 
     &__image{
-       height: 700px;
+       height: s(700);
        margin-bottom: 0;
        img{
            width: auto;
-           height: 700px;
+           height: s(700);
            display: block;
        }
     }
+
+    @media screen and (max-width: 1285px){
+        margin-left: s(-30);
+        &--service{
+            margin-left: calc(#{colGut(5,1,6,0) * -1} - 30px);
+        }
+    }
+
+    @media screen and (max-width: 800px){
+        &--service{
+            margin-left: calc(#{colGut(5,1,7,0) * -1} - 30px);
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        margin-left: s(-15);
+    }
+
+    @media screen and (max-width: 600px) {
+    
+        &__image{
+            height: s(265);
+            img{
+                height: s(265);
+            }
+        }
+    }
+
+    
 }

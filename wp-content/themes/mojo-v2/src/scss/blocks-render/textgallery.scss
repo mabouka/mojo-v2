@@ -61,5 +61,27 @@
         }
     }
 
+    @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column-reverse;
+
+        &__images{
+            margin-top: s(60);
+            float: none;
+            width: col(12,12);
+        }
+        &__content{
+            float: none;
+            position: relative;
+            top: 0;
+            width: col(12,12);
+        }
+
+        &--right{
+            .textGallery__content{
+                float: none;
+            }
+        }
+    }
 
 }

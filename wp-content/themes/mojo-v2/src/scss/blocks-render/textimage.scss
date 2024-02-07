@@ -39,6 +39,20 @@
         @extend .body18;
     }
 
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+
+        &__image {
+            width: 100%;
+            padding-top: 700/625*100%;
+        }
+
+        &__content{
+            margin-top: s(40);
+            width: 100%;
+        }
+    }
+
 }
 
 

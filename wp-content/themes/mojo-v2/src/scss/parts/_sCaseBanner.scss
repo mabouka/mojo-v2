@@ -3,6 +3,7 @@
     overflow: hidden;
     position: relative;
     background-color: var(--pagecolor, color(dark));
+
     &:before{
         z-index: 2;
         @extend .photoNoise;
@@ -97,6 +98,16 @@
 
         &--outrageousorange{
             background-color: #FF542E;
+        }
+    }
+
+    @media screen and (max-width: 600px){
+        height: 100vh;
+        height: 100svh;
+
+        .purposeDisc{
+            bottom: s(15);
+            right: s(15);
         }
     }
 }

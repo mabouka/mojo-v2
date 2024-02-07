@@ -131,7 +131,7 @@
 
     position: relative;
     white-space: nowrap;
-    margin-bottom: s(20);
+    margin-bottom: s(11);
 
     & + &{
         margin-left: s(20);
@@ -144,7 +144,7 @@
         left: 0;
         height: 1px;
         right: 0;
-        bottom: -6px;
+        bottom: -3px;
         background-color: color(black);
     }
 }

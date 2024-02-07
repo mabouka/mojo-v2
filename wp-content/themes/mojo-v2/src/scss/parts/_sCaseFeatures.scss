@@ -71,4 +71,37 @@
         transform: translate3d(0, -50%, 0);
     }
 
+    @media screen and (max-width: 600px){
+        padding: s(25) 0 s(30);
+
+        &__inside{
+            padding-bottom: s(30);
+        }
+
+        &__item{
+            & + &{
+                margin-top: s(30);
+            }
+
+            &--service{
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        &__itemList{
+            width: 100%;
+        }
+
+        &__link{
+            margin-top: s(30);
+            align-self: flex-start;
+            text-align: left;
+        }
+
+        .sCaseFeatures__inside{
+            flex-direction: column;
+        }
+    
+    }
 }

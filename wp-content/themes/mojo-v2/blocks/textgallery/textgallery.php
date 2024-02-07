@@ -17,7 +17,11 @@
     <div class="textGallery__images">
         <?php foreach ($images as $image): ?>
         <figure class="textGallery__image">
-            <img src="<?= $image['sizes']['textGallery'] ?>" srcset="<?= $image['sizes']['textGallery'] ?> 1x, <?= $image['sizes']['textGallery@2x'] ?> 2x" alt="<?= $image['alt']; ?>" width="625" height="700">
+            <picture>
+                <source srcset="<?= $image['sizes']['fullImageMobile'] ?>" media="(max-width: 600px)">
+                <img src="<?= $image['sizes']['textGallery'] ?>" srcset="<?= $image['sizes']['textGallery'] ?> 1x, <?= $image['sizes']['textGallery@2x'] ?> 2x" alt="<?= $image['alt']; ?>" width="625" height="700">
+
+            </picture>
         </figure>
         <?php endforeach ?>
     </div>

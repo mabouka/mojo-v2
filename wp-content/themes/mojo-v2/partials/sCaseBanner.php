@@ -18,11 +18,23 @@
 
     <?php if ($video): ?>
     <div class="sCaseBanner__video">
-        <video src="<?= $video ?>" autoplay playsinline muted loop poster="<?= $image['sizes']['caseFull'] ?>"></video>
+        <video autoplay playsinline muted loop poster="<?= $image['sizes']['caseFull'] ?>">
+            <?php if ($videoMobile): ?>
+            <source src="<?= $videoMobile ?>" media="(max-width: 600px)">
+            <?php endif ?>
+            <source src="<?= $video ?>">
+        </video>
     </div>
     <?php elseif($image): ?>
     <figure class="sCaseBanner__image">
-        <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>">
+        <picture>
+            <?php if ($imageMobile): ?>
+            <source srcset="<?= $imageMobile['sizes']['caseFullMobile'] ?> 1x, <?= $imageMobile['sizes']['caseFullMobile@2x'] ?> 2x" media="(max-width:600px)" >
+            <?php endif ?>
+            
+            <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>">
+        
+        </picture>
     </figure>
     <?php endif ?>
     <div class="wrapper">

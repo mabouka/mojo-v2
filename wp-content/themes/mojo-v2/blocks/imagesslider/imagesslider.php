@@ -22,6 +22,10 @@
          <?php foreach ($images as $image): ?>
          <figure class="imagesslider__item swiper-slide">
             <picture>
+               <source
+                  srcset="<?= $image['sizes']['imagessliderMobile'] ?> 1x, <?= $image['sizes']['imagessliderMobile@2x'] ?> 2x" 
+                  media="screen and (max-width: 600px)"
+               >
                <img 
                   src="<?= $image['sizes']['imagesslider'] ?>" 
                   srcset="<?= $image['sizes']['imagesslider'] ?> 1x, <?= $image['sizes']['imagesslider@2x'] ?> 2x" 

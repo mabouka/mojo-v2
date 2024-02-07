@@ -18,7 +18,10 @@
 <div class="fullImage<?= $isService ? ' fullImage--service': '' ?>">
     <?php if ($image): ?>
     <figure class="fullImage__image">
-        <img src="<?= $image['sizes']['fullImage'] ?>" width="<?= $image['sizes']['fullImage-width'] ?>" height="<?= $image['sizes']['fullImage-height'] ?>">
+        <picture>
+            <source srcset="<?= $image['sizes']['fullImageMobile'] ?>" media="(max-width: 600px)">
+            <img src="<?= $image['sizes']['fullImage'] ?>" width="<?= $image['sizes']['fullImage-width'] ?>" height="<?= $image['sizes']['fullImage-height'] ?>">
+        </picture>
     </figure>
     <?php endif ?>
 </div>

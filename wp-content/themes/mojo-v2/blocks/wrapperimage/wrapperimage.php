@@ -10,7 +10,10 @@
 <div class="wrapperImage">
     <?php if ($image): ?>
     <figure class="wrapperImage__image">
-        <img src="<?= $image['sizes']['wrapperImage'] ?>" width="<?= $image['sizes']['wrapperImage-width'] ?>" height="<?= $image['sizes']['wrapperImage-height'] ?>">
+        <picture>
+            <source srcset="<?= $image['sizes']['fullImageMobile'] ?>" media="(max-width: 600px)">
+            <img src="<?= $image['sizes']['wrapperImage'] ?>" width="<?= $image['sizes']['wrapperImage-width'] ?>" height="<?= $image['sizes']['wrapperImage-height'] ?>">
+        </picture>
     </figure>
     <?php endif ?>
 </div>

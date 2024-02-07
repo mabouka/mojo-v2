@@ -21,6 +21,15 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
 .fullWidthBlock{
     width: 100vw;
     margin-left: calc( 642.5px - 50vw );
+
+    @media screen and (max-width: 1285px){
+        margin-left: s(-30);
+    }
+
+
+    @media screen and (max-width: 700px) {
+        margin-left: s(-15);
+    }
 }
 
 .wp-block-video{

@@ -4,7 +4,10 @@
     <?php
         getPartial('sCaseBanner', [
             'video' => get_field('banner_video'), 
-            'image' => get_field('banner')
+            'videoMobile' => get_field('banner_video_mobile'), 
+            'image' => get_field('banner'),
+            'imageMobile' => get_field('banner_mobile')
+
         ]);
 
         getPartial('sCaseFeatures', [

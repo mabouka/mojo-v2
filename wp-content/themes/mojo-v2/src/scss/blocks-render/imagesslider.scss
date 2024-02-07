@@ -30,5 +30,33 @@
         }
     }
 
+    @media screen and (max-width: 1285px){
+        margin-left: s(-30);
+        &--service{
+            margin-left: calc(#{colGut(5,1,6,0) * -1} - 30px);
+        }
+    }
+
+    @media screen and (max-width: 800px){
+        &--service{
+            margin-left: calc(#{colGut(5,1,7,0) * -1} - 30px);
+        }
+    }
+
+
+    @media screen and (max-width: 700px) {
+        margin-left: s(-15);
+    }
+    
+    @media screen and (max-width: 600px) {
+        height: s(350) !important;
+        .swiper-wrapper{
+            padding-left: 0;
+        }
+        .swiper-slide {
+            width: 350px !important;
+            height: 350px !important;
+        }
+    }
 
 }

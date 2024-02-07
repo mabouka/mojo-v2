@@ -4,6 +4,8 @@
 
     // My function to modify the main query object
     function my_modify_main_query( $query ) {
+        if( is_admin()) return $query;
+        if(!$query->is_main_query()) return $query; 
         if(is_singular('case')) return $query;
         if(!$_GET)  return $query;
 

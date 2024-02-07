@@ -83,4 +83,15 @@
             opacity: 0.14;
         }   
     }
+
+    @media screen and (max-width: 600px){
+        &__title{
+            font-size: s(50);
+        }
+
+        &__btn{
+            margin-top: s(80);
+            margin-bottom: s(80);
+        }
+    }
 }

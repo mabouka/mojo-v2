@@ -19,8 +19,23 @@ export default class ImagesSlider {
             loop: true,
             autoHeight: true,
             slidesPerView: 'auto',
-            spaceBetween: 35,
             grabCursor: true,
+            centeredSlides: true,
+
+            breakpoints: {
+                // when window width is >= 320px
+                320: {
+                    spaceBetween: 5,
+
+                },
+                601: {
+                    spaceBetween: 35,
+
+                    centeredSlides: false,
+
+
+                }
+            }
         });
     }
     

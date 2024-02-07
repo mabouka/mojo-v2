@@ -1,14 +1,13 @@
 .sCaseIntro{
-    margin-top: s(100);
-    margin-bottom: s(80);
-
-    &__inside{
-        display: flex;
-    }
+    margin: s(100) 0 s(80);
 
     &__title{
         @extend .title50;
         width: 100%;
         color: color(dark);
+    }
+
+    @media screen and (max-width: 600px){
+        margin: s(80) 0;
     }
 }

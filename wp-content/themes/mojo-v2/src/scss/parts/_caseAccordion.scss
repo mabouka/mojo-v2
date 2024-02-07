@@ -119,6 +119,10 @@
         opacity: 0;
         pointer-events: none;
         z-index: 3;
+        display: none;
+        @media screen and (any-pointers: fine) {
+            display: block;
+        }
 
         //top: 0;
         //transform: translate3d(0,var(--y,50vh),0);
@@ -199,6 +203,38 @@
 
         &--solidarity-days{
             background-color: #FFC833;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        &__categoryList{
+            display: none;
+        }
+
+        &__itemContent{
+            padding-top: s(26);
+            padding-bottom: s(27);
+        }
+
+        &__itemTitle{
+            width: 100%;
+            font-size: s(22);
+            line-height: s(30);
+        }
+
+        &__itemLink:hover{
+            & + .caseAccordion__itemContent{
+                background-color: color(white);
+                .caseAccordion__itemTitle{
+                    color: color(black);
+                }
+
+                .caseAccordion__itemArrow{
+                    path{
+                        fill: black;
+                    }
+                }
+            }
         }
     }
 }

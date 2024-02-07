@@ -14,13 +14,10 @@
         position: relative;
 
         img {
+            @extend %cover;
             height: 100%;
             width: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
+            
             object-fit: cover;
             display: block;
         }
@@ -51,6 +48,25 @@
         font-family: dm;
         margin-top: s(42);
         display: block;
+    }
+    
+    @media screen and (max-width: 600px) {
+        flex-direction: column-reverse;
+
+        &__image{
+            width: 100%;
+            padding-top: 700 / 625 * 100%;
+            margin-top: s(80);
+
+        }
+
+        &__quote{
+            width: 100%;
+            border-top: 1px solid color(black);
+            border-bottom: 1px solid color(black);
+            padding-top: s(40);
+
+        }
     }
 
 }

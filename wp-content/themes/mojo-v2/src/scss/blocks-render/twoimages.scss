@@ -23,6 +23,20 @@
         }
     }
 
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        &__item{
+            width: 100%;
+            padding-top: 700 / 625 * 100%;
+
+            & + &{
+                margin-left: 0;
+                margin-top: s(30);
+            }
+
+        }
+    }
+
 }
 
 

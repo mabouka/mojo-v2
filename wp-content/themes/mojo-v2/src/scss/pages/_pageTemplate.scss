@@ -42,4 +42,31 @@
             }
         }
     }
+
+    @media screen and (max-width: 600px) {
+        padding-top: s(167);
+
+        &__title{
+            width: 100%;
+            font-size: s(50);
+            margin-bottom: s(76);
+        }      
+        
+        &__content{
+            width: 100%;
+            margin-left: 0;
+            padding: 0;
+
+            section.wp-block-group {
+
+                h6, 
+                .h6 {
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    margin-bottom: s(40);
+                }
+            }
+        }
+    }
 }

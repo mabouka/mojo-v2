@@ -32,4 +32,24 @@
             }
         }
     } 
+
+    @media screen and (max-width: 600px){
+        .content{
+            h2,
+            .h2{
+
+            }
+    
+            section.wp-block-group {
+                padding-left: 0;
+                padding-right: 0;
+    
+                h6, 
+                .h6 {
+                    position: relative;
+                    margin-bottom: s(40);
+                }
+            }
+        }
+    }
 }
