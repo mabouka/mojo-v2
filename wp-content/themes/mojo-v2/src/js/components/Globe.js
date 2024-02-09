@@ -203,7 +203,9 @@ export default class Globe {
 
     e_resize() {
         console.log('globe resize');
-        this.main.scrollTrigger.refresh();
+        if(this.main) {
+            this.main.scrollTrigger.refresh();
+        }
     }
 
 }

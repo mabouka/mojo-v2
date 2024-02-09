@@ -97,9 +97,11 @@
             transition: transform .34s easing(ease-in-out-quint);
         }
 
-        &:hover:after{
-            transform: scaleX(1);
-            transform-origin: left center;
+        @media screen and (any-pointer: fine) {
+            &:hover:after{
+                transform: scaleX(1);
+                transform-origin: left center;
+            }
         }
     }
 
@@ -235,6 +237,15 @@
                     content: '';
                     display: none;
                 }
+            }
+        }
+
+        &--pink,
+        &--sungloworange,
+        &--lightblue{
+
+            .serviceHeader__navItem{
+                border-top: 1px solid color(black);
             }
         }
 

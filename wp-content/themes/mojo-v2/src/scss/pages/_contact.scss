@@ -132,6 +132,7 @@
                 color: color(sand);
                 @extend .body18;
                 text-wrap: nowrap;
+                flex-shrink: 0;
             }
 
             &--required .field__label{

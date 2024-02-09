@@ -92,12 +92,18 @@ export default class ClientIntro {
     }
 
     async launchScroll() {
+
+        let height = window.innerHeight * 2;
+
+        if(window.innerWidth <= 600)  {
+            height = window.innerHeight;
+        }
         
         this.main = gsap.timeline({
             scrollTrigger: {
                 trigger: this.el,
                 start: 'top',
-                end: '+=' + (window.innerHeight * 2), // +=600
+                end: '+=' + height, // +=600
                 scrub: true,
                 pin: true,
                 //markers: true,
@@ -142,9 +148,10 @@ export default class ClientIntro {
      */
 
     e_resize() {
-        console.log('intro resize');
-        this.main.scrollTrigger.refresh();
-        this.main.scrollTrigger.update();
-
+        console.log('intro resize', this);
+        if(this.main) {
+            this.main.scrollTrigger.refresh();
+            this.main.scrollTrigger.update();
+        }
     }
 }
