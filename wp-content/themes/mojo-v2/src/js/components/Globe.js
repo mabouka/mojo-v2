@@ -37,11 +37,13 @@ export default class Globe {
 
         this.check_webp_feature('lossy', (feature, isSupported) => {
             if (isSupported) this.fileType = 'webp';
-            this.images = this.getImages();
-            this.images[this.anim.frame].image.onload = this.render.bind(this); // render first image
-    
+            this.initialize();
         });
-        
+    }
+
+    initialize() {
+        this.images = this.getImages();
+        this.images[this.anim.frame].image.onload = this.render.bind(this); // render first image
 
         this.mm = gsap.matchMedia();
 
