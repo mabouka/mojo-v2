@@ -4,6 +4,9 @@ import barba             from '@barba/core';
 import { ScrollTrigger }    from "gsap/ScrollTrigger";
 
 import InView               from '../InView';
+import IsCentered           from '../IsCentered';
+import IsTop                from '../IsTop';
+
 import Menu                 from '../Menu';
 
 // utils
@@ -73,7 +76,11 @@ export default class Router {
 
             window.lenis.resize();
             window.MJ.parts.setup(data.next.container);
+            
             InView.addView(data.next.container);
+            IsTop.addView(data.next.container);
+            IsCentered.addView(data.next.container);
+
             document.documentElement.classList.remove('loading');
         });
 
