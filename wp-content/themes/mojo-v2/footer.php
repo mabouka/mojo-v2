@@ -1,15 +1,6 @@
 <?php 
     $showFooter = true;
     if (is_404()) $showFooter = false;
-    
-    /*if (is_singular('case')) $showFooter = false;
-    if (is_singular('services')) {
-        global $post;
-        $parent = array_reverse(get_post_ancestors($post->ID));
-        if($parent) {
-            $showFooter = false;
-        }
-    }*/
 
 ?>
 
@@ -163,7 +154,10 @@
 <script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
 <script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
 <script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
-
+<?php 
+    $old_tree_nation = true;
+    $new_tree_nation = false;
+?>
 <?php if($old_tree_nation): ?>
 <script src="https://tree-nation.com/js/track.js"></script>
 <script>treenation_track("6322d1badbb2d");</script>

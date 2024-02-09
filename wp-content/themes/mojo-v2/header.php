@@ -6,11 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="<?php bloginfo('charset'); ?>">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Mojo Agency">
-    <meta name="theme-color" content="#131C23">
-
     <!-- WPHEAD START -->
     <?php wp_head(); ?>
     <!-- WPHEAD END -->

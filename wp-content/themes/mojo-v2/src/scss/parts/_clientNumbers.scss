@@ -1,6 +1,8 @@
 .clientNumbers{
     background-color: color(dark);
     position: relative;
+    //overflow: hidden;
+    width: 100%;
 
     &__inside{
         height: s(1800);
@@ -17,6 +19,7 @@
         margin: 0 auto;
         width: s(1299);
         height: auto;
+        max-width: 100vw;
     }
 
     &__moon{
@@ -102,6 +105,30 @@
             }
         }
         
+    }
+
+    @media screen and (max-width: 1100px){
+        &__moon{
+            width: s(250);
+            height: s(250);
+            top: calc( 50% - 125px);
+        }
+    }
+    @media screen and (max-width: 500px){
+        &__moon{
+            width: s(202);
+            height: s(202);
+            top: calc( 50% - 101px);
+        }
+
+        .wrapper{
+            padding: 0 s(70);
+        }
+
+        &__inside{
+            height: s(2300);
+           padding: s(150) 0 s(165);
+        }
     }
     
 }

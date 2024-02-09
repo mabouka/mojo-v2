@@ -137,11 +137,23 @@
 
     }
 
-    &:hover{
-        .purposeCard__hover{
-            opacity: 1;
-            visibility: visible;
-            transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
+    @media screen and (any-pointer: fine) {
+        &:hover{
+            .purposeCard__hover{
+                opacity: 1;
+                visibility: visible;
+                transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
+            }
+        }
+    }
+
+    @media screen and (any-pointer: coarse) {
+        &.in-top{
+            .purposeCard__hover{
+                opacity: 1;
+                visibility: visible;
+                transition: 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
+            }
         }
     }
 

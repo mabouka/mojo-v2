@@ -3,7 +3,10 @@
 
     <div class="commitmentsEarth__planets">
         <div class="commitmentsEarth__planet commitmentsEarth__planet--left">
-            <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750">
+            <picture>
+                <source srcset="<?= $image['sizes']['fullImageMobile']; ?>">
+                <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750">
+            </picture>
         </div>
         <div class="commitmentsEarth__planet commitmentsEarth__planet--main">
             <h2 class="commitmentsEarth__planetTitle">
@@ -11,7 +14,10 @@
             </h2>
         </div>
         <div class="commitmentsEarth__planet commitmentsEarth__planet--right">
-            <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750">
+            <picture>
+                <source srcset="<?= $image['sizes']['fullImageMobile']; ?>">
+                <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750">
+            </picture>        
         </div>      
     </div>
 

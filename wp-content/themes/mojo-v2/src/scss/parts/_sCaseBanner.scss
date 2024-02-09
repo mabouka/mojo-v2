@@ -100,6 +100,20 @@
             background-color: #FF542E;
         }
     }
+    @media screen and (max-width: 1285px) {
+        .purposeDisc{
+            right: s(30);
+        }
+    }
+
+    @media screen and (max-width: 800px) and (min-width: 601px){
+        height: s(400);
+
+        .purposeDisc{
+            transform: scale(0.75);
+            transform-origin: 100% 100%;
+        }
+    }
 
     @media screen and (max-width: 600px){
         height: 100vh;

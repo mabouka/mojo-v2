@@ -46,6 +46,7 @@
             img{
                 width: 100%;
                 height: 100%;
+                display: block;
             }
         }
         &--left{
@@ -73,5 +74,49 @@
         @extend .body;
         @extend .body18;
         color: color(sand);
+    }
+
+    @media screen and (max-width: 600px) {
+        padding: s(40) 0 s(125);
+
+        &__planets{
+            flex-direction: column;
+            width: calc(100vw - 30px);
+            margin: 0 auto;
+            margin-bottom: s(20);
+        }
+
+        &__planetTitle{
+            font-size: s(35);
+        }
+        &__planet{
+            width: 100%;
+
+            &--left{
+                margin-left: 0;
+            }
+
+            &--main{
+                height: calc(100vw - 30px);
+                display: flex;
+                align-items: center;
+            }
+
+            &--right{
+                display: none;
+            }
+        }
+
+        &__inside{
+            flex-direction: column;
+            padding: 0;
+        }
+
+        &__text{
+            width: 100%;
+            & + &{
+                margin-top: s(40);
+            }
+        }
     }
 }

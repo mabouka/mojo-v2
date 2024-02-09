@@ -31,5 +31,25 @@
         display: flex;
         gap: s(49);
         justify-content: center;
+        flex-wrap: wrap;
     }
+    @media screen and (max-width: 800px){
+
+        &__cards{
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (max-width: 600px){
+        padding-top: s(120);
+        padding-bottom: 0;
+        &__text{
+            margin-bottom: s(40);
+        }
+
+        &__cards{
+            margin: s(70) 0;
+        }
+    }
+
 }

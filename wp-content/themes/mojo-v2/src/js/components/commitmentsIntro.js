@@ -12,6 +12,8 @@ export default class commitmentsIntro {
         this.path       = this.svg.querySelector('#path');
         this.circle     = this.svg.querySelector('#circle');
         this.content    = this.el.querySelector('.commitmentsIntro__content');
+        
+        this.mm = gsap.matchMedia();
 
         this.prepare();
         this.launchIntro();
@@ -54,6 +56,8 @@ export default class commitmentsIntro {
 
     launchScroll() {
 
+        
+
         this.scroll = gsap.timeline({
             scrollTrigger: {
                 trigger: this.el,
@@ -65,10 +69,31 @@ export default class commitmentsIntro {
 
         this.scroll.to(this.path, 
             {
-                y: () => -130,
+                y: -130,
                 duration:2
             },
             0
         )
-    }
+
+        this.mm.add("(max-width: 600px)", () => {
+            this.scrollShape = gsap.timeline({
+                scrollTrigger: {
+                    trigger: this.el,
+                    start: 'top top',
+                    end: "+=" + 500,
+                    scrub: true,
+                }
+            });
+    
+            this.scrollShape.to(this.svg, 
+                {
+                    y: -300,
+                    duration:2
+                },
+                0
+            );
+
+
+        });
+        }
 }

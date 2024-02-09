@@ -13,5 +13,11 @@
         justify-content: center;
         z-index: 10;
         position: relative;
+        
+    }
+    @media screen and (max-width: 600px) {
+        &__caseButton{
+            padding: s(60) 0 s(80);
+        }
     }
 }

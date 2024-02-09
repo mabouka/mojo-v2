@@ -80,6 +80,65 @@
         color: color(sand);
         width: inherit;
     }
+
+    @media screen and (max-width: 800px) {
+        &__secondaryContainer{
+            width: col(6,12);
+        }
+    }
+    @media screen and (max-width: 600px) {
+        height: inherit;
+        position: relative;
+
+
+        &__secondaryContainer{
+            width: col(12,12);
+            justify-self: auto;
+            margin-top: auto;
+            margin-bottom: s(41);
+            margin-right: 0;
+
+        }
+
+        &__inside{
+            flex-wrap: nowrap;
+            padding-bottom: s(70);
+            flex-direction: column;
+            padding-top: s(146);
+            height: inherit;
+            align-items: center;
+
+            min-height: 100vh;
+            min-height: 100svh;
+        }
+        .wrapper{
+            height: inherit;
+        }
+
+        &__title{
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            margin-top: s(40);
+            margin-bottom: s(100);
+        }
+        &__copyright{
+            position: absolute;
+            bottom: 0;
+            left: s(-15);
+            right: s(-15);
+            margin-left: 0;
+            width: 100vw;
+            height: s(70);
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid color(white);
+        }
+    }
 }
 
 .errorCard{
@@ -96,6 +155,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
 
     &__title{
         font-family: Cambon, serif;
@@ -177,4 +237,44 @@
     &--6{
         transform: translate3d(620px, -50vh, 0) rotate(-17.458deg) scale(0.68831168831);
     }
+
+    @media screen and (max-width: 1100px) {
+
+        &--main{
+            transform: translate3d(200px, -50px, 0) rotate(10deg);
+        }
+
+        &--3{
+            transform: translate3d(470px, -35vh, 0) rotate(-34.769deg) scale(0.68831168831);
+        }
+
+    }
+    @media screen and (max-width: 800px) {
+        &--main{
+            transform: translate3d(140px, -50px, 0) rotate(10deg);
+        }   
+
+        &--3{
+            transform: translate3d(370px, -20vh, 0) rotate(-34.769deg) scale(0.68831168831);
+        }
+    }
+    @media screen and (max-width: 600px) {
+
+
+
+        &--main{
+            transform: translate3d(0px, 0px, 0) rotate(10deg);
+            height: s(384);
+            width: s(247);
+            position: relative;
+            order: -1;
+            left: 0;
+            top: 0;
+            margin-top: 0;
+            margin-left: 0;
+        }
+
+        
+    }
+
 }

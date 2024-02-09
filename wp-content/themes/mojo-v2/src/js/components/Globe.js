@@ -17,6 +17,7 @@ export default class Globe {
         console.log('start Globe');
         this.el              = el;
         this.baseUrl         = el.dataset.baseUrl;
+        this.inside          = el.querySelector('.globe__inside');
         this.right           = el.querySelector('.globe__right');
 
         this.canvas          = el.querySelector('.globe__anim');
@@ -33,48 +34,76 @@ export default class Globe {
         }
         this.images = this.getImages();
 
-
-        //gsap.ticker.add(this.render.bind(this));
-
         this.images[this.anim.frame].image.onload = this.render.bind(this); // render first image
 
-        this.animation = gsap.to(this.anim, {
-            frame: this.images.length - 1,
-            snap: "frame",
-            ease: "none",
-            scrollTrigger: {
-                trigger: this.el,
-                //endTrigger: this.el.querySelector('.globe__animEndTrigger'),
-                start: "top-=" + (window.innerHeight/2),
-                end: "bottom-=" + (window.innerHeight/8*5),
-                scrub: true,
-                //markers: true,
-                id: "globe-canvas",
+        this.mm = gsap.matchMedia();
 
-            },
-            onUpdate: (self) => {
-                this.render();
-            }, // use animation onUpdate instead of scrollTrigger's onUpdate
+
+        this.mm.add("(min-width: 601px)", () => {
+
+            this.animation = gsap.to(this.anim, {
+                frame: this.images.length - 1,
+                snap: "frame",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: this.el,
+                    start: "top-=" + (window.innerHeight/2),
+                    end: "bottom-=" + (window.innerHeight/8*5),
+                    scrub: true,
+                    id: "globe-canvas",
+                    //markers: true,
+                },
+                onUpdate: (self) => {
+                    this.render();
+                }, // use animation onUpdate instead of scrollTrigger's onUpdate
+            });
+        });
+
+        this.mm.add("(max-width: 600px)", () => {
+
+            this.animation = gsap.to(this.anim, {
+                frame: this.images.length - 1,
+                snap: "frame",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: this.el,
+                    start: "top-=" + 0,
+                    end: "bottom-=" + window.innerHeight,
+                    scrub: true,
+                    id: "globe-canvas",
+                    //markers: true,
+
+                },
+                onUpdate: (self) => {
+                    this.render();
+                }, // use animation onUpdate instead of scrollTrigger's onUpdate
+            });
         });
         
 
-        this.main = gsap.timeline({
-            scrollTrigger: {
-                trigger: this.el,
-                start: "top-=200",
-                end: "bottom-=850",
-                scrub: true,
-                //markers: true,
-                id: "globe",
-                ease: "none"
-            }
-        })
-        .to(this.right, {
-            y: 660,
-            ease: "none",
-            duration: 1
-        },0);
-        
+
+
+        this.mm.add("(min-width: 601px)", () => {
+            let height = 660;
+            height = this.inside.offsetHeight- this.right.offsetHeight;
+
+            this.main = gsap.timeline({
+                scrollTrigger: {
+                    trigger: this.el,
+                    start: "top-=200",
+                    end: "bottom-=850",
+                    scrub: true,
+                    //markers: true,
+                    id: "globe",
+                    ease: "none"
+                }
+            })
+            .to(this.right, {
+                y: height,
+                ease: "none",
+                duration: 1
+            },0);
+        });
 
         console.log('end Globe');
 
@@ -100,6 +129,10 @@ export default class Globe {
                 setTimeout(() => {
                     item.loaded ? this.preloadImage(item.src) : null
                 }, 1000);
+
+                setTimeout(() => {
+                    item.loaded ? this.preloadImage(item.src) : null
+                }, 1500);
                 
             images.push(item);
             

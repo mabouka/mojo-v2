@@ -220,6 +220,7 @@
             width: 100%;
             font-size: s(22);
             line-height: s(30);
+            flex-shrink: 1000;
         }
 
         &__itemLink:hover{

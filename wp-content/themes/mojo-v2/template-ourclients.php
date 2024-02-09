@@ -18,9 +18,12 @@ get_header();
             'items'          => get_field('typo_items'),
         ]);
 
+        
+
         getPartial('clientNumbers', [
             'items'          => get_field('numbers'),
         ]);
+        
 
         getPartial('globe', [
             'titleBefore'    => get_field('globe_before_title'),
@@ -30,12 +33,13 @@ get_header();
             'titleAfter'     => get_field('globe_after_title'),
             'textAfter'      => get_field('globe_after_text'),
         ]);
+        
 
         getPartial('clientHover', [
             'title'          => get_field('client_title'),
             'image'          => get_field('client_image'),
             'clients'        => get_field('client_items'),
-        ]);
+        ]); 
 
         
     ?>

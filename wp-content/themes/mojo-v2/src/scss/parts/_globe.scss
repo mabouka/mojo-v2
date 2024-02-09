@@ -11,7 +11,8 @@
         padding: 0 colGut(1,1,12,0);
     }
 
-    &__left{
+    &__before,
+    &__after{
         float: left;
         position: relative;
         z-index: 5;
@@ -24,9 +25,6 @@
         width: 500px;
         height: 500px;
         //background-color: red;
-    }
-    &__anim{
-        //display: none;
     }
 
     &__title{
@@ -46,11 +44,6 @@
         max-width: s(405);
     }
 
-    &__before,
-    &__after{
-        position: relative;
-        z-index: 5;
-    }
 
     &__after{
         margin-top: s(175);
@@ -72,5 +65,103 @@
         //opacity: 0.4;
         width: s(1000);
         height: auto;
+    }
+
+    @media screen and (max-width: 1100px) {
+        &__inside{
+            padding: 0;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        padding-top: s(80);
+        padding-bottom: s(80);
+        &__inside{
+            padding: 0;
+        }
+
+        &__before,
+        &__after{
+            width: colGut(6,1,12,0);
+            float: left;
+        }
+
+        &__right{
+            width:  colGut(6,0,12,0);
+            padding-top: colGut(6,0,12,0);
+            height: 0;
+
+        }
+
+        &__anim{
+            width: 40em;
+            top: -9%;
+        }
+
+        &__text,
+        &__subtitle,
+        &__title{
+            max-width: 100%;
+        }
+
+        &__text{
+            margin-top: s(40);
+        }
+
+        &__title{
+            font-size: s(40);
+        }
+
+        &__after{
+            margin-top: s(80);
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-bottom: s(104);
+
+        &__inside{
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__before,
+        &__after{
+            width: 100%;
+            float: none;
+        }
+        &__right{
+            width:  100%;
+            padding-top: 100%;
+            height: 0;
+        }
+
+        &__before{
+            order: 1;
+        }
+
+        &__right{
+            margin-top: s(40);
+            order: 2;
+        }
+
+        &__after{
+            margin-top: 0;
+            order: 3
+        }
+
+        &__title{
+            font-size: s(50);
+        }
+
+        &__subtitle{
+            margin-top: s(15);
+        }
+
+        &__text{
+            margin-top: s(40);
+        }
+
     }
 }

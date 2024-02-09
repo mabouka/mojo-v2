@@ -97,11 +97,14 @@ export default class ClientIntro {
             scrollTrigger: {
                 trigger: this.el,
                 start: 'top',
-                end: '+=2000', // +=600
+                end: '+=' + (window.innerHeight * 2), // +=600
                 scrub: true,
                 pin: true,
                 //markers: true,
                 id: "Intro",
+                onUpdate: () => {
+                   // this.circleSection.style.maxHeight = window.innerHeight + 'px';
+                }
                 //normalizeScroll: true
                 //invalidateOnRefresh: true,
             }
@@ -131,11 +134,7 @@ export default class ClientIntro {
             ease: "expoScale(0.5,7,none)",
             scale: 0.05
         }, 2.2)
-        new CustomEvent("animalfound", {
-            detail: {
-              name: "dog",
-            },
-        });
+
           
     }
     /*

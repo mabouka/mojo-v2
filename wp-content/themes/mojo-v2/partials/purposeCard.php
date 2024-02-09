@@ -1,4 +1,4 @@
-<section class="purposeCard<?= $card['color'] ? ' purposeCard--' . $card['color'] : '' ?><?= $card['lab'] ? ' purposeCard--lab' : '' ?>">
+<section class="purposeCard<?= $card['color'] ? ' purposeCard--' . $card['color'] : '' ?><?= $card['lab'] ? ' purposeCard--lab' : '' ?> js-is-top">
 
 
     <svg class="purposeCard__star purposeCard__star--tl " width="11" height="11">
