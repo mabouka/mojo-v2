@@ -506,3 +506,4 @@ function splitCharWord($text, $charIndex = 0) {
 
     return $output;
 }
+

@@ -511,4 +511,16 @@ body{
         }
 
     }
+
+    @media screen and (max-height: 600px) and  (orientation: portrait)  {
+        &__mainItem{
+            font-size: s(30);
+        }
+
+        &__secondaryItem{
+            font-size: s(16);
+            margin-right: 0;
+            margin-top: s(5);
+        }
+    }
 }
