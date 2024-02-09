@@ -92,13 +92,16 @@
         }
 
         //&--active,
-        &:hover,
-        &:focus{
-            .featuredCases__galleryItemHover{
-                opacity: 1;
+        @media screen and (any-pointer: fine){
+            &:hover,
+            &:focus{
+                .featuredCases__galleryItemHover{
+                    opacity: 1;
+                }
             }
         }
     }
+
 
     &__galleryItemFigure{
         position: relative;

@@ -29,9 +29,7 @@ export default class ServiceGrid {
 
         const mq = window.matchMedia( "(max-width: 600px) and (any-pointer: coarse)" );
         if(mq.matches){
-            console.log('responsive')
             if(this.isService){
-                console.log('service')
                 this.container = this.el.querySelector('.serviceGrid__gridWrapper');
                 this.grid = this.el.querySelector('.serviceGrid__grid');
                 this.allCard = this.el.querySelectorAll('.serviceGrid__item');

@@ -11,7 +11,6 @@ export default class OurClients {
         this.current = 0;
         this.timer = this.getTimer();
 
-
         this.active(this.clients[this.current]);
         this.setEvents();
     }
@@ -71,11 +70,7 @@ export default class OurClients {
         this.container.addEventListener('mouseenter', (e) => {
             clearInterval(this.timer);
         });
-        this.container.addEventListener('mouseleave', (e) => {
-            //this.timer = this.getTimer();
-        });
 
-        
         this.clients.forEach(client => {
 
             client.el.addEventListener('mouseenter', (e) => {

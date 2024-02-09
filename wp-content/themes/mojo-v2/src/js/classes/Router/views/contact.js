@@ -1,4 +1,12 @@
-import appendScripts from "../utils/scripts";
+let appendScripts = (scripts, root = document.documentElement ) => {
+    scripts.forEach(scriptSrc => {
+        let script = document.createElement("script");
+            script.setAttribute('crossorigin', 'anonymous')
+            script.setAttribute("src", scriptSrc);
+        root.appendChild(script);
+    })
+}
+
 
 let contact = {
     namespace: 'contact',

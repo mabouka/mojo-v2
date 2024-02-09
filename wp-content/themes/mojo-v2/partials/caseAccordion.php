@@ -56,7 +56,7 @@
 
         <div class="caseAccordion__image">
         <?php if ($video): ?>
-            <video preload="auto" playsinline muted  src="<?= $video ?>" poster="<?= $imageCard['sizes']['imagesslider']?>" ></video>
+            <video preload="auto" playsinline muted  src="<?= $video ?>"<?= $imageCard ? 'poster="' .$imageCard['sizes']['imagesslider'] .'"' : ''?>></video>
         
         <?php elseif($imageCard): ?>
             <img src="<?= $imageCard['sizes']['imagesslider']?>"

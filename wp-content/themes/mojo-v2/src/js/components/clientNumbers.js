@@ -7,8 +7,6 @@ export default class ClientNumbers {
     }
 
     constructor(el) {
-        console.log('start Client Number');
-
         this.el = el;
         this.svg = this.el.querySelector('.clientNumbers__svg');
         this.moon = this.el.querySelector('.clientNumbers__moon');
@@ -31,7 +29,6 @@ export default class ClientNumbers {
             },
             0
         )
-        console.log('end Client Number');
 
     }
 
@@ -41,7 +38,6 @@ export default class ClientNumbers {
      */
 
     e_resize(e) {
-        console.log('number resize');
         this.starsAnimation.scrollTrigger.refresh();
     }
 }

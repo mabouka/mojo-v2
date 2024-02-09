@@ -9,7 +9,6 @@ export default class casesServices {
         this.el = el;
    
         const mq = window.matchMedia( "(max-width: 600px)" );
-        console.log(mq);
         if(mq.matches){
 
             this.container = this.el.querySelector('.casesServices__gridContainer');

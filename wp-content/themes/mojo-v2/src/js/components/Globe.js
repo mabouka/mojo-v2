@@ -14,7 +14,6 @@ export default class Globe {
     }
 
     constructor(el) {
-        console.log('start Globe');
         this.el              = el;
         this.baseUrl         = el.dataset.baseUrl;
         this.inside          = el.querySelector('.globe__inside');
@@ -114,8 +113,6 @@ export default class Globe {
             },0);
         });
 
-        console.log('end Globe');
-
     }
 
     currentFrame(i) {
@@ -202,7 +199,6 @@ export default class Globe {
      */
 
     e_resize() {
-        console.log('globe resize');
         if(this.main) {
             this.main.scrollTrigger.refresh();
         }

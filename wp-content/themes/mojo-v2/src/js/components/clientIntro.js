@@ -8,7 +8,6 @@ export default class ClientIntro {
     }
 
     constructor(el) {
-        console.log('start Client Intro');
 
         this.el = el;
         //part 1
@@ -148,7 +147,6 @@ export default class ClientIntro {
      */
 
     e_resize() {
-        console.log('intro resize', this);
         if(this.main) {
             this.main.scrollTrigger.refresh();
             this.main.scrollTrigger.update();
