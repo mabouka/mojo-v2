@@ -120,7 +120,7 @@
 
     @media screen and (max-width: 600px) {
         padding-bottom: s(121);
-
+        margin-top: -1px;
         &__title{
             margin-bottom: s(62-25);
         }

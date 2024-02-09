@@ -28,13 +28,20 @@ export default class Globe {
         this.currentFrame    = -1;
         this.firstFrame      = 53;
         this.frameCount      = 250;
-        this.fileType        = this.support_format_webp() ? 'webp' : 'jpg';
+        this.fileType        = 'jpg';
+
         this.anim = {
             frame: 0
         }
-        this.images = this.getImages();
 
-        this.images[this.anim.frame].image.onload = this.render.bind(this); // render first image
+
+        this.check_webp_feature('lossy', (feature, isSupported) => {
+            if (isSupported) this.fileType = 'webp';
+            this.images = this.getImages();
+            this.images[this.anim.frame].image.onload = this.render.bind(this); // render first image
+    
+        });
+        
 
         this.mm = gsap.matchMedia();
 
@@ -152,11 +159,25 @@ export default class Globe {
         return img;
     }
 
-    support_format_webp()
-    {
-        let elem = document.createElement('canvas');
-        if (!!(elem.getContext && elem.getContext('2d'))) return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
-        else return false;
+    // check_webp_feature:
+    //   'feature' can be one of 'lossy', 'lossless', 'alpha' or 'animation'.
+    //   'callback(feature, isSupported)' will be passed back the detection result (in an asynchronous way!)
+    check_webp_feature(feature, callback) {
+        var kTestImages = {
+            lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
+            lossless: "UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==",
+            alpha: "UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==",
+            animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
+        };
+        var img = new Image();
+        img.onload = function () {
+            var result = (img.width > 0) && (img.height > 0);
+            callback(feature, result);
+        };
+        img.onerror = function () {
+            callback(feature, false);
+        };
+        img.src = "data:image/webp;base64," + kTestImages[feature];
     }
     
     render(e) {
