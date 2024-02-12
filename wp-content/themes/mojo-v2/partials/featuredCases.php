@@ -110,7 +110,7 @@
                                     <img 
                                         loading="lazy"
                                         src="<?= $picture['sizes']['featuredVideo']; ?>"
-                                        srcset="<?= $picture['sizes']['featuredVideo']; ?> 1x, <?= $case['picture']['sizes']['featuredVideo']; ?> 2x"
+                                        srcset="<?= $picture['sizes']['featuredVideo']; ?> 1x, <?= $picture['sizes']['featuredVideo']; ?> 2x"
                                         alt="<?= $picture['alt'] ?>"
                                     >
                                 <?php elseif($mainPicture): ?>
