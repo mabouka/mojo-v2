@@ -10,7 +10,7 @@ $people = $query->posts;
     <div class="wrapper">
         <div class="teamGrid__inside">
             <h2 class="teamGrid__title js-in-view appear-fade appear-delay12">
-                <?= __('Our team', 'mj'); ?>
+                <?= __('A multi-disciplinary team of experts', 'mj'); ?>
             </h2>
 
             <div class="teamGrid__grid">

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mojo V2\n"
-"POT-Creation-Date: 2024-01-23 14:13-0300\n"
-"PO-Revision-Date: 2024-01-23 14:13-0300\n"
+"POT-Creation-Date: 2024-02-12 13:58-0300\n"
+"PO-Revision-Date: 2024-02-12 13:59-0300\n"
 "Last-Translator: \n"
 "Language-Team: Mojo\n"
 "Language: en_US\n"
@@ -18,11 +18,11 @@ msgstr ""
 msgid "Oops. <br>bad draw"
 msgstr ""
 
-#: 404.php:13 footer.php:33 functions.php:190
+#: 404.php:13 footer.php:48 functions.php:195
 msgid "Sitemap"
 msgstr ""
 
-#: 404.php:24 functions.php:188
+#: 404.php:24 functions.php:193
 msgid "More"
 msgstr ""
 
@@ -30,59 +30,71 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: footer.php:44 functions.php:189
+#: footer.php:60 functions.php:194
 msgid "Social"
 msgstr ""
 
-#: functions.php:187
+#: functions.php:192
 msgid "Main"
 msgstr ""
 
-#: header.php:49
+#: header.php:71
 msgid "Go to the main content"
 msgstr ""
 
-#: header.php:88 partials/menu.php:8
+#: header.php:120 partials/menu.php:8
 msgid "Go back home"
 msgstr ""
 
-#: header.php:98
+#: header.php:130
 msgid "Menu"
 msgstr ""
 
-#: header.php:99
+#: header.php:131
 msgid "Open menu"
 msgstr ""
 
-#: partials/casesGrid.php:21
-msgid "All"
-msgstr ""
-
-#: partials/casesGrid.php:24 partials/sCaseFeatures.php:20
+#: partials/casesGrid.php:5 partials/sCaseFeatures.php:27
 msgid "Sectors"
 msgstr ""
 
-#: partials/casesGrid.php:38
+#: partials/casesGrid.php:10
 msgid "Territories"
 msgstr ""
 
-#: partials/casesGrid.php:51
+#: partials/casesGrid.php:15
 msgid "Clients"
 msgstr ""
 
-#: partials/casesGrid.php:64
+#: partials/casesGrid.php:20 partials/sCaseFeatures.php:49
 msgid "Services"
+msgstr ""
+
+#: partials/casesGrid.php:55
+msgid "All"
+msgstr ""
+
+#: partials/casesGrid.php:106
+msgid "Filter"
+msgstr ""
+
+#: partials/casesGrid.php:123
+msgid "No case found"
+msgstr ""
+
+#: partials/casesGrid.php:126
+msgid "please try to modify the filters"
 msgstr ""
 
 #: partials/commitmentsPurpose.php:4
 msgid "Initiatives"
 msgstr ""
 
-#: partials/featuredCases.php:25
+#: partials/featuredCases.php:31
 msgid "See case"
 msgstr ""
 
-#: partials/featuredCases.php:44 partials/serviceProjects.php:12
+#: partials/featuredCases.php:67 partials/serviceProjects.php:12
 #: template-commitments.php:45
 msgid "See all cases"
 msgstr ""
@@ -107,24 +119,28 @@ msgstr ""
 msgid "Social Media"
 msgstr ""
 
+#: partials/menu.php:60
+msgid "Languages"
+msgstr ""
+
 #: partials/ourClients.php:49
 msgid "See our clients"
 msgstr ""
 
-#: partials/sCaseFeatures.php:13
+#: partials/sCaseFeatures.php:16
 msgid "Client"
 msgstr ""
 
-#: partials/sCaseFeatures.php:32
+#: partials/sCaseFeatures.php:38
 msgid "Country"
-msgstr ""
-
-#: partials/sCaseFeatures.php:39
-msgid "Delivrables"
 msgstr ""
 
 #: partials/sCaseNext.php:17
 msgid "Next project"
+msgstr ""
+
+#: partials/sCaseRandom.php:22
+msgid "Want to see more ?"
 msgstr ""
 
 #: partials/serviceChHeader.php:5
@@ -140,7 +156,7 @@ msgid "Sub-pages"
 msgstr ""
 
 #: partials/teamGrid.php:13
-msgid "Our team"
+msgid "A multi-disciplinary team of experts"
 msgstr ""
 
 #: single-services.php:29
