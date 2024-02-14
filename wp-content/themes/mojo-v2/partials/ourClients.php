@@ -45,7 +45,7 @@
             <?php endforeach; ?>
         </div>
         <div class="ourClients__containerRight darkSection">
-            <a class="btn btn--light" href="<?= get_post_type_archive_link('client'); ?>">
+            <a class="btn btn--light" href="<?= getTemplateLink('template-ourclients.php'); ?>">
                 <?= __('See our clients', 'mj'); ?>
             </a>
         </div>
