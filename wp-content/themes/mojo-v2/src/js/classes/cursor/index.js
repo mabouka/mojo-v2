@@ -132,8 +132,8 @@ export default class CustomCursor {
         if(!this.isActive) this.active();
 
         //this.element.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y})`
-        document.documentElement.style.setProperty('--x', x +'px');
-        document.documentElement.style.setProperty('--y', y +'px');
+        document.documentElement.style.setProperty('--x', x);
+        document.documentElement.style.setProperty('--y', y );
       } 
     }
     

@@ -12,6 +12,7 @@ export default class Footer {
         this.circle = this.el.querySelector('#footerSvg_circle');
         this.sensible = this.el.querySelector('#footer_sensible')
         this.links = this.el.querySelectorAll('a');
+        this.isFirefox = /Firefox/i.test(navigator.userAgent);
 
         this.setRect();
         this.setEvents();
@@ -33,11 +34,55 @@ export default class Footer {
             link.addEventListener('mouseenter', this.e_mousenterLink.bind(this));
             link.addEventListener('mouseleave', this.e_mouseleaveLink.bind(this));
         })
+
+        if(this.isFirefox){ //quickfix firefox
+            gsap.set('#footerSvg_circle', {
+                autoAlpha: 0,
+                scale: 0.001
+            });
+            this.el.addEventListener('mouseenter', this.e_mousenterEl.bind(this));
+            this.el.addEventListener('mouseleave', this.e_mouseleaveEl.bind(this));
+
+            window.addEventListener('mousemove', this.e_mousemove.bind(this));
+        }
     }
 
     /**
      * Handlers
      */
+
+    e_mousemove(e) {
+        gsap.to('#footerSvg_circle', {
+            x: e.clientX - this.svgRect.left,
+            y: e.clientY - this.svgRect.top,
+            duration: 0.4,
+            ease: "power2.out"
+        });
+    }
+
+    e_mousenterEl(e) {
+        console.log(e);
+
+        gsap.to('#footerSvg_circle', {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0
+        });
+    }
+
+    e_mouseleaveEl(e) {
+        console.log(e);
+        gsap.to('#footerSvg_circle', {
+            autoAlpha: 0,
+            scale: 0.001,
+            duration: 0,
+        });
+    }
+ 
+
+
+
+
     e_mousenter() {
         gsap.to('#footerSvg_circle', {
             scale: 266/36,

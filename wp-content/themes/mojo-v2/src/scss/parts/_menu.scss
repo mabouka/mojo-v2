@@ -488,6 +488,9 @@ body{
     }
 
     @media  screen and (max-width: 600px)  {
+        &__headerLanguage{
+            @include hidden();
+        }
         &__mainItem{
             font-size: s(40);
         }

@@ -5,10 +5,10 @@
         position: fixed;
         left: 0;
         top: 0;
-        width: s(36);
-        height: s(36);
-        margin-top: s(-36/2);
-        margin-left: s(-36/2);
+        width: s(360);
+        height: s(360);
+        margin-top: s(-360/2);
+        margin-left: s(-360/2);
         z-index: 600;
         border-radius: 100%;
         background-color: color(yellow);
@@ -16,7 +16,17 @@
         opacity: 1;
 
         will-change: opacity, color, transform;
-        transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(0.1);
+        //transform: matrix(#{(3.6 / 360)}, 0,0, #{(3.6 / 360)}, var(--x,50vw), var(--y,50vh));
+        //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(0.1);
+
+        $scale: 3.6 / 360;
+
+        transform: matrix3d(
+            $scale, 0, 0, 0,
+            0, $scale, 0, 0,
+            0, 0, 1, 0,
+            var(--x,50vw), var(--y,50vh), 0, 1
+        );
         transform-origin: center center;
         pointer-events: none;
         user-select: none;
@@ -42,7 +52,17 @@
     &--active{
         display: block;
         .cursor__bg{
-            transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(1);
+            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(1);
+            //transform: matrix(#{(36 / 360)}, 0,0, #{(36 / 360)}, var(--x,50vw), var(--y,50vh));
+
+            $scale : 36 / 360;
+
+            transform: matrix3d(
+            $scale, 0, 0, 0,
+            0, $scale, 0, 0,
+            0, 0, 1, 0,
+            var(--x,50vw), var(--y,50vh), 0, 1
+            );
             transition: opacity 400ms easing(ease-out-quint),
                         transform 400ms easing(ease-out-quint), 
                         background-color 400ms easing(ease-out-quint);
@@ -151,25 +171,61 @@
 
     &--medium{
         .cursor__bg{
-            transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(72 / 36)});
+            // matrix(${scale}, 0,0, ${scale}, ${x}, ${y})
+            //transform: matrix(#{(72 / 360)}, 0,0, #{(72 / 360)}, var(--x,50vw), var(--y,50vh));
+            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(72 / 360)});
+
+            $scale : 72 / 360;
+            transform: matrix3d(
+                $scale, 0, 0, 0,
+                0, $scale, 0, 0,
+                0, 0, 1, 0,
+                var(--x,50vw), var(--y,50vh), 0, 1
+            );
         }
     }
     &--big{
         .cursor__bg{
-            transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(147 / 36)});
+            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(147 / 360)});
+            //transform: matrix(#{(147 / 360)}, 0,0, #{(147 / 360)}, var(--x,50vw), var(--y,50vh));
+
+            $scale : 147 / 360;
+            transform: matrix3d(
+                $scale, 0, 0, 0,
+                0, $scale, 0, 0,
+                0, 0, 1, 0,
+                var(--x,50vw), var(--y,50vh), 0, 1
+            );
         }
     }
 
     &--huge{
         .cursor__bg{
-            transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(266 / 36)});
+            //transform: matrix(#{(266 / 360)}, 0,0, #{(266 / 360)}, var(--x,50vw), var(--y,50vh));
+            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(266 / 360)});
+
+            $scale : 266 / 360;
+            transform: matrix3d(
+                $scale, 0, 0, 0,
+                0, $scale, 0, 0,
+                0, 0, 1, 0,
+                var(--x,50vw), var(--y,50vh), 0, 1
+            );
         }
     }
 
     &--offScreen {
         .cursor__bg{
             opacity: 0 !important;
-            transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(1 / 36)}) !important;
+            //transform: matrix(#{(1 / 360)}, 0,0, #{(1 / 360)}, var(--x,50vw), var(--y,50vh)) !important;
+            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(1 / 360)}) !important;
+            $scale : 1 / 360;
+            transform: matrix3d(
+                $scale, 0, 0, 0,
+                0, $scale, 0, 0,
+                0, 0, 1, 0,
+                var(--x,50vw), var(--y,50vh), 0, 1
+            );
         }
     }
 

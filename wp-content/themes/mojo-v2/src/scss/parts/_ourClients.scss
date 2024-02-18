@@ -122,7 +122,7 @@
         }
 
         &__content{
-            margin-bottom: s(114);
+            margin-bottom: s(0);
         }
 
         &__container{
@@ -139,9 +139,14 @@
             width: 100%;
         }
 
+        &__presentation{
+            display: none;
+        }
+
         &__carousel{
             padding: s(100) 0 s(80) 0;
         }
+        
 
         &__carouselItem{
             margin-left: s(60);

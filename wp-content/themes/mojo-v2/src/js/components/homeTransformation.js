@@ -10,6 +10,9 @@ export default class homeTransformation {
 
     constructor(el) {
         this.el = el;
+        this.isFirefox = /Firefox/i.test(navigator.userAgent);
+
+        if(this.isFirefox) return; 
         this.circle = this.el.querySelector('#tr_circle');
         this.path = this.el.querySelector('#tr_path');
 

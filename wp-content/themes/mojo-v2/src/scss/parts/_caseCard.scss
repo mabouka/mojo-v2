@@ -10,7 +10,7 @@
     transition: 500ms opacity linear, 500ms transform easing(ease-out-quad);
 
     @media screen and (max-width: s(600)) {
-        transform: translate3d(0, 40px, 0);
+        transform: translate3d(0, 0, 0);
 
     }
     .no-js &,

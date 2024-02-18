@@ -22,6 +22,13 @@
             transition: opacity 500ms linear 0ms, transform  500ms easing(ease-out-quad) 0ms;
         }
 
+        @media screen and (max-width: 600px) {
+            &-fadeup,
+            &-fadedown{
+                //transform: translate3d(0,0,0);
+            }
+        }
+
         @for $n from 1 through 15 {
             &-delay#{$n}{
                 transition-delay: $n/10 * 1s;
@@ -69,7 +76,7 @@
     transition: transform 1000ms cubic-bezier(0.245, 0.495, 0.000, 0.990), 
                 opacity   1200ms cubic-bezier(0.245, 0.495, 0.000, 0.990);
 
-    @for $n from 1 through 40 {
+    @for $n from 1 through 55 {
         &--#{$n} {
             transition-delay: .1s + (($n - 1) * .01s);
         }
