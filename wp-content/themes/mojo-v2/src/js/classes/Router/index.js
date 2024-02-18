@@ -32,6 +32,7 @@ export default class Router {
         this.languageSelector = document.querySelector('.header__language');
 
         barba.init({
+                timeout: 5000, // default is 2000ms
                 logLevel: 'error',
                 transitions: [
                     //curtainFade,
