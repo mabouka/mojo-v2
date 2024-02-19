@@ -76,7 +76,7 @@ export default class Globe {
                 scrollTrigger: {
                     trigger: this.el,
                     start: "top+=" + 200,
-                    end: "top+=" +( window.innerHeight / 100 * 80),
+                    end: "top+=" + window.innerHeight ,
                     scrub: true,
                     id: "globe-canvas",
                     markers: true,
