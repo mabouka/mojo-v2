@@ -32,7 +32,9 @@
             <source srcset="<?= $imageMobile['sizes']['caseFullMobile'] ?> 1x, <?= $imageMobile['sizes']['caseFullMobile@2x'] ?> 2x" media="(max-width:600px)" >
             <?php endif ?>
             <?php var_dump($image); ?>
-            
+            <?php if (is_string($image)): ?>
+            <?php update_field('banner', '', get_the_ID()); ?>
+            <?php endif ?>
             <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>">
         
         </picture>
