@@ -33,6 +33,9 @@
             <?php endif ?>
             <?php var_dump($image); ?>
             <?php if (is_string($image)): ?>
+            <?php $fields = get_field_objects( get_the_ID() );
+                var_dump($fields);
+            ?>
             <?php delete_field( 'banner', get_the_ID() );?>
             <?php endif ?>
             <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>">
