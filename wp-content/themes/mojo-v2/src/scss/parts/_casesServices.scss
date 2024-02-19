@@ -29,12 +29,13 @@
         flex-wrap: wrap;
         width: 100%;
         justify-content: flex-start;
-        .serviceCard{
-                
-            transform: translate3d(0, 0, 0);
-            transition: 200ms transform easing(ease-out-quad);
-            &:hover{
-                transform: translate3d(0, -30px, 0);
+        @media (any-pointer: fine) {
+            .serviceCard{
+                transform: translate3d(0, 0, 0);
+                transition: 200ms transform easing(ease-out-quad);
+                &:hover{
+                    transform: translate3d(0, -30px, 0);
+                }
             }
         }
     }
