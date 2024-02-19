@@ -31,6 +31,7 @@
             <?php if ($imageMobile): ?>
             <source srcset="<?= $imageMobile['sizes']['caseFullMobile'] ?> 1x, <?= $imageMobile['sizes']['caseFullMobile@2x'] ?> 2x" media="(max-width:600px)" >
             <?php endif ?>
+            <?php var_dump($image); ?>
             
             <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>">
         
