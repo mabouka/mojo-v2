@@ -33,7 +33,7 @@
             <?php endif ?>
             <?php var_dump($image); ?>
             <?php if (is_string($image)): ?>
-            <?php// update_field('banner', '', get_the_ID()); ?>
+            <?php delete_field( 'banner', get_the_ID() );?>
             <?php endif ?>
             <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>">
         
