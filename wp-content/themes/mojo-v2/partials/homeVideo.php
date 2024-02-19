@@ -6,6 +6,7 @@
             </p>
         </div>
     </div>
+    <?php var_dump($poster); ?>
     <video class="homeVideo__video" loop autoplay playsinline muted <?= $poster ? 'poster="' . $poster['url'] . '"': '' ?>>
         <?php if ($urlMobile): ?>
         <source src="<?= $urlMobile ?>" media="screen and (max-width: 600px)">
