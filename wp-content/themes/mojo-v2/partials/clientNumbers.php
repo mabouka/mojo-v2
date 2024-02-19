@@ -1,6 +1,10 @@
 <?php if ($items): ?>
 <div class="clientNumbers darkSection">
-    <img class="clientNumbers__svg" src="<?= getUrl('dist/images/star-illustration.svg'); ?>" alt="" width="1299" height="773">
+    <picture>
+        <source srcset="<?= getUrl('dist/images/star-illustration-vertical.svg'); ?>">
+        <img class="clientNumbers__svg" src="<?= getUrl('dist/images/star-illustration.svg'); ?>" alt="" width="1299" height="773">
+
+    </picture>
 
     <div class="wrapper">
         <div class="clientNumbers__inside">

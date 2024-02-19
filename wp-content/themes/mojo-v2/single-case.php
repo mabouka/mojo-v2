@@ -5,7 +5,7 @@
         getPartial('sCaseBanner', [
             'video' => get_field('banner_video'), 
             'videoMobile' => get_field('banner_video_mobile'), 
-            'image' => get_field('banner'),
+            'image' => get_field('banner_image'),
             'imageMobile' => get_field('banner_mobile')
 
         ]);

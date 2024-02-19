@@ -79,7 +79,7 @@ export default class Globe {
                     end: "top+=" + window.innerHeight ,
                     scrub: true,
                     id: "globe-canvas",
-                    markers: true,
+                    //markers: true,
 
                 },
                 onUpdate: (self) => {
