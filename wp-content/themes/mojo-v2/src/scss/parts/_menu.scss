@@ -397,6 +397,8 @@ body{
             justify-content: center;
             align-items: center;
             font-size: s(14);
+            z-index: 2;
+            background-color: color(pink);
         }
 
         &__mobileLang{
@@ -518,10 +520,31 @@ body{
     @media screen and (max-height: 600px) and  (orientation: portrait)  {
         &__mainItem{
             font-size: s(30);
+
+            &--current{
+                span{
+                    padding-left: s(35);
+                    padding-right: 0;
+    
+                    &:after{
+           
+                        right: auto;
+                        left: 0;
+                        margin-top: s(-14);
+                        width: s(28);
+                        height: s(28);
+                        border-radius: s(28);
+                    }
+                    &:before{
+                        display: none !important;
+                    }
+                }
+            }
         }
 
         &__secondaryItem{
             font-size: s(16);
+            line-height: 1.2em;
             margin-right: 0;
             margin-top: s(5);
         }
