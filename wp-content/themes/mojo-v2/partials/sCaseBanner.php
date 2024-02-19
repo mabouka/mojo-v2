@@ -18,8 +18,7 @@
 
     <?php if ($video): ?>
     <div class="sCaseBanner__video">
-        <?php var_dump($image) ?>
-        <video autoplay playsinline muted loop poster="<?= $image['sizes']['caseFull'] ?>">
+        <video autoplay playsinline muted loop <?= $image ? ('poster="' . $image['sizes']['caseFull'] .'"') : '' ?>>
             <?php if ($videoMobile): ?>
             <source src="<?= $videoMobile ?>" media="(max-width: 600px)">
             <?php endif ?>
