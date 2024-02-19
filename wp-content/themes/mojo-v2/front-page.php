@@ -7,7 +7,7 @@
 
     getPartial('homeVideo', [
         "url"       => get_field('video_url'),
-        "poster"    => get_field('video_poster'),
+        "poster"    => get_field('video_posterImage'),
         "urlMobile" => get_field('video_url_mobile'),
         "text"      => get_field('video_text')
     ]);
@@ -41,7 +41,7 @@
 
     getPartial('video', [
         "url"       => get_field('video2_url'),
-        "poster"    => get_field('video2_poster'),
+        "poster"    => get_field('video2_posterImage'),
         "urlMobile" => get_field('video2_url_mobile'),
     ]);
 
