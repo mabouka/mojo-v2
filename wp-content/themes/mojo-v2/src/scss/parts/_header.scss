@@ -91,6 +91,8 @@
     }
 
     @media screen and (max-width: 600px){
+        opacity: 1;
+        visibility: visible;
         height: s(82);
         top: 0;
         display: flex;

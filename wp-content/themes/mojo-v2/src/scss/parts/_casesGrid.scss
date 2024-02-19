@@ -30,8 +30,6 @@
 
     &__seeAll,
     &__filterLink{
-
-
     }
 
     &__form{
@@ -274,6 +272,8 @@
             width: 100vw;
             transform: translate3d(0,0,0);
             z-index: 1;
+            opacity: 1;
+            visibility: visible;
         }
 
         &__filter{

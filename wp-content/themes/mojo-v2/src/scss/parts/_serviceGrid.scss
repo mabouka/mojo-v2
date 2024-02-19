@@ -14,7 +14,10 @@
         .serviceGrid--inview &{
             opacity: 1;
             transform: translate3d(0, 0, 0);
-
+        }
+        @media screen and (max-width: 600px){ 
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
         }
     }
 
