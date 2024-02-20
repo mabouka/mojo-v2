@@ -145,15 +145,18 @@
 <?php getPartial('cursor'); ?>
 <?php getPartial('menu'); ?>
 
-<?php 
-    $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
-?>
-<script type="text/javascript">
-    window.recaptchaKey = '<?= $recaptcha ?>';
-</script>
+
 <script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
 <script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
 <script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
+
+<?php 
+    $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
+?>
+<script src="https://www.google.com/recaptcha/api.js?render=<?= $recaptcha ?>"></script>
+<script type="text/javascript">
+    window.recaptchaKey = '<?= $recaptcha ?>';
+</script>
 <?php 
     $old_tree_nation = true;
     $new_tree_nation = false;
@@ -167,7 +170,6 @@
 <script src="https://widgets.tree-nation.com/js/widgets/v1/widgets.min.js?v=1.0"></script>
 <script>TreeNationOffsetWebsite({code: '6322d1badbb2d', lang: '<?= ICL_LANGUAGE_CODE ?>', theme: 'dark'}).render('.footer__carbon');</script>
 <?php endif ?>
-
 
 <!-- WPFOOTER START -->
 <?php //wp_footer(); ?>

@@ -56,10 +56,7 @@
             <div class="menu__copyright">
                 © MOJO Agency <?= date('Y'); ?>
             </div>
-            <section class="menu__mobileLang">
-                <h3 class="sro"><?= __('Languages', 'mj'); ?></h3>
-                <?= get2LanguageLinks('menu__mobileLangItem') ?> 
-            </section>
+
 
 
 

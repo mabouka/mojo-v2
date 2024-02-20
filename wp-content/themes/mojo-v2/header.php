@@ -42,6 +42,16 @@
         document.documentElement.classList.add('js');
         if ('IntersectionObserver' in window) document.documentElement.classList.add('inview'); 
         else document.documentElement.classList.add('no-inview'); 
+
+        function onSend(token) {
+            var sendForm = new CustomEvent("sendForm", {
+                detail: {
+                    token: token,
+                },
+            });
+
+            window.dispatchEvent(sendForm);
+        }
     </script>
 
     <!-- Google Tag Manager -->

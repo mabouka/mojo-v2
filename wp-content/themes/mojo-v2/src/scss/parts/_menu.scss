@@ -256,7 +256,6 @@ body{
 
     }
     
-    &__mobileLang,
     &__copyright{
         display: none;
 
@@ -326,7 +325,6 @@ body{
             transition: 500ms opacity linear $duration+370ms;
         }
 
-        &__mobileLang,
         &__copyright{
             opacity: 1;
             transition: 500ms opacity linear $duration+370ms;
@@ -401,41 +399,7 @@ body{
             background-color: color(pink);
         }
 
-        &__mobileLang{
-            display: flex;
-            position: absolute;
-            bottom: s(100);
-            left: colGut(6,1,12,0);
-        }
-
-        &__mobileLangItem{
-            color: color(dark);
-            font-family: Cambon, serif;
-            font-size: s(18);
-            line-height: em(23,18);
-            font-weight: 600;
-            position: relative;
-            text-decoration: none;
-
-            abbr{
-                text-decoration: none;
-            }
-            &--current{
-                text-decoration: underline;
-            }
-
-            & + &{
-                margin-left: s(14);
-                &:before{
-                    content: '/';
-                    position: absolute;
-                    left: s(-10);
-                    top: 50%;
-                    margin-top: s(-23/2);
-                }
-            }
-        }
-
+       
         &__main{
             order: 0;
             align-items: flex-start;
@@ -491,7 +455,6 @@ body{
 
     @media  screen and (max-width: 600px)  {
         &__headerLanguage{
-            @include hidden();
         }
         &__mainItem{
             font-size: s(40);

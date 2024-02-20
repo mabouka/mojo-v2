@@ -41,7 +41,18 @@ export default class Contactform {
     }
 
     setEvents() {
+        window.addEventListener('sendForm', this.e_sendForm.bind(this));
         this.form.addEventListener('submit', this.e_submit.bind(this));
+    }
+    
+    e_sendForm(e) {
+        if(e.detail.token) {
+            let token = e.detail.token;
+            Array.from(this.captchaFields).forEach(field => {
+                field.setAttribute("value", token);
+            });
+            this.form.submit();
+        }
     }
 
     e_submit(e) {
@@ -51,7 +62,8 @@ export default class Contactform {
                 Array.from(this.captchaFields).forEach(field => {
                     field.setAttribute("value", token);
                 });
-                console.log(grecaptcha);
+                console.log(token);
+                
                 this.form.submit();
             });
         });
