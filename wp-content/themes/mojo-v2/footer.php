@@ -153,7 +153,7 @@
 <?php 
     $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
 ?>
-<script src="https://www.google.com/recaptcha/api.js?render=<?= $recaptcha ?>"></script>
+<script defer src="https://www.google.com/recaptcha/api.js?render=<?= $recaptcha ?>"></script>
 <script type="text/javascript">
     window.recaptchaKey = '<?= $recaptcha ?>';
 </script>
