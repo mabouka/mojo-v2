@@ -157,12 +157,8 @@
             width: 100%;
 
             .serviceCard{
-                perspective: 1500px;
-                transform: translate3d(0,0,0) rotate(0);
-                transition: 200ms transform easing(ease-out-quad);
-
                 &.swiper-slide-next{
-                    transform: translate3d(0,-15px,0) rotate(2deg);
+                    //transform: translate3d(0,-15px,0) rotate(2deg);
                 }
             }
 
