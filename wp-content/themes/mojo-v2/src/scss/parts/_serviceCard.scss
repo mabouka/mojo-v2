@@ -32,12 +32,15 @@
 
     &--full{
         .serviceCard__picture{
-            transform: translate3d(0,0,0);
-            transition: 350ms transform easing(ease-out-quad);
+            @media screen and (min-width: 601px) {                
+                transform: translate3d(0,0,0);
+                transition: 350ms transform easing(ease-out-quad), 200ms opacity easing(ease-out-quad);
+            }
 
             &--hover{
                 opacity: 0;
             }
+
         }
 
         .serviceCard__title{
