@@ -116,11 +116,16 @@
             }
 
             .serviceGrid__item{
-
+                transform: translate3d(0,0,0) rotate(0);
+                transition: 200ms transform easing(ease-out-quad);
+                
                 & + .serviceGrid__item{
                     margin-top: 0;
                 }
 
+                &.swiper-slide-next{
+                    transform: translate3d(0,-15px,0) rotate(2deg);
+                }
             }
         }
 
