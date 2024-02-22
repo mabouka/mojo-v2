@@ -11,7 +11,7 @@
                     <?= $text ?>
                 </div>
                 <?php endif; ?>
-                
+
                 <?php if ($casesGallery) : ?>
                 <div class="featuredCases__galleryMobile">
                 <?php foreach ($casesGallery as $key => $case) : ?>
@@ -31,7 +31,7 @@
                         <a href="<?= get_the_permalink($case); ?>" data-hover-target="#featuredVideo-<?= $key ?>" id="featuredImage-<?= $key ?>" class="darkSection featuredCases__galleryItem<?= $key === 0 ? ' featuredCases__galleryItem--big' : '' ?> js-in-view appear-fadeup">
                             <figure class="featuredCases__galleryItemFigure">
                                 <picture>
-                                    <source srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==" />
+                                    <source srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==" media="screen and (max-width: 600px)" />
                                     <img src="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?>" srcset="<?= $image->src[$key === 0 ? 'featuredCases--big' :  'featuredCases--small']; ?> 1x, <?= $image->src[$key === 0 ? 'featuredCases--big@2x' :  'featuredCases--small@2x']; ?> 2x" alt="<?= $image->alt; ?>" width="294" height="260">
                                 </picture>
                                 <div class="featuredCases__galleryItemHover darkSection">

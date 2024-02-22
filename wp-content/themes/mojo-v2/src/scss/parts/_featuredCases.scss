@@ -53,6 +53,10 @@
         flex-wrap: wrap;
     }
 
+    &__galleryMobile{
+        display: none;
+    }
+
     &__galleryItem{
         width: colGut(3,0,6,0);
         margin-bottom: gutter(6);
@@ -474,7 +478,7 @@
         &__gallery{
             display: none;
         }
-
+featuredCases__galleryMobile
         &__galleryMobile{
             display: flex;
             flex-direction: column;

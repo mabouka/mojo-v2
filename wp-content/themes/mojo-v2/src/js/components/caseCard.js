@@ -1,4 +1,4 @@
-import IsTop from "../classes/IsTop";
+import IsTopMedium from "../classes/IsTopMedium";
 
 export default class caseCard {
 
@@ -23,7 +23,7 @@ export default class caseCard {
         }
 
         if(this.isMobile) {
-            IsTop.addElement(this.el);
+            IsTopMedium.addElement(this.el);
         }
         this.setEvents();
     }
@@ -35,8 +35,8 @@ export default class caseCard {
     setEvents() {
         if(this.isMobile) {
             if(this.isVideo) {
-                this.el.addEventListener('inTop', this.e_inTop.bind(this));
-                this.el.addEventListener('outTop', this.e_outTop.bind(this));
+                this.el.addEventListener('inTopMedium', this.e_inTop.bind(this));
+                this.el.addEventListener('outTopMedium', this.e_outTop.bind(this));
             }
 
 
