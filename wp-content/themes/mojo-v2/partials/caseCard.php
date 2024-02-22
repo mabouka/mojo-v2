@@ -14,7 +14,6 @@
     <?php if($video): ?>
     <div class="caseCard__videoContainer">
         <picture>
-
         <?php if ($imageCard): ?>
             <source 
                 srcset="<?= $imageCard['sizes']['caseCardMobile'] ?> 1x, <?= $imageCard['sizes']['caseCardMobile@2x'] ?> 2x" 
@@ -48,7 +47,10 @@
         <?php endif ?>        
         </picture>
         <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  loop playsinline muted lazyload>
+            <?php if ($videoMobile): ?>
             <source src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)">
+            <?php endif ?>
+
             <source src="<?= $video ?>">
         </video>
     </div>
