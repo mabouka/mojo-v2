@@ -1,7 +1,9 @@
 <?php
     $image = getCustomThumbnail($case->ID, ['caseCard', 'caseCard@2x', 'caseCardMobile', 'caseCardMobile@2x']);
     $imageCard  = get_field('card_image', $case);
-    $video = get_field('card_video', $case);    
+    $video = get_field('card_video', $case);
+    $videoMobile = get_field('card_videoMobile', $case);    
+
 ?>
 
 <section class="caseCard<?= $video ? ' caseCard--video' :'' ?> ">
@@ -46,7 +48,8 @@
         <?php endif ?>        
         </picture>
         <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  loop playsinline muted lazyload>
-            <source src="<?= $video ?>" media="all and (min-width: 700px) and (any-pointer: fine)">
+            <source src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)">
+            <source src="<?= $video ?>">
         </video>
     </div>
 

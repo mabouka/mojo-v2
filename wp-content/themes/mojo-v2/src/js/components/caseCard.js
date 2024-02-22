@@ -1,3 +1,5 @@
+import IsTop from "../classes/IsTop";
+
 export default class caseCard {
 
     static get selector() {
@@ -7,10 +9,21 @@ export default class caseCard {
     constructor(el) {
         this.el = el;
         this.isVideo = el.classList.contains('caseCard--video');
+        const mq = window.matchMedia( "(max-width: 600px)" );
+        if(mq.matches){
+            this.isMobile = true;
+        } 
+        else {
+            this.isMobile = false;
+        }
 
         if(this.isVideo) {
             this.link = this.el.querySelector('.caseCard__link');
             this.video = this.el.querySelector('.caseCard__video');
+        }
+
+        if(this.isMobile) {
+            IsTop.addElement(this.el);
         }
         this.setEvents();
     }
@@ -20,15 +33,40 @@ export default class caseCard {
      */
 
     setEvents() {
-        if(this.isVideo) {
-            this.link.addEventListener('mouseenter', this.e_enter.bind(this));
-            this.link.addEventListener('mouseleave', this.e_leave.bind(this));
+        if(this.isMobile) {
+            if(this.isVideo) {
+                this.el.addEventListener('inTop', this.e_inTop.bind(this));
+                this.el.addEventListener('outTop', this.e_outTop.bind(this));
+            }
+
+
+        } else{
+            if(this.isVideo) {
+                this.link.addEventListener('mouseenter', this.e_enter.bind(this));
+                this.link.addEventListener('mouseleave', this.e_leave.bind(this));
+            }
         }
+
         this.el.addEventListener('inView', this.e_inview.bind(this))
+
+    }
+
+    e_inTop(e) {
+        this.el.classList.add('caseCard--inTop');
+        this.video.currentTime = 0;
+        this.video.play();
+        this.el.classList.add('caseCard--playing');
+    }
+
+    e_outTop(e) {
+        this.el.classList.remove('caseCard--inTop');
+
+        this.video.pause();
+        this.video.currentTime = 0;
+        this.el.classList.remove('caseCard--playing');
     }
 
     e_enter(e) {
-        console.log('enter');
         this.video.currentTime = 0;
         this.video.play();
         this.el.classList.add('caseCard--playing');

@@ -471,39 +471,19 @@
             font: s(50);
         }
 
-        &__galleryItem{
-            width: 100%;
-            text-decoration: none;
-            margin-bottom: s(20);
-            .featuredCases__galleryItemFigure{
-                width: 100%;
-                padding-top: 274/345*100%;
+        &__gallery{
+            display: none;
+        }
+
+        &__galleryMobile{
+            display: flex;
+            flex-direction: column;
+            .caseCard + .caseCard{
+                margin-top: s(20);
             }
         }
 
-        &__galleryItemContent{
-            display: flex;
-            margin-top: s(11);
-            justify-content: space-between
-        }
-
-        &__galleryItemTitle{
-            width: 50%;
-            color: color(black);
-            text-decoration: none;
-            font-size: s(16);
-            line-height: em(22,16);
-        }
-
-        &__galleryItemCategories{
-            width: 50%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            justify-self: flex-end;
-            margin-left: auto;
-            margin-top: s(8);
-        }
+        
         
 
         &__text{
