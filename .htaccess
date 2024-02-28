@@ -65,6 +65,12 @@ AddDefaultCharset UTF-8
 	RewriteRule (.*) ^http://%{REMOTE_ADDR}/$ [R=301,L]
 </IfModule>
 
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
 
 # Mise en cache des fichiers dans le navigateur
 <IfModule mod_expires.c>
