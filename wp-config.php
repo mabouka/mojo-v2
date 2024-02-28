@@ -1,7 +1,5 @@
 <?php
 define( 'WP_CACHE', true ); 
-
-
 /**
  * The base configurations of the WordPress.
  *
@@ -28,8 +26,13 @@ if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         define('WP_ALLOW_REPAIR', true );
 
 } else {
+        if('staging' === array_shift((explode('.', $_SERVER['HTTP_HOST'])))){
+                define('DB_NAME', '890kdz_mojo');
+        }
+        else{
+                define('DB_NAME', '890kdz_mojo_live');
+        }
 
-        define('DB_NAME', '890kdz_mojo_live');
         define('DB_USER', '890kdz_devmojo');
         define('DB_PASSWORD', 'fu6Rcmh-dN7');
         define('DB_HOST', '127.0.0.1');
