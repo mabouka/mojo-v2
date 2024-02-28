@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="<?= getUrlVersion('dist/css/main.css'); ?>">
 
     <?php 
-        $gtag = 'GTM-KCC9J67B';
+        $gtag = 'G-RS946CZMGV';
     ?>
     <!-- InView & JS -->
     <script>
