@@ -179,7 +179,9 @@
             color: color(dark);
         }
         &__itemArrow{
-            fill: color(dark);
+            path{
+                fill: color(dark);
+            }
         }
 
         &__categoryItem{
