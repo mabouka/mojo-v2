@@ -120,7 +120,7 @@
         pointer-events: none;
         z-index: 3;
         display: none;
-        @media screen and (any-pointers: fine) {
+        @media screen and (any-pointer: fine) {
             display: block;
         }
 
