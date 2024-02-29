@@ -8,6 +8,7 @@
 
     &__title{
         @extend .title80;
+        hyphens: auto;
         margin-bottom: s(45);
     }
 
