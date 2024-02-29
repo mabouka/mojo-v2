@@ -1,5 +1,7 @@
 <?php
-define( 'WP_CACHE', true ); 
+//define( 'WP_CACHE', true ); 
+define('WP_CACHE', false);
+
 /**
  * The base configurations of the WordPress.
  *
@@ -25,19 +27,31 @@ if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         define('WP_REDIS_DISABLED', true);
         define('WP_ALLOW_REPAIR', true );
 
-} else {
-        if('staging' === array_shift((explode('.', $_SERVER['HTTP_HOST'])))){
-                define('DB_NAME', '890kdz_mojo');
+        /*
+        define('.COOKIE_DOMAIN.', 'mojo-agency.test');
+        define('.SITECOOKIEPATH.', '.');
+    
+        if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $list = explode(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
+                $_SERVER['REMOTE_ADDR'] = $list[0];
         }
-        else{
-                define('DB_NAME', '890kdz_mojo_live');
-        }
+        define( 'WP_HOME', 'https://mojo-agency.test' );
+        define( 'WP_SITEURL', 'https://mojo-agency.test' );
+        $_SERVER['HTTP_HOST'] = 'mojo-agency.test';
+        $_SERVER['REMOTE_ADDR'] = 'https://mojo-agency.test';
+        $_SERVER[ 'SERVER_ADDR' ] = 'mojo-agency.test';
+        */
 
-        define('DB_USER', '890kdz_devmojo');
-        define('DB_PASSWORD', 'fu6Rcmh-dN7');
-        define('DB_HOST', '127.0.0.1');
+} else {
+
+        define('DB_NAME', 'hi1olg_mojo');
+        define('DB_USER', 'hi1olg_mojojo');
+        define('DB_PASSWORD', 'pXZZjUA-oD8');
+        define('DB_HOST', 'hi1olg.myd.infomaniak.com');
         define('DB_CHARSET', 'utf8mb4');
         define('DB_COLLATE', '');
+        define( 'WP_HOME', 'https://mojo-agency.org' );
+        define( 'WP_SITEURL', 'https://mojo-agency.org' );
 }
 /**#@+
  * Authentication Unique Keys and Salts.
