@@ -164,15 +164,22 @@
     .serviceProjects--light &{
         &__item{
             &:last-child{
-                border-bottom: 1px solid color(dark);
+                &:after{
+                    background: color(dark);
+                }
             }
         }
         &__itemContainer{
-            border-top: 1px solid color(dark);
+            &:before{
+                background: color(dark);
+            }
         }
 
         &__itemTitle{
             color: color(dark);
+        }
+        &__itemArrow{
+            fill: color(dark);
         }
 
         &__categoryItem{

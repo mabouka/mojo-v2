@@ -58,6 +58,8 @@
         margin-top: auto;
         display: flex;
         flex-wrap: wrap;
+        gap: 0.5rem 2.5rem;
+        overflow: hidden;
     }
 
     &__navItem{
@@ -71,7 +73,7 @@
         text-decoration: none;
 
         & + &{
-            margin-left: s(40);
+            //margin-left: s(40);
             &:before{
                 content: '|';
                 position: absolute;
