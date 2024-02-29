@@ -16,7 +16,8 @@
                 <div class="featuredCases__galleryMobile">
                 <?php foreach ($casesGallery as $key => $case) : ?>
                     <?php getPartial('caseCard', [
-                        'case' => $case
+                        'case' => $case,
+                        'mobileOnly' => true
                     ]); ?>
                 <?php endforeach ?>
                 </div>
