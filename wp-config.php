@@ -44,9 +44,9 @@ if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
 
 } else {
 
-        define('DB_NAME', 'hi1olg_mojo');
-        define('DB_USER', 'hi1olg_mojojo');
-        define('DB_PASSWORD', 'pXZZjUA-oD8');
+        define('DB_NAME', 'hi1olg_test');
+        define('DB_USER', 'hi1olg_test');
+        define('DB_PASSWORD', 'DevMojo123!');
         define('DB_HOST', 'hi1olg.myd.infomaniak.com');
         define('DB_CHARSET', 'utf8mb4');
         define('DB_COLLATE', '');
