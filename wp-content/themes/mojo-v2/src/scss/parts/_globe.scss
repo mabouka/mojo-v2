@@ -47,6 +47,7 @@
 
     &__after{
         margin-top: s(175);
+        margin-right: s(200);
         .globe__text{
             margin-top: s(59);
         }
@@ -148,6 +149,8 @@
 
         &__after{
             margin-top: 0;
+            margin-right: 0;
+
             order: 3
         }
 
