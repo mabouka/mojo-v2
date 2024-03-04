@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mojo V2\n"
 "POT-Creation-Date: 2024-02-12 13:58-0300\n"
-"PO-Revision-Date: 2024-02-12 13:59-0300\n"
+"PO-Revision-Date: 2024-03-04 16:22-0300\n"
 "Last-Translator: \n"
 "Language-Team: Mojo\n"
 "Language: fr\n"
@@ -141,7 +141,7 @@ msgstr "Prochain projet"
 
 #: partials/sCaseRandom.php:22
 msgid "Want to see more ?"
-msgstr "En voir plus ?"
+msgstr "Voir aussi"
 
 #: partials/serviceChHeader.php:5
 msgid "Back to "
