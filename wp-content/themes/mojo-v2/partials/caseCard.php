@@ -58,7 +58,13 @@
         
         <?php endif ?>        
         </picture>
-        <video class="caseCard__video" poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  loop playsinline muted lazyload>
+        <video class="caseCard__video" 
+        
+            <?php if(0): ?>
+            poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  
+            <?php endif; ?>
+
+            loop playsinline muted lazyload>
             <?php if ($videoMobile): ?>
             <source src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)">
             <?php endif ?>

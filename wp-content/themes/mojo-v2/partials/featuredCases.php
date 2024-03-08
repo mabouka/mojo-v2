@@ -97,7 +97,7 @@
                                 <?php if ($video) : ?>
                                     <video 
                                         src="<?= $video; ?>" 
-                                        <?php if ($picture): ?>
+                                        <?php if (0 && $picture): ?>
                                         poster="<?= $picture['sizes']['featuredVideo']; ?>"
                                         <?php endif ?>
                                         playsinline muted loop

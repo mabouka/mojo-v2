@@ -480,6 +480,7 @@
         }
         &__galleryMobile{
             display: flex;
+            margin-bottom: s(86);
             flex-direction: column;
             .caseCard + .caseCard{
                 margin-top: s(20);
