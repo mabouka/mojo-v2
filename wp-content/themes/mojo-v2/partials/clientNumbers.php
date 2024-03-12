@@ -1,7 +1,7 @@
 <?php if ($items): ?>
 <div class="clientNumbers darkSection">
     <picture>
-        <source srcset="<?= getUrl('dist/images/star-illustration-vertical.svg'); ?>">
+        <source srcset="<?= getUrl('dist/images/star-illustration-vertical.svg'); ?>" media="(max-width: 600px)">
         <img class="clientNumbers__svg" src="<?= getUrl('dist/images/star-illustration.svg'); ?>" alt="" width="1299" height="773">
 
     </picture>

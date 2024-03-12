@@ -114,13 +114,13 @@
         }
 
 
-
         .field{
             text-align: left;
             margin-top: s(30);
             padding-bottom: s(14);
             border-bottom: 1px solid color(white);
             display: flex;
+            overflow: hidden;
             p{
                 display: flex;
             }
@@ -146,6 +146,7 @@
 
             .wpcf7-form-control-wrap{
                 width: calc(100% - 20px);
+                overflow: hidden;
             }
 
             .wpcf7-not-valid-tip{

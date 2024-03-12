@@ -32,7 +32,7 @@
                 alt="<?= $imageCard['alt']?>"
                 width="625"
                 height="500"
-                lazyload
+                loading="lazy"
             >
         <?php else: ?>
             <?php if (isset($mobileOnly) && $mobileOnly): ?>
@@ -53,7 +53,7 @@
                 alt="<?= $image->alt ?>"
                 width="625"
                 height="500"
-                lazyload
+                loading="lazy"
             >
         
         <?php endif ?>        
