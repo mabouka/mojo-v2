@@ -12,7 +12,7 @@ class IsTopMedium {
 
     initialize() {
         let options = {
-            rootMargin: '10% 0% -50% 0%',
+            rootMargin: '-25% 0% -75% 0%',
             threshold: 0
         };
         this.observer = new IntersectionObserver(this.callback.bind(this) , options);
