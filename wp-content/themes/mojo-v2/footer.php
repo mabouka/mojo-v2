@@ -150,13 +150,7 @@
 <script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
 <script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
 
-<?php 
-    $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
-?>
-<script defer src="https://www.google.com/recaptcha/api.js?render=<?= $recaptcha ?>"></script>
-<script type="text/javascript">
-    window.recaptchaKey = '<?= $recaptcha ?>';
-</script>
+
 <?php 
     $old_tree_nation = true;
     $new_tree_nation = false;
