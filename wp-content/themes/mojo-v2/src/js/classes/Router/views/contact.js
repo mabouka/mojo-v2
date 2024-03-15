@@ -1,6 +1,6 @@
 let appendScripts = (scripts, root = document.documentElement ) => {
     let script = document.createElement("script");
-        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.src = window.location.origin + '/recaptcha.ph';
         root.appendChild(script);
 
 }

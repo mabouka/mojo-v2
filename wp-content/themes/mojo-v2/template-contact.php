@@ -7,19 +7,9 @@
     $form = get_field('form');
 
     get_header();
-
-        /*
-        if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
-        wpcf7_enqueue_scripts();
-        }
-        
-        if ( function_exists( 'wpcf7_enqueue_styles' ) ) {
-        wpcf7_enqueue_styles();
-        }*/
-        
     
 ?>
-<div data-barba="container" data-barba-namespace="contact">
+<div data-barba="container" data-barba-namespace="contact" >
 <div class="contact darkSection">
     <img class="contact__svg" src="<?= getUrl('dist/images/star-illustration.svg'); ?>" alt="" width="1299" height="773">
 
