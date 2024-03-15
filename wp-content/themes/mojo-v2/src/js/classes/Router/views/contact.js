@@ -1,7 +1,7 @@
 let appendScripts = (scripts, root = document.documentElement ) => {
     let script = document.createElement("script");
         script.crossOrigin='anonymous';
-        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.src = 'https://www.google.com/recaptcha/api.js?render=' + window.recaptchaKey;
     root.appendChild(script);
 }
 
@@ -9,7 +9,7 @@ let appendScripts = (scripts, root = document.documentElement ) => {
 let contact = {
     namespace: 'contact',
     beforeEnter(data) {
-        //appendScripts( data.next.container);
+        appendScripts( data.next.container);
     }
 }
 
