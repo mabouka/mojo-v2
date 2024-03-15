@@ -5,7 +5,6 @@ export default class Footer {
         this.el = document.querySelector('.footer');
         if(!this.el) return;
 
-        gsap.ticker.fps(60);
         this.body= document.querySelector('body');
         this.svg = this.el.querySelector('#footerSvg');
         this.svgWrapper = this.el.querySelector('.footer__svgWrapper');
@@ -34,6 +33,8 @@ export default class Footer {
             link.addEventListener('mouseenter', this.e_mousenterLink.bind(this));
             link.addEventListener('mouseleave', this.e_mouseleaveLink.bind(this));
         })
+
+        console.log(this.isFirefox);
 
         if(this.isFirefox){ //quickfix firefox
             gsap.set('#footerSvg_circle', {
@@ -87,7 +88,9 @@ export default class Footer {
         gsap.to('#footerSvg_circle', {
             scale: 266/36,
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
+
         });
     }
 
@@ -95,7 +98,9 @@ export default class Footer {
         gsap.to('#footerSvg_circle', {
             scale: 1,  
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
+
         });
     }
 
@@ -103,7 +108,8 @@ export default class Footer {
         gsap.to('#footerSvg_circle', {
             scale: 72/36,
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
         });
     }
 
@@ -111,7 +117,8 @@ export default class Footer {
         gsap.to('#footerSvg_circle', {
             scale: 1,  
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
         });
     }
 

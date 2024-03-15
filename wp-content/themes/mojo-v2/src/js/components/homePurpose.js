@@ -7,7 +7,6 @@ export default class HomePurpose {
     }
 
     constructor(el) {
-        gsap.ticker.fps(60);
         this.el = el;
         this.body= document.querySelector('body');
         this.svg = this.el.querySelector('#purposeSvg');
@@ -64,7 +63,8 @@ export default class HomePurpose {
             x: e.clientX - this.svgRect.left,
             y: e.clientY - this.svgRect.top,
             duration: 0.4,
-            ease: "power2.out"
+            ease: "power2.out",
+            transformOrigin: "center center"
         });
     }
 
@@ -73,7 +73,8 @@ export default class HomePurpose {
         gsap.to('#purposeSvg_circle', {
             autoAlpha: 1,
             scale: 1,
-            duration: 0
+            duration: 0,
+            transformOrigin: "center center"
         });
     }
 
@@ -83,6 +84,7 @@ export default class HomePurpose {
             autoAlpha: 0,
             scale: 0.001,
             duration: 0,
+            transformOrigin: "center center"
         });
     }
  
@@ -91,7 +93,8 @@ export default class HomePurpose {
         gsap.to('#purposeSvg_circle', {
             scale: 148/36,
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
         });
     }
 
@@ -99,7 +102,8 @@ export default class HomePurpose {
         gsap.to('#purposeSvg_circle', {
             scale: 1,  
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
         });
     }
 
@@ -107,7 +111,8 @@ export default class HomePurpose {
         gsap.to('#purposeSvg_circle', {
             scale: 72/36,
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
         });
     }
 
@@ -115,7 +120,8 @@ export default class HomePurpose {
         gsap.to('#purposeSvg_circle', {
             scale: 1,  
             duration: 0.3,
-            ease: "expoScale(0.5,7,none)"
+            ease: "power4.out",
+            transformOrigin: "center center"
         });
     }
 

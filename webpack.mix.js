@@ -19,6 +19,7 @@ mix
 
     .sass('wp-content/themes/mojo-v2/src/scss/main.scss', 'css/main.css')
 
+    /*
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
     .copy('wp-content/themes/mojo-v2/src/images/globe/*', 'wp-content/themes/mojo-v2/dist/images/globe/')
 
@@ -39,6 +40,7 @@ mix
     .copy('wp-content/themes/mojo-v2/dist/css/blocks/imagesslider/*', 'wp-content/themes/mojo-v2/blocks/imagesslider/')
 
     .copy('wp-content/themes/mojo-v2/src/fonts/*', 'wp-content/themes/mojo-v2/dist/fonts/')
+    */
     .sourceMaps(productionSourceMaps, 'source-map')
     .setPublicPath('wp-content/themes/mojo-v2/dist');
     mix.browserSync({
