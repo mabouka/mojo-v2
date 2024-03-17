@@ -1383,8 +1383,7 @@ if ( ! function_exists( 'wp_redirect' ) ) :
 	 * @return bool False if the redirect was canceled, true otherwise.
 	 */
 	function wp_redirect( $location, $status = 302, $x_redirect_by = 'WordPress' ) {
-		var_dump( $location);
-		die();
+
 		global $is_IIS;
 
 		/**
