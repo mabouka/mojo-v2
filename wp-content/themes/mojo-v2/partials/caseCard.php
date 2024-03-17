@@ -3,6 +3,7 @@
     $imageCard  = get_field('card_image', $case);
     $video = get_field('card_video', $case);
     $videoMobile = get_field('card_videoMobile', $case);    
+    $categories = get_the_category($case);
 
 ?>
 
@@ -58,21 +59,21 @@
         
         <?php endif ?>        
         </picture>
-        <video class="caseCard__video" 
+        <video class="caseCard__video lazy" 
         
             <?php if(0): ?>
             poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  
             <?php endif; ?>
 
-            loop playsinline muted lazyload>
+            loop playsinline muted >
             <?php if ($videoMobile): ?>
-            <source src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)">
+            <source data-src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)">
             <?php endif ?>
 
             <?php if (isset($mobileOnly) && $mobileOnly): ?>
-                <source src="<?= $video ?>"  media="screen and (max-width: 600px)">
+                <source data-src="<?= $video ?>"  media="screen and (max-width: 600px)">
             <?php else: ?>
-                <source src="<?= $video ?>" >
+                <source data-src="<?= $video ?>" >
             <?php endif; ?>
 
         </video>
@@ -105,15 +106,14 @@
     <h2 class="caseCard__title"><?= get_the_title($case); ?></h2>
 
     <?php
-    $categories = get_the_category($case);
     if ($categories) : ?>
-        <ul class="caseCard__categories">
-            <?php foreach ($categories as $category) : ?>
-                <li class="caseCard__category">
-                    <?= $category->name; ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+    <ul class="caseCard__categories">
+        <?php foreach ($categories as $category) : ?>
+        <li class="caseCard__category">
+            <?= $category->name; ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
     <?php endif; ?>
 
 </section>

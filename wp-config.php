@@ -50,8 +50,8 @@ if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         define('DB_HOST', 'hi1olg.myd.infomaniak.com');
         define('DB_CHARSET', 'utf8mb4');
         define('DB_COLLATE', '');
-        define( 'WP_HOME', 'https://mojo-agency.org' );
-        define( 'WP_SITEURL', 'https://mojo-agency.org' );
+        //define( 'WP_HOME', 'https://mojo-agency.org' );
+        //define( 'WP_SITEURL', 'https://mojo-agency.org' );
 }
 /**#@+
  * Authentication Unique Keys and Salts.

@@ -167,7 +167,7 @@
 ?>
 <?php if($old_tree_nation): ?>
 <script src="https://tree-nation.com/js/track.js"></script>
-<script>treenation_track("6322d1badbb2d");</script>
+<script>if(treenation_track)treenation_track("6322d1badbb2d");</script>
 <?php endif ?>
 
 <?php if ($new_tree_nation): ?>

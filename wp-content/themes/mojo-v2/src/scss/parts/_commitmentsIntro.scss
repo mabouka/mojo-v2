@@ -3,6 +3,7 @@
         @include clearfix();
         padding-top: s(150);
         padding-bottom: s(200);
+        min-height: s(1200);
     }
 
     &__titleLine1,
@@ -95,6 +96,7 @@
             flex-direction: column;
             padding-top: s(180);
             padding-bottom: s(60);
+            min-height: inherit;
         }
         &__titleLine1,
         &__titleLine2{
