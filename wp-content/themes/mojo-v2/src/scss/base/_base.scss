@@ -82,24 +82,27 @@ body{
 
     }
 }
-.wrapperImage__image,
-.wp-block-image,
-.fullImage__image,
-.fullBlackImage__image{
-    position: relative;
-}
 
-.sCaseNext__image,
-.imagesslider__item,
-.wrapperImage__image,
-.wp-block-image,
-.fullImage__image,
-.textGallery__image,
-.fullBlackImage__image,
-.textImage__image,
-.quoteImage__image,
-.twoImages__item{
-    &:before{
-        @extend .photoNoise;
+.serviceContent{
+    .wrapperImage__image,
+    .wp-block-image,
+    .fullImage__image,
+    .fullBlackImage__image{
+        position: relative;
+    }
+
+    .sCaseNext__image,
+    .imagesslider__item,
+    .wrapperImage__image,
+    .wp-block-image,
+    .fullImage__image,
+    .textGallery__image,
+    .fullBlackImage__image,
+    .textImage__image,
+    .quoteImage__image,
+    .twoImages__item{
+        &:before{
+            @extend .photoNoise;
+        }
     }
 }
