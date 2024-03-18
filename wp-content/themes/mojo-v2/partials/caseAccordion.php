@@ -4,6 +4,8 @@
     
     <?php 
         $video = get_field('card_video', $item);
+        $videoWebm = get_field('card_video_webm', $item);
+
         $imageCard = get_field('card_image', $item);
         $image = getCustomThumbnail($item->ID, ['imagesslider', 'imagesslider@2x']);
     ?>
@@ -56,8 +58,10 @@
 
         <div class="caseAccordion__image">
         <?php if ($video): ?>
-            <video preload="auto" playsinline muted  src="<?= $video ?>"<?= $imageCard ? 'poster="' .$imageCard['sizes']['imagesslider'] .'"' : ''?>></video>
-        
+            <video preload="auto" playsinline muted <?= $imageCard ? 'poster="' .$imageCard['sizes']['imagesslider'] .'"' : ''?>>
+                <source data-src="<?= $videoWebm ?>"  media="screen and (min-width: 601px)" type="video/webm">
+                <source data-src="<?= $video ?>"  media="screen and (min-width: 601px)" type="video/mp4">
+            </video>
         <?php elseif($imageCard): ?>
             <img src="<?= $imageCard['sizes']['imagesslider']?>"
             srcset="<?= $imageCard['sizes']['imagesslider']?> 1x, <?=  $imageCard['sizes']['imagesslider@2x']?> 2x"

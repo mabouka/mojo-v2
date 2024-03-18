@@ -1,8 +1,12 @@
 <?php
     $image = getCustomThumbnail($case->ID, ['caseCard', 'caseCard@2x', 'caseCardMobile', 'caseCardMobile@2x']);
     $imageCard  = get_field('card_image', $case);
+
     $video = get_field('card_video', $case);
+    $videoWebm = get_field('card_video_webm', $case);
     $videoMobile = get_field('card_videoMobile', $case);    
+    $videoMobileWebm = get_field('card_videoMobile_webm', $case);    
+
     $categories = get_the_category($case);
 
 ?>
@@ -66,14 +70,20 @@
             <?php endif; ?>
 
             loop playsinline muted >
+
             <?php if ($videoMobile): ?>
-            <source data-src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)">
+            <source data-src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)" type="video/webm">
+            <?php endif ?>
+
+            <?php if ($videoMobileWebm): ?>
+            <source data-src="<?= $videoMobileWebm ?>"  media="screen and (max-width: 600px)" type="video/mp4">
             <?php endif ?>
 
             <?php if (isset($mobileOnly) && $mobileOnly): ?>
                 <source data-src="<?= $video ?>"  media="screen and (max-width: 600px)">
             <?php else: ?>
-                <source data-src="<?= $video ?>" >
+                <source data-src="<?= $videoWebm ?>" type="video/webm">
+                <source data-src="<?= $video ?>" type="video/mp4">
             <?php endif; ?>
 
         </video>
