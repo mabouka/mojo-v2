@@ -7,6 +7,8 @@
  RewriteRule wp-content/uploads/(.*\.(?:png|jpe?g))$ wp-content/smush-webp/$1.webp [NC,T=image/webp]
 </IfModule>
 
+SetEnvIf X-Forwarded-Proto "https" HTTPS=on
+
 <IfModule mod_headers.c>
  Header append Vary Accept env=WEBP_image
 </IfModule>

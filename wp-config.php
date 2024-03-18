@@ -2,6 +2,10 @@
 //define( 'WP_CACHE', true ); 
 define('WP_CACHE', false);
 
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 
+	strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+    $_SERVER['HTTPS'] = 'on';
+}
 /**
  * The base configurations of the WordPress.
  *

@@ -19,7 +19,7 @@ mix
 
     .sass('wp-content/themes/mojo-v2/src/scss/main.scss', 'css/main.css')
 
-    /*
+    
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
     .copy('wp-content/themes/mojo-v2/src/images/globe/*', 'wp-content/themes/mojo-v2/dist/images/globe/')
 
@@ -40,22 +40,10 @@ mix
     .copy('wp-content/themes/mojo-v2/dist/css/blocks/imagesslider/*', 'wp-content/themes/mojo-v2/blocks/imagesslider/')
 
     .copy('wp-content/themes/mojo-v2/src/fonts/*', 'wp-content/themes/mojo-v2/dist/fonts/')
-    */
+    
     .sourceMaps(productionSourceMaps, 'source-map')
     .setPublicPath('wp-content/themes/mojo-v2/dist');
-    mix.browserSync({
-        files: [
-        'wp-content/themes/*.php', //app php file
-        'wp-content/themes/**/*.php', 
-        'wp-content/themes/mojo-v2/dist/js/**/*.js', //Javascript
-        'wp-content/themes/mojo-v2/dist/css/**/*.css', //default css
-        ],
-        proxy: "https://mojo-agency.test",
-        port: 3000,
-        socket: {
-            domain: 'https://654a-186-127-217-223.ngrok-free.app'
-        }
-    });
+
     
 mix.webpackConfig(webpack => {
     return {
