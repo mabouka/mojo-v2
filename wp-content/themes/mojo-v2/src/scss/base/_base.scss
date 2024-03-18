@@ -82,8 +82,9 @@ body{
 
     }
 }
-/*
+
 .serviceContent{
+    .wp-block-video
     .wrapperImage__image,
     .wp-block-image,
     .fullImage__image,
@@ -105,5 +106,11 @@ body{
             @extend .photoNoise;
         }
     }
+
+    .wp-block-video{
+        &:before{
+            z-index: 2;
+            @extend .photoNoise;
+        }
+    }
 }
-*/
