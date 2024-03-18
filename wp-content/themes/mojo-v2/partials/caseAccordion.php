@@ -58,7 +58,7 @@
 
         <div class="caseAccordion__image">
         <?php if ($video): ?>
-            <video preload="auto" playsinline muted <?= $imageCard ? 'poster="' .$imageCard['sizes']['imagesslider'] .'"' : ''?>>
+            <video class="lazy" preload="auto" playsinline muted <?= $imageCard ? 'poster="' .$imageCard['sizes']['imagesslider'] .'"' : ''?>>
                 <source data-src="<?= $video ?>"  media="screen and (min-width: 601px)" type="video/mp4">
                 <source data-src="<?= $videoWebm ?>"  media="screen and (min-width: 601px)" type="video/webm">
             </video>
