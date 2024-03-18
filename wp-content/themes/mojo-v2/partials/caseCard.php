@@ -72,18 +72,19 @@
             loop playsinline muted >
 
             <?php if ($videoMobile): ?>
-            <source data-src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)" type="video/webm">
+            <source data-src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)" type="video/mp4">
             <?php endif ?>
 
             <?php if ($videoMobileWebm): ?>
-            <source data-src="<?= $videoMobileWebm ?>"  media="screen and (max-width: 600px)" type="video/mp4">
+            <source data-src="<?= $videoMobileWebm ?>"  media="screen and (max-width: 600px)" type="video/webm">
             <?php endif ?>
 
             <?php if (isset($mobileOnly) && $mobileOnly): ?>
                 <source data-src="<?= $video ?>"  media="screen and (max-width: 600px)">
             <?php else: ?>
-                <source data-src="<?= $videoWebm ?>" type="video/webm">
                 <source data-src="<?= $video ?>" type="video/mp4">
+                <source data-src="<?= $videoWebm ?>" type="video/webm">
+
             <?php endif; ?>
 
         </video>

@@ -19,16 +19,18 @@
     <?php if ($video): ?>
     <div class="sCaseBanner__video">
         <video autoplay playsinline muted loop <?= $image ? ('poster="' . $image['sizes']['caseFull'] .'"') : '' ?>>
-            <?php if ($videoMobileWebm): ?>
-            <source src="<?= $videoMobileWebm ?>" media="(max-width: 600px)" type="video/webm>
-            <?php endif ?>
+
             <?php if ($videoMobile): ?>
             <source src="<?= $videoMobile ?>" media="(max-width: 600px)" type="video/mp4>
             <?php endif ?>
+            <?php if ($videoMobileWebm): ?>
+            <source src="<?= $videoMobileWebm ?>" media="(max-width: 600px)" type="video/webm>
+            <?php endif ?>
+
+            <source src="<?= $video ?>" type="video/mp4>
             <?php if ($videoWebm): ?>
             <source src="<?= $videoWebm ?>" type="video/webm>
             <?php endif ?>
-            <source src="<?= $video ?>" type="video/mp4>
         </video>
     </div>
     <?php elseif($image): ?>
