@@ -31,11 +31,12 @@
         "casesLines"     => get_field('featured_casesLines'),
 
     ]);
-    */
+    
 
     getPartial('homeService', [
         "text"      => get_field('services_text'),
     ]);
+    */
 
     getPartial('ourClients', [
         "title"     => get_field('ourclient_title'),
