@@ -1,7 +1,7 @@
 
 import gsap from "gsap";
 import Observer from "gsap/Observer";
-import { isTouchDevice } from "../utils/detect";
+import { isTouchDevice, isMobile } from "../utils/detect";
 import Swiper from "swiper";
 
 export default class HomeService {
@@ -17,28 +17,33 @@ export default class HomeService {
         this.realSection = this.el.querySelector('.homeService__realSize');
         this.allCard     = this.el.querySelectorAll('.homeService__cardSlide');
 
-        const mq = window.matchMedia( "(max-width: 600px)" );
-
-        if(!mq.matches){
+        if(!isMobile()){
             this.initIntro();
             this.initScroller();
         }
         else{
-            this.groupSlide.classList.add('swiper');
-            this.realSection.classList.add('swiper-wrapper');
-            this.allCard.forEach(card => {
-                card.classList.add('swiper-slide');
-            });
-
-            this.slider = new Swiper(this.groupSlide, {
-                direction: 'horizontal',
-                loop: true,
-                autoHeight: true,
-                slidesPerView: 'auto',
-                spaceBetween: 35,
-                grabCursor: true,
-            });
+            this.initSwiper();
         }
+    }
+
+    initSwiper() {
+
+        // Add Swiper Classes
+        this.groupSlide.classList.add('swiper');
+        this.realSection.classList.add('swiper-wrapper');
+        this.allCard.forEach(card => {
+            card.classList.add('swiper-slide');
+        });
+
+        // Init Slider
+        this.slider = new Swiper(this.groupSlide, {
+            direction: 'horizontal',
+            loop: true,
+            autoHeight: true,
+            slidesPerView: 'auto',
+            spaceBetween: 35,
+            grabCursor: true,
+        });
     }
 
     initIntro() {
@@ -65,13 +70,15 @@ export default class HomeService {
             let rotate = '2deg';
             if(index %2)  rotate = '-2deg';
             if(index === 1 ) rotate = '-1deg';
+            else if(index === 0 ) rotate = 0;
+
             let y = -25 * index * index / 3.5;
-            if(index === 0 ) rotate = 0;
+            let timing = 0.50 * index;
 
             this.intro.to(this.allCard[index], {
                 autoAlpha: 1,
                 duration: 0.2,
-            },0.50 * index);
+            }, timing);
 
             this.intro.to(this.allCard[index], {
                 "y" :y,
@@ -79,7 +86,7 @@ export default class HomeService {
                 rotate: rotate,
                 duration: 2,
                 ease: "power3.out",
-            },0.50 * index);
+            }, timing);
         }
     }
 

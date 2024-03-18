@@ -14,7 +14,7 @@ export default class OurClients {
         this.current = 0;
         this.timer = this.getTimer();
 
-        this.startCarousel();
+        //this.startCarousel();
 
         this.active(this.clients[this.current]);
         this.setEvents();
@@ -23,14 +23,12 @@ export default class OurClients {
     startCarousel() {
         Reeller.registerGSAP(gsap);
 
-
         const reeller = new Reeller({
             container: '.ourClients__carousel',
             wrapper: '.ourClients__carouselWrapper',
             itemSelector: '.ourClients__carouselWrapper',
             speed: 50,
             reversed: true
-    
         });
     }
 
@@ -59,7 +57,6 @@ export default class OurClients {
     }
 
     active(client) {
-
         if(client.isActive) return;
         this.desactiveAll();
         this.current = client.index;
@@ -83,13 +80,8 @@ export default class OurClients {
         this.container.addEventListener('mouseenter', (e) => {
             clearInterval(this.timer);
         });
-        this.container.addEventListener('mouseleave', (e) => {
-            //this.timer = this.getTimer();
-        });
-
         
         this.clients.forEach(client => {
-
             client.el.addEventListener('mouseenter', (e) => {
                 clearInterval(this.timer);
                 this.e_enter(e, client);

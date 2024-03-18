@@ -13,4 +13,17 @@ function isMobile() {
 
     return isMobile;
 }
-export { isTouchDevice, isMobile };
+
+function isFirefox() {
+    return /Firefox/i.test(navigator.userAgent);
+}
+
+function isMouse() {
+    let isMouse = false;
+    const mq = window.matchMedia( "screen and (any-pointer: fine)" );
+    if(mq.matches){
+        isMouse = true;
+    } 
+    return isMouse;
+}
+export { isTouchDevice, isMobile, isFirefox, isMouse};

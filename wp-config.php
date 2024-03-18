@@ -47,7 +47,7 @@ if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'dev') {
         */
 
 } else {
-
+        define(‘WP_POST_REVISIONS’, 5);
         define('DB_NAME', 'hi1olg_test');
         define('DB_USER', 'hi1olg_test');
         define('DB_PASSWORD', 'DevMojo123!');

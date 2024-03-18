@@ -1,5 +1,5 @@
 import IsTopMedium from "../classes/IsTopMedium";
-import {isMobile} from "../utils/detect"
+import { isMobile } from "../utils/detect"
 export default class caseCard {
 
     static get selector() {

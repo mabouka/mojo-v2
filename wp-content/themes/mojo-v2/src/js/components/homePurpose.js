@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import { isMouse, isFirefox } from "../utils/detect";
 
 export default class HomePurpose {
 
@@ -14,25 +15,48 @@ export default class HomePurpose {
         this.circle = this.el.querySelector('#purposeSvg_circle');
         this.sensible = this.el.querySelector('#purposeSensible')
         this.links = this.el.querySelectorAll('a');
-        this.isFirefox = /Firefox/i.test(navigator.userAgent);
-        this.isMouse = window.matchMedia("screen and (any-pointer: fine)")
+
+        this.mousePos = {
+            x: 0,
+            y: 0
+        };
+
+        this.scrollPos = {
+            left: 0,
+            top: 0
+        };
+
+        gsap.ticker.add(this.frame.bind(this))
 
         this.setRect();
         this.setEvents();
     }
 
+    frame() {
+        gsap.to('#purposeSvg_circle', {
+            x: this.mousePos.x - this.scrollPos.left,
+            y: this.mousePos.y - this.scrollPos.top,
+            duration: 0.4,
+            ease: "power2.out",
+            transformOrigin: "center center"
+        });
+    }
+
 
     setRect() {
         this.svgRect = this.svgWrapper.getBoundingClientRect();
-        this.svg.style.setProperty('--left', Math.round(this.svgRect.left * -1) +'px');
-        this.svg.style.setProperty('--top', Math.round(this.svgRect.top * -1) +'px');
+        this.scrollPos.left = this.svgRect.left;
+        this.scrollPos.top  = this.svgRect.top;
+
+        //this.svg.style.setProperty('--left', Math.round(this.svgRect.left * -1) +'px');
+        //this.svg.style.setProperty('--top', Math.round(this.svgRect.top * -1) +'px');
     }
 
     setEvents() {
         window.lenis.on('scroll', (e) => { this.e_scroll(e)})
         window.addEventListener('resize', (e)=>{ this.e_resize(e)});
 
-        if(this.isMouse.matches){
+        if(isMouse()){
             this.sensible.addEventListener('mouseenter', this.e_mousenter.bind(this));
             this.sensible.addEventListener('mouseleave', this.e_mouseleave.bind(this));
 
@@ -42,7 +66,7 @@ export default class HomePurpose {
             })
         }
 
-        if(this.isFirefox){ //quickfix firefox
+        if(isFirefox()){ //quickfix firefox
             gsap.set('#purposeSvg_circle', {
                 autoAlpha: 0,
                 scale: 0.001
@@ -59,17 +83,11 @@ export default class HomePurpose {
      */
 
     e_mousemove(e) {
-        gsap.to('#purposeSvg_circle', {
-            x: e.clientX - this.svgRect.left,
-            y: e.clientY - this.svgRect.top,
-            duration: 0.4,
-            ease: "power2.out",
-            transformOrigin: "center center"
-        });
+        this.mousePos.x = e.clientX;
+        this.mousePos.y = e.clientY;
     }
 
     e_mousenterEl(e) {
-
         gsap.to('#purposeSvg_circle', {
             autoAlpha: 1,
             scale: 1,
@@ -79,7 +97,6 @@ export default class HomePurpose {
     }
 
     e_mouseleaveEl(e) {
-        console.log(e);
         gsap.to('#purposeSvg_circle', {
             autoAlpha: 0,
             scale: 0.001,
@@ -87,7 +104,6 @@ export default class HomePurpose {
             transformOrigin: "center center"
         });
     }
- 
 
     e_mousenter() {
         gsap.to('#purposeSvg_circle', {

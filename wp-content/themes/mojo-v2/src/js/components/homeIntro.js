@@ -1,6 +1,5 @@
 import {gsap} from "gsap";
 import inview from "../classes/InView";
-import cookies from "../utils/cookies";
 export default class HomeIntro {
 
     static get selector() {
