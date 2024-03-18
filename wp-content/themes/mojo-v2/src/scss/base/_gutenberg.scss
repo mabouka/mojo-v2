@@ -45,7 +45,7 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
     }
     &:before{
         z-index: 2;
-        @extend .photoNoise;
+        //@extend .photoNoise;
     }
 }
 
