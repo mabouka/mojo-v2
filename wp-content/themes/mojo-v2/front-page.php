@@ -15,7 +15,7 @@
         "text"      => get_field('video_text')
     ]);
 
-    /*
+    
     getPartial('homePurpose', [
         "title"     => get_field('purpose_title'),
         "text"      => get_field('purpose_text'),
@@ -32,7 +32,7 @@
 
     ]);
     
-
+    /*
     getPartial('homeService', [
         "text"      => get_field('services_text'),
     ]);
