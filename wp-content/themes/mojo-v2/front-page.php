@@ -6,9 +6,12 @@
     ]);
 
     getPartial('homeVideo', [
-        "url"       => get_field('video_url'),
+        "url"           => get_field('video_url'),
+        "urlWebm"       => get_field('video_url_webm'),
+        "urlMobile"     => get_field('video_url_mobile'),
+        "urlMobileWebm" => get_field('video_url_mobile_webm'),
+
         "poster"    => get_field('video_posterImage'),
-        "urlMobile" => get_field('video_url_mobile'),
         "text"      => get_field('video_text')
     ]);
 
@@ -40,9 +43,11 @@
     ]);
 
     getPartial('video', [
-        "url"       => get_field('video2_url'),
-        "poster"    => get_field('video2_posterImage'),
-        "urlMobile" => get_field('video2_url_mobile'),
+        "url"           => get_field('video2_url'),
+        "urlWebm"       => get_field('video2_url_webm'),
+        "urlMobile"     => get_field('video2_url_mobile'),
+        "urlMobileWebm" => get_field('video2_url_mobile_webm'),
+        "poster"        => get_field('video2_posterImage'),
     ]);
 
     getPartial('homeTransformation', [
