@@ -65,12 +65,12 @@
     <?php endif ?>
 
     <?php if($static = get_field('svg_static', $service)): ?>
-    <img class="serviceCard__picture" src="<?= $static['url'] ?>" alt="<?= $static['alt'] ?>">
+    <img class="serviceCard__picture" loading="lazy" src="<?= $static['url'] ?>" alt="<?= $static['alt'] ?>">
     <?php endif ?>
 
 
     <?php if($hover = get_field('svg_hover', $service)): ?>
-    <img class="serviceCard__picture serviceCard__picture--hover" src="<?= $hover['url'] ?>" alt="<?= $hover['alt'] ?>">
+    <img class="serviceCard__picture serviceCard__picture--hover" loading="lazy"  src="<?= $hover['url'] ?>" alt="<?= $hover['alt'] ?>">
     <?php endif ?>
 
 
