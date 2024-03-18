@@ -1,5 +1,5 @@
 import IsTopMedium from "../classes/IsTopMedium";
-
+import {isMobile} from "../utils/detect"
 export default class caseCard {
 
     static get selector() {
@@ -9,23 +9,26 @@ export default class caseCard {
     constructor(el) {
         this.el = el;
         this.isVideo = el.classList.contains('caseCard--video');
-        const mq = window.matchMedia( "(max-width: 600px)" );
-        if(mq.matches){
-            this.isMobile = true;
-        } 
-        else {
-            this.isMobile = false;
-        }
 
         if(this.isVideo) {
             this.link = this.el.querySelector('.caseCard__link');
             this.video = this.el.querySelector('.caseCard__video');
         }
 
-        if(this.isMobile) {
+        if(isMobile) {
             IsTopMedium.addElement(this.el);
         }
         this.setEvents();
+    }
+    
+    play() {
+        this.video.currentTime = 0;
+        this.video.play();
+    }
+
+    pause() {
+        this.video.pause();
+        this.video.currentTime = 0;
     }
 
     /**
@@ -33,49 +36,44 @@ export default class caseCard {
      */
 
     setEvents() {
-        if(this.isMobile) {
-            if(this.isVideo) {
+        if(this.isVideo) {
+            if(isMobile) {
                 this.el.addEventListener('inTopMedium', this.e_inTop.bind(this));
                 this.el.addEventListener('outTopMedium', this.e_outTop.bind(this));
-            }
-
-
-        } else{
-            if(this.isVideo) {
+            } else{
                 this.link.addEventListener('mouseenter', this.e_enter.bind(this));
                 this.link.addEventListener('mouseleave', this.e_leave.bind(this));
             }
+
+            this.video.addEventListener('playing', this.e_playing.bind(this));
+            this.video.addEventListener('pause', this.e_pause.bind(this));
         }
 
         this.el.addEventListener('inView', this.e_inview.bind(this))
+    }
 
+    e_playing(e) {
+        this.el.classList.add('caseCard--playing');
+    }
+
+    e_pause(e) {
+        this.el.classList.remove('caseCard--playing');
     }
 
     e_inTop(e) {
-        this.el.classList.add('caseCard--inTop');
-        this.video.currentTime = 0;
-        this.video.play();
-        this.el.classList.add('caseCard--playing');
+        this.play();
     }
 
     e_outTop(e) {
-        this.el.classList.remove('caseCard--inTop');
-
-        this.video.pause();
-        this.video.currentTime = 0;
-        this.el.classList.remove('caseCard--playing');
+        this.pause();
     }
 
     e_enter(e) {
-        this.video.currentTime = 0;
-        this.video.play();
-        this.el.classList.add('caseCard--playing');
+        this.play();
     }
 
     e_leave(e) {
-        this.video.pause();
-        this.video.currentTime = 0;
-        this.el.classList.remove('caseCard--playing');
+        this.pause();
     }
 
     e_inview(e) {

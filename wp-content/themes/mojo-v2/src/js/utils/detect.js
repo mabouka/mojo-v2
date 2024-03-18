@@ -4,4 +4,13 @@ function isTouchDevice() {
        (navigator.msMaxTouchPoints > 0));
 }
 
-export { isTouchDevice };
+function isMobile() {
+    let isMobile = false;
+    const mq = window.matchMedia( "(max-width: 600px)" );
+    if(mq.matches){
+        isMobile = true;
+    } 
+
+    return isMobile;
+}
+export { isTouchDevice, isMobile };
