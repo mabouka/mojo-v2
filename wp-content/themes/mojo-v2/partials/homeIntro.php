@@ -1,6 +1,10 @@
 <div class="homeIntro darkSection">
 
+    <?php if (0): ?>
+    
     <img class="homeIntro__stars" src="<?= getUrl('dist/images/homeIntroStars.svg') ?>" width="1277" height="701" alt="">
+    <?php endif ?>
+
     <div class="wrapper">
         <div class="homeIntro__inside">
             <?php if($text): ?>
