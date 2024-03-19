@@ -37,7 +37,7 @@ export default class caseCard {
 
     setEvents() {
         if(this.isVideo) {
-            if(isMobile) {
+            if(isMobile()) {
                 this.el.addEventListener('inTopMedium', this.e_inTop.bind(this));
                 this.el.addEventListener('outTopMedium', this.e_outTop.bind(this));
             } else{

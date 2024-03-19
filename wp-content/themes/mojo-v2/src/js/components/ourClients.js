@@ -14,7 +14,7 @@ export default class OurClients {
         this.current = 0;
         this.timer = this.getTimer();
 
-        //this.startCarousel();
+        this.startCarousel();
 
         this.active(this.clients[this.current]);
         this.setEvents();
