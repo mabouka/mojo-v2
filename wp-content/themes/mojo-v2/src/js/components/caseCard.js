@@ -15,7 +15,7 @@ export default class caseCard {
             this.video = this.el.querySelector('.caseCard__video');
         }
 
-        if(isMobile) {
+        if(isMobile()) {
             IsTopMedium.addElement(this.el);
         }
         this.setEvents();
