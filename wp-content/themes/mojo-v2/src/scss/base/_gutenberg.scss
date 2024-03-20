@@ -93,8 +93,13 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
 .wp-block-embed {
     background-color: var(--pagecolor, color(dark));
 	width: 100%;
-    padding-top: 56.25%; // 9 / 16 * 100
     position: relative;
+
+    &:before {
+        content: "";
+        display: block;
+        padding-top: 56.25%; // 9 / 16 * 100
+    }
 	
 	// Add responsiveness to common aspect ratios.
 	&.wp-embed-aspect-21-9,
