@@ -507,3 +507,7 @@ function splitCharWord($text, $charIndex = 0) {
     return $output;
 }
 
+
+// updates 
+add_filter( 'automatic_updates_is_vcs_checkout', '__return_false', 1 );
+

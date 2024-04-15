@@ -1,7 +1,6 @@
 <?php 
     $showFooter = true;
     if (is_404()) $showFooter = false;
-
 ?>
 
 </main><!-- main, data router wrapper -->
@@ -154,10 +153,7 @@
     
     $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
 ?>
-<?php if (0): ?>
-    <script defer src="https://www.google.com/recaptcha/api.js?render=<?= $recaptcha ?>"></script>
 
-<?php endif ?>
 <script type="text/javascript">
     window.recaptchaKey = '<?= $recaptcha ?>';
 </script>
