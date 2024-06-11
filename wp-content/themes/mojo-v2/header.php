@@ -150,6 +150,11 @@
                         </g>
                     </svg>
                 </a>
+
+                <?php if ($link = get_field('footer_contactLink', 'option')) : ?>
+                <a class="header__contact" href="<?= $link['url'] ?>"><?= __('Contact us', 'mj'); ?></a>
+                <?php endif; ?>
+
                 <?= getLanguageLinks(); ?>
                 <a href="#menu" class="header__menu openMenu" title="<?= __("Menu", "mj") ?>" data-cursor-stick>
                     <span class="sro"><?= __('Open menu', 'mj'); ?></span>

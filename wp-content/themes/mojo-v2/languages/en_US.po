@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Mojo V2\n"
-"POT-Creation-Date: 2024-02-12 13:58-0300\n"
-"PO-Revision-Date: 2024-02-12 13:59-0300\n"
+"POT-Creation-Date: 2024-06-11 13:18+0200\n"
+"PO-Revision-Date: 2024-06-11 13:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: Mojo\n"
 "Language: en_US\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Oops. <br>bad draw"
 msgstr ""
 
-#: 404.php:13 footer.php:48 functions.php:195
+#: 404.php:13 footer.php:47 functions.php:195
 msgid "Sitemap"
 msgstr ""
 
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: footer.php:60 functions.php:194
+#: footer.php:59 functions.php:194
 msgid "Social"
 msgstr ""
 
@@ -38,19 +38,23 @@ msgstr ""
 msgid "Main"
 msgstr ""
 
-#: header.php:71
+#: header.php:95
 msgid "Go to the main content"
 msgstr ""
 
-#: header.php:120 partials/menu.php:8
+#: header.php:144 partials/menu.php:8
 msgid "Go back home"
 msgstr ""
 
-#: header.php:130
+#: header.php:153
+msgid "Contact us"
+msgstr ""
+
+#: header.php:155
 msgid "Menu"
 msgstr ""
 
-#: header.php:131
+#: header.php:156
 msgid "Open menu"
 msgstr ""
 
@@ -90,11 +94,11 @@ msgstr ""
 msgid "Initiatives"
 msgstr ""
 
-#: partials/featuredCases.php:31
+#: partials/featuredCases.php:40
 msgid "See case"
 msgstr ""
 
-#: partials/featuredCases.php:67 partials/serviceProjects.php:12
+#: partials/featuredCases.php:64 partials/serviceProjects.php:12
 #: template-commitments.php:45
 msgid "See all cases"
 msgstr ""
@@ -117,10 +121,6 @@ msgstr ""
 
 #: partials/menu.php:47
 msgid "Social Media"
-msgstr ""
-
-#: partials/menu.php:60
-msgid "Languages"
 msgstr ""
 
 #: partials/ourClients.php:49

@@ -60,6 +60,17 @@
         }
     }
 
+
+    &__contact{
+        @extend .header__language;
+        margin-right: s(22+6);
+
+        @media screen and (max-width: 1000px){
+            display: none;
+        }
+
+    }
+
     &--dark{
         .header__logoSvg{
             g{

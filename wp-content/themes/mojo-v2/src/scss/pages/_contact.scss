@@ -113,6 +113,40 @@
             @include hidden();
         }
 
+        .files{
+            margin-top: s(10);
+            display: flex;
+            flex-wrap: wrap;
+            flex-shrink: initial;
+            gap: 10px;
+            max-width: s(345);
+
+            &__item{
+                position: relative;
+                border: 1px solid color(sand);
+                border-radius: 100px;
+                padding: s(6) s(35) s(6) s(15);
+                font-size: s(14);
+                line-height: em(22,14);
+                text-transform: lowercase;   
+            }
+
+            &__itemRemove{
+                position: absolute;
+                top: 50%;
+                margin-top: s(-8);
+                right: s(10);
+                display: inline-block;
+                width: s(8+8);
+                height: s(8+8);
+                text-indent: -9999px;
+                text-decoration: none;
+                background-image: url('../images/cross.svg');
+                background-position: center center;
+                background-repeat: no-repeat;
+            }
+        }
+
 
         .field{
             text-align: left;
@@ -128,12 +162,18 @@
                 display: none;
             }
 
+
             &__label{
                 color: color(sand);
                 @extend .body18;
                 text-wrap: nowrap;
                 flex-shrink: 0;
             }
+
+            &--file .field__label{
+                flex-shrink: initial;
+            }
+
 
             &--required .field__label{
                 &:after{
