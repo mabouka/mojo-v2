@@ -171,6 +171,8 @@
 <script>TreeNationOffsetWebsite({code: '6322d1badbb2d', lang: '<?= ICL_LANGUAGE_CODE ?>', theme: 'dark'}).render('.footer__carbon');</script>
 <?php endif ?>
 
+<script type="module" src="<?= getUrlVersion('dist/js/cookieconsent-config.js'); ?>"></script>
+
 <!-- WPFOOTER START -->
 <?php //wp_footer(); ?>
 <!-- WPFOOTER END -->

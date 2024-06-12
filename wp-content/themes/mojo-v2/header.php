@@ -10,9 +10,6 @@
     <?php wp_head(); ?>
     <!-- WPHEAD END -->
 
-
-
-
     <!-- Preload -->
 
     <link rel="preload" href="<?= getUrlVersion('dist/css/main.css'); ?>" as="style">
@@ -58,6 +55,12 @@
     <!-- Google Tag Manager -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
     <script>
+        let data = {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied'
+        }
         window.dataLayer = window.dataLayer || [];
         function gtag(){
             dataLayer.push(arguments)
@@ -65,11 +68,34 @@
         gtag('js', new Date());
         gtag('config', '<?= $gtag ?>', {
             send_page_view: false,
-            });
+        });
+
+        // Set default consent to 'denied' as a placeholder
+        // Determine actual values based on your own requirements
+
+        gtag('consent', 'default',data);
+    </script>
+
+    <script type="text/plain" data-category="analytics" data-service="Google Analytics">
+        // Executed when the "analytics" category is enabled
+        data['analytics_storage'] = 'granted';
+        data['ad_storage'] = 'granted';
+        gtag('consent', 'default',data);
+
+    </script>
+
+    <script type="text/plain" data-category="marketing" data-service="Google Ads">
+        // Executed when the "Marketing" category is enabled
+        data['ad_storage'] = 'granted';
+        data['ad_user_data'] = 'granted';
+        data['ad_personalization'] = 'granted';
+        data['ad_storage'] = 'granted';
+        data['ad_user_data'] = 'granted';
+        gtag('consent', 'default',data);
     </script>
 
     <!-- Hotjar Tracking Code for https://mojo-agency.org/ -->
-    <script>
+    <script type="text/plain" data-category="analytics" data-service="HotJar">
         (function(h,o,t,j,a,r){
             h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
             h._hjSettings={hjid:4941036,hjsv:6};
@@ -80,7 +106,9 @@
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
     </script>
 
-    </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
+
+</head>
 
 <body <?php body_class(); ?> data-barba="wrapper">
 

@@ -25,6 +25,14 @@ body{
         }
     }
 }
+#cc-main{
+    font-family: 'dm', sans-serif !important;
+
+    .cm__title{
+        font-family: 'Cambon', sans-serif;
+        font-size: s(24) !important;
+    }
+}
 
 .curtain{
     @include cover();

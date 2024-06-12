@@ -466,6 +466,12 @@ function rjs_lwp_contactform_css_js() {
     wp_dequeue_script( 'wpcf7-recaptcha-js-extra' );
     wp_dequeue_script( 'wpcf7-recaptcha-js' );
 
+    wp_dequeue_style( 'mfcf7_zl_button_style' );
+    wp_dequeue_script( 'jquery-migrate-js' );
+    wp_dequeue_script( 'mfcf7_zl_multiline_files_script' );
+    wp_dequeue_script( 'jquery-core-js' );
+
+
 
 }
 add_action( 'wp_enqueue_scripts', 'rjs_lwp_contactform_css_js');
