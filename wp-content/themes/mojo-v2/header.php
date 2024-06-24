@@ -56,9 +56,9 @@
     </script>
 
     <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
     <?php if ($cookieConsent): ?>
-    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
+
     <script>
         let data = {
             'ad_storage': 'denied',
