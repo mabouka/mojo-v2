@@ -9,7 +9,6 @@ class MenuClass{
         this.links      = this.menu.querySelectorAll('.menu__mainItem');
         this.openMenu   = document.querySelectorAll('.openMenu');
         this.closeMenu  = document.querySelector('.closeMenu');
-
         this.isOpen     = false;
 
         this.setEvents();
@@ -58,8 +57,6 @@ class MenuClass{
         document.body.classList.add('menuNoTransition');
         setTimeout(()=> {
             document.body.classList.remove('menuOpen');
-
-
         },50)
 
         setTimeout(()=> {

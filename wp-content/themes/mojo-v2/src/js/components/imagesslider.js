@@ -23,17 +23,12 @@ export default class ImagesSlider {
             centeredSlides: true,
 
             breakpoints: {
-                // when window width is >= 320px
-                320: {
-                    spaceBetween: 5,
-
+                320: { // when window width is >= 320px
+                    spaceBetween: 5, 
                 },
                 601: {
                     spaceBetween: 35,
-
                     centeredSlides: false,
-
-
                 }
             }
         });

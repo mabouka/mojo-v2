@@ -5,7 +5,7 @@
             <div class="error__inside">
                 <h1 class="error__title">
                     <?= __('Oops. <br>bad draw' , 'mj') ?>
-                </h1>
+                </h1> 
                 <div class="error__secondaryContainer">
 
                     <?php if ($sitemap = getCustomMenu('Sitemap')) : ?>

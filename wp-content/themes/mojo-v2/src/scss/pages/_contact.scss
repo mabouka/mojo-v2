@@ -151,8 +151,9 @@
         .field{
             text-align: left;
             margin-top: s(30);
-            padding-bottom: s(14);
-            border-bottom: 1px solid color(white);
+            padding: s(6) s(10) s(5) s(10);
+            line-height: em(26,18);
+            background-color: rgba(#FAF6ED, 10%);
             display: flex;
             overflow: hidden;
             p{
@@ -162,16 +163,30 @@
                 display: none;
             }
 
-
             &__label{
-                color: color(sand);
+                color:  #FAF6ED80;
                 @extend .body18;
                 text-wrap: nowrap;
                 flex-shrink: 0;
             }
 
-            &--file .field__label{
-                flex-shrink: initial;
+            &--file,
+            &--message {
+                background-color: transparent;
+                padding: 0;
+
+                .field__label{
+                    color: color(sand);
+
+                }
+            }
+            &--file {
+
+                .field__label{
+                    flex-shrink: initial;
+                    text-decoration: underline;
+
+                }
             }
 
 
@@ -212,7 +227,7 @@
                 &:-webkit-autofill,
                 &:-webkit-autofill:hover, 
                 &:-webkit-autofill:focus {
-                    -webkit-box-shadow: 0 0 0px 40rem color(dark) inset;
+                    -webkit-box-shadow: 0 0 0px 40rem #2b3238 inset;
                     -webkit-text-fill-color: color(yellow);
                 }
 
@@ -222,8 +237,11 @@
             textarea.field__input{
                 margin-left: 0;
                 height: s(300);
-                border-radius: s(20);
-                border: 1px dashed color(white);
+                //border-radius: s(20);
+                //border: 1px dashed color(white);
+
+                background-color: rgba(#FAF6ED, 10%);
+
                 color: color(lightblue);
                 margin-top: s(14);
                 resize: none;

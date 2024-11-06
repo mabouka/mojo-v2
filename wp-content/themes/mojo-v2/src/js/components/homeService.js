@@ -27,7 +27,6 @@ export default class HomeService {
     }
 
     initSwiper() {
-
         // Add Swiper Classes
         this.groupSlide.classList.add('swiper');
         this.realSection.classList.add('swiper-wrapper');
