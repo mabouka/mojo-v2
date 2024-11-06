@@ -344,6 +344,8 @@
         }
 
         .contact__form .field--file{
+            flex-direction: column;
+            
             p {
                 display: block;
                 width: 100%;
