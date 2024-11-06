@@ -237,7 +237,7 @@
             textarea.field__input{
                 margin-left: 0;
                 height: s(300);
-                //border-radius: s(20);
+                border-radius: 0;
                 //border: 1px dashed color(white);
 
                 background-color: rgba(#FAF6ED, 10%);
@@ -337,6 +337,10 @@
         &__contactText,
         &__address{
             width: col(3,6);
+        }
+
+        .field__label {
+            padding-top: s(5);
         }
 
         .contact__form .field--file{
