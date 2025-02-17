@@ -189,6 +189,74 @@
                 }
             }
 
+            &--enquiry{
+                display: block;
+                background-color: transparent;
+                padding: 0;
+                position: relative;
+                .wpcf7-list-item{
+                    display: block;
+                }
+
+                .field__label{
+                    margin-bottom: s(10);
+                    color: color(sand);
+                }
+                
+                input{
+                    position: absolute;
+                    left: s(6);
+                    bottom: s(-5);
+                    opacity: 0;
+                    //visibility: hidden;
+                    pointer-events: none;
+                }
+
+                .wpcf7-list-item-label{
+                    font-size: s(14);
+                    line-height: em(22,14);
+                    padding-left: s(33);
+                    position: relative;
+                    &:before{
+                        content: '';
+                        display: inline-block;
+                        width: s(14);
+                        height: s(14);
+                        border: 1px solid color(sand);
+                        position: absolute;
+                        left: s(9);
+                        top: 50%;
+                        margin-top: s(-7);
+                        border-radius: 100%;
+                    }
+
+                    &:after{
+                        content: '';
+                        display: inline-block;
+                        width: s(6);
+                        height: s(6);
+                        background-color: color(sand);
+                        position: absolute;
+                        left: s(9+5);
+                        top: 50%;
+                        margin-top: s(-2);
+                        border-radius: 100%;
+                        opacity: 0;
+                        transition: 200ms opacity easing(ease-out-quad);
+                    }
+                }
+
+                input:checked + .wpcf7-list-item-label{
+                    &:after{
+                        opacity: 1;
+                    }
+                }
+
+                p{
+                    display: block;
+                }
+            }
+
 
             &--required .field__label{
                 &:after{

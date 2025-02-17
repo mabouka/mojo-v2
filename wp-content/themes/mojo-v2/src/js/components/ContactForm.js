@@ -10,6 +10,10 @@ export default class Contactform {
         this.el = el;
         this.svg = this.el.querySelector('.contact__svg');
         this.fields = this.el.querySelectorAll(".wpcf7-validates-as-required");
+
+        this.radios = this.el.querySelectorAll("input[type='radio']");
+        console.log(this.radios);
+
         this.fileLabel = this.el.querySelector('.field--file label');
         this.fileInput = this.el.querySelector('.field--file input');
 
@@ -27,6 +31,10 @@ export default class Contactform {
 
         this.fields.forEach(field => {
             field.setAttribute("required","required");
+        });
+
+        this.radios.forEach(radio => {
+            radio.setAttribute("required","required");
         });
         
         this.main = gsap.timeline({
