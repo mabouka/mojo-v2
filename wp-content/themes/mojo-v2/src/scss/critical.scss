@@ -1,0 +1,82 @@
+// Critical CSS - Above the fold styles only
+// This file should contain minimal styles for initial page render
+
+// Essential variables only
+@import "vars/fonts";
+@import "vars/colors";
+@import "vars/sizes";
+
+// Critical mixins only
+@import "mixins/font";
+@import "mixins/color";
+
+// Essential base styles
+@import "base/reset";
+
+// Critical typography
+body {
+    @include font('primary');
+    color: map-get($default-colors, dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Critical header styles (above the fold)
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: map-get($default-colors, white);
+    height: 80px;
+    
+    &__logo {
+        height: 40px;
+        width: auto;
+    }
+    
+    &__nav {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+}
+
+// Critical hero section (above the fold)
+.home-intro {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    &__title {
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    &__subtitle {
+        font-size: clamp(1rem, 2vw, 1.5rem);
+        opacity: 0.8;
+    }
+}
+
+// Essential grid system
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+// Critical loading states
+.loading {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    &.loaded {
+        opacity: 1;
+    }
+}

@@ -3,7 +3,18 @@
   "version": "1.0.0",
   "main": "webpack.mix.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production",
+    "build:critical": "critical wp-content/themes/mojo-v2/dist/css/main.css --base wp-content/themes/mojo-v2/dist --html wp-content/themes/mojo-v2/index.php --target critical.css --width 1300 --height 900",
+    "purge:css": "purgecss --config purgecss.config.js --output wp-content/themes/mojo-v2/dist/css/",
+    "optimize": "npm run production && npm run purge:css",
+    "analyze": "npm run development && npm run bundle-analyzer"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +26,19 @@
     "laravel-mix": "^6.0.49",
     "laravel-mix-bundle-analyzer": "^1.0.5",
     "sass": "^1.69.5",
-    "sass-loader": "^12.6.0"
+    "sass-loader": "^12.6.0",
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "imagemin": "^8.0.1",
+    "imagemin-webp": "^7.0.0",
+    "critical": "^6.1.0",
+    "@fullhuman/postcss-purgecss": "^5.0.0",
+    "purgecss": "^5.0.0",
+    "postcss-combine-media-query": "^1.0.1",
+    "postcss-sort-media-queries": "^4.4.1",
+    "sass-true": "^7.0.1",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard-scss": "^11.1.0"
   },
   "dependencies": {
     "@barba/core": "^2.9.7",

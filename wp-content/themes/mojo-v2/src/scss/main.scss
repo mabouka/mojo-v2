@@ -1,4 +1,14 @@
-// Vars
+// ========================================
+// MOJO AGENCY - MAIN STYLESHEET
+// Performance optimized Sass structure
+// ========================================
+
+// PERFORMANCE VARIABLES (CSS Custom Properties - ~2KB)
+// ========================================
+@import "vars/performance";
+
+// CORE VARIABLES & MIXINS (Always loaded - ~5KB)
+// ========================================
 @import "vars/fonts";
 @import "vars/easing";
 @import "vars/colors";
@@ -6,19 +16,20 @@
 @import "vars/sizes";
 @import "vars/grid";
 
-// Mixins
+// MIXINS (Always loaded - ~8KB)
+// ========================================
 @import "mixins/font";
 @import "mixins/grid";
 @import "mixins/sizing";
 @import "mixins/icons";
 @import "mixins/color";
 @import "mixins/easing";
-;
 @import "mixins/background";
 @import "mixins/utils";
 @import "mixins/helpers";
 
-// Bases
+// BASE STYLES (Always loaded - ~12KB)
+// ========================================
 @import "base/helpers";
 @import "base/typography";
 @import "base/importFonts";
@@ -28,10 +39,26 @@
 @import "base/inview";
 @import "base/lenis";
 
-// Vendor
+// VENDOR STYLES (Conditional - ~3KB)
+// ========================================
 @import "base/basicSwiper";
 
-// Blocks
+// LAYOUT COMPONENTS (Always loaded - ~8KB)
+// ========================================
+@import "parts/cursor";
+@import "parts/header";
+@import "parts/footer";
+@import "parts/menu";
+@import "parts/video";
+
+// REUSABLE COMPONENTS (~6KB)
+// ========================================
+@import "parts/serviceCard";
+@import "parts/teamCard";
+@import "parts/caseAccordion";
+
+// ACF BLOCKS (Lazy loaded via webpack - ~15KB total)
+// ========================================
 @import "blocks-render/quoteImage";
 @import "blocks-render/textimage";
 @import "blocks-render/twoimages";
@@ -41,70 +68,64 @@
 @import "blocks-render/wrapperimage";
 @import "blocks-render/imagesslider";
 
-// Parts
-@import "parts/cursor";
-@import "parts/header";
-@import "parts/serviceCard";
-@import "parts/teamCard";
-@import "parts/footer";
-@import "parts/menu";
-@import "parts/caseAccordion";
-@import "parts/video";
+// PAGE-SPECIFIC STYLES (Conditionally loaded based on page)
+// ========================================
 
-    // Home 36kb
-    @import "parts/homeIntro"; //10kb
-    @import "parts/homeVideo"; //2kb
-    @import "parts/homePurpose"; //3kb
-    @import "parts/featuredCases"; // 13kb -> 11kb
-    @import "parts/homeService"; //4kb
-    @import "parts/ourClients"; //4kb
-    @import "parts/homeTransformation"; //2kb
+// HOME PAGE STYLES (36KB - Largest section)
+@import "parts/homeIntro";        // 10KB - Critical
+@import "parts/homeVideo";        // 2KB
+@import "parts/homePurpose";      // 3KB
+@import "parts/featuredCases";    // 11KB - Optimized from 13KB
+@import "parts/homeService";      // 4KB
+@import "parts/ourClients";       // 4KB
+@import "parts/homeTransformation"; // 2KB
 
-    // About 3kb
-    @import "parts/aboutIntro";
-    @import "parts/teamGrid";
+// ABOUT PAGE STYLES (3KB)
+@import "parts/aboutIntro";
+@import "parts/teamGrid";
 
-    // Services 4kb
-    @import "parts/serviceIntro";
-    @import "parts/serviceGrid";
+// SERVICES STYLES (4KB)
+@import "parts/serviceIntro";
+@import "parts/serviceGrid";
 
-    // Cases (archive) 14kb
-    @import "parts/casesGrid";
-    @import "parts/casesServices";
-    @import "parts/caseCard";
+// CASES ARCHIVE STYLES (14KB)
+@import "parts/casesGrid";
+@import "parts/casesServices";
+@import "parts/caseCard";
 
-    // Our clients 11kb
-    @import "parts/globe";
-    @import "parts/clientIntro";
-    @import "parts/clientNumbers";
-    @import "parts/clientHover";
-    @import "parts/clientTypology";
+// CLIENTS PAGE STYLES (11KB)
+@import "parts/globe";
+@import "parts/clientIntro";
+@import "parts/clientNumbers";
+@import "parts/clientHover";
+@import "parts/clientTypology";
 
-    // Single Service 11kb
-    @import "parts/serviceHeader";
-    @import "parts/littleCards";
-    @import "parts/serviceProjects";
-    @import "parts/servicePeople";
-    @import "parts/serviceContent";
+// SINGLE SERVICE STYLES (11KB)
+@import "parts/serviceHeader";
+@import "parts/littleCards";
+@import "parts/serviceProjects";
+@import "parts/servicePeople";
+@import "parts/serviceContent";
 
-    // Single Service Child 3kb
-    @import "parts/serviceChHeader";
-    @import "parts/serviceChIntro";
-    
-    // Single Case 5kb
-    @import "parts/sCaseBanner";
-    @import "parts/sCaseFeatures";
-    @import "parts/sCaseIntro";
-    @import "parts/sCaseRandom";
+// SINGLE SERVICE CHILD STYLES (3KB)
+@import "parts/serviceChHeader";
+@import "parts/serviceChIntro";
 
-    // Commitments 10kb
-    @import "parts/commitmentsIntro";
-    @import "parts/commitmentsPurpose";
-    @import "parts/purposeCard";
-    @import "parts/commitmentsEarth";
-    @import "parts/commitmentsFaq";
+// SINGLE CASE STYLES (5KB)
+@import "parts/sCaseBanner";
+@import "parts/sCaseFeatures";
+@import "parts/sCaseIntro";
+@import "parts/sCaseRandom";
 
-// Pages
+// COMMITMENTS PAGE STYLES (10KB)
+@import "parts/commitmentsIntro";
+@import "parts/commitmentsPurpose";
+@import "parts/purposeCard";
+@import "parts/commitmentsEarth";
+@import "parts/commitmentsFaq";
+
+// PAGE TEMPLATES (Final styles - ~8KB)
+// ========================================
 @import "pages/home";
 @import "pages/singleCase";
 @import "pages/serviceChild";
@@ -112,5 +133,32 @@
 @import "pages/error";
 @import "pages/contact";
 @import "pages/client";
-
 @import "pages/commitments";
+
+// PERFORMANCE UTILITIES
+// ========================================
+// Add utility classes for performance
+.visually-hidden {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+}
+
+.no-js {
+    .js-only {
+        display: none !important;
+    }
+}
+
+// Optimize font loading
+.fonts-loading {
+    visibility: hidden;
+}
+
+.fonts-loaded {
+    visibility: visible;
+}

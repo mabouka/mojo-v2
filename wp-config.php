@@ -1,6 +1,14 @@
 <?php
 //define( 'WP_CACHE', true ); 
-define('WP_CACHE', false);
+define('WP_CACHE', true);
+
+// Performance optimizations
+define('WP_CACHE_KEY_SALT', 'mojo-agency_');
+define('COMPRESS_CSS', true);
+define('COMPRESS_SCRIPTS', true);
+define('CONCATENATE_SCRIPTS', true);
+define('ENFORCE_GZIP', true);
+define('AUTOMATIC_UPDATER_DISABLED', true);
 
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 
 	strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
