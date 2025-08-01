@@ -11,13 +11,32 @@ if (!mix.inProduction()) {
 
 mix
     .options({
-        processCssUrls: false
+        processCssUrls: false,
+        postCss: [
+            require('autoprefixer'),
+            require('cssnano')({
+                preset: 'default'
+            })
+        ]
     })
 
     .js('wp-content/themes/mojo-v2/src/js/main.js', 'dist/js')
     .extract()
+    .version()
 
     .sass('wp-content/themes/mojo-v2/src/scss/main.scss', 'css/main.css')
+    .options({
+        postCss: [
+            require('autoprefixer'),
+            require('cssnano')({
+                preset: ['default', {
+                    discardComments: {
+                        removeAll: true,
+                    },
+                }]
+            })
+        ]
+    })
 
     
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
@@ -44,6 +63,17 @@ mix
     .sourceMaps(productionSourceMaps, 'source-map')
     .setPublicPath('wp-content/themes/mojo-v2/dist');
 
+if (mix.inProduction()) {
+    mix.options({
+        terser: {
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                },
+            },
+        },
+    });
+}
     
 mix.webpackConfig(webpack => {
     return {

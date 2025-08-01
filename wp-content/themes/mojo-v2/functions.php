@@ -116,6 +116,11 @@ require_once('inc/commentsDisabler.php');
  */
 require_once('inc/cleanHead.php');
 
+/*
+ * Performance Optimizations
+ */
+require_once('inc/performance.php');
+
 
 /*
  * Option Pages
@@ -513,6 +518,62 @@ function splitCharWord($text, $charIndex = 0) {
     return $output;
 }
 
+
+// Performance Optimizations
+
+// Defer JavaScript loading
+function add_defer_attribute($tag, $handle) {
+    $scripts_to_defer = array('main-js', 'vendor-js');
+    
+    foreach($scripts_to_defer as $defer_script) {
+        if ($defer_script === $handle) {
+            return str_replace(' src', ' defer src', $tag);
+        }
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
+
+// Preload critical resources
+function add_resource_hints() {
+    // Preload critical fonts
+    echo '<link rel="preload" href="' . get_template_directory_uri() . '/dist/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin>';
+    
+    // DNS prefetch for external domains
+    echo '<link rel="dns-prefetch" href="//fonts.googleapis.com">';
+    echo '<link rel="dns-prefetch" href="//www.google-analytics.com">';
+}
+add_action('wp_head', 'add_resource_hints', 1);
+
+// Remove query strings from static resources
+function remove_query_strings($src) {
+    $output = preg_split("/(&ver|\?ver)/", $src);
+    return $output[0];
+}
+add_filter('script_loader_src', 'remove_query_strings', 15, 1);
+add_filter('style_loader_src', 'remove_query_strings', 15, 1);
+
+// Optimize images - add lazy loading
+function add_lazy_loading($content) {
+    if (is_admin()) {
+        return $content;
+    }
+    
+    $content = preg_replace('/<img(.*?)src=/i', '<img$1loading="lazy" src=', $content);
+    return $content;
+}
+add_filter('the_content', 'add_lazy_loading');
+
+// Disable jQuery Migrate
+function remove_jquery_migrate($scripts) {
+    if (!is_admin() && isset($scripts->registered['jquery'])) {
+        $script = $scripts->registered['jquery'];
+        if ($script->deps) {
+            $script->deps = array_diff($script->deps, array('jquery-migrate'));
+        }
+    }
+}
+add_action('wp_default_scripts', 'remove_jquery_migrate');
 
 // updates 
 add_filter( 'automatic_updates_is_vcs_checkout', '__return_false', 1 );
