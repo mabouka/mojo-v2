@@ -15,7 +15,15 @@ mix
         postCss: [
             require('autoprefixer'),
             require('cssnano')({
-                preset: 'default'
+                preset: ['default', {
+                    discardComments: {
+                        removeAll: true,
+                    },
+                    normalizeWhitespace: true,
+                    minifySelectors: true,
+                    minifyFontValues: true,
+                    convertValues: true
+                }]
             })
         ]
     })
@@ -24,15 +32,49 @@ mix
     .extract()
     .version()
 
+    // Main Sass compilation with optimization
     .sass('wp-content/themes/mojo-v2/src/scss/main.scss', 'css/main.css')
     .options({
+        sassOptions: {
+            outputStyle: 'compressed',
+            precision: 6,
+            includePaths: [
+                'wp-content/themes/mojo-v2/src/scss'
+            ]
+        },
+        postCss: [
+            require('autoprefixer')({
+                overrideBrowserslist: ['> 1%', 'last 2 versions', 'Firefox ESR'],
+                grid: true
+            }),
+            require('cssnano')({
+                preset: ['default', {
+                    discardComments: {
+                        removeAll: true,
+                    },
+                    normalizeWhitespace: true,
+                    minifySelectors: true,
+                    reduceIdents: false, // Keep keyframe names
+                    zindex: false // Don't optimize z-index values
+                }]
+            })
+        ]
+    })
+
+    // Critical CSS compilation
+    .sass('wp-content/themes/mojo-v2/src/scss/critical.scss', 'css/critical.css')
+    .options({
+        sassOptions: {
+            outputStyle: 'compressed',
+            precision: 6
+        },
         postCss: [
             require('autoprefixer'),
             require('cssnano')({
                 preset: ['default', {
                     discardComments: {
                         removeAll: true,
-                    },
+                    }
                 }]
             })
         ]
@@ -42,7 +84,7 @@ mix
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
     .copy('wp-content/themes/mojo-v2/src/images/globe/*', 'wp-content/themes/mojo-v2/dist/images/globe/')
 
-    // doing the css of acf blocks and then copy it to the right place
+    // ACF blocks CSS with individual optimization
     .sass('wp-content/themes/mojo-v2/src/scss/blocks/twoimages.scss', 'css/blocks/twoimages/twoimages.css')
     .sass('wp-content/themes/mojo-v2/src/scss/blocks/quoteImage.scss', 'css/blocks/quoteimage/quoteimage.css')
     .sass('wp-content/themes/mojo-v2/src/scss/blocks/textimage.scss', 'css/blocks/textimage/textimage.css')
@@ -69,7 +111,12 @@ if (mix.inProduction()) {
             terserOptions: {
                 compress: {
                     drop_console: true,
+                    drop_debugger: true,
+                    pure_funcs: ['console.log', 'console.info', 'console.debug']
                 },
+                mangle: {
+                    safari10: true
+                }
             },
         },
     });
@@ -81,7 +128,13 @@ mix.webpackConfig(webpack => {
             new webpack.DefinePlugin({
                 PLUTON_PATH: JSON.stringify(pluton_path)
             }),
-
-        ]
+        ],
+        resolve: {
+            alias: {
+                '@scss': path.resolve(__dirname, 'wp-content/themes/mojo-v2/src/scss'),
+                '@js': path.resolve(__dirname, 'wp-content/themes/mojo-v2/src/js'),
+                '@images': path.resolve(__dirname, 'wp-content/themes/mojo-v2/src/images')
+            }
+        }
     };
 });
