@@ -1,0 +1,68 @@
+.leadPresentation{
+    padding: s(80) 0;
+    background-color: color(Light);
+    border-bottom: 1px solid color(dark);
+    
+    &__inside{
+        display: flex;
+    }
+
+    &__title{
+        @extend .title50;
+        color: color(dark);
+        width: colGut(5,1,12,0);
+        font-size: s(40);
+    }
+
+    &__text{
+        @extend .body;
+        @extend .body22;
+        font-size: s(20);
+        color: color(dark);
+        width: col(6,12);
+        margin-left: colGut(1,1,12,0);
+        li + li{
+            margin-top: s(24);
+            
+        }
+
+        li:before{
+            width: s(12) !important;
+            height: s(11) !important;
+            @extend .star;
+            background-color: transparent !important;
+            border-radius: 0 !important;
+            opacity: 1 !important;
+            top: s(8) !important;
+            margin-top: 0 !important;
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        padding: s(50) 0;
+        &__inside{
+            flex-direction: column;
+        }
+        &__title{
+            width: 100%;
+            font-size: s(30);
+            margin-bottom: s(30);
+        }
+        &__text{
+            width: 100%;
+            margin-left: 0;
+            font-size: s(18);
+            padding: 0 s(15);
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding: s(30) 0;
+        &__title{
+            margin-bottom: s(20);
+        }
+        &__text{
+            padding: 0 s(15);
+        }
+    }
+}

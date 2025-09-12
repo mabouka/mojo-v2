@@ -5,6 +5,7 @@
     padding-bottom: s(104);
     min-height: 100vh;
 
+
     &__inside{
         @include clearfix();
     }
@@ -357,8 +358,7 @@
         .wpcf7-submit{
             margin-top: s(50);
             font-size: s(18);
-            @extend .btn;
-            @extend .btn--light;
+            
         }
     }
 
@@ -431,6 +431,110 @@
 
         & .wpcf7-submit {
             margin-top: s(70);
+        }
+    }
+    
+    
+    &--lead{
+        background: color(sand);
+        color: color(dark);
+
+        @media screen and (max-width: 600px) {
+            padding-top: s(75);
+
+            .contact__form{
+                margin-top: s(30);
+            }
+        }
+
+        .contact__illustration{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            max-width: 55%;
+
+            @media screen and (max-width: 900px) {
+                display: none;
+            }
+            @media screen and (max-width: 800px) {
+                max-width: 100%;
+            }
+        }
+
+        .contact__subtitle{
+            @extend .subtitle;
+            color: color(dark);
+            margin-bottom: s(12);
+        }
+
+        .contact__title{
+            color: color(dark);
+            padding-bottom: s(500);
+
+            @media screen and (max-width: 900px) {
+                padding-bottom: 0;
+            }
+        }
+        
+        .contact__address,
+        .contact__contactText{
+            color: color(dark);
+            opacity: 0.5;
+            a,
+            strong{
+                color: color(dark);
+                opacity: 1
+            }
+        }
+
+        .field{
+            background-color: rgba(color(dark), 10%);
+
+            &__input{
+                color: color(dark) !important;
+            }
+            color: color(dark) !important;
+
+            &--enquiry{
+                background-color: transparent;
+                .field__label{
+                    color: color(dark);
+                }
+                .wpcf7-list-item-label{
+                    &:before{
+                        border-color: color(dark);
+                    }
+
+                    &:after{
+                        background-color: color(dark);
+                    }
+                }
+            }
+
+            &--file{
+                background-color: transparent !important;
+
+                .field__label{
+                    color: color(dark);
+                    text-decoration: underline;
+                }
+            }
+
+            &--message{
+                background-color: transparent !important;
+
+                .field__label{
+                    color: color(dark);
+                }
+                textarea{
+                    background-color: rgba(color(dark), 10%) !important;
+                    color: color(dark) !important;
+                }
+            }
+
+            &__label{
+                color: color(dark);
+            }
         }
     }
 }

@@ -12,16 +12,16 @@ add_action('after_setup_theme', 'mojo_setup');
 
 
 
-function disable_block_editor_for_page_ids( $use_block_editor, $post ) {
+function disable_block_editor_for_page_ids($use_block_editor, $post)
+{
 
 
-    if ( (!$post->post_parent) && $post->post_type === "services") {
+    if ((!$post->post_parent) && $post->post_type === "services") {
         return false;
-
     }
     return $use_block_editor;
 }
-add_filter( 'use_block_editor_for_post', 'disable_block_editor_for_page_ids', 10, 2 );
+add_filter('use_block_editor_for_post', 'disable_block_editor_for_page_ids', 10, 2);
 /**
  * Disable Editor
  *
@@ -382,9 +382,10 @@ function isExternal($url)
 }
 
 
-add_action( 'after_setup_theme', 'my_theme_setup' );
-function my_theme_setup(){
-    load_theme_textdomain( 'mj', get_template_directory() . '/languages' );
+add_action('after_setup_theme', 'my_theme_setup');
+function my_theme_setup()
+{
+    load_theme_textdomain('mj', get_template_directory() . '/languages');
 }
 
 function getLanguageLinks($class = "header__language")
@@ -393,12 +394,13 @@ function getLanguageLinks($class = "header__language")
         return '';
     }
     $languages = icl_get_languages('skip_missing=0');
+
     $active = $languages[ICL_LANGUAGE_CODE];
     $link = '';
     if (!empty($languages)) {
         foreach ($languages as $c => $l) {
             if (!$l['active']) {
-                $link .= '<a href="' . $l['url'] . '" class="' . $class.'" data-barba-prevent>';
+                $link .= '<a href="' . $l['url'] . '" class="' . $class . '" data-barba-prevent>';
                 $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
                 $link .= '</a>';
             }
@@ -417,7 +419,7 @@ function get2LanguageLinks($class = "header__language")
     $link = '';
     if (!empty($languages)) {
         foreach ($languages as $c => $l) {
-            $link .= '<a href="' . $l['url'] . '" class="' . $class. ($l['active'] ? (' ' .$class.'--current'): '') .'" data-barba-prevent>';
+            $link .= '<a href="' . $l['url'] . '" class="' . $class . ($l['active'] ? (' ' . $class . '--current') : '') . '" data-barba-prevent>';
             $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
             $link .= '</a>';
         }
@@ -434,73 +436,78 @@ function get2LanguageLinks($class = "header__language")
  *
  * @link https://developer.wordpress.org/reference/hooks/init/
  */
-function mojo_register_acf_blocks() {
+function mojo_register_acf_blocks()
+{
     /**
      * We register our block's with WordPress's handy
      * register_block_type();
      *
      * @link https://developer.wordpress.org/reference/functions/register_block_type/
      */
-    register_block_type( __DIR__ . '/blocks/quoteimage' );
-    register_block_type( __DIR__ . '/blocks/twoimages' );
-    register_block_type( __DIR__ . '/blocks/textimage' );
-    register_block_type( __DIR__ . '/blocks/textgallery' );
-    register_block_type( __DIR__ . '/blocks/fullblackimage' );
-    register_block_type( __DIR__ . '/blocks/fullimage' );
-    register_block_type( __DIR__ . '/blocks/wrapperimage' );
-    register_block_type( __DIR__ . '/blocks/imagesslider' );
-
+    register_block_type(__DIR__ . '/blocks/quoteimage');
+    register_block_type(__DIR__ . '/blocks/twoimages');
+    register_block_type(__DIR__ . '/blocks/textimage');
+    register_block_type(__DIR__ . '/blocks/textgallery');
+    register_block_type(__DIR__ . '/blocks/fullblackimage');
+    register_block_type(__DIR__ . '/blocks/fullimage');
+    register_block_type(__DIR__ . '/blocks/wrapperimage');
+    register_block_type(__DIR__ . '/blocks/imagesslider');
 }
 // Here we call our tt3child_register_acf_block() function on init.
-add_action( 'init', 'mojo_register_acf_blocks' );
+add_action('init', 'mojo_register_acf_blocks');
 
 
 
-function rjs_lwp_contactform_css_js() {
-    wp_dequeue_script( 'contact-form-7' );
-    wp_dequeue_style( 'contact-form-7' );
-    wp_dequeue_script( 'wpcf7-recaptcha-js' );
-    wp_dequeue_script( 'wp-polyfill-js' );
-    wp_dequeue_script( 'regenerator-runtime-js' );
-    wp_dequeue_script( 'wp-polyfill-inert-js' );
-    wp_dequeue_script( 'wpcf7-recaptcha-js-extra' );
-    wp_dequeue_script( 'wpcf7-recaptcha-js' );
+function rjs_lwp_contactform_css_js()
+{
+    wp_dequeue_script('contact-form-7');
+    wp_dequeue_style('contact-form-7');
+    wp_dequeue_script('wpcf7-recaptcha-js');
+    wp_dequeue_script('wp-polyfill-js');
+    wp_dequeue_script('regenerator-runtime-js');
+    wp_dequeue_script('wp-polyfill-inert-js');
+    wp_dequeue_script('wpcf7-recaptcha-js-extra');
+    wp_dequeue_script('wpcf7-recaptcha-js');
 
-    wp_dequeue_style( 'mfcf7_zl_button_style' );
-    wp_dequeue_script( 'jquery-migrate-js' );
-    wp_dequeue_script( 'mfcf7_zl_multiline_files_script' );
-    wp_dequeue_script( 'jquery-core-js' );
-
-
-
+    wp_dequeue_style('mfcf7_zl_button_style');
+    wp_dequeue_script('jquery-migrate-js');
+    wp_dequeue_script('mfcf7_zl_multiline_files_script');
+    wp_dequeue_script('jquery-core-js');
 }
-add_action( 'wp_enqueue_scripts', 'rjs_lwp_contactform_css_js');
-add_action( 'wpcf7_enqueue_styles', function() { wp_deregister_style( 'contact-form-7' ); } );
-add_action( 'wpcf7_enqueue_scripts', function() { wp_deregister_script( 'jquery-form' ); });
+add_action('wp_enqueue_scripts', 'rjs_lwp_contactform_css_js');
+add_action('wpcf7_enqueue_styles', function () {
+    wp_deregister_style('contact-form-7');
+});
+add_action('wpcf7_enqueue_scripts', function () {
+    wp_deregister_script('jquery-form');
+});
 
-add_filter( 'wpcf7_load_js', '__return_false' );
-add_filter( 'wpcf7_load_css', '__return_false' );
+add_filter('wpcf7_load_js', '__return_false');
+add_filter('wpcf7_load_css', '__return_false');
 
-function deregister_polyfill(){
+function deregister_polyfill()
+{
 
     //wp_deregister_script( 'wp-polyfill' );
     //wp_deregister_script( 'regenerator-runtime' );
-  
-}
-add_action( 'wp_enqueue_scripts', 'deregister_polyfill');
 
-function splitCharWord($text, $charIndex = 0) {
-    $text = str_replace('<br>','£',$text);
+}
+add_action('wp_enqueue_scripts', 'deregister_polyfill');
+
+function splitCharWord($text, $charIndex = 0)
+{
+    if (!$text) return;
+    $text = str_replace('<br>', '£', $text);
     $output = '';
-    
-    $lines = explode("<br />",trim($text));
+
+    $lines = explode("<br />", trim($text));
     foreach ($lines as $key => $line) {
-        $words = explode(" ",trim($line));
-        foreach($words as $word){
+        $words = explode(" ", trim($line));
+        foreach ($words as $word) {
             $output .= '<span class="fx-word">';
-            foreach(mb_str_split($word) as $char){
+            foreach (mb_str_split($word) as $char) {
                 $charIndex++;
-                $output .= '<span class="fx-letter fx-letter--'. $charIndex .'">';
+                $output .= '<span class="fx-letter fx-letter--' . $charIndex . '">';
                 $output .= $char;
                 $output .= '</span>';
             }
@@ -508,12 +515,11 @@ function splitCharWord($text, $charIndex = 0) {
         }
         $output .= '<br />';
     }
-    $output = str_replace('£','<br>',$output);
+    $output = str_replace('£', '<br>', $output);
 
     return $output;
 }
 
 
 // updates 
-add_filter( 'automatic_updates_is_vcs_checkout', '__return_false', 1 );
-
+add_filter('automatic_updates_is_vcs_checkout', '__return_false', 1);

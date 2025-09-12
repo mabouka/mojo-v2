@@ -1,0 +1,56 @@
+.leadTeam {
+    background-color: color(dark);
+    padding: s(70) 0;
+    overflow: hidden;
+    &__inside {
+
+    }
+
+    &__subtitle {
+        @extend .subtitle;
+        margin-bottom: s(35);
+        color: color(sand)
+    }
+
+    &__title {
+        color: color(sand);
+        @extend .title50;
+        margin-bottom: s(70);
+    }
+
+    &__list {
+
+    }
+
+    &__item {
+        //width: col(3,12);
+    }
+
+    .swiper{
+        overflow: visible;
+    }
+
+    .teamCard__info{
+        color: color(sand);
+    }
+
+    @media screen and (max-width: 900px) {
+        padding: s(50) 0;
+        &__title {
+            font-size: s(30);
+            margin-bottom: s(30);
+        }
+
+        .teamCard{
+            width: 330px;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding: s(30) 0;
+       
+        &__subtitle {
+            margin-bottom: s(12);
+        }
+    }
+}

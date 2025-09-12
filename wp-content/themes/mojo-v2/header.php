@@ -18,7 +18,7 @@
     <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrl('dist/images/transparentNoise.webp'); ?>" fetchpriority="high" as="image">
     <?php if (is_front_page()): ?>
-    <link rel="preload" href="<?= getUrl('dist/images/homeIntroStars.svg'); ?>" fetchpriority="high" as="image" type="image/svg+xml">
+        <link rel="preload" href="<?= getUrl('dist/images/homeIntroStars.svg'); ?>" fetchpriority="high" as="image" type="image/svg+xml">
     <?php endif ?>
 
     <link rel="preload" href="<?= getUrl('dist/fonts/dm-sans-4.woff2'); ?>" as="font" type="font/woff2" crossorigin>
@@ -31,18 +31,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?= getUrlVersion('dist/css/main.css'); ?>">
 
-    <?php 
-        $gtag = 'G-RS946CZMGV';
+    <?php
+    $gtag = 'G-RS946CZMGV';
 
-        $gtag = 'GTM-WBZ8MLM';
-        $cookieConsent = false;
+    $gtag = 'GTM-WBZ8MLM';
+    $cookieConsent = false;
     ?>
     <!-- InView & JS -->
     <script>
         document.documentElement.classList.remove('no-js');
         document.documentElement.classList.add('js');
-        if ('IntersectionObserver' in window) document.documentElement.classList.add('inview'); 
-        else document.documentElement.classList.add('no-inview'); 
+        if ('IntersectionObserver' in window) document.documentElement.classList.add('inview');
+        else document.documentElement.classList.add('no-inview');
 
         function onSend(token) {
             var sendForm = new CustomEvent("sendForm", {
@@ -57,40 +57,41 @@
 
     <!-- Google Tag Manager -->
     <?php if ($cookieConsent): ?>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
 
-    <script>
-        let data = {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied'
-        }
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){
-            dataLayer.push(arguments)
-        };
-        gtag('js', new Date());
-        gtag('config', '<?= $gtag ?>', {
-            send_page_view: false,
-        });
+        <script>
+            let data = {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+            }
+            window.dataLayer = window.dataLayer || [];
 
-        // Set default consent to 'denied' as a placeholder
-        // Determine actual values based on your own requirements
+            function gtag() {
+                dataLayer.push(arguments)
+            };
+            gtag('js', new Date());
+            gtag('config', '<?= $gtag ?>', {
+                send_page_view: false,
+            });
 
-        gtag('consent', 'default',data);
-    </script>
+            // Set default consent to 'denied' as a placeholder
+            // Determine actual values based on your own requirements
 
-    <script type="text/plain" data-category="analytics" data-service="Google Analytics">
-        // Executed when the "analytics" category is enabled
+            gtag('consent', 'default', data);
+        </script>
+
+        <script type="text/plain" data-category="analytics" data-service="Google Analytics">
+            // Executed when the "analytics" category is enabled
         data['analytics_storage'] = 'granted';
         data['ad_storage'] = 'granted';
         gtag('consent', 'default',data);
 
     </script>
 
-    <script type="text/plain" data-category="marketing" data-service="Google Ads">
-        // Executed when the "Marketing" category is enabled
+        <script type="text/plain" data-category="marketing" data-service="Google Ads">
+            // Executed when the "Marketing" category is enabled
         data['ad_storage'] = 'granted';
         data['ad_user_data'] = 'granted';
         data['ad_personalization'] = 'granted';
@@ -102,13 +103,24 @@
 
     <?php else: ?>
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WBZ8MLM');</script>
-    <!-- End Google Tag Manager -->
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WBZ8MLM');
+        </script>
+        <!-- End Google Tag Manager -->
 
 
     <?php endif ?>
@@ -121,15 +133,15 @@
 <body <?php body_class(); ?> data-barba="wrapper">
 
     <?php if ($cookieConsent): ?>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $gtag ?>"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $gtag ?>"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
     <?php else: ?>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBZ8MLM"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBZ8MLM"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
     <?php endif; ?>
 
     <div class="curtain">&nbsp;</div>
@@ -146,25 +158,25 @@
     $withoutLogo = false;
 
     // dark light
+
+
     if (is_front_page()) $isDark = false;
     if (is_post_type_archive('services')) $isDark = false;
-    if (is_singular('case')){
+    if (is_singular('case')) {
         $headerColor = get_field('header_color');
-        if($headerColor === 'light') $isDark = false;
-    } 
-    if(is_404()) $isDark = false;
-    if(is_page_template( 'template-contact.php' )) $isDark = false;
+        if ($headerColor === 'light') $isDark = false;
+    }
+    if (is_404()) $isDark = false;
+    if (is_page_template('template-contact.php')) $isDark = false;
 
+    if (is_singular('lead')) $isDark = false;
     // show or not
     if (is_singular('services')) {
         global $post;
         $parent = array_reverse(get_post_ancestors($post->ID));
-        if($parent) {
+        if ($parent) {
             $show = false;
-
-
-        }
-        else{
+        } else {
             $withoutLogo = true;
             $isDark = true;
 
@@ -174,7 +186,7 @@
                 'sungloworange',
                 'lightblue'
             ];
-            if(!in_array($color, $colorLight)) $isDark = false;
+            if (!in_array($color, $colorLight)) $isDark = false;
         }
     }
 
@@ -195,7 +207,7 @@
                 </a>
 
                 <?php if ($link = get_field('footer_contactLink', 'option')) : ?>
-                <a class="header__contact" href="<?= $link['url'] ?>"><?= __('Contact us', 'mj'); ?></a>
+                    <a class="header__contact" href="<?= $link['url'] ?>"><?= __('Contact us', 'mj'); ?></a>
                 <?php endif; ?>
 
                 <?= getLanguageLinks(); ?>
@@ -211,6 +223,6 @@
         </div>
 
     </header><!-- header -->
-    
+
     <div class="scrollContainer">
-        <main class="mainContent" id="mainContent" >
+        <main class="mainContent" id="mainContent">

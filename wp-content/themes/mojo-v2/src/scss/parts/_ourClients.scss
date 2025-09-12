@@ -50,6 +50,11 @@
     &__carousel{
         padding-top: s(125);
         padding-bottom: s(156);
+
+        &.leadLogoCarrousel{
+            padding-top: s(43);
+            padding-bottom: s(43);
+        }
     }
 
     &__carouselWrapper{
@@ -65,6 +70,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .leadLogoCarrousel &{
+            filter: grayscale(0%);
+        }
+
+
 
         &:hover{
             filter: grayscale(0%);

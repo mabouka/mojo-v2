@@ -6,6 +6,13 @@
         @include clearfix();
     }
 
+    &__subtitle{
+        @extend .subtitle;
+        color: color(dark);
+        margin-bottom: s(24);
+        display: block;
+    }
+
     &__title{
         @extend .title80;
         float: left;
@@ -117,6 +124,27 @@
         }
     }
 
+    @media screen and (max-width: 900px) {
+        &__inside{
+            display: flex;
+            flex-direction: column
+        }
+
+        &__title{
+            font-size: s(60);
+            float: none;
+            width: 100%;
+            position: relative;
+            top: 0;
+        }
+
+        &__items{
+            float: none;
+            width: 100%;
+        }
+
+    }
+        
     @media screen and (max-width: 600px) {
         padding: s(80) 0 s(95);
 
@@ -124,12 +152,22 @@
             display: flex;
             flex-direction: column
         }
+
+        &__subtitle{
+            .commitmentsFaq--lead & {
+                margin-bottom: s(12);
+            }
+        }
         &__title{
             font-size: s(50);
             float: none;
             width: 100%;
             position: relative;
             top: 0;
+
+            .commitmentsFaq--lead & {
+                font-size: s(40);
+            }
         }
     
         &__items{

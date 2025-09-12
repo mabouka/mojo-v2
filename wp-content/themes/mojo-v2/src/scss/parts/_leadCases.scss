@@ -1,0 +1,51 @@
+.leadCases{
+    &__inside{
+        padding-top: s(75);
+        padding-bottom: s(62);
+    }
+
+    &__subtitle{
+        @extend .subtitle;
+        margin-bottom: s(24)
+    }
+
+    &__title{
+        @extend .title50;
+        font-size: s(40);
+        font-weight: 600;
+    }
+
+    .featuredCases{
+        border-top: 1px solid color(dark);
+
+        &__left{
+            padding-top: s(45);
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        &__inside{
+            padding-top: s(50);
+            padding-bottom: s(40);
+        }
+
+        &__subtitle{
+            margin-bottom: s(12);
+        }
+        &__title{
+            font-size: s(30);
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+
+        &__inside{
+            padding-bottom: 0
+        }
+
+        .featuredCases{
+            border-top: none
+        }
+
+    }
+}

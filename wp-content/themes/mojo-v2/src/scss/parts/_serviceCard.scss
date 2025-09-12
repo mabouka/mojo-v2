@@ -30,6 +30,12 @@
         }
     }
 
+    &--nolink{
+        .serviceCard__link{
+            display: none;
+        }
+    }
+
     &--full{
         .serviceCard__picture{
             @media screen and (min-width: 601px) {                
