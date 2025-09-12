@@ -10,6 +10,10 @@ let contact = {
     namespace: 'contact',
     beforeEnter(data) {
         appendScripts( data.next.container);
+    },
+    namespace: 'singlelead',
+    beforeEnter(data) {
+        appendScripts( data.next.container);
     }
 }
 
