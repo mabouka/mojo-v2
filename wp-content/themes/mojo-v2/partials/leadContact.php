@@ -56,4 +56,3 @@ $contactText  = get_field('intro_contact_text', $contactPage->ID);
         </div>
     </div>
 </div>
-</div>
