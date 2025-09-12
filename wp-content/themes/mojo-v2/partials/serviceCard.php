@@ -10,6 +10,9 @@ $children = get_children($child_args);
 
 <section class="serviceCard serviceCard--<?= $color ?><?= isset($modifier) ? ' serviceCard--' . $modifier : '' ?> ">
 
+    <a class="serviceCard__link" href="<?= get_the_permalink($service) ?>">
+        <?= get_the_title($service); ?>
+    </a>
 
     <svg class="serviceCard__star serviceCard__star--tl " width="11" height="11">
         <use xlink:href="#star"></use>
