@@ -49,6 +49,19 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
     }
 }
 
+
+.is-layout-flex{
+    display: flex;
+}
+.is-nowrap {
+  flex-wrap: nowrap;
+}
+.is-content-justification-center{
+    justify-content: center;
+}
+
+
+
 .fullWidthBlock.wp-block-video figcaption{
         padding-left: s(17);
         margin-top: s(20);
