@@ -34,7 +34,7 @@ export default class Contactform {
 
             setTimeout(() => {
                 window.lenis.scrollTo(this.el, { duration: 0 }  );
-            }, 500);
+            }, 200);
         }
         this.captchaFields = this.el.querySelectorAll('form.wpcf7-form input[name="_wpcf7_recaptcha_response"]');
 
