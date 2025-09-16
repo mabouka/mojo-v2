@@ -31,7 +31,7 @@
                 <?php endif; ?>
 
                 <?php if ($cta): ?>
-                    <a href="<?= $cta['url'] ?>" class="btn btn--light">
+                    <a href="<?= $cta['url'] ?>" class="homeService__link btn btn--light">
                         <?= $cta['title'] ?>
                     </a>
                 <?php endif ?>
