@@ -6,7 +6,7 @@ export default class LeadDescription {
 
     constructor(el) {
         this.el         = el;
-        this.link       = this.el.querySelector('.homeService__leadLink');
+        this.link       = this.el.querySelector('.homeService__link');
 
         this.addEvents();
     }
