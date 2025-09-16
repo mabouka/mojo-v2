@@ -13,6 +13,7 @@
     ]);
     ?>
 
+
     <?php
     getPartial('leadPresentation', [
         'title' => get_field('presentation_title'),
@@ -33,6 +34,19 @@
         'linkLabel' => get_field('description_linklabel'),
     ]);
     ?>
+
+    <?php if (get_field('banner_is_video')): ?>
+        <?php
+        getPartial('video', [
+            "url"           => get_field('banner_video_mp4'),
+            "urlWebm"       => get_field('banner_video_webm'),
+            "urlMobile"     => get_field('banner_video_mp4_mobile'),
+            "urlMobileWebm" => get_field('banner_video_webm_mobile'),
+            "poster"        => ''
+        ]);
+
+        ?>
+    <?php endif ?>
 
     <?php
     getPartial('leadCases', [
@@ -65,6 +79,7 @@
         "reviews"    => get_field('reviews'),
     ]);
     ?>
+
 
     <?php
     getPartial('commitmentsFaq', [

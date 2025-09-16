@@ -21,7 +21,7 @@ export default class LeadDescription {
         e.preventDefault();
         const contactForm = document.getElementById('contactForm');
         if(contactForm) {
-            window.lenis.scrollTo(contactForm, { duration: 1.5 }  );
+            window.lenis.scrollTo(contactForm, { duration: 5 }  );
         }
     }
 }
