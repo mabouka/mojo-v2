@@ -5,7 +5,7 @@
 
                 <?php if ($title): ?>
                     <h2 class="commitmentsFaq__title">
-                        <?php if ($subtitle): ?>
+                        <?php if (isset($subtitle) && $subtitle): ?>
                             <span class="commitmentsFaq__subtitle"><?= $subtitle; ?></span>
                         <?php endif ?>
                         <?= $title; ?>
