@@ -29,6 +29,13 @@ export default class Contactform {
             this.form.action = url
         }
         */
+
+        if(this.form && this.isLead && this.form.classList.contains('sent')) {
+
+            setTimeout(() => {
+                window.lenis.scrollTo(this.el, { duration: 0 }  );
+            }, 500);
+        }
         this.captchaFields = this.el.querySelectorAll('form.wpcf7-form input[name="_wpcf7_recaptcha_response"]');
 
         this.form.removeAttribute("novalidate");
