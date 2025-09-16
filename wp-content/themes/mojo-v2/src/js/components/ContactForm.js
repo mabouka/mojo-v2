@@ -21,12 +21,14 @@ export default class Contactform {
         this.fileInput = this.el.querySelector('.field--file input');
 
         this.form   = this.el.querySelector(".wpcf7-form");
+        /*
         if(this.form && this.isLead){
             let url = this.form.action;
                 url = url.includes("#") ? url.substring(0, url.indexOf("#")) : url;
                 url += "#contactForm";
             this.form.action = url
         }
+        */
         this.captchaFields = this.el.querySelectorAll('form.wpcf7-form input[name="_wpcf7_recaptcha_response"]');
 
         this.form.removeAttribute("novalidate");
