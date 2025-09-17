@@ -10,7 +10,7 @@ export default class homeTransformation {
     }
 
     constructor(el) {
-        if(isFirefox()) return; 
+        //if(isFirefox()) return; 
         gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
         this.el      = el;
@@ -48,7 +48,7 @@ export default class homeTransformation {
             motionPath:{
               path:  "#tr_path",
               align: "#tr_path",
-              autoRotate: true,
+              autoRotate: false,
               alignOrigin: [0.5, 0.5],
               start: -0.40,
               end: 0.33,
