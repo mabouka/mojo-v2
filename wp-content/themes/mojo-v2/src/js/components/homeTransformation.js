@@ -1,7 +1,6 @@
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { isFirefox } from "../utils/detect";
 
 export default class homeTransformation {
 
@@ -10,7 +9,6 @@ export default class homeTransformation {
     }
 
     constructor(el) {
-        //if(isFirefox()) return; 
         gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
         this.el      = el;

@@ -8,6 +8,8 @@ import IsCentered           from '../IsCentered';
 import IsTop                from '../IsTop';
 
 import Menu                 from '../Menu';
+import LazyVideos           from '../lazyVideos';
+
 
 // utils
 import {forceAutoplay}      from './utils/video';
@@ -28,6 +30,9 @@ export default class Router {
     constructor() {
         //barba.use(barbaPrefetch);
 
+        this.lazyVideos = new LazyVideos();
+
+
         this.header = document.querySelector('.header');
         this.languageSelector = document.querySelector('.header__language');
 
@@ -47,6 +52,11 @@ export default class Router {
                 ],
                 //cacheIgnore: ['/contact/']
         });
+
+        barba.hooks.once(() => {
+            this.lazyVideos.refresh(document);
+        });
+
 
         barba.hooks.leave(() => {
             window.MJ.parts.destroy();
@@ -91,14 +101,19 @@ export default class Router {
                 window.lenis.resize();
                 ScrollTrigger.refresh();
             }, 200)
+
+            this.lazyVideos.refresh(data.next.container);
         });
 
         barba.hooks.after(() => {
+            this.lazyVideos.loadAllVisible();
+            
             gtag('event', 'page_view', {
               'page_title': document.title,
               'page_location': location.href,
               'page_path': location.pathname,
             });
+            
         });
     }
     updatePage(data){

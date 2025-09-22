@@ -9,7 +9,7 @@ import InViewCenter       from './classes/IsCentered';
 import Router       from './classes/Router';
 import Footer       from './classes/Footer';
 import Header       from './classes/Header';
-import LazyVideos   from './classes/lazyVideos';
+//import LazyVideos   from './classes/lazyVideos';
 
 class Mojo {
     constructor() {
@@ -28,7 +28,7 @@ class Mojo {
         this.menu        = Menu.initialize();
         this.footer      = new Footer();
         this.cursor      = new Cursor(this.cursorEl, cursorOption).initialize();
-        this.LazyVideos  = new LazyVideos();
+        //this.LazyVideos  = new LazyVideos();
     }
 }
 

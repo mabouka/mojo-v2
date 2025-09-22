@@ -135,7 +135,6 @@ export default class casesGrid {
     }
 
     e_clickLabel(e, filter) {
-        console.log(filter);
     }
 
     e_clickDDLink(e, link, filter) {

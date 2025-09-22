@@ -119,6 +119,17 @@
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
                 f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-WBZ8MLM');
+
+
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments)
+            };
+            gtag('js', new Date());
+            gtag('config', '<?= $gtag ?>', {
+                send_page_view: false,
+            });
         </script>
         <!-- End Google Tag Manager -->
 

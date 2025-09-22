@@ -29,11 +29,7 @@ export default class ClientIntro {
             this.prepare().then(() => {
                 this.doIntro().then(()=>{
                     this.launchScroll().then(() => {
-
-                        resolve(this);
-                        console.log('end Client Intro');
-                   
-
+                        resolve(this);                   
                     })
                 })
             })

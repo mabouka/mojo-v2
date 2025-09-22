@@ -34,8 +34,6 @@ export default class Footer {
             link.addEventListener('mouseleave', this.e_mouseleaveLink.bind(this));
         })
 
-        console.log(this.isFirefox);
-
         if(this.isFirefox){ //quickfix firefox
             gsap.set('#footerSvg_circle', {
                 autoAlpha: 0,
@@ -62,8 +60,6 @@ export default class Footer {
     }
 
     e_mousenterEl(e) {
-        console.log(e);
-
         gsap.to('#footerSvg_circle', {
             autoAlpha: 1,
             scale: 1,
@@ -72,7 +68,6 @@ export default class Footer {
     }
 
     e_mouseleaveEl(e) {
-        console.log(e);
         gsap.to('#footerSvg_circle', {
             autoAlpha: 0,
             scale: 0.001,
