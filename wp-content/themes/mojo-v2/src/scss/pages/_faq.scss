@@ -1,0 +1,65 @@
+.faq {  
+    border-bottom: 1px solid color(dark);
+
+    &__banner{
+        padding-top: s(175);
+        padding-bottom: s(35);
+    }
+
+    &__title{
+        @extend .title100;
+        margin-bottom: s(209);
+        color: color(dark);
+    }
+
+    &__nav{
+        display: flex;
+        gap: s(37);
+    }
+
+    &__navItem{
+
+    }
+
+    &__navLink{
+        font-family: Cambon, sans-serif;
+        font-size: s(22);
+        font-style: normal;
+        font-weight: 600;
+        line-height: em(23,22); /* 104.545% */
+        text-decoration-line: none;
+        color: color(dark);
+
+        &:focus,
+        &:hover{
+            text-decoration: underline; 
+        }
+    }
+
+    @media screen and (max-width: 1000px) {
+        &__title{
+            font-size: s(70);
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        &__banner{
+            padding-top: s(120);
+        }
+        
+        &__title{
+            font-size: s(50);
+            margin-bottom: s(70);
+        }
+
+        &__nav{
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        &__navItem{
+            font-size: s(16);
+        }
+    }
+
+}

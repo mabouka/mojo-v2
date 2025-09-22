@@ -2,6 +2,8 @@
     padding-top: s(95);
     padding-bottom: s(70);
 
+
+
     &__inside{
         @include clearfix();
     }
@@ -21,12 +23,31 @@
         position: sticky;
         top: s(80);
         left: 0;
+
+        @media screen and (min-width: 900px) {
+
+            .commitmentsFaq--faq & {
+                font-size: s(60);
+                line-height: em(80,60);
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .commitmentsFaq--faq & {
+                font-size: s(38);
+            }
+        }
+
     }
 
     &__items{
         float: right;
         width: col(6,12);
         margin-top: s(55);
+
+        .commitmentsFaq--faq & {
+            margin-top: s(50);
+        }
     }
 
     &__item{
@@ -81,8 +102,6 @@
             transform: rotate(90deg);
 
         }
-
-
     }
 
     &__itemWrapper{
@@ -96,7 +115,6 @@
         @extend .body;
         @extend .body18;
     }
-
 
     &__item--active{
         &:before{
@@ -153,6 +171,11 @@
             flex-direction: column
         }
 
+        &--faq{
+            padding-top: s(50);
+            padding-bottom: 0;
+        }
+    
         &__subtitle{
             .commitmentsFaq--lead & {
                 margin-bottom: s(12);
@@ -187,6 +210,9 @@
                 margin-top: s(-15);
                 height: s(30);
             }
+
+                border-top: none;
+            
         }
 
         &__itemTitle{

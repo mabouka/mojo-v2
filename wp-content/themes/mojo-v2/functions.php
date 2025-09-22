@@ -42,7 +42,8 @@ function ea_disable_editor($id = false)
         'template-about.php',
         'template-ourclients.php',
         'template-contact.php',
-        'template-commitments.php'
+        'template-commitments.php',
+        'template-faq.php'
     );
 
     $excluded_ids = array(
@@ -523,3 +524,88 @@ function splitCharWord($text, $charIndex = 0)
 
 // updates 
 add_filter('automatic_updates_is_vcs_checkout', '__return_false', 1);
+
+
+/* FAQPage JSON-LD depuis ACF (sections > items > title/text)
+ * Ciblé sur le template : template-faq.php
+ */
+
+// 1) Couper la FAQ Yoast UNIQUEMENT sur ce template
+add_filter('wpseo_schema_needs_faq', function ($needs) {
+    if (is_page_template('template-faq.php')) {
+        return false;
+    }
+    return $needs;
+}, 20);
+
+// 2) Injecter notre node FAQPage dans le graphe Yoast
+add_filter('wpseo_schema_graph', function ($graph) {
+    if (!is_page_template('template-faq.php')) {
+
+        return $graph;
+    }
+
+    // Sécurité : ACF dispo ?
+    if (!function_exists('have_rows')) {
+        return $graph;
+    }
+
+    $faq_items = [];
+
+    // Repeater parent : sections
+    if (have_rows('sections')) {
+        while (have_rows('sections')) {
+            the_row();
+
+            // Repeater enfant : items (title, text)
+            if (have_rows('items')) {
+                while (have_rows('items')) {
+                    the_row();
+
+                    $q = trim((string) get_sub_field('title'));           // Question
+                    $a = (string) get_sub_field('text');                  // Réponse (HTML possible)
+
+                    if ($q && $a) {
+                        // Google préfère du texte “propre” (pas d’HTML crado)
+                        // On garde simple : on strippe les tags ; si tu DOIS garder <ul><br>, adapte ici.
+                        $a_clean = wp_strip_all_tags($a, true);
+
+                        $faq_items[] = [
+                            '@type' => 'Question',
+                            'name'  => $q,
+                            'acceptedAnswer' => [
+                                '@type' => 'Answer',
+                                'text'  => $a_clean,
+                            ],
+                        ];
+                    }
+                }
+            }
+        }
+    }
+
+    // Si rien à injecter, on ne touche pas au graphe
+    if (empty($faq_items)) {
+        return $graph;
+    }
+
+
+
+    // Construire le node FAQPage
+    $faq_node = [
+        '@type'      => 'FAQPage',
+        '@id'        => trailingslashit(get_permalink()) . '#/schema/faq',
+        'mainEntity' => $faq_items,
+    ];
+
+    // Ajouter au @graph de Yoast
+    if (is_array($graph) && isset($graph['@graph']) && is_array($graph['@graph'])) {
+        $graph['@graph'][] = $faq_node;
+    } elseif (is_array($graph)) {
+        $graph[] = $faq_node;
+    }
+
+
+
+    return $graph;
+}, 20);

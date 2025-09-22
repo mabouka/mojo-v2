@@ -1,6 +1,6 @@
 <?php if ($items): ?>
-    <section class="commitmentsFaq <?= isset($modifier) ? 'commitmentsFaq--' . $modifier : '' ?>">
-        <div class="wrapper">
+    <section class="commitmentsFaq <?= isset($modifier) ? 'commitmentsFaq--' . $modifier : '' ?>" id="<?= isset($id) ? $id : '' ?>">
+        <div class=" wrapper">
             <div class="commitmentsFaq__inside">
 
                 <?php if ($title): ?>
