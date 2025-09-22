@@ -14,6 +14,7 @@
 
     &__nav{
         display: flex;
+        flex-wrap: wrap;
         gap: s(37);
     }
 
