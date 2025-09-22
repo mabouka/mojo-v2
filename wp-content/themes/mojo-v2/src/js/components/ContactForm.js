@@ -15,7 +15,6 @@ export default class Contactform {
         this.fields = this.el.querySelectorAll(".wpcf7-validates-as-required");
 
         this.radios = this.el.querySelectorAll("input[type='radio']");
-        console.log(this.radios);
 
         this.fileLabel = this.el.querySelector('.field--file label');
         this.fileInput = this.el.querySelector('.field--file input');
@@ -45,7 +44,6 @@ export default class Contactform {
         let container = this.el.querySelector('.field--file .field__label');
         container.appendChild(filesEl);
 
-        console.log(this);
 
         this.fields.forEach(field => {
             field.setAttribute("required","required");
@@ -111,7 +109,6 @@ export default class Contactform {
         
         input.files = dt.files // Assign the updates list
         
-        console.log(input.files);
         this.showFiles(input.files);
     }
 
@@ -123,17 +120,11 @@ export default class Contactform {
 
     e_removeFile(e, index) {
         e.preventDefault();
-        console.log('removeFile', index);
-
         this.removeFileFromFileList(this.fileInput, index);
     }
 
     e_fileChange(e) {
-        console.log(e);
         var files = this.fileInput.files;
-
-        console.log(files);
-
         this.showFiles(files);
     }
     
@@ -155,7 +146,6 @@ export default class Contactform {
                 Array.from(this.captchaFields).forEach(field => {
                     field.setAttribute("value", token);
                 });
-                console.log(token);
                 
                 this.form.submit();
             });
