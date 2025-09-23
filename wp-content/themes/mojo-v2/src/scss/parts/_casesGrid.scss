@@ -1,7 +1,7 @@
 .casesGrid{
     padding-top: s(175);
     min-height: 100vh;
-    // /overflow: hidden;
+    overflow: hidden;
 
     &__title{
         max-width: s(695+20);

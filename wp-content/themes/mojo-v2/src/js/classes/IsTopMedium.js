@@ -17,7 +17,6 @@ class IsTopMedium {
         };
         this.observer = new IntersectionObserver(this.callback.bind(this) , options);
     }
-    
 
     addView(view) {
         let defaultElements = view.querySelectorAll('.js-is-top-medium');
