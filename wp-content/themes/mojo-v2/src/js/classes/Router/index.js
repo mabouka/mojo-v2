@@ -47,7 +47,7 @@ export default class Router {
                 ],
                 views: [
                     contact,
-                    singlelead,
+                    singlelead
                     //singlecase,
                     //singleservicechild,
                     //pageTemplate
