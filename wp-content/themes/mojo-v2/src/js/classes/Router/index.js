@@ -21,6 +21,7 @@ import fadeTransition       from './transitions/fade';
 
 // views
 import contact              from './views/contact';
+import singlelead from './views/singlelead';
 //import singlecase           from './views/singlecase';
 //import singleservicechild   from './views/singleservicechild';
 //import pageTemplate         from './views/pageTemplate';
@@ -46,6 +47,7 @@ export default class Router {
                 ],
                 views: [
                     contact,
+                    singlelead,
                     //singlecase,
                     //singleservicechild,
                     //pageTemplate
