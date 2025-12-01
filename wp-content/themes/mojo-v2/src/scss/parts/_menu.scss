@@ -50,14 +50,14 @@ body{
 .menu{
     position: fixed;
     top: 0;
-    //bottom: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     background-color: color(pink);
     z-index: 500;
     width: 100vw;
-    height: 100vh;
-    height: 100%;
+    overflow: hidden;
+
     padding-bottom: s(50);
     opacity: 0;
     will-change: opacity, transforms;
@@ -387,7 +387,7 @@ body{
         &__inside{
             align-items: flex-start;
             padding-top: s(110);
-            padding-bottom: s(97);
+            padding-bottom: s(30);
         }
 
         &__copyright{
@@ -421,7 +421,15 @@ body{
 
         &__secondaryItem{
             margin-right: 0;
-            margin-top: s(10);
+            margin-top: s(5);
+
+            &:before{
+                display: none;
+            }
+        }
+
+        &__copyright{
+            display: none;
         }
 
         &__mainItem{
@@ -482,7 +490,7 @@ body{
 
         &__secondaryItem{
             margin-right: 0;
-            margin-top: s(5);
+            margin-top: s(0);
         }
 
     }
