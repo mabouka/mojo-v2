@@ -13,6 +13,23 @@ add_filter('wp_get_global_stylesheet', function ($stylesheet) {
     return $stylesheet;
 }, 20);
 
+// Disable the front-end admin bar (also prevents its CSS/JS from being enqueued).
+add_filter('show_admin_bar', function ($show) {
+    return is_admin() ? $show : false;
+});
+
+// Avoid injecting the default admin-bar bump CSS in the front-end head.
+add_action('wp_enqueue_scripts', function () {
+    remove_action('wp_head', '_admin_bar_bump_cb');
+}, 0);
+
+// WPML: prevent Translation Management admin-bar CSS from loading on the front-end.
+add_action('wp_enqueue_scripts', function () {
+    if (is_admin()) return;
+    wp_dequeue_style('wpml-tm-admin-bar-css');
+    wp_deregister_style('wpml-tm-admin-bar-css');
+}, 100);
+
 
 
 
