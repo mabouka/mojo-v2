@@ -41,6 +41,7 @@ mix
 
     .copy('wp-content/themes/mojo-v2/src/fonts/*', 'wp-content/themes/mojo-v2/dist/fonts/')
     .copy('node_modules/@builder.io/partytown/lib/*', 'wp-content/themes/mojo-v2/dist/~partytown/')
+    .copy('node_modules/vanilla-cookieconsent/dist/cookieconsent.css', 'wp-content/themes/mojo-v2/dist/css/cookieconsent.css')
     
     .sourceMaps(productionSourceMaps, 'source-map')
     .setPublicPath('wp-content/themes/mojo-v2/dist');

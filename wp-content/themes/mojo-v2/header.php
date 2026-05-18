@@ -110,7 +110,7 @@
 
     <?php endif ?>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
+    <link rel="stylesheet" href="<?= getUrlVersion('dist/css/cookieconsent.css'); ?>">
 
 </head>
 

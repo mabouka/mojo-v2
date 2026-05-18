@@ -18,7 +18,8 @@
     "laravel-mix": "^6.0.49",
     "laravel-mix-bundle-analyzer": "^1.0.5",
     "sass": "^1.69.5",
-    "sass-loader": "^12.6.0"
+    "sass-loader": "^12.6.0",
+    "vanilla-cookieconsent": "^3.0.1"
   },
   "dependencies": {
     "@barba/core": "^2.9.7",
