@@ -186,7 +186,7 @@ body{
     &__mainItem{
         display: block;
         @extend .title100;
-        font-size: s(90);
+        font-size: s(80);
         text-decoration: none;
         color: color(dark);
         position: relative;
@@ -239,7 +239,7 @@ body{
 
         &--current{
             span{
-                padding-right: s(88);
+                padding-right: s(63);
 
                 &:after{
                     content: '';
@@ -247,9 +247,9 @@ body{
                     top: 50%;
                     right: 0;
                     margin-top: s(-22);
-                    width: s(68.5);
-                    height: s(68.5);
-                    border-radius: s(68.5);
+                    width: s(60);
+                    height: s(60);
+                    border-radius: s(60);
                     background-color: color(orange);
                 }
             }
@@ -285,8 +285,7 @@ body{
         }
 
         .menu__mainItem{
-                $duration : 400ms;
-                $delay : 20ms;
+                $duration : 500ms;
                 $length : 350ms;
 
             span{
@@ -294,35 +293,7 @@ body{
                 transition-property: transform;
                 transition-duration: $length;
                 transition-timing-function: easing(ease-out-cubic);
-            }
-
-
-            &--6 span{
-                transition-delay: $duration+($delay * 0);
-            }
-
-            &--5 span{
-                transition-delay: $duration+($delay * 1);
-            }
-
-            &--4 span{
-                transition-delay: $duration+($delay * 2);
-            }
-
-            &--3 span{
-                transition-delay: $duration+($delay * 3);
-            }
-
-            &--2 span{
-                transition-delay: $duration+($delay * 4);
-            }
-
-            &--1 span{
-                transition-delay: $duration+($delay * 5);
-            }
-
-            &--0 span{
-                transition-delay: $duration+($delay * 6);
+                transition-delay: var(--menu-delay, $duration);
             }
         }
 
@@ -464,7 +435,20 @@ body{
 
     @media screen and (max-height: 900px){
         &__mainItem{
-            font-size: s(75);
+            font-size: s(60);
+
+            &--current{
+                /*
+                span{
+                    padding-right: s(55);
+                    &:after{
+                        height: s(50);
+                        width: s(50);
+                        margin-top: s(-12);
+                    }
+                }
+                    */
+            }
         }
     }
 
@@ -493,6 +477,22 @@ body{
             margin-top: s(0);
         }
 
+    }
+
+    @media screen and (max-height: 500px) and  (orientation: landscape)  {
+
+        &__main{
+            padding-right: 30%;
+        }
+        &__mainItem{
+            font-size: s(18);
+            &--current{
+                span{
+                    padding-right: 0;
+                    &:fter{ display: none;}
+                }
+            }
+        }
     }
 
     @media screen and (max-height: 600px) and  (orientation: portrait)  {

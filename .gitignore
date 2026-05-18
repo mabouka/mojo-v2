@@ -1,6 +1,27 @@
-node_modules
+# WordPress core
+wp-admin/
+wp-includes/
+wp-*.php
+xmlrpc.php
+wp-config.php
+!wp-config-sample.php
+
+# Uploads, plugins & languages
+wp-content/uploads/
+wp-content/plugins/
+wp-content/upgrade/
+wp-content/cache/
+wp-content/languages/
+
+# Theme compiled assets
+wp-content/themes/mojo-v2/dist/
+wp-content/themes/mojo-v2/node_modules/
+
+# Misc
+node_modules/
 .env
 package-lock.json
-wp-content/uploads
-wp-content/plugins
 .DS_Store
+.claude/
+license.txt
+readme.html

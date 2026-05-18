@@ -57,6 +57,19 @@ add_image_size('imagessliderMobile@2x', 345 * 2, 345 * 2, true);
 add_image_size('leadBanner', 1440, 806, true);
 add_image_size('leadBanner@2x', 1440 * 2, 806 * 2, true);
 
+
+add_image_size('storyCardBig', 515, 203, true);
+add_image_size('storyCardBig@2x', 515 * 2, 203 * 2, true);
+
+add_image_size('storyCardSmall', 330, 210, true);
+add_image_size('storyCardSmall@2x', 330 * 2, 210 * 2, true);
+
+add_image_size('storyArchiveFeatured', 691, 619, true);
+add_image_size('storyArchiveFeatured@2x', 691 * 2, 619 * 2, true);
+
+add_image_size('storyHero', 1065, 553, true);
+add_image_size('storyHero@2x', 1065 * 2, 553 * 2, true);
+
 // Switch to Image Magick
 function change_graphic_lib($array)
 {

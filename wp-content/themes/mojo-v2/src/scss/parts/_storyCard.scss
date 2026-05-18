@@ -1,0 +1,238 @@
+.storyCard{
+    position: relative;
+    //border-top: 1px solid rgba(color(dark), 0.5);
+    display: flex;
+    align-items: flex-start;
+    gap: colGut(0,1,12,0);
+    padding: s(60) 0 s(60);
+
+    &:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -9999px;
+        right: -9999px;
+        height: 1px;
+        background-color: rgba(color(dark), 0.5);
+        pointer-events: none;
+    }
+
+    &:first-child{
+        &:before{
+            display: none;
+        }
+    }
+
+    &:last-child{
+        padding-bottom: 0;
+    }
+    &__link{
+        @include cover();
+        z-index: 5;
+        text-indent: -9999px;
+    }
+
+    &__media{
+        width: col(5,12);
+        height: s(203);
+        overflow: hidden;
+        background-color: rgba(color(dark), 0.06);
+    }
+
+    &__image{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: 600ms transform easing(ease-out-quad);
+    }
+
+    &__content{
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        min-height: s(203);
+        padding-top: s(2);
+        width: col(7,12);;
+    }
+
+    &__meta,
+    &__categories{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    &__meta{
+        gap: s(16);
+        margin-bottom: auto;
+    }
+
+    &__category{
+        @extend .tag;
+        color: color(dark);
+        margin-bottom: 0;
+
+        & + &{
+            &:before{
+                margin: 0 s(3);
+                content: '/';
+            }
+        }
+
+        &:after{
+            bottom: s(-2);
+        }
+    }
+
+    &__title{
+        @extend .title50;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__date{
+        @extend .tag;
+        color: color(dark);
+    }
+
+    &--small{
+        display: flex;
+        flex-direction: column;
+        gap: s(20);
+        padding: 0 0 s(20);
+
+        &:before{
+            display: none;
+        }
+
+        .storyCard__media{
+            width: 100%;
+            height: s(210);
+        }
+
+        .storyCard__content{
+            min-height: 0;
+            width: 100%;
+            padding-top: 0;
+        }
+
+        .storyCard__meta{
+            gap: s(16);
+            margin-bottom: s(16);
+        }
+
+        .storyCard__title{
+            font-family: dm, sans-serif;
+            font-size: s(30);
+            line-height: 1.25em;
+        }
+    }
+
+    @media screen and (min-width: 601px) {
+        .storyCard__link:hover ~ .storyCard__media .storyCard__image{
+            transform: scale(1.1);
+        }
+
+        .storyCard__link:hover ~ .storyCard__content .storyCard__title{
+            text-decoration: underline;
+        }
+    }
+
+    @media screen and (max-width: 1100px) {
+        gap: s(24);
+
+        &__media{
+            width: s(430);
+            min-width: s(430);
+            height: s(170);
+        }
+
+        &__title{
+            font-size: s(40);
+            max-width: s(560);
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        flex-direction: column;
+        gap: s(24);
+        padding: s(32) 0 s(36);
+
+        &__media{
+            width: 100%;
+            min-width: 0;
+            height: auto;
+            aspect-ratio: 515 / 203;
+        }
+
+        &__content{
+            min-height: 0;
+            width: 100%;
+        }
+
+        &__meta{
+            margin-bottom: s(22);
+        }
+
+        &__title{
+            max-width: 100%;
+            font-size: s(34);
+            line-height: 1.1;
+        }
+
+        &--small{
+            gap: s(16);
+            padding-bottom: s(20);
+
+            .storyCard__media{
+                height: auto;
+                aspect-ratio: 330 / 210;
+            }
+
+            .storyCard__meta{
+                margin-bottom: s(12);
+            }
+
+            .storyCard__title{
+                font-size: s(24);
+                line-height: em(30, 24);
+            }
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        padding: s(24) 0 s(28);
+
+        &__meta{
+            gap: s(10);
+            margin-bottom: s(18);
+        }
+
+        &__title{
+            font-size: s(22);
+            line-height: em(28, 22);
+        }
+
+        &__categories{
+            gap: s(10);
+        }
+
+        &__category{
+            & + &{
+                margin-left: s(10);
+            }
+        }
+
+        &--small{
+            padding-bottom: s(18);
+
+            .storyCard__title{
+                font-size: s(22);
+                line-height: em(28, 22);
+            }
+        }
+    }
+}

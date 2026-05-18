@@ -1,5 +1,21 @@
 <?php
 
+add_filter('wp_get_global_stylesheet', function ($stylesheet) {
+    // 1. On remplace le sélecteur body par .guthContent
+    $stylesheet = str_replace('body {', '.guthContent {', $stylesheet);
+
+    // 2. On remplace le sélecteur universel (si WordPress l'utilise)
+    $stylesheet = str_replace(':root {', '.guthContent {', $stylesheet);
+
+    // 3. (Optionnel) Pour isoler totalement, on peut préfixer les autres styles
+    // Mais attention, cela peut alourdir le chargement.
+
+    return $stylesheet;
+}, 20);
+
+
+
+
 
 if (!function_exists('mojo_setup')) :
     function mojo_setup()
@@ -16,9 +32,6 @@ function disable_block_editor_for_page_ids($use_block_editor, $post)
 {
 
 
-    if ((!$post->post_parent) && $post->post_type === "services") {
-        return false;
-    }
     return $use_block_editor;
 }
 add_filter('use_block_editor_for_post', 'disable_block_editor_for_page_ids', 10, 2);
@@ -103,7 +116,7 @@ function post_remove()
 {
     remove_menu_page('edit.php');
 }
-add_action('admin_menu', 'post_remove');
+//add_action('admin_menu', 'post_remove');
 
 
 /*
@@ -134,13 +147,18 @@ require_once('inc/images.php');
 /*
  * Posttype
  */
+require_once('inc/posttype/stories.php');
 //require_once('inc/posttype/work.php');
+
+/*
+ * Taxonomies
+ */
+require_once('inc/taxonomy/storyCategory.php');
 
 /*
  * Filter Query from cases
  */
 require_once('inc/mainQuery.php');
-
 
 /*
  * Menus Helpers;

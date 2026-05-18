@@ -59,6 +59,9 @@
     @import "parts/homeService"; //4kb
     @import "parts/ourClients"; //4kb
     @import "parts/homeTransformation"; //2kb
+    @import "parts/homeStory";
+    @import "parts/storyCard";
+    @import "parts/storyArchiveCard";
 
     // About 3kb
     @import "parts/aboutIntro";
@@ -123,5 +126,7 @@
 @import "pages/contact";
 @import "pages/client";
 @import "pages/faq";
+@import "pages/singlePost";
+@import "pages/archiveStories";
 
 @import "pages/commitments";
