@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@builder.io/partytown": "^0.10.3",
     "browser-sync": "^3.0.2",
     "browser-sync-webpack-plugin": "^2.3.0",
     "laravel-mix": "^6.0.49",

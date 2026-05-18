@@ -55,36 +55,37 @@
         }
     </script>
 
-    <!-- Google Tag Manager -->
-    <?php if ($cookieConsent): ?>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
+    <!-- Partytown: run third-party scripts in a Web Worker -->
+    <script>
+        partytown = {
+            lib: '<?= getUrl('dist/~partytown/') ?>',
+            forward: ['dataLayer.push', 'gtag']
+        };
+    </script>
+    <?php echo file_get_contents(get_template_directory() . '/dist/~partytown/partytown.js'); ?>
 
+    <!-- Google Tag Manager (via Partytown worker) -->
+    <?php if ($cookieConsent): ?>
         <script>
             let data = {
                 'ad_storage': 'denied',
                 'ad_user_data': 'denied',
                 'ad_personalization': 'denied',
                 'analytics_storage': 'denied'
-            }
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments)
             };
-            gtag('js', new Date());
-            gtag('config', '<?= $gtag ?>', {
-                send_page_view: false,
-            });
-
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){ dataLayer.push(arguments); }
             gtag('consent', 'default', data);
+            gtag('js', new Date());
+            gtag('config', '<?= $gtag ?>', { send_page_view: false });
         </script>
+        <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
 
         <script type="text/plain" data-category="analytics" data-service="Google Analytics">
             data['analytics_storage'] = 'granted';
             data['ad_storage'] = 'granted';
             gtag('consent', 'default', data);
         </script>
-
         <script type="text/plain" data-category="marketing" data-service="Google Ads">
             data['ad_storage'] = 'granted';
             data['ad_user_data'] = 'granted';
@@ -94,33 +95,14 @@
 
     <?php else: ?>
 
-        <!-- Google Tag Manager -->
         <script>
-            (function(w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start': new Date().getTime(),
-                    event: 'gtm.js'
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-WBZ8MLM');
-
             window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments)
-            };
+            window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            function gtag(){ dataLayer.push(arguments); }
             gtag('js', new Date());
-            gtag('config', '<?= $gtag ?>', {
-                send_page_view: false,
-            });
+            gtag('config', '<?= $gtag ?>', { send_page_view: false });
         </script>
-        <!-- End Google Tag Manager -->
+        <script type="text/partytown" src="https://www.googletagmanager.com/gtm.js?id=GTM-WBZ8MLM"></script>
 
     <?php endif ?>
 
