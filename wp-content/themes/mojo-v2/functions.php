@@ -39,7 +39,8 @@ add_action('wp_enqueue_scripts', function () {
     if (!$needs_blocks) {
         wp_dequeue_style('wp-block-library');
         wp_dequeue_style('wp-block-library-theme');
-        wp_dequeue_style('global-styles'); // CSS variables Gutenberg
+        // global-styles gardé partout : contient les CSS variables --wp--preset--color--*
+        // utilisées dans le thème, et c'est du CSS inline non injectable via Barba
     }
 }, 100);
 
