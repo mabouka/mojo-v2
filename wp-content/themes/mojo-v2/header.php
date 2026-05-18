@@ -62,7 +62,7 @@
             forward: ['dataLayer.push', 'gtag']
         };
     </script>
-    <?php echo file_get_contents(get_template_directory() . '/dist/~partytown/partytown.js'); ?>
+    <script><?php echo file_get_contents(get_template_directory() . '/dist/~partytown/partytown.js'); ?></script>
 
     <!-- Google Tag Manager (via Partytown worker) -->
     <?php if ($cookieConsent): ?>
