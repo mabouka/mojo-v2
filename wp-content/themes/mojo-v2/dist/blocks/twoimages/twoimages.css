@@ -1,0 +1,27 @@
+.twoImages {
+  display: flex;
+  justify-content: space-between;
+}
+.twoImages__item {
+  width: 48.6381322957%;
+  height: 0;
+  padding-top: 54.474708171%;
+  position: relative;
+}
+.twoImages__item + .twoImages__item {
+  margin-left: 2.7237354086%;
+}
+.twoImages__item img {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+
+/*# sourceMappingURL=twoimages.css.map*/
