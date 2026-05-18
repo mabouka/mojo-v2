@@ -15,7 +15,7 @@ mix
     })
 
     .js('wp-content/themes/mojo-v2/src/js/main.js', 'dist/js')
-    .extract()
+    .extract(['gsap', '@barba/core', '@studio-freight/lenis'])
 
     .sass('wp-content/themes/mojo-v2/src/scss/main.scss', 'css/main.css')
 

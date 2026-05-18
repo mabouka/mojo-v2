@@ -33,7 +33,7 @@ class Mojo {
 }
 
 window.addEventListener("DOMContentLoaded", function (event) {
+    window.document.documentElement.classList.add('js-active');
     this.scroller = new Scroller();
     window.MJ = new Mojo();
-    window.document.documentElement.classList.add('js-active');
 });

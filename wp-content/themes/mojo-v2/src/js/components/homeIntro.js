@@ -59,11 +59,7 @@ export default class HomeIntro {
             transformOrigin: '50% 50%'
         });
 
-        gsap.set(this.stars, {
-            autoAlpha: 0,
-            scale : 0.8,
-            transformOrigin: '50% 0%'
-        });
+        // stars: no initial animation — LCP element, must paint immediately
 
         gsap.set(this.poly, {
             x: '120vw',
@@ -95,12 +91,7 @@ export default class HomeIntro {
             ease: "power3.out",
         }, 1.1);
 
-        main.to(this.stars, {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 2,
-            ease: "power3.out",
-        }, 0)
+        // stars appear immediately — no intro animation
 
         main.eventCallback("onComplete",() => {
             this.body.classList.remove('loading');
