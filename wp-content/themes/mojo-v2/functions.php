@@ -30,6 +30,17 @@ add_action('wp_enqueue_scripts', function () {
     wp_deregister_style('wpml-tm-admin-bar-css');
 }, 100);
 
+// Block library CSS: désactiver sur les pages sans blocs Gutenberg.
+// Garder sur les singles qui utilisent des ACF blocks (services, case, stories + pages à vérifier).
+add_action('wp_enqueue_scripts', function () {
+    $needs_blocks = is_singular(['services', 'case', 'stories', 'post']);
+    if (!$needs_blocks) {
+        wp_dequeue_style('wp-block-library');
+        wp_dequeue_style('wp-block-library-theme');
+        wp_dequeue_style('global-styles'); // CSS variables Gutenberg
+    }
+}, 100);
+
 
 
 
