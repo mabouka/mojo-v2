@@ -162,11 +162,11 @@
     $new_tree_nation = false;
 ?>
 <?php if($old_tree_nation): ?>
-<script async src="https://tree-nation.com/js/track.js" onload="if(treenation_track)treenation_track('6322d1badbb2d');"></script>
+<script defer src="https://tree-nation.com/js/track.js" onload="if(treenation_track)treenation_track('6322d1badbb2d');"></script>
 <?php endif ?>
 
 <?php if ($new_tree_nation): ?>
-<script async src="https://widgets.tree-nation.com/js/widgets/v1/widgets.min.js?v=1.0" onload="TreeNationOffsetWebsite({code: '6322d1badbb2d', lang: '<?= ICL_LANGUAGE_CODE ?>', theme: 'dark'}).render('.footer__carbon');"></script>
+<script defer src="https://widgets.tree-nation.com/js/widgets/v1/widgets.min.js?v=1.0" onload="TreeNationOffsetWebsite({code: '6322d1badbb2d', lang: '<?= ICL_LANGUAGE_CODE ?>', theme: 'dark'}).render('.footer__carbon');"></script>
 <?php endif ?>
 
 <script defer src="<?= getUrlVersion('dist/js/cookieconsent-config.js'); ?>"></script>
