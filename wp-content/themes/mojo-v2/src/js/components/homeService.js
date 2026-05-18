@@ -16,6 +16,13 @@ export default class HomeService {
         this.groupSlide  = this.el.querySelector('.homeService__groupSlide');
         this.realSection = this.el.querySelector('.homeService__realSize');
         this.allCard     = this.el.querySelectorAll('.homeService__cardSlide');
+        this.triggerStart = this.el.querySelector('.homeService__triggerStart');
+        this.triggerEnd = this.el.querySelector('.homeService__triggerEnd');
+        this.pin = this.el.closest('.homeService__pin');
+
+        if (!this.container || !this.groupSlide || !this.realSection || !this.allCard.length) {
+            return;
+        }
 
         if(!isMobile()){
             this.initIntro();
@@ -57,7 +64,7 @@ export default class HomeService {
             duration: 1,
             scrollTrigger: {
                 trigger: this.el,
-                endTrigger: '.homeService__triggerStart',
+                endTrigger: this.triggerStart,
                 start: '-400px',
                 //markers: true,
                 scrub: true,         
@@ -66,12 +73,6 @@ export default class HomeService {
         });
 
         for (let index = 0; index < this.allCard.length; index++) {
-            let rotate = '2deg';
-            if(index %2)  rotate = '-2deg';
-            if(index === 1 ) rotate = '-1deg';
-            else if(index === 0 ) rotate = 0;
-
-            let y = -25 * index * index / 3.5;
             let timing = 0.50 * index;
 
             this.intro.to(this.allCard[index], {
@@ -80,9 +81,9 @@ export default class HomeService {
             }, timing);
 
             this.intro.to(this.allCard[index], {
-                "y" :y,
+                "y" : 0,
                 "x" : 0,
-                rotate: rotate,
+                rotate: 0,
                 duration: 2,
                 ease: "power3.out",
             }, timing);
@@ -91,17 +92,22 @@ export default class HomeService {
 
 
     initScroller() {
+        const getScrollDistance = () => Math.max(this.realSection.offsetWidth - this.container.offsetWidth, 0);
+        const scrollDistance = getScrollDistance();
+
+        if (!scrollDistance) {
+            return;
+        }
 
         this.main = gsap.timeline({
             scrollTrigger: {
-                trigger: '.homeService__triggerStart',
-                endTrigger: '.homeService__triggerEnd',
-
+                trigger: this.triggerStart,
                 type: "pointer,touch",
                 start: 'top',
-                end: "100vh",
+                end: () => `+=${getScrollDistance()}`,
                 scrub: true,
-                pin: '.homeService__pin',
+                pin: this.pin,
+                invalidateOnRefresh: true,
                 //id:'animation',
                 //markers: true
             }
@@ -109,7 +115,7 @@ export default class HomeService {
         this.main.to(this.groupSlide, 
             {
                 x: () => {
-                   return -(this.realSection.offsetWidth - this.container.offsetWidth)
+                   return -getScrollDistance()
                 },
                 ease: 'none',
                 autoAlpha:1,
@@ -117,23 +123,6 @@ export default class HomeService {
             },
         0
         );
-        for (let index = 0; index < this.allCard.length; index++) {
-            this.main.to(this.allCard[index], 
-                {
-                    "y" : 0,
-                    duration:0.8,
-                },
-                0.15 * index 
-            )
-            this.main.to(this.allCard[index], 
-                {
-                    rotate: 0,
-                    duration:0.8,
-                    ease: "power2.out",
-                },
-                0.15 * index 
-            )
-        }
         this.addSwipeMovement();
     }
 

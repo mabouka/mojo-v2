@@ -24,7 +24,7 @@
 
         display: flex;
         flex-direction: column;
-        padding-bottom: s(50);
+        padding-bottom: s(45);
     }
 
     &__back,
@@ -206,7 +206,7 @@
             min-height: 100vh;
             min-height: 100svh;
 
-            padding-bottom: s(30);
+            padding-bottom: s(10);
         }
 
         &__picture{

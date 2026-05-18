@@ -1,7 +1,13 @@
 .servicePeople{
     position: relative;
     padding-top: s(60);
-    padding-bottom: s(140);
+    padding-bottom: s(80);
+
+    &__backWrap{
+        display: flex;
+        justify-content: center;
+        margin: s(94) 0 0;
+    }
 
     &:before{
         content: '';

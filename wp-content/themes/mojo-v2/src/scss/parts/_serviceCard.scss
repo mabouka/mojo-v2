@@ -241,6 +241,23 @@
         transition: 200ms color easing(ease-out-quad);
     }
 
+    &__more{
+        @extend .tag;
+        position: absolute;
+        left: 50%;
+        bottom: s(23);
+        transform: translate3d(-50%, 0, 0);
+        z-index: 7;
+        color: color(dark);
+        text-decoration: underline;
+        text-align: center;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: 200ms color easing(ease-out-quad), 200ms opacity easing(ease-out-quad), 0ms visibility linear 200ms;
+    }
+
 
     &--dodgerblue,
     &--outrageousorange,
@@ -248,8 +265,11 @@
     &--greenpea,
     &--darkgreyblue{
         &.swiper-slide-active  .serviceCard__title,
+        &.swiper-slide-active  .serviceCard__more,
         .swiper-slide-active & .serviceCard__title,
-        &:hover .serviceCard__title{
+        .swiper-slide-active & .serviceCard__more,
+        &:hover .serviceCard__title,
+        &:hover .serviceCard__more{
             color: color(sand);
         }
 
@@ -353,6 +373,12 @@
                 opacity: 0.4;
             }
 
+            .serviceCard__more{
+                opacity: 1;
+                visibility: visible;
+                transition: 200ms color easing(ease-out-quad), 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
+            }
+
         }
         &--dodgerblue:hover,
         &--dodgerblue:focus{
@@ -382,6 +408,12 @@
 
             .serviceCard__star--hover{
                 opacity: 0.4;
+            }
+
+            .serviceCard__more{
+                opacity: 1;
+                visibility: visible;
+                transition: 200ms color easing(ease-out-quad), 200ms opacity easing(ease-out-quad), 0ms visibility linear 0ms;
             }
 
         }

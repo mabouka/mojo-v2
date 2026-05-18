@@ -1,50 +1,54 @@
 .serviceChild{
-    margin-top: s(75);
-    margin-bottom: s(57);
+    margin-top: s(87);
+    margin-bottom: s(108);
 
     &__inside{
-        @include clearfix();
-        //overflow: scroll;
+        display: flex;
+        justify-content: space-between;
+
+        @media screen and (max-width: 800px) {
+            flex-direction: column;
+            gap: s(40);
+        }
     }
 
-    &__content{
-        margin-top: s(6);
-        width: col(6,12);
-        float: left;
-        margin-left: colGut(1,2,12,0);
-        @extend .body;
-        @extend .body18;
-        
-        h2,
-        .h2{
-            font-family: dm, sans-serif;
-            font-size: s(30);
-            line-height: 1.3em;
-            margin-bottom: s(30);
+    &__title{
+        @extend .title80;
+        color: color(dark);
+        margin-bottom: s(40);
+    }
 
+    &__body{
+        width: col(8.5,12);
+
+        @media screen and (max-width: 800px) {
+            width: 100%;
         }
+    }
 
-
-
-        section{
-            margin: s(80) 0;
-        }
+    &__backWrap{
+        display: flex;
+        justify-content: center;
+        margin: s(60) 0 s(80);
     }
 
     @media screen and (max-width: 800px) {
-        &__content{
-            width: col(7,12);
-            margin-left: colGut(0.5, 1,12,0);
-            float: right;
-        }
+        margin-top: s(60);
+        margin-bottom: s(80);
     }
 
     @media screen and (max-width: 600px) {
-        margin-top: s(64);
-        &__content{
-            margin-top: s(80);
-            width: 100%;
-            margin-left: 0;
+        margin-top: s(80);
+        margin-bottom: s(60);
+
+        &__title{
+            font-size: s(50);
+            line-height: em(55, 50);
+            margin-bottom: s(30);
+        }
+
+        &__backWrap{
+            margin: s(40) 0 s(60);
         }
     }
 }

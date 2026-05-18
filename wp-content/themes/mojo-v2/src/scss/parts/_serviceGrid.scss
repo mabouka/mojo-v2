@@ -48,6 +48,7 @@
     @media screen and (min-width: 1101px) {
         &__item{
             width: col(3, 12);
+            perspective: 1500px;
             margin-left: gutter(12);
             &:nth-child(4n+1){
                 margin-left: 0;

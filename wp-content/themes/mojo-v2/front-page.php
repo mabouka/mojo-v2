@@ -56,6 +56,8 @@
         "text"      => get_field('transformation_text'),
         "link"      => get_field('transformation_link'),
     ]);
+
+    getPartial('homeStory');
     ?>
 
 

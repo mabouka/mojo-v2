@@ -1,8 +1,9 @@
 <?php
 $the_query = new WP_Query([
     'post_type' => 'services',
-    'post_per_page' => -1,
-    'post_parent' => 0
+    'posts_per_page' => 4,
+    'post_parent' => 0,
+    'post_status' => 'publish',
 ]);
 ?>
 
