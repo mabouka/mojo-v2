@@ -55,64 +55,73 @@
         }
     </script>
 
-    <!-- Google Tag Manager — deferred until browser idle -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-
-        <?php if ($cookieConsent): ?>
-        var _gtagData = {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied'
-        };
-        gtag('consent', 'default', _gtagData);
-        <?php endif ?>
-
-        function loadGTM() {
-            <?php if ($cookieConsent): ?>
-            var s = document.createElement('script');
-            s.async = true;
-            s.src = 'https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>';
-            document.head.appendChild(s);
-            gtag('js', new Date());
-            gtag('config', '<?= $gtag ?>', { send_page_view: false });
-            <?php else: ?>
-            (function(w,d,s,l,i){
-                w[l]=w[l]||[];
-                w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-                var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),
-                    dl=l!='dataLayer'?'&l='+l:'';
-                j.async=true;
-                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-WBZ8MLM');
-            gtag('js', new Date());
-            gtag('config', '<?= $gtag ?>', { send_page_view: false });
-            <?php endif ?>
-        }
-
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadGTM, { timeout: 4000 });
-        } else {
-            setTimeout(loadGTM, 4000);
-        }
-    </script>
-
+    <!-- Google Tag Manager -->
     <?php if ($cookieConsent): ?>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
+
+        <script>
+            let data = {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+            }
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments)
+            };
+            gtag('js', new Date());
+            gtag('config', '<?= $gtag ?>', {
+                send_page_view: false,
+            });
+
+            gtag('consent', 'default', data);
+        </script>
+
         <script type="text/plain" data-category="analytics" data-service="Google Analytics">
-            _gtagData['analytics_storage'] = 'granted';
-            _gtagData['ad_storage'] = 'granted';
-            gtag('consent', 'update', _gtagData);
+            data['analytics_storage'] = 'granted';
+            data['ad_storage'] = 'granted';
+            gtag('consent', 'default', data);
         </script>
+
         <script type="text/plain" data-category="marketing" data-service="Google Ads">
-            _gtagData['ad_storage'] = 'granted';
-            _gtagData['ad_user_data'] = 'granted';
-            _gtagData['ad_personalization'] = 'granted';
-            gtag('consent', 'update', _gtagData);
+            data['ad_storage'] = 'granted';
+            data['ad_user_data'] = 'granted';
+            data['ad_personalization'] = 'granted';
+            gtag('consent', 'default', data);
         </script>
+
+    <?php else: ?>
+
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WBZ8MLM');
+
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments)
+            };
+            gtag('js', new Date());
+            gtag('config', '<?= $gtag ?>', {
+                send_page_view: false,
+            });
+        </script>
+        <!-- End Google Tag Manager -->
+
     <?php endif ?>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
