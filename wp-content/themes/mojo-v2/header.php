@@ -58,7 +58,7 @@
     <!-- Partytown: run third-party scripts in a Web Worker -->
     <script>
         partytown = {
-            lib: '<?= getUrl('dist/~partytown/') ?>',
+            lib: '/wp-content/themes/mojo-v2/dist/~partytown/',
             forward: ['dataLayer.push', 'gtag']
         };
     </script>
