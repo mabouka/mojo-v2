@@ -19,12 +19,12 @@ class Mojo {
         this.router      = new Router();
     }
 
-    setupElements() {
+    async setupElements() {
         this.currentView = document.querySelector("[data-barba='container']");
         this.cursorEl    = document.querySelector('.cursor');
         this.header      = new Header();
         this.parts       = Pluton;
-        this.parts.setup(); //only uncomment if you swith off router
+        await this.parts.setup();
         this.menu        = Menu.initialize();
         this.footer      = new Footer();
         this.cursor      = new Cursor(this.cursorEl, cursorOption).initialize();

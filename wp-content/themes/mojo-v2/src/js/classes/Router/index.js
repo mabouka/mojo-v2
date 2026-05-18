@@ -82,14 +82,14 @@ export default class Router {
             ScrollTrigger.refresh();
         });
 
-        barba.hooks.enter((data) => {
+        barba.hooks.enter(async (data) => {
             data.current.container.remove();
             window.lenis.start();
             window.MJ.cursor.reset();
 
             window.lenis.resize();
-            window.MJ.parts.setup(data.next.container);
-            
+            await window.MJ.parts.setup(data.next.container);
+
             InView.addView(data.next.container);
             IsTop.addView(data.next.container);
             IsCentered.addView(data.next.container);
