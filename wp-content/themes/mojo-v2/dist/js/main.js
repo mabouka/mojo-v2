@@ -1607,10 +1607,11 @@ var Router = /*#__PURE__*/function () {
       var cssId = 'wp-block-library-css';
       var alreadyLoaded = document.getElementById(cssId);
       if (needsBlocks && !alreadyLoaded) {
+        var _window$MojoConfig;
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.id = cssId;
-        link.href = window.__blockLibraryCssUrl || '';
+        link.href = ((_window$MojoConfig = window.MojoConfig) === null || _window$MojoConfig === void 0 ? void 0 : _window$MojoConfig.blockLibraryCssUrl) || '';
         if (link.href) document.head.appendChild(link);
       }
     }

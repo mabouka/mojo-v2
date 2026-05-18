@@ -128,7 +128,7 @@ export default class Router {
             const link  = document.createElement('link');
             link.rel    = 'stylesheet';
             link.id     = cssId;
-            link.href   = window.__blockLibraryCssUrl || '';
+            link.href   = window.MojoConfig?.blockLibraryCssUrl || '';
             if (link.href) document.head.appendChild(link);
         }
     }
