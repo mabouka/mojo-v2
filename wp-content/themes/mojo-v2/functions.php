@@ -35,10 +35,6 @@ add_action('wp_enqueue_scripts', function () {
 add_action('wp_enqueue_scripts', function () {
     $needs_blocks = is_singular(['services', 'case', 'stories', 'post']);
 
-    // Expose les URLs PHP au JS via wp_localize_script (standard WP)
-    wp_localize_script('mojo-main', 'MojoConfig', [
-        'blockLibraryCssUrl' => includes_url('css/dist/block-library/style.min.css'),
-    ]);
 
     if (!$needs_blocks) {
         wp_dequeue_style('wp-block-library');

@@ -145,6 +145,9 @@
 <?php getPartial('menu'); ?>
 
 
+<script>var MojoConfig = <?= json_encode([
+    'blockLibraryCssUrl' => includes_url('css/dist/block-library/style.min.css'),
+]); ?>;</script>
 <script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
 <script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
 <script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
