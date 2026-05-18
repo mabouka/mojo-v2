@@ -77,6 +77,7 @@ export default class Router {
         barba.hooks.beforeEnter((data) => {
             //this.updateHeader(data);
             this.updatePage(data);
+            this.updateBlockCSS(data);
             Menu.update(data);
             ScrollTrigger.killAll();
             ScrollTrigger.refresh();
@@ -118,6 +119,20 @@ export default class Router {
             
         });
     }
+    updateBlockCSS(data) {
+        const needsBlocks = data.next.container.dataset.blocks === 'true';
+        const cssId       = 'wp-block-library-css';
+        const alreadyLoaded = document.getElementById(cssId);
+
+        if (needsBlocks && !alreadyLoaded) {
+            const link  = document.createElement('link');
+            link.rel    = 'stylesheet';
+            link.id     = cssId;
+            link.href   = window.__blockLibraryCssUrl || '';
+            if (link.href) document.head.appendChild(link);
+        }
+    }
+
     updatePage(data){
         let parser = new DOMParser();
         const doc = parser.parseFromString(data.next.html, 'text/html');

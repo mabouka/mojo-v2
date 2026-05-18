@@ -34,6 +34,15 @@ add_action('wp_enqueue_scripts', function () {
 // Garder sur les singles qui utilisent des ACF blocks (services, case, stories + pages à vérifier).
 add_action('wp_enqueue_scripts', function () {
     $needs_blocks = is_singular(['services', 'case', 'stories', 'post']);
+
+    // Expose l'URL pour que Barba puisse l'injecter dynamiquement lors des transitions
+    $block_css_url = includes_url('css/dist/block-library/style.min.css');
+    wp_add_inline_script(
+        'mojo-main',
+        'window.__blockLibraryCssUrl = ' . json_encode($block_css_url) . ';',
+        'before'
+    );
+
     if (!$needs_blocks) {
         wp_dequeue_style('wp-block-library');
         wp_dequeue_style('wp-block-library-theme');

@@ -22,7 +22,7 @@ $backToStoriesUrl = get_post_type_archive_link('stories');
 ?>
 
 <?php get_header(); ?>
-<div class="view singlePost" data-barba="container" data-barba-namespace="singlepost">
+<div class="view singlePost" data-barba="container" data-barba-namespace="singlepost" data-blocks="true">
     <div class="singlePost__shell">
         <div class="wrapper">
             <div class="singlePost__inside">
