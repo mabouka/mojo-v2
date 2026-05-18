@@ -55,6 +55,9 @@
         }
     </script>
 
+    <?php $usePartytown = getenv('PARTYTOWN_ENABLED') === 'true'; ?>
+
+    <?php if ($usePartytown): ?>
     <!-- Partytown: run third-party scripts in a Web Worker -->
     <script>
         partytown = {
@@ -63,8 +66,9 @@
         };
     </script>
     <script><?php echo file_get_contents(get_template_directory() . '/dist/~partytown/partytown.js'); ?></script>
+    <?php endif ?>
 
-    <!-- Google Tag Manager (via Partytown worker) -->
+    <!-- Google Tag Manager <?= $usePartytown ? '(via Partytown worker)' : '(classic)' ?> -->
     <?php if ($cookieConsent): ?>
         <script>
             let data = {
@@ -79,7 +83,7 @@
             gtag('js', new Date());
             gtag('config', '<?= $gtag ?>', { send_page_view: false });
         </script>
-        <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
+        <script <?= $usePartytown ? 'type="text/partytown"' : '' ?> src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
 
         <script type="text/plain" data-category="analytics" data-service="Google Analytics">
             data['analytics_storage'] = 'granted';
@@ -102,7 +106,7 @@
             gtag('js', new Date());
             gtag('config', '<?= $gtag ?>', { send_page_view: false });
         </script>
-        <script type="text/partytown" src="https://www.googletagmanager.com/gtm.js?id=GTM-WBZ8MLM"></script>
+        <script <?= $usePartytown ? 'type="text/partytown"' : '' ?> src="https://www.googletagmanager.com/gtm.js?id=GTM-WBZ8MLM"></script>
 
     <?php endif ?>
 
