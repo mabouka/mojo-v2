@@ -146,7 +146,7 @@
 
 
 <script>var MojoConfig = <?= json_encode([
-    'blockLibraryCssUrl' => includes_url('css/dist/block-library/style.min.css'),
+    'blockLibraryCssUrl' => add_query_arg('ver', get_bloginfo('version'), includes_url('css/dist/block-library/style.min.css')),
 ]); ?>;</script>
 <script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
 <script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
