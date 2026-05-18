@@ -47,11 +47,13 @@ mix
     
 mix.webpackConfig(webpack => {
     return {
+        output: {
+            publicPath: '/wp-content/themes/mojo-v2/dist/'
+        },
         plugins: [
             new webpack.DefinePlugin({
                 PLUTON_PATH: JSON.stringify(pluton_path)
             }),
-
         ]
     };
 });
