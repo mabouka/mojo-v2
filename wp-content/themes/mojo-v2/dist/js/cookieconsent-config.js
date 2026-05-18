@@ -53,7 +53,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // Enable dark mode
 document.documentElement.classList.add('cc--darkmode');
-vanilla_cookieconsent__WEBPACK_IMPORTED_MODULE_0__["default"].run({
+vanilla_cookieconsent__WEBPACK_IMPORTED_MODULE_0__.run({
   guiOptions: {
     consentModal: {
       layout: "box wide",

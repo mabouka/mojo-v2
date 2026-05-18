@@ -1,4 +1,4 @@
-import CookieConsent from 'vanilla-cookieconsent';
+import * as CookieConsent from 'vanilla-cookieconsent';
 
 // Enable dark mode
 document.documentElement.classList.add('cc--darkmode');
