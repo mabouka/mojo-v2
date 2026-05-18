@@ -13,8 +13,7 @@ wp-content/upgrade/
 wp-content/cache/
 wp-content/languages/
 
-# Theme compiled assets
-wp-content/themes/mojo-v2/dist/
+# Theme compiled assets (dist/ is committed — compiled locally before each push)
 wp-content/themes/mojo-v2/node_modules/
 
 # Misc
