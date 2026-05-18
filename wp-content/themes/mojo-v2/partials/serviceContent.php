@@ -1,4 +1,4 @@
-<?php if ($content): ?>
+<?php if ($content && is_array($content)): ?>
 <div class="serviceContent">
     <div class="wrapper">
         <div class="serviceContent__inside">
