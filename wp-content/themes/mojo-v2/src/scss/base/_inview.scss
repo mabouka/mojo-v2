@@ -1,9 +1,15 @@
 // Pendant la transition Barba (html.loading), force l'invisibilité
-// pour éviter le flash avant que InView soit configuré
+// pour éviter le flash avant que InView soit configuré.
+// Couvre aussi les composants qui utilisent un toggle de classe parent
+// (ex: .serviceGrid--inview, .caseCard--inview) dont le CSS initial
+// opacity:0 est dans un fichier page-spécifique (pas base.css).
 html.loading {
     .appear-fade,
     .appear-fadeup,
-    .appear-fadedown {
+    .appear-fadedown,
+    .serviceGrid__grid,
+    .caseCard,
+    .casesGrid {
         opacity: 0 !important;
         transition: none !important;
     }
