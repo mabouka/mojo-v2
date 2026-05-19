@@ -85,6 +85,7 @@ export default class Router {
         });
 
         barba.hooks.enter(async (data) => {
+            window.__barbaEnterStart = Date.now();
             data.current.container.remove();
             window.lenis.start();
             window.MJ.cursor.reset();

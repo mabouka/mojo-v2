@@ -19,7 +19,13 @@ export default class ServiceGrid {
 
 
         if(this.intro){
-            wait(600).then(() => {
+            // Measure delay from when the Barba enter hook started (rideau début),
+            // not from when this JS chunk finished loading.
+            // On first Barba nav the chunk fetch eats into the 600ms budget;
+            // on direct load __barbaEnterStart is undefined so full 600ms applies.
+            const elapsed  = window.__barbaEnterStart ? Date.now() - window.__barbaEnterStart : 0;
+            const remaining = Math.max(0, 600 - elapsed);
+            wait(remaining).then(() => {
                 inview.addElement(this.el);
             });
         }
