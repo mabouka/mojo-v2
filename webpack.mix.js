@@ -20,7 +20,21 @@ mix
 
     .sass('wp-content/themes/mojo-v2/src/scss/main.scss', 'css/main.css')
 
-    
+    // CSS splitting — base + per-page bundles
+    .sass('wp-content/themes/mojo-v2/src/scss/base.scss',                  'css/base.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-home.scss',             'css/page-home.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-cases.scss',            'css/page-cases.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-single-case.scss',      'css/page-single-case.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-services-archive.scss', 'css/page-services-archive.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-service-parent.scss',   'css/page-service-parent.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-service-child.scss',    'css/page-service-child.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-about.scss',            'css/page-about.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-clients.scss',          'css/page-clients.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-commitments.scss',      'css/page-commitments.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-lead.scss',             'css/page-lead.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-stories.scss',          'css/page-stories.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/page-misc.scss',             'css/page-misc.css')
+
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
     .copy('wp-content/themes/mojo-v2/src/images/globe/*', 'wp-content/themes/mojo-v2/dist/images/globe/')
 
