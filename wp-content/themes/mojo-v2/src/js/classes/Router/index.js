@@ -74,10 +74,10 @@ export default class Router {
             window.lenis.stop();    
         });
         
-        barba.hooks.beforeEnter((data) => {
+        barba.hooks.beforeEnter(async (data) => {
             //this.updateHeader(data);
             this.updatePage(data);
-            this.updatePageCSS(data);
+            await this.updatePageCSS(data);
             this.updateBlockCSS(data);
             Menu.update(data);
             ScrollTrigger.killAll();
@@ -123,17 +123,20 @@ export default class Router {
     updatePageCSS(data) {
         const href = data.next.container.dataset.pageCss;
         if (!href) return;
-        const existing = document.getElementById('mojo-page-css');
-        if (existing && existing.getAttribute('href') === href) return;
-        if (existing) {
-            existing.setAttribute('href', href);
-        } else {
+
+        // Never remove old CSS — accumulate page stylesheets to avoid flash
+        const alreadyLoaded = [...document.querySelectorAll('link[rel="stylesheet"]')]
+            .some(l => l.getAttribute('href') === href);
+        if (alreadyLoaded) return;
+
+        return new Promise((resolve) => {
             const link  = document.createElement('link');
             link.rel    = 'stylesheet';
-            link.id     = 'mojo-page-css';
             link.href   = href;
+            link.onload = resolve;
+            link.onerror = resolve; // ne pas bloquer si erreur
             document.head.appendChild(link);
-        }
+        });
     }
 
     updateBlockCSS(data) {
