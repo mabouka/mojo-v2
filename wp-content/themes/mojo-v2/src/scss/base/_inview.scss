@@ -1,3 +1,14 @@
+// Pendant la transition Barba (html.loading), force l'invisibilité
+// pour éviter le flash avant que InView soit configuré
+html.loading {
+    .appear-fade,
+    .appear-fadeup,
+    .appear-fadedown {
+        opacity: 0 !important;
+        transition: none !important;
+    }
+}
+
 .inview{
     .appear{
         &-fade,
