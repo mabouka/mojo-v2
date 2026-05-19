@@ -11,7 +11,7 @@ if (count($ancestors) === 1) {
 ?>
 <?php get_header(); ?>
 <?php if ($parent): ?>
-    <div data-barba="container" data-barba-namespace="singleservicechild" data-blocks="true">
+    <div data-barba="container" data-barba-namespace="singleservicechild" data-page-css="<?= getUrlVersion('dist/css/page-service-child.css') ?>" data-blocks="true">
 
         <?php getPartial('serviceChHeader', [
             'parent' =>  $parent[0]
@@ -44,7 +44,7 @@ if (count($ancestors) === 1) {
 
     </div>
 <?php else: ?>
-    <div data-barba="container" data-barba-namespace="singleserviceparent" data-blocks="true">
+    <div data-barba="container" data-barba-namespace="singleserviceparent" data-page-css="<?= getUrlVersion('dist/css/page-service-parent.css') ?>" data-blocks="true">
         <?php
         $isLight = false;
         $color = get_field('color');

@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div data-barba="container" data-barba-namespace="error">
+<div data-barba="container" data-barba-namespace="error" data-page-css="<?= getUrlVersion('dist/css/page-misc.css') ?>">
     <div  class="error darkSection">
         <div class="wrapper">
             <div class="error__inside">

@@ -28,7 +28,7 @@ $pagination = paginate_links([
 get_header();
 ?>
 
-<div class="view archiveStories" data-barba="container" data-barba-namespace="archivestories">
+<div class="view archiveStories" data-barba="container" data-barba-namespace="archivestories" data-page-css="<?= getUrlVersion('dist/css/page-stories.css') ?>">
     <div class="wrapper">
         <div class="archiveStories__inside">
             <h1 class="archiveStories__title js-in-view appear-fade"><?php _e('Stories', 'mj'); ?></h1>

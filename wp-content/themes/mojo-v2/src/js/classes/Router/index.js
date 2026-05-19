@@ -77,6 +77,7 @@ export default class Router {
         barba.hooks.beforeEnter((data) => {
             //this.updateHeader(data);
             this.updatePage(data);
+            this.updatePageCSS(data);
             this.updateBlockCSS(data);
             Menu.update(data);
             ScrollTrigger.killAll();
@@ -119,6 +120,22 @@ export default class Router {
             
         });
     }
+    updatePageCSS(data) {
+        const href = data.next.container.dataset.pageCss;
+        if (!href) return;
+        const existing = document.getElementById('mojo-page-css');
+        if (existing && existing.getAttribute('href') === href) return;
+        if (existing) {
+            existing.setAttribute('href', href);
+        } else {
+            const link  = document.createElement('link');
+            link.rel    = 'stylesheet';
+            link.id     = 'mojo-page-css';
+            link.href   = href;
+            document.head.appendChild(link);
+        }
+    }
+
     updateBlockCSS(data) {
         const needsBlocks = data.next.container.dataset.blocks === 'true';
         const cssId       = 'wp-block-library-css';

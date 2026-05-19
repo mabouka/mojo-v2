@@ -2,7 +2,7 @@
 /* Template Name: About */
 get_header();
 ?>
-<div class="view" data-barba="container" data-barba-namespace="about">
+<div class="view" data-barba="container" data-barba-namespace="about" data-page-css="<?= getUrlVersion('dist/css/page-about.css') ?>">
     <?php
     getPartial('aboutIntro', [
         'title'     => get_field('intro_title'),

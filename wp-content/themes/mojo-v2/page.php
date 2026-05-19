@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div data-barba="container" data-barba-namespace="pageTemplate" class="pageTemplate">
+<div data-barba="container" data-barba-namespace="pageTemplate" data-page-css="<?= getUrlVersion('dist/css/page-misc.css') ?>" class="pageTemplate">
     <div class="wrapper">
         <div class="pageTemplate__inside">
             <h1 class="pageTemplate__title">

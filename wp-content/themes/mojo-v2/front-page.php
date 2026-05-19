@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="view" data-barba="container" data-barba-namespace="home">
+<div class="view" data-barba="container" data-barba-namespace="home" data-page-css="<?= getUrlVersion('dist/css/page-home.css') ?>">
     <?php
     getPartial('homeIntro', [
         "text"      => get_field('intro')

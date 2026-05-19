@@ -3,7 +3,7 @@
 
 get_header(); ?>
 
-<div class="view" data-barba="container" data-barba-namespace="archivecase">
+<div class="view" data-barba="container" data-barba-namespace="archivecase" data-page-css="<?= getUrlVersion('dist/css/page-cases.css') ?>">
 <?php
 
     getPartial('casesGrid', [

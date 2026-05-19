@@ -3,7 +3,7 @@ get_header();
 ?>
 
 
-<div class="view" data-barba="container" data-barba-namespace="archiveservice">
+<div class="view" data-barba="container" data-barba-namespace="archiveservice" data-page-css="<?= getUrlVersion('dist/css/page-services-archive.css') ?>">
     <?php
 
     getPartial('serviceIntro', [

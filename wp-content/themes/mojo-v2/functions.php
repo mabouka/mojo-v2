@@ -353,6 +353,28 @@ function getUrl($path)
     }
 }
 
+function getPageCssFile(): string {
+    if (is_front_page())                                return 'page-home.css';
+    if (is_post_type_archive('case'))                   return 'page-cases.css';
+    if (is_post_type_archive('services'))               return 'page-services-archive.css';
+    if (is_post_type_archive('stories'))                return 'page-stories.css';
+    if (is_singular('case'))                            return 'page-single-case.css';
+    if (is_singular('lead'))                            return 'page-lead.css';
+    if (is_singular('stories'))                         return 'page-misc.css';
+    if (is_singular('services')) {
+        global $post;
+        $ancestors = get_post_ancestors($post->ID);
+        return $ancestors ? 'page-service-child.css' : 'page-service-parent.css';
+    }
+    if (is_page_template('template-about.php'))         return 'page-about.css';
+    if (is_page_template('template-commitments.php'))   return 'page-commitments.css';
+    if (is_page_template('template-ourclients.php'))    return 'page-clients.css';
+    if (is_page_template('template-contact.php'))       return 'page-misc.css';
+    if (is_page_template('template-faq.php'))           return 'page-misc.css';
+    if (is_404())                                       return 'page-misc.css';
+    return 'page-misc.css';
+}
+
 function getCustomThumbnail($id, $size)
 {
     $imageId = get_post_thumbnail_id($id);

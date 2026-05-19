@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="view singleLead" data-barba="container" data-barba-namespace="singlelead" <?= get_field('color') ? ' style="--pagecolor:' . get_field('color') . ';"' : '' ?>>
+<div class="view singleLead" data-barba="container" data-barba-namespace="singlelead" data-page-css="<?= getUrlVersion('dist/css/page-lead.css') ?>" <?= get_field('color') ? ' style="--pagecolor:' . get_field('color') . ';"' : '' ?>>
 
     <?php
     getPartial('leadBanner', [

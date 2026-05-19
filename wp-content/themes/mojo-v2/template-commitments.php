@@ -17,7 +17,7 @@ $items = $the_query->posts;
 
 get_header();
 ?>
-<div class="view commitments" data-barba="container" data-barba-namespace="commitments">
+<div class="view commitments" data-barba="container" data-barba-namespace="commitments" data-page-css="<?= getUrlVersion('dist/css/page-commitments.css') ?>">
     <?php
     getPartial('commitmentsIntro', [
         'title1'     => get_field('intro_title_line1'),

@@ -2,7 +2,7 @@
 /* Template Name: Our Clients */
 get_header();
 ?>
-<div data-barba="container" data-barba-namespace="ourclients">
+<div data-barba="container" data-barba-namespace="ourclients" data-page-css="<?= getUrlVersion('dist/css/page-clients.css') ?>">
     <div class="pageclient">
     <?php 
         getPartial('clientIntro', [

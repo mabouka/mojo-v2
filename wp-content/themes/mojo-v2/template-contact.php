@@ -9,7 +9,7 @@ $form = get_field('form');
 get_header();
 
 ?>
-<div data-barba="container" data-barba-namespace="contact">
+<div data-barba="container" data-barba-namespace="contact" data-page-css="<?= getUrlVersion('dist/css/page-misc.css') ?>">
     <div class="contact darkSection">
         <img class="contact__svg" src="<?= getUrl('dist/images/star-illustration.svg'); ?>" alt="" width="1299" height="773">
 

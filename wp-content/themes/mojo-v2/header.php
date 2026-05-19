@@ -11,8 +11,9 @@
     <!-- WPHEAD END -->
 
     <!-- Preload -->
-
-    <link rel="preload" href="<?= getUrlVersion('dist/css/main.css'); ?>" as="style">
+    <?php $pageCssFile = getPageCssFile(); ?>
+    <link rel="preload" href="<?= getUrlVersion('dist/css/base.css'); ?>" as="style">
+    <link rel="preload" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>" as="style">
     <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
@@ -29,7 +30,8 @@
     <!-- Responsive -->
     <meta name="HandheldFriendly" content="true">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?= getUrlVersion('dist/css/main.css'); ?>">
+    <link rel="stylesheet" href="<?= getUrlVersion('dist/css/base.css'); ?>">
+    <link rel="stylesheet" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>" id="mojo-page-css">
 
     <?php
     $gtag = 'G-RS946CZMGV';

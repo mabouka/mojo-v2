@@ -3,7 +3,7 @@
 
 get_header(); ?>
 
-<div data-barba="container" data-barba-namespace="faq">
+<div data-barba="container" data-barba-namespace="faq" data-page-css="<?= getUrlVersion('dist/css/page-misc.css') ?>">
     <div class="faq">
         <div class="wrapper">
             <div class="faq__banner">

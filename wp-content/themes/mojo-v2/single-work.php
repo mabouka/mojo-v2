@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="view" data-barba="container" data-barba-namespace="singlework">
+<div class="view" data-barba="container" data-barba-namespace="singlework" data-page-css="<?= getUrlVersion('dist/css/page-misc.css') ?>">
 
     <?php  getPartial('workIntro'); ?>
     <?php if($modules = get_field('modules')): ?>

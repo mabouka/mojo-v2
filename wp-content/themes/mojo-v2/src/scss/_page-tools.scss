@@ -1,0 +1,9 @@
+// Vars + Mixins (compile-time only, zéro CSS output)
+@import "tools";
+
+// Classes/placeholders utilisés via @extend dans les parts de page
+// Dupliqué de base.css mais nécessaire pour que @extend fonctionne
+// dans les bundles séparés (SCSS @extend ne supporte pas le cross-file)
+@import "base/helpers";
+@import "base/typography";
+@import "base/base";
