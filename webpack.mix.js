@@ -65,12 +65,106 @@ mix
 mix.webpackConfig(webpack => {
     return {
         output: {
-            publicPath: '/wp-content/themes/mojo-v2/dist/'
+            publicPath: '/wp-content/themes/mojo-v2/dist/',
+            // Named filenames for dynamic (lazy) chunks so URLs are stable across rebuilds.
+            // Static entries (main.js, vendor.js, component files) keep their explicit names.
+            chunkFilename: 'js/[name].js',
         },
+
+        optimization: {
+            // 'deterministic' (webpack default in prod) assigns numeric IDs to chunks created
+            // by splitChunks. CSS entry chunks end up with IDs like 542, 3140, 8734 and are
+            // added to main.js's __webpack_require__.O wait-list. Since PHP loads CSS via
+            // <link> tags, those chunks are never fulfilled and the entry callback never fires.
+            //
+            // 'named' uses the entry/chunk name as ID — purely cosmetic here, the real fix is
+            // the NoCssDependencyPlugin below, but named IDs make future debugging far easier.
+            chunkIds: 'named',
+
+            splitChunks: {
+                // 'async' means splitChunks only operates on dynamically-imported (lazy) chunks.
+                // It will NOT create shared initial chunks between the .js() and .sass() entries,
+                // so CSS entry chunk IDs never appear in the main.js entry's wait-list.
+                // mix.extract() uses its own explicit cacheGroup below (unaffected by this).
+                chunks: 'async',
+
+                cacheGroups: {
+                    // Vendor split — keep working exactly as mix.extract() intends.
+                    // 'all' here is intentional: pull vendor libs out of every JS entry.
+                    vendors: {
+                        test: /[\\/]node_modules[\\/](gsap|@barba|@studio-freight)[\\/]/,
+                        name: 'vendor',
+                        chunks: 'all',
+                        enforce: true,
+                        priority: 20,
+                    },
+                    // Disable webpack's default vendor & common splitting — we own this entirely.
+                    defaultVendors: false,
+                    default: false,
+                },
+            },
+        },
+
         plugins: [
             new webpack.DefinePlugin({
                 PLUTON_PATH: JSON.stringify(pluton_path)
             }),
-        ]
+
+            // Prepend a CSS chunk pre-fulfillment snippet to manifest.js.
+            //
+            // Problem: MiniCssExtractPlugin registers every .sass() entry as an initial
+            // webpack chunk. The JS entry's __webpack_require__.O waits for ALL initial
+            // chunks before running. Since PHP serves CSS via <link> tags (not via webpack's
+            // chunk-loading runtime), those CSS chunks are never marked as installed →
+            // the entry callback never fires → DOMContentLoaded listener never registers →
+            // window.MJ is always undefined.
+            //
+            // Fix: detect every chunk whose output files are CSS-only (no .js), collect their
+            // IDs, and prepend a push() call to manifest.js. Because manifest.js's IIFE calls
+            // r.forEach(s.bind(null,0)) on startup, any chunks already in the global array
+            // are processed immediately, marking e[id] = 0 for each CSS chunk. The JS entry
+            // can then run without waiting.
+            {
+                apply(compiler) {
+                    compiler.hooks.compilation.tap('PreFulfillCssChunks', compilation => {
+                        const { Compilation, sources } = compiler.webpack;
+                        compilation.hooks.processAssets.tap(
+                            {
+                                name: 'PreFulfillCssChunks',
+                                // SUMMARIZE runs after all assets are emitted so chunk.files is final.
+                                stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
+                            },
+                            assets => {
+                                const manifestAsset = Object.keys(assets).find(
+                                    name => /(?:^|\/)manifest\.js$/.test(name)
+                                );
+                                if (!manifestAsset) return;
+
+                                // A CSS-only chunk: has .css output files but no .js output file.
+                                const cssChunkIds = [];
+                                for (const chunk of compilation.chunks) {
+                                    const files = [...chunk.files];
+                                    const hasCss = files.some(f => /\.css$/.test(f));
+                                    const hasJs  = files.some(f => /\.js$/.test(f));
+                                    if (hasCss && !hasJs && chunk.id !== null && chunk.id !== undefined) {
+                                        cssChunkIds.push(JSON.stringify(String(chunk.id)));
+                                    }
+                                }
+                                if (!cssChunkIds.length) return;
+
+                                const preFulfill =
+                                    `/* pre-fulfill CSS chunks — PHP loads these via <link>, webpack must not wait */\n` +
+                                    `(self.webpackChunkmojo_agency=self.webpackChunkmojo_agency||[]).push([[${cssChunkIds.join(',')}],{}]);\n`;
+
+                                assets[manifestAsset] = new sources.ConcatSource(
+                                    preFulfill,
+                                    assets[manifestAsset]
+                                );
+                            }
+                        );
+                    });
+                },
+            },
+        ],
     };
 });

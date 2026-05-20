@@ -32,8 +32,24 @@ class Mojo {
     }
 }
 
-window.addEventListener("DOMContentLoaded", function (event) {
+function boot() {
     window.document.documentElement.classList.add('js-active');
-    this.scroller = new Scroller();
-    window.MJ = new Mojo();
-});
+    try {
+        window.scroller = new Scroller();
+    } catch(e) {
+        console.error('[mojo] Scroller init failed:', e);
+    }
+    try {
+        window.MJ = new Mojo();
+    } catch(e) {
+        console.error('[mojo] Mojo init failed:', e);
+    }
+}
+
+// Polyfill: fire immediately if DOMContentLoaded already fired (can happen when
+// scripts are deferred or webpack's O() defers the entry callback past the event).
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', boot);
+} else {
+    boot();
+}
