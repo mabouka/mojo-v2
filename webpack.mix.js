@@ -71,13 +71,6 @@ mix.webpackConfig(webpack => {
             chunkFilename: 'js/[name].js',
         },
 
-        optimization: {
-            // Use readable chunk names in production instead of webpack's default numeric IDs.
-            // Makes debugging far easier and keeps chunk URLs stable across rebuilds as long
-            // as entry names don't change.
-            chunkIds: 'named',
-        },
-
         plugins: [
             new webpack.DefinePlugin({
                 PLUTON_PATH: JSON.stringify(pluton_path)
