@@ -6,13 +6,9 @@
     ]);
 
     getPartial('homeVideo', [
-        "url"           => get_field('video_url'),
-        "urlWebm"       => get_field('video_url_webm'),
-        "urlMobile"     => get_field('video_url_mobile'),
-        "urlMobileWebm" => get_field('video_url_mobile_webm'),
-
-        "poster"    => get_field('video_posterImage'),
-        "text"      => get_field('video_text')
+        "url"    => get_field('video_url'),
+        "poster" => get_field('video_posterImage'),
+        "text"   => get_field('video_text')
     ]);
 
     

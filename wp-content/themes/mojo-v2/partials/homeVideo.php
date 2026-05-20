@@ -6,19 +6,7 @@
             </p>
         </div>
     </div>
-    <video class="homeVideo__video" loop autoplay playsinline muted <?= $poster ? 'poster="' . $poster['url'] . '"': '' ?>>
-
-        <?php if ($urlMobile): ?>
-        <source src="<?= $urlMobile ?>" media="screen and (max-width: 600px)" type="video/mp4">
-        <?php endif ?>
-        <?php if ($urlMobileWebm): ?>
-        <source src="<?= $urlMobileWebm ?>" media="screen and (max-width: 600px)" type="video/webm">
-        <?php endif ?>
-
-        <source src="<?= $url ?>" type="video/mp4">
-        <?php if ($urlWebm): ?>
-        <source src="<?= $urlWebm ?>" type="video/webm">
-        <?php endif ?>
-    </video>
+    <stream class="homeVideo__video" src="<?= $url ?>" loop autoplay playsinline muted <?= $poster ? 'poster="' . $poster['url'] . '"' : '' ?>></stream>
+    <script data-cfasync="false" defer src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
     <div class="homeVideo__noise"></div>
 </div>
