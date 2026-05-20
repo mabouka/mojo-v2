@@ -92,9 +92,8 @@
 
     <?php elseif($imageCard): ?>
     <figure class="caseCard__image">
-        <img 
-            src="<?= $imageCard['sizes']['caseCard'] ?>" 
-            srcset="<?= $imageCard['sizes']['caseCard'] ?> 1x, <?= $imageCard['sizes']['caseCard@2x'] ?> 2x" 
+        <img
+            src="<?= $imageCard['sizes']['caseCard'] ?>"
             alt="<?= $imageCard['alt']?>"
             width="625"
             height="500"
@@ -103,9 +102,8 @@
     </figure>
     <?php elseif($image): ?>
     <figure class="caseCard__image">
-        <img 
-            src="<?= $image->src['caseCard'] ?>" 
-            srcset="<?= $image->src['caseCard'] ?> 1x, <?= $image->src['caseCard@2x'] ?> 2x" 
+        <img
+            src="<?= $image->src['caseCard'] ?>"
             alt="<?= $image->alt ?>"
             width="625"
             height="500"
