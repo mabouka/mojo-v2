@@ -5,11 +5,11 @@
         "text"      => get_field('intro')
     ]);
 
-    //getPartial('homeVideo', [
-    //    "url"    => get_field('video_url'),
-    //    "poster" => get_field('video_posterImage'),
-    //    "text"   => get_field('video_text')
-    //]);
+    getPartial('homeVideo', [
+        "url"    => get_field('video_url'),
+        "poster" => get_field('video_posterImage'),
+        "text"   => get_field('video_text')
+    ]);
 
     
     getPartial('homePurpose', [
@@ -39,13 +39,13 @@
         "logos"     => get_field('ourclient_logos')
     ]);
 
-    //getPartial('video', [
-    //    "url"           => get_field('video2_url'),
-    //    "urlWebm"       => get_field('video2_url_webm'),
-    //    "urlMobile"     => get_field('video2_url_mobile'),
-    //    "urlMobileWebm" => get_field('video2_url_mobile_webm'),
-    //    "poster"        => get_field('video2_posterImage'),
-    //]);
+    getPartial('video', [
+        "url"           => get_field('video2_url'),
+        "urlWebm"       => get_field('video2_url_webm'),
+        "urlMobile"     => get_field('video2_url_mobile'),
+        "urlMobileWebm" => get_field('video2_url_mobile_webm'),
+        "poster"        => get_field('video2_posterImage'),
+    ]);
 
     getPartial('homeTransformation', [
         "title"     => get_field('transformation_title'),
