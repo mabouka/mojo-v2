@@ -1,0 +1,16 @@
+// Critical CSS for above-the-fold rendering on home page.
+// Inlined in <head> via header.php to eliminate render-blocking CSS.
+// The full base.css + page-home.css are loaded async after this paints.
+
+@import "tools";
+
+@import "base/helpers";
+@import "base/typography";
+@import "base/importFonts";
+@import "base/reset";
+@import "base/base";
+@import "base/inview";
+@import "base/lenis";
+
+@import "parts/header";
+@import "parts/homeIntro";

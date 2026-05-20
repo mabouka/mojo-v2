@@ -22,6 +22,7 @@ mix
 
     // CSS splitting — base + per-page bundles
     .sass('wp-content/themes/mojo-v2/src/scss/base.scss',                  'css/base.css')
+    .sass('wp-content/themes/mojo-v2/src/scss/critical-home.scss',         'css/critical-home.css')
     .sass('wp-content/themes/mojo-v2/src/scss/page-home.scss',             'css/page-home.css')
     .sass('wp-content/themes/mojo-v2/src/scss/page-cases.scss',            'css/page-cases.css')
     .sass('wp-content/themes/mojo-v2/src/scss/page-single-case.scss',      'css/page-single-case.css')

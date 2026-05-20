@@ -30,8 +30,20 @@
     <!-- Responsive -->
     <meta name="HandheldFriendly" content="true">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?= getUrlVersion('dist/css/base.css'); ?>">
-    <link rel="stylesheet" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>" id="mojo-page-css">
+    <?php if (is_front_page()): ?>
+        <!-- Critical CSS inlined for above-the-fold home rendering -->
+        <style id="critical-home-css"><?= file_get_contents(get_template_directory() . '/dist/css/critical-home.css'); ?></style>
+        <!-- Full CSS loaded async to avoid render-blocking -->
+        <link rel="preload" href="<?= getUrlVersion('dist/css/base.css'); ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="preload" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>" as="style" onload="this.onload=null;this.rel='stylesheet'" id="mojo-page-css">
+        <noscript>
+            <link rel="stylesheet" href="<?= getUrlVersion('dist/css/base.css'); ?>">
+            <link rel="stylesheet" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>">
+        </noscript>
+    <?php else: ?>
+        <link rel="stylesheet" href="<?= getUrlVersion('dist/css/base.css'); ?>">
+        <link rel="stylesheet" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>" id="mojo-page-css">
+    <?php endif ?>
 
     <?php
     $gtag = 'G-RS946CZMGV';
