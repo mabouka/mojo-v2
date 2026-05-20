@@ -1,9 +1,13 @@
 import gsap         from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// Register globally at module evaluation time so async-loaded chunks
-// (clientIntro, clientNumbers, Globe, etc.) can use ScrollTrigger
-// without each having to register it themselves.
-gsap.registerPlugin(ScrollTrigger);
+import { isMobile } from './utils/detect';
+// Register ScrollTrigger globally at module evaluation time so async-loaded
+// chunks (clientIntro, clientNumbers, Globe, etc.) find the plugin without
+// each having to register it themselves. Skipped on mobile where scroll
+// animations are turned off — chunks will just emit a benign warning.
+if (!isMobile()) {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 import Pluton       from './classes/Pluton';
 import Scroller     from './classes/Scroller';
