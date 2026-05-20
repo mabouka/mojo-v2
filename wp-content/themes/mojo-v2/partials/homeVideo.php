@@ -6,8 +6,8 @@
             </p>
         </div>
     </div>
-    <video class="homeVideo__video" loop autoplay playsinline muted <?= $poster ? 'poster="' . $poster['url'] . '"' : '' ?>>
-        <source src="<?= $url ?>" type="video/mp4">
+    <video class="homeVideo__video lazy" loop autoplay playsinline muted preload="none" <?= $poster ? 'poster="' . $poster['url'] . '"' : '' ?>>
+        <source data-src="<?= $url ?>" type="video/mp4">
     </video>
     <div class="homeVideo__noise"></div>
 </div>
