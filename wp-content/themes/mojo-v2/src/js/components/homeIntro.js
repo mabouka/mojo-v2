@@ -93,13 +93,13 @@ export default class HomeIntro {
 
         // stars appear immediately — no intro animation
 
-        //main.eventCallback("onComplete",() => {
-        //    this.body.classList.remove('loading');
-        //    window.lenis.start();
-        //    inview.addElement(this.homeVideo);
-        //    inview.addElement(this.header);
-        //    this.launchScroll();
-        //})
+        main.eventCallback("onComplete",() => {
+            this.body.classList.remove('loading');
+            window.lenis.start();
+            inview.addElement(this.homeVideo);
+            inview.addElement(this.header);
+            this.launchScroll();
+        })
         window.homeAnimationDone = true;
     }
 
