@@ -40,6 +40,7 @@ export default class Router {
         barba.init({
                 timeout: 5000, // default is 2000ms
                 logLevel: 'error',
+                preventRunning: true,
                 transitions: [
                     //curtainFade,
                     curtainTransition,
@@ -86,7 +87,7 @@ export default class Router {
 
         barba.hooks.enter(async (data) => {
             window.__barbaEnterStart = Date.now();
-            data.current.container.remove();
+            data.current?.container?.remove();
             window.lenis.start();
             window.MJ.cursor.reset();
 
