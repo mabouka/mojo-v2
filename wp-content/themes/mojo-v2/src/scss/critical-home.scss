@@ -14,3 +14,9 @@
 
 @import "parts/header";
 @import "parts/homeIntro";
+
+// featuredCases mobile gallery + caseCard are above-the-fold on mobile.
+// Without these in the critical bundle, they flash unstyled before page-home.css
+// finishes loading async.
+@import "parts/featuredCases";
+@import "parts/caseCard";
