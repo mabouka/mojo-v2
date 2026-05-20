@@ -124,10 +124,6 @@ export default class HomeIntro {
             y: -165
         }, 0)
 
-        .to(this.stars, {
-            duration: 1, 
-            y: -75
-        },0);
     }
  
     setEvents() {
