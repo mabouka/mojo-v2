@@ -57,14 +57,25 @@
         }
     </script>
 
-    <?php $usePartytown = getenv('PARTYTOWN_ENABLED') === 'true'; ?>
+    <?php $usePartytown = true; ?>
 
     <?php if ($usePartytown): ?>
     <!-- Partytown: run third-party scripts in a Web Worker -->
     <script>
         partytown = {
             lib: '/wp-content/themes/mojo-v2/dist/~partytown/',
-            forward: ['dataLayer.push', 'gtag']
+            forward: ['dataLayer.push', 'gtag'],
+            // Proxy cross-origin requests through partytown-proxy.php so the
+            // worker can fetch analytics/tag-manager scripts that don't send
+            // Access-Control-Allow-Origin headers.
+            resolveUrl: function(url, location, type) {
+                if (url.hostname !== location.hostname) {
+                    var proxy = new URL('/partytown-proxy.php', location.href);
+                    proxy.searchParams.append('url', url.href);
+                    return proxy;
+                }
+                return url;
+            }
         };
     </script>
     <script><?php echo file_get_contents(get_template_directory() . '/dist/~partytown/partytown.js'); ?></script>
