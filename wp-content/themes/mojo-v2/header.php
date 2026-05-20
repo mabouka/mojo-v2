@@ -10,9 +10,6 @@
     <?php wp_head(); ?>
     <!-- WPHEAD END -->
 
-    <!-- Preconnect to third-party origins used later in the page -->
-    <link rel="preconnect" href="https://tree-nation.com" crossorigin>
-
     <!-- Preload -->
     <?php $pageCssFile = getPageCssFile(); ?>
     <link rel="preload" href="<?= getUrlVersion('dist/css/base.css'); ?>" as="style">
