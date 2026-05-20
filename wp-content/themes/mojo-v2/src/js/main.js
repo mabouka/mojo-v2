@@ -1,3 +1,10 @@
+import gsap         from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// Register globally at module evaluation time so async-loaded chunks
+// (clientIntro, clientNumbers, Globe, etc.) can use ScrollTrigger
+// without each having to register it themselves.
+gsap.registerPlugin(ScrollTrigger);
+
 import Pluton       from './classes/Pluton';
 import Scroller     from './classes/Scroller';
 import Cursor       from './classes/Cursor';
