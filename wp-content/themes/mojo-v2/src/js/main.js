@@ -35,13 +35,31 @@ class Mojo {
 function boot() {
     window.document.documentElement.classList.add('js-active');
 
-    // Defer heavy init (GSAP/Lenis/Barba setup) until after first paint so the
-    // browser can paint the LCP element before main thread is busy with init.
+    // Defer heavy init until after LCP is registered. The browser paints the
+    // LCP image first, then we kick off GSAP/Lenis/Barba setup which would
+    // otherwise mutate DOM and delay the LCP measurement.
+    let started = false;
     const startApp = () => {
+        if (started) return;
+        started = true;
         window.scroller = new Scroller();
         window.MJ = new Mojo();
     };
-    requestAnimationFrame(() => requestAnimationFrame(startApp));
+
+    if ('PerformanceObserver' in window) {
+        try {
+            const obs = new PerformanceObserver(() => {
+                obs.disconnect();
+                startApp();
+            });
+            obs.observe({ type: 'largest-contentful-paint', buffered: true });
+            setTimeout(startApp, 2000); // safety fallback
+        } catch (e) {
+            requestAnimationFrame(() => requestAnimationFrame(startApp));
+        }
+    } else {
+        requestAnimationFrame(() => requestAnimationFrame(startApp));
+    }
 }
 
 // Polyfill: fire immediately if DOMContentLoaded already fired (can happen when
