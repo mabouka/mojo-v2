@@ -6,7 +6,8 @@
             </p>
         </div>
     </div>
-    <stream class="homeVideo__video" src="<?= $url ?>" loop autoplay playsinline muted <?= $poster ? 'poster="' . $poster['url'] . '"' : '' ?>></stream>
-    <script data-cfasync="false" defer src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
+    <video class="homeVideo__video" loop autoplay playsinline muted <?= $poster ? 'poster="' . $poster['url'] . '"' : '' ?>>
+        <source src="<?= $url ?>" type="video/mp4">
+    </video>
     <div class="homeVideo__noise"></div>
 </div>
