@@ -41,6 +41,7 @@
     <script>
         document.documentElement.classList.remove('no-js');
         document.documentElement.classList.add('js');
+        document.documentElement.classList.add('js-active');
         if ('IntersectionObserver' in window) document.documentElement.classList.add('inview');
         else document.documentElement.classList.add('no-inview');
 
