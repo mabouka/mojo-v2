@@ -34,8 +34,14 @@ class Mojo {
 
 function boot() {
     window.document.documentElement.classList.add('js-active');
-    window.scroller = new Scroller();
-    window.MJ = new Mojo();
+
+    // Defer heavy init (GSAP/Lenis/Barba setup) until after first paint so the
+    // browser can paint the LCP element before main thread is busy with init.
+    const startApp = () => {
+        window.scroller = new Scroller();
+        window.MJ = new Mojo();
+    };
+    requestAnimationFrame(() => requestAnimationFrame(startApp));
 }
 
 // Polyfill: fire immediately if DOMContentLoaded already fired (can happen when
