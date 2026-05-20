@@ -1,6 +1,5 @@
-// gsap + Reeller chargés en lazy import — sortis du bundle initial.
-let Reeller;
-let gsap;
+import {Reeller} from 'reeller';
+import gsap from 'gsap';
 
 export default class OurClients {
 
@@ -15,23 +14,16 @@ export default class OurClients {
         this.current = 0;
         this.timer = this.getTimer();
 
+        this.startCarousel();
+
         this.active(this.clients[this.current]);
         this.setEvents();
-
-        // Carousel marquee : gsap + Reeller chargés à la demande.
-        this.ready = this.startCarousel();
     }
 
-    async startCarousel() {
-        const [reellerMod, gsapMod] = await Promise.all([
-            import('reeller'),
-            import('gsap')
-        ]);
-        Reeller = reellerMod.Reeller;
-        gsap = gsapMod.default;
+    startCarousel() {
         Reeller.registerGSAP(gsap);
 
-        new Reeller({
+        const reeller = new Reeller({
             container: '.ourClients__carousel',
             wrapper: '.ourClients__carouselWrapper',
             itemSelector: '.ourClients__carouselWrapper',

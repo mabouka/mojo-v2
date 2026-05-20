@@ -163,31 +163,9 @@
   {}
 ]);
 </script>
-<script>
-// Conditional bundle loading: on mobile (<=600px) we load main-mobile.js
-// (19KB) instead of manifest+vendor+main (226KB) — no gsap, no lenis, no
-// barba. Scripts are loaded sequentially via onload chain to preserve order.
-(function() {
-    var isMobile = window.matchMedia('(max-width: 600px)').matches;
-    var scripts = isMobile
-        ? [
-            '<?= getUrlVersion('dist/js/manifest.js'); ?>',
-            '<?= getUrlVersion('dist/js/main-mobile.js'); ?>'
-          ]
-        : [
-            '<?= getUrlVersion('dist/js/manifest.js'); ?>',
-            '<?= getUrlVersion('dist/js/vendor.js'); ?>',
-            '<?= getUrlVersion('dist/js/main.js'); ?>'
-          ];
-    (function next(i) {
-        if (i >= scripts.length) return;
-        var s = document.createElement('script');
-        s.src = scripts[i];
-        s.onload = function() { next(i + 1); };
-        document.head.appendChild(s);
-    })(0);
-})();
-</script>
+<script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
+<script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
+<script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
 
 <?php 
     

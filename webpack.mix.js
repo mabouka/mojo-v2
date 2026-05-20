@@ -15,7 +15,6 @@ mix
     })
 
     .js('wp-content/themes/mojo-v2/src/js/main.js', 'dist/js')
-    .js('wp-content/themes/mojo-v2/src/js/main-mobile.js', 'dist/js')
     .js('wp-content/themes/mojo-v2/src/js/cookieconsent-config.js', 'dist/js')
     .extract(['gsap', '@barba/core', '@studio-freight/lenis'])
 

@@ -1,17 +1,15 @@
 
+import gsap from "gsap";
+import Observer from "gsap/Observer";
 import { isTouchDevice, isMobile } from "../utils/detect";
 import Swiper from "swiper";
 
-// gsap + Observer chargés en lazy import (desktop seulement).
-let gsap;
-let Observer;
-
 export default class HomeService {
-
+    
     static get selector() {
         return '.homeService';
     }
-
+    
     constructor(el) {
         this.el = el;
         this.container   = this.el.querySelector('.homeService__cardContainer');
@@ -26,25 +24,13 @@ export default class HomeService {
             return;
         }
 
-        // Mobile : Swiper natif, ne charge pas gsap.
-        if (isMobile()) {
-            this.initSwiper();
-            return;
+        if(!isMobile()){
+            this.initIntro();
+            this.initScroller();
         }
-
-        // Desktop : lazy-load gsap + Observer puis kick off les animations scroll.
-        this.ready = this.initDesktop();
-    }
-
-    async initDesktop() {
-        const [gsapMod, ObserverMod] = await Promise.all([
-            import('gsap'),
-            import('gsap/Observer')
-        ]);
-        gsap = gsapMod.default;
-        Observer = ObserverMod.default || ObserverMod.Observer;
-        this.initIntro();
-        this.initScroller();
+        else{
+            this.initSwiper();
+        }
     }
 
     initSwiper() {
