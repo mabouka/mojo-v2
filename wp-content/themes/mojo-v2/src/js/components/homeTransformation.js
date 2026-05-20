@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isMobile } from "../utils/detect";
 
 export default class homeTransformation {
 
@@ -9,9 +10,13 @@ export default class homeTransformation {
     }
 
     constructor(el) {
+        this.el      = el;
+
+        // Skip scroll-driven motion-path animation on mobile.
+        if (isMobile()) return;
+
         gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
-        this.el      = el;
         this.circle  = this.el.querySelector('#tr_circle');
         this.path    = this.el.querySelector('#tr_path');
 
@@ -63,6 +68,6 @@ export default class homeTransformation {
     }
 
     destroy() {
-        this.main.kill(true);
+        if (this.main) this.main.kill(true);
     }
 }
