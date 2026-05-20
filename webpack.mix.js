@@ -72,37 +72,10 @@ mix.webpackConfig(webpack => {
         },
 
         optimization: {
-            // 'deterministic' (webpack default in prod) assigns numeric IDs to chunks created
-            // by splitChunks. CSS entry chunks end up with IDs like 542, 3140, 8734 and are
-            // added to main.js's __webpack_require__.O wait-list. Since PHP loads CSS via
-            // <link> tags, those chunks are never fulfilled and the entry callback never fires.
-            //
-            // 'named' uses the entry/chunk name as ID — purely cosmetic here, the real fix is
-            // the NoCssDependencyPlugin below, but named IDs make future debugging far easier.
+            // Use readable chunk names in production instead of webpack's default numeric IDs.
+            // Makes debugging far easier and keeps chunk URLs stable across rebuilds as long
+            // as entry names don't change.
             chunkIds: 'named',
-
-            splitChunks: {
-                // 'async' means splitChunks only operates on dynamically-imported (lazy) chunks.
-                // It will NOT create shared initial chunks between the .js() and .sass() entries,
-                // so CSS entry chunk IDs never appear in the main.js entry's wait-list.
-                // mix.extract() uses its own explicit cacheGroup below (unaffected by this).
-                chunks: 'async',
-
-                cacheGroups: {
-                    // Vendor split — keep working exactly as mix.extract() intends.
-                    // 'all' here is intentional: pull vendor libs out of every JS entry.
-                    vendors: {
-                        test: /[\\/]node_modules[\\/](gsap|@barba|@studio-freight)[\\/]/,
-                        name: 'vendor',
-                        chunks: 'all',
-                        enforce: true,
-                        priority: 20,
-                    },
-                    // Disable webpack's default vendor & common splitting — we own this entirely.
-                    defaultVendors: false,
-                    default: false,
-                },
-            },
         },
 
         plugins: [
