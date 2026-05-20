@@ -34,16 +34,8 @@ class Mojo {
 
 function boot() {
     window.document.documentElement.classList.add('js-active');
-    try {
-        window.scroller = new Scroller();
-    } catch(e) {
-        console.error('[mojo] Scroller init failed:', e);
-    }
-    try {
-        window.MJ = new Mojo();
-    } catch(e) {
-        console.error('[mojo] Mojo init failed:', e);
-    }
+    window.scroller = new Scroller();
+    window.MJ = new Mojo();
 }
 
 // Polyfill: fire immediately if DOMContentLoaded already fired (can happen when

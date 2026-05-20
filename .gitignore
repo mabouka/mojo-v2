@@ -5,6 +5,7 @@ wp-*.php
 xmlrpc.php
 wp-config.php
 !wp-config-sample.php
+.htaccess
 
 # Uploads, plugins & languages
 wp-content/uploads/
@@ -24,3 +25,7 @@ package-lock.json
 .claude/
 license.txt
 readme.html
+wp-content/object-cache.php
+.ddev/
+.vscode/
+.h
