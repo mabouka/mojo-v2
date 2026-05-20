@@ -1,4 +1,3 @@
-import {gsap} from "gsap";
 import inview from "../classes/InView";
 export default class HomeIntro {
 

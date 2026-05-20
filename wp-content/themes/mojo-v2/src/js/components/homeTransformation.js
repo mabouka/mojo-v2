@@ -1,6 +1,7 @@
-import gsap from "gsap";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isMobile } from "../utils/detect";
+
+// gsap + plugins chargés en lazy import — pas dans le chunk mobile.
+let gsap;
 
 export default class homeTransformation {
 
@@ -9,9 +10,23 @@ export default class homeTransformation {
     }
 
     constructor(el) {
+        this.el = el;
+
+        // Animation scroll-driven uniquement utile sur desktop.
+        if (isMobile()) return;
+
+        this.ready = this.init();
+    }
+
+    async init() {
+        const [gsapMod, { MotionPathPlugin }, { ScrollTrigger }] = await Promise.all([
+            import('gsap'),
+            import('gsap/MotionPathPlugin'),
+            import('gsap/ScrollTrigger')
+        ]);
+        gsap = gsapMod.default;
         gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
-        this.el      = el;
         this.circle  = this.el.querySelector('#tr_circle');
         this.path    = this.el.querySelector('#tr_path');
 
@@ -63,6 +78,6 @@ export default class homeTransformation {
     }
 
     destroy() {
-        this.main.kill(true);
+        if (this.main) this.main.kill(true);
     }
 }

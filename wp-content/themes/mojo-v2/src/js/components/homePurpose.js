@@ -1,5 +1,8 @@
-import gsap from "gsap";
-import { isMouse, isFirefox } from "../utils/detect";
+import { isMouse, isFirefox, isMobile } from "../utils/detect";
+
+// gsap is loaded lazily inside init() so the homePurpose chunk doesn't pull
+// vendor.js on mobile (the whole component does nothing useful without a mouse).
+let gsap;
 
 export default class HomePurpose {
 
@@ -9,6 +12,19 @@ export default class HomePurpose {
 
     constructor(el) {
         this.el = el;
+
+        // Mouse-driven SVG circle — pointless on mobile, skip entirely so we
+        // never load gsap.
+        if (isMobile()) return;
+
+        this.ready = this.init();
+    }
+
+    async init() {
+        if (!gsap) {
+            gsap = (await import('gsap')).default;
+        }
+
         this.body = document.querySelector('body');
         this.svg = this.el.querySelector('#purposeSvg');
         this.svgWrapper = this.el.querySelector('.homePurpose__svgWrapper');
@@ -38,6 +54,9 @@ export default class HomePurpose {
     }
 
     destroy() {
+        // Si init n'a jamais tourné (mobile), rien à nettoyer.
+        if (!gsap || !this._boundFrame) return;
+
         // retire le ticker
         gsap.ticker.remove(this._boundFrame);
 
