@@ -16,6 +16,19 @@
     <link rel="preload" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>" as="style">
     <link rel="preload" href="<?= getUrl('dist/images/transparentNoise.webp'); ?>" as="image">
 
+    <?php
+    // Preload the homeVideo poster as the desktop LCP element on the front page.
+    if (is_front_page()) {
+        $homePosterId  = get_post_meta(get_option('page_on_front'), 'video_posterImage', true);
+        $homePosterUrl = $homePosterId ? wp_get_attachment_image_url($homePosterId, 'full') : '';
+        if ($homePosterUrl):
+    ?>
+    <link rel="preload" href="<?= esc_url($homePosterUrl) ?>" as="image" fetchpriority="high">
+    <?php
+        endif;
+    }
+    ?>
+
     <link rel="preload" href="<?= getUrl('dist/fonts/dm-sans-4.woff2'); ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?= getUrl('dist/fonts/Cambon-Regular.woff2'); ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?= getUrl('dist/fonts/Cambon-SemiBold.woff2'); ?>" as="font" type="font/woff2" crossorigin>
