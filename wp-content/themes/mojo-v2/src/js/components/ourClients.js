@@ -1,6 +1,3 @@
-import {Reeller} from 'reeller';
-import gsap from 'gsap';
-
 export default class OurClients {
 
     static get selector() {
@@ -21,15 +18,20 @@ export default class OurClients {
     }
 
     startCarousel() {
-        Reeller.registerGSAP(gsap);
+        // Marquee CSS-only : on duplique les enfants en JS pour que
+        // l'animation @keyframes translateX(-50%) boucle sans saut.
+        const wrapper = this.el.querySelector('.ourClients__carouselWrapper');
+        if (!wrapper) return;
 
-        const reeller = new Reeller({
-            container: '.ourClients__carousel',
-            wrapper: '.ourClients__carouselWrapper',
-            itemSelector: '.ourClients__carouselWrapper',
-            speed: 50,
-            reversed: true
+        const items = Array.from(wrapper.children);
+        items.forEach((item) => {
+            const clone = item.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            wrapper.appendChild(clone);
         });
+
+        // Active l'animation (gérée par CSS @keyframes)
+        wrapper.classList.add('ourClients__carouselWrapper--marquee');
     }
 
     getTimer() {

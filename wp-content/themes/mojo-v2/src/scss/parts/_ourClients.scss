@@ -50,6 +50,7 @@
     &__carousel{
         padding-top: s(125);
         padding-bottom: s(156);
+        overflow: hidden; // indispensable pour le marquee : cache les items hors viewport
 
         &.leadLogoCarrousel{
             padding-top: s(43);
@@ -60,6 +61,19 @@
     &__carouselWrapper{
         display: flex;
         width: fit-content;
+
+        // L'animation est ajoutée via JS après duplication des items (cf. ourClients.js).
+        // On translate de -50% car les items sont dupliqués 2x → après -50% on revient
+        // visuellement au début sans saut perceptible.
+        &--marquee {
+            animation: ourClientsMarquee 60s linear infinite;
+            will-change: transform;
+        }
+
+        // Variante inverse (utilisée par leadLogoCarrousel)
+        &--marquee-reversed {
+            animation-direction: reverse;
+        }
     }
 
     &__carouselItem{
@@ -311,3 +325,11 @@
 }
 
 
+
+
+// Marquee infini pour le carousel logos.
+// translateX(-50%) car les items sont dupliqués 2x via JS (cf. ourClients.js).
+@keyframes ourClientsMarquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
