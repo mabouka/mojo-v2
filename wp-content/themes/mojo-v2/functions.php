@@ -250,6 +250,23 @@ add_action('after_setup_theme', 'setup_theme_menu');
 
 
 /**
+ * Hide WordPress admin bar from the front-end + dequeue its inline styles.
+ * Frontend is for visitors only; admin bar inflates LCP and adds the 'html { margin-top: 32px }' rule.
+ */
+add_filter('show_admin_bar', '__return_false');
+add_action('wp_enqueue_scripts', function () {
+    wp_dequeue_style('admin-bar');
+    wp_deregister_style('admin-bar');
+    wp_dequeue_script('admin-bar');
+    wp_deregister_script('admin-bar');
+}, 999);
+// Remove the inline 'html { margin-top: 32px !important }' style WP injects
+add_action('get_header', function () {
+    remove_action('wp_head', '_admin_bar_bump_cb');
+});
+
+
+/**
  * Helpers
  */
 
