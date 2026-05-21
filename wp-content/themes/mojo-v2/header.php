@@ -26,7 +26,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php if (is_front_page()): ?>
         <!-- Critical CSS inlined for above-the-fold home rendering -->
-        <style id="critical-home-css"><?= file_get_contents(get_template_directory() . '/dist/css/critical-home.css'); ?></style>
+        <?php
+            // url(../fonts/…) and url(../images/…) inside the CSS are relative to
+            // /dist/css/. Once inlined in <head> they resolve from the document
+            // root → 404. Rewrite to absolute theme paths.
+            $criticalCss = file_get_contents(get_template_directory() . '/dist/css/critical-home.css');
+            $criticalCss = str_replace('url(../', 'url(' . get_template_directory_uri() . '/dist/', $criticalCss);
+        ?>
+        <style id="critical-home-css"><?= $criticalCss ?></style>
         <!-- Full CSS loaded async to avoid render-blocking -->
         <link rel="preload" href="<?= getUrlVersion('dist/css/base.css'); ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <link rel="preload" href="<?= getUrlVersion('dist/css/' . $pageCssFile); ?>" as="style" onload="this.onload=null;this.rel='stylesheet'" id="mojo-page-css">
