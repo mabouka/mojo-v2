@@ -1,39 +1,44 @@
-const components = {
-    'ContactForm':          { selector: '.contact',             load: () => import(/* webpackChunkName: "contact-form" */        '../components/ContactForm') },
-    'Globe':                { selector: '.globe',               load: () => import(/* webpackChunkName: "globe" */               '../components/Globe') },
-    'archiveStoriesFilters':{ selector: '.archiveStories',      load: () => import(/* webpackChunkName: "archive-stories" */     '../components/archiveStoriesFilters') },
-    'caseAccordion':        { selector: '.caseAccordion',       load: () => import(/* webpackChunkName: "case-accordion" */      '../components/caseAccordion') },
-    'caseCard':             { selector: '.caseCard',            load: () => import(/* webpackChunkName: "case-card" */           '../components/caseCard') },
-    'casesGrid':            { selector: '.casesGrid',           load: () => import(/* webpackChunkName: "cases-grid" */         '../components/casesGrid') },
-    'casesServices':        { selector: '.casesServices',       load: () => import(/* webpackChunkName: "cases-services" */     '../components/casesServices') },
-    'clientHover':          { selector: '.clientHover',         load: () => import(/* webpackChunkName: "client-hover" */       '../components/clientHover') },
-    'clientIntro':          { selector: '.clientIntro',         load: () => import(/* webpackChunkName: "client-intro" */       '../components/clientIntro') },
-    'clientNumbers':        { selector: '.clientNumbers',       load: () => import(/* webpackChunkName: "client-numbers" */     '../components/clientNumbers') },
-    'clientTypology':       { selector: '.clientTypology',      load: () => import(/* webpackChunkName: "client-typology" */    '../components/clientTypology') },
-    'commitmentsEarth':     { selector: '.commitmentsEarth',    load: () => import(/* webpackChunkName: "commitments-earth" */  '../components/commitmentsEarth') },
-    'commitmentsFaq':       { selector: '.commitmentsFaq',      load: () => import(/* webpackChunkName: "commitments-faq" */   '../components/commitmentsFaq') },
-    'commitmentsIntro':     { selector: '.commitmentsIntro',    load: () => import(/* webpackChunkName: "commitments-intro" */ '../components/commitmentsIntro') },
-    'cta':                  { selector: '.cta',                 load: () => import(/* webpackChunkName: "cta" */               '../components/cta') },
-    'faq':                  { selector: '.faq',                 load: () => import(/* webpackChunkName: "faq" */               '../components/faq') },
-    'featuredCases':        { selector: '.featuredCases',       load: () => import(/* webpackChunkName: "featured-cases" */    '../components/featuredCases') },
-    'homeIntro':            { selector: '.homeIntro',           load: () => import(/* webpackChunkName: "home-intro" */        '../components/homeIntro') },
-    'homePurpose':          { selector: '.homePurpose',         load: () => import(/* webpackChunkName: "home-purpose" */      '../components/homePurpose') },
-    'homeService':          { selector: '.homeService',         load: () => import(/* webpackChunkName: "home-service" */      '../components/homeService') },
-    'homeTransformation':   { selector: '.homeTransformation',  load: () => import(/* webpackChunkName: "home-transformation" */'../components/homeTransformation') },
-    'homeVideo':            { selector: '.homeVideo',           load: () => import(/* webpackChunkName: "home-video" */        '../components/homeVideo') },
-    'imagesslider':         { selector: '.imagesslider',        load: () => import(/* webpackChunkName: "images-slider" */     '../components/imagesslider') },
-    'leadDescription':      { selector: '.leadDescription',     load: () => import(/* webpackChunkName: "lead-description" */  '../components/leadDescription') },
-    'leadLogoCarrousel':    { selector: '.leadLogoCarrousel',   load: () => import(/* webpackChunkName: "lead-logo" */         '../components/leadLogoCarrousel') },
-    'leadTeam':             { selector: '.leadTeam',            load: () => import(/* webpackChunkName: "lead-team" */         '../components/leadTeam') },
-    'ourClients':           { selector: '.ourClients',          load: () => import(/* webpackChunkName: "our-clients" */       '../components/ourClients') },
-    'pageClient':           { selector: '.pageClient',          load: () => import(/* webpackChunkName: "page-client" */       '../components/pageClient') },
-    'sCaseRandom':          { selector: '.sCaseRandom',         load: () => import(/* webpackChunkName: "scase-random" */      '../components/sCaseRandom') },
-    'serviceCard':          { selector: '.serviceCard',         load: () => import(/* webpackChunkName: "service-card" */      '../components/serviceCard') },
-    'serviceGrid':          { selector: '.serviceGrid',         load: () => import(/* webpackChunkName: "service-grid" */      '../components/serviceGrid') },
-    'serviceHeader':        { selector: '.serviceHeader',       load: () => import(/* webpackChunkName: "service-header" */    '../components/serviceHeader') },
-    'teamGrid':             { selector: '.teamGrid',            load: () => import(/* webpackChunkName: "team-grid" */         '../components/teamGrid') },
-    'wpBlockDetails':       { selector: '.wp-block-details',    load: () => import(/* webpackChunkName: "wp-block-details" */  '../components/wp-block-details') },
+// Auto-discovery des composants via webpack require.context.
+//
+// Convention par défaut : nom de fichier = sélecteur CSS (préfixé d'un point).
+//   homeIntro.js        → .homeIntro
+//   wp-block-details.js → .wp-block-details
+//   caseCard.js         → .caseCard
+//
+// Quand le nom de fichier diffère du sélecteur, ajouter une entrée dans
+// SELECTOR_OVERRIDES ci-dessous (clé = nom de fichier sans .js).
+//
+// Ajouter un composant → drop le fichier dans /components/, rebuild.
+// Supprimer un composant → delete le fichier, rebuild. Pas de touche à Pluton.js.
+
+const SELECTOR_OVERRIDES = {
+    ContactForm:           '.contact',
+    Globe:                 '.globe',
+    archiveStoriesFilters: '.archiveStories',
+    'wp-block-details':    '.wp-block-details', // déjà OK par convention, juste pour clarté
 };
+
+// require.context — scanné à BUILD TIME par webpack.
+// `lazy` = chaque module devient un chunk séparé chargé à la demande (comme avant).
+const context = require.context(
+    '../components',
+    false,           // pas de sous-dossiers
+    /\.js$/,         // tous les .js
+    'lazy'           // un chunk par composant
+);
+
+const components = {};
+context.keys().forEach((key) => {
+    // key = './homeIntro.js'
+    const name = key.replace(/^\.\//, '').replace(/\.js$/, '');
+    const selector = SELECTOR_OVERRIDES[name] || `.${name}`;
+
+    components[name] = {
+        selector,
+        load: () => context(key),
+    };
+});
+
 
 class PlutonClass {
 
@@ -63,15 +68,15 @@ class PlutonClass {
             this.loaded[name] = module.default;
         }
         const Component = this.loaded[name];
-        elements.forEach(el => {
+        elements.forEach((el) => {
             if (!this.instances[name]) this.instances[name] = [];
             this.instances[name].push(new Component(el));
         });
     }
 
     destroy() {
-        for (const [key, value] of Object.entries(this.instances)) {
-            value.forEach(component => {
+        for (const [, value] of Object.entries(this.instances)) {
+            value.forEach((component) => {
                 if (typeof component.destroy === 'function') {
                     component.destroy();
                 }
@@ -89,12 +94,12 @@ class PlutonClass {
 
     call(className, fn, parameters) {
         if (!this.instances[className]) return;
-        for (var i = this.instances[className].length - 1; i >= 0; i--) {
+        for (let i = this.instances[className].length - 1; i >= 0; i--) {
             this.instances[className][i][fn](parameters);
         }
     }
 }
 
-let Pluton = new PlutonClass();
+const Pluton = new PlutonClass();
 
 export default Pluton;

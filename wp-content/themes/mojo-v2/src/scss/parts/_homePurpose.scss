@@ -4,7 +4,6 @@
     padding-bottom: s(373);
     position: relative;
     overflow: hidden;
-    z-index: 11;
 
     &__inside{
         display: flex;
@@ -39,9 +38,11 @@
         bottom: 0;
         width: s(5000);
         height: s(5000);
+
     }
 
     &__svg{
+
         @include cover();
 
         & *{

@@ -8,7 +8,7 @@
 
 <?php if ($showFooter): ?>
 
-<footer class="footer">
+<footer class="footer darkSection">
     <div class="wrapper">
         <div class="footer__inside">
 
