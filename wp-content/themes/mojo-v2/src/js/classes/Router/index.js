@@ -113,13 +113,25 @@ export default class Router {
 
         barba.hooks.after(() => {
             this.lazyVideos.loadAllVisible();
-            
-            gtag('event', 'page_view', {
-              'page_title': document.title,
-              'page_location': location.href,
-              'page_path': location.pathname,
-            });
-            
+
+            // Defer the page_view forward so Partytown's worker has time to
+            // re-sync its virtual DOM after the Barba container swap. Pushing
+            // directly to dataLayer (instead of gtag()) avoids a second
+            // round-trip through the worker forward queue, and the try/catch
+            // keeps a worker hiccup from polluting the console.
+            setTimeout(() => {
+                try {
+                    (window.dataLayer = window.dataLayer || []).push({
+                        event: 'page_view',
+                        page_title: document.title,
+                        page_location: location.href,
+                        page_path: location.pathname,
+                    });
+                } catch (e) {
+                    /* silent — analytics best-effort */
+                }
+            }, 500);
+
         });
     }
     updatePageCSS(data) {
