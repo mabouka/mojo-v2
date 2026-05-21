@@ -70,7 +70,7 @@
         }
     </script>
 
-    <?php $usePartytown = true; ?>
+    <?php $usePartytown = false; // disabled: crashes on Barba page transitions (postMessage to detached worker) ?>
 
     <?php if ($usePartytown): ?>
     <!-- Partytown: run third-party scripts in a Web Worker -->
