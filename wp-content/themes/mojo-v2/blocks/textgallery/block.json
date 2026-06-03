@@ -2,8 +2,9 @@
     "name": "mojo/textgallery",
     "title": "Text + Gallery",
     "description": "a block that contain serverals images and one text who follow sticky",
-    "editorStyle": [ "file:./textgallery.css" ],
-
+    "editorStyle": [
+        "file:./textgallery.css"
+    ],
     "category": "formatting",
     "icon": "format-gallery",
     "keywords": [
@@ -16,5 +17,8 @@
     },
     "supports": {
         "anchor": true
-    }
+    },
+    "style": [
+        "file:./textgallery.css"
+    ]
 }

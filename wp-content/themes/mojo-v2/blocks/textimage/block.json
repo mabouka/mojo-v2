@@ -2,8 +2,9 @@
     "name": "mojo/textimage",
     "title": "Text + Image",
     "description": "a block that contain one image and one text",
-    "editorStyle": [ "file:./textimage.css" ],
-
+    "editorStyle": [
+        "file:./textimage.css"
+    ],
     "category": "formatting",
     "icon": "format-gallery",
     "keywords": [
@@ -16,5 +17,8 @@
     },
     "supports": {
         "anchor": true
-    }
+    },
+    "style": [
+        "file:./textimage.css"
+    ]
 }

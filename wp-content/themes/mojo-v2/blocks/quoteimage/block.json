@@ -2,8 +2,9 @@
     "name": "mojo/quoteimage",
     "title": "Quote + Image",
     "description": "a block that contain one image and one quote",
-    "editorStyle": [ "file:./quoteimage.css" ],
-
+    "editorStyle": [
+        "file:./quoteimage.css"
+    ],
     "category": "formatting",
     "icon": "format-gallery",
     "keywords": [
@@ -16,5 +17,8 @@
     },
     "supports": {
         "anchor": true
-    }
+    },
+    "style": [
+        "file:./quoteimage.css"
+    ]
 }
