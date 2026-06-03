@@ -14,18 +14,6 @@
         font-size: s(100);
         color: color(sand);
         margin-bottom: s(121-15);
-
-        // Le titre hero est l'élément LCP de la home. L'animation `.fx-letter`
-        // (opacity 0 → 1, staggered) ajoutait jusqu'à 1,4 s entre le FCP et
-        // le moment où Lighthouse mesurait le titre comme rendu. Au-dessus
-        // du fold, l'animation n'apporte rien visuellement → on la kill
-        // pour que les lettres soient peintes immédiatement.
-        // (L'effet reste actif partout ailleurs où `.fx-parent` est utilisé.)
-        .fx-letter {
-            opacity: 1;
-            transform: none;
-            transition: none;
-        }
     }
 
 
