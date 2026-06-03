@@ -482,18 +482,34 @@ function getLanguageLinks($class = "header__language")
     if (!function_exists('icl_get_languages')) {
         return '';
     }
-    $languages = icl_get_languages('skip_missing=0');
 
-    $active = $languages[ICL_LANGUAGE_CODE];
+    // WPML peut throw / retourner null si la traduction du post courant est
+    // cassée (entrée orpheline dans wp_icl_translations, hook tiers en erreur,
+    // etc.). On isole l'appel pour ne pas faire crasher la page entière.
+    try {
+        $languages = icl_get_languages('skip_missing=0');
+    } catch (\Throwable $e) {
+        error_log('[mojo] getLanguageLinks: icl_get_languages threw — ' . $e->getMessage());
+        return '';
+    }
+
+    if (!is_array($languages) || empty($languages)) {
+        return '';
+    }
+
     $link = '';
-    if (!empty($languages)) {
-        foreach ($languages as $c => $l) {
-            if (!$l['active']) {
-                $link .= '<a href="' . $l['url'] . '" class="' . $class . '" data-barba-prevent>';
-                $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
-                $link .= '</a>';
-            }
+    foreach ($languages as $c => $l) {
+        if (!is_array($l) || !empty($l['active'])) {
+            continue;
         }
+        $url  = $l['url']         ?? '';
+        $name = $l['native_name'] ?? $c;
+        if ($url === '') {
+            continue;
+        }
+        $link .= '<a href="' . esc_url($url) . '" class="' . esc_attr($class) . '" data-barba-prevent>';
+        $link .= '<abbr title="' . esc_attr($name) . '">' . ucfirst($c) . '</abbr>';
+        $link .= '</a>';
     }
     return $link;
 }
