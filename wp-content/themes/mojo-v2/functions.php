@@ -525,25 +525,44 @@ function get2LanguageLinks($class = "header__language")
  *
  * @link https://developer.wordpress.org/reference/hooks/init/
  */
+/**
+ * Auto-discover & register tous les blocks ACF dans /blocks/.
+ * Drop un nouveau dossier avec block.json + render template → auto-registered.
+ */
 function mojo_register_acf_blocks()
 {
-    /**
-     * We register our block's with WordPress's handy
-     * register_block_type();
-     *
-     * @link https://developer.wordpress.org/reference/functions/register_block_type/
-     */
-    register_block_type(__DIR__ . '/blocks/quoteimage');
-    register_block_type(__DIR__ . '/blocks/twoimages');
-    register_block_type(__DIR__ . '/blocks/textimage');
-    register_block_type(__DIR__ . '/blocks/textgallery');
-    register_block_type(__DIR__ . '/blocks/fullblackimage');
-    register_block_type(__DIR__ . '/blocks/fullimage');
-    register_block_type(__DIR__ . '/blocks/wrapperimage');
-    register_block_type(__DIR__ . '/blocks/imagesslider');
+    foreach (glob(__DIR__ . '/blocks/*/block.json') as $manifest) {
+        register_block_type(dirname($manifest));
+    }
 }
-// Here we call our tt3child_register_acf_block() function on init.
 add_action('init', 'mojo_register_acf_blocks');
+
+/**
+ * Enqueue tous les block CSS dans le <head> côté front-end.
+ * wp_footer() étant désactivé dans le theme, les styles que Gutenberg
+ * enqueuerait tardivement (au moment du render des blocks) sont perdus.
+ * On force ici le chargement <head> via wp_enqueue_scripts.
+ */
+function mojo_enqueue_block_styles()
+{
+    if (is_admin()) {
+        return;
+    }
+    foreach (glob(__DIR__ . '/blocks/*/block.json') as $manifest) {
+        $folder = basename(dirname($manifest));
+        $css    = __DIR__ . '/blocks/' . $folder . '/' . $folder . '.css';
+        if (!file_exists($css)) {
+            continue;
+        }
+        wp_enqueue_style(
+            'mojo-block-' . $folder,
+            get_template_directory_uri() . '/blocks/' . $folder . '/' . $folder . '.css',
+            array(),
+            filemtime($css)
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'mojo_enqueue_block_styles', 20);
 
 
 
