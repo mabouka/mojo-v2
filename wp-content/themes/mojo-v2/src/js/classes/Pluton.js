@@ -20,6 +20,7 @@
 const SELECTOR_OVERRIDES = {
     ContactForm:            '.contact',
     Globe:                  null,                              // instancié par pageClient.js
+    clientIntro:            null,                              // idem — owned by pageClient
     archiveStoriesFilters:  '.archiveStories__filtersSelect',
     cta:                    '.homeService--lead',
     pageClient:             '.pageclient',                     // lowercase, attention

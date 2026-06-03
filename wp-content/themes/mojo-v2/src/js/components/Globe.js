@@ -39,7 +39,6 @@ export default class Globe {
         this.fileType = 'webp';
         this.anim     = { frame: 0 };
 
-        console.log('[Globe] on', this.el);
         this.initialize();
     }
 
