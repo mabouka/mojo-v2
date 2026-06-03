@@ -8,12 +8,15 @@
 // Quand le nom de fichier diffère du sélecteur, ajouter une entrée dans
 // SELECTOR_OVERRIDES ci-dessous (clé = nom de fichier sans .js).
 //
+// Pour empêcher Pluton d'auto-instancier un composant (ex: déjà instancié
+// par un parent — pageClient → Globe), mettre `null` en valeur.
+//
 // Ajouter un composant → drop le fichier dans /components/, rebuild.
 // Supprimer un composant → delete le fichier, rebuild. Pas de touche à Pluton.js.
 
 const SELECTOR_OVERRIDES = {
     ContactForm:           '.contact',
-    Globe:                 '.globe',
+    Globe:                 null, // instancié par pageClient.js, ne PAS auto-discover
     archiveStoriesFilters: '.archiveStories',
     'wp-block-details':    '.wp-block-details', // déjà OK par convention, juste pour clarté
 };
@@ -31,7 +34,10 @@ const components = {};
 context.keys().forEach((key) => {
     // key = './homeIntro.js'
     const name = key.replace(/^\.\//, '').replace(/\.js$/, '');
-    const selector = SELECTOR_OVERRIDES[name] || `.${name}`;
+    const selector = name in SELECTOR_OVERRIDES
+        ? SELECTOR_OVERRIDES[name]
+        : `.${name}`;
+    if (selector == null) return; // opt-out explicite
 
     components[name] = {
         selector,
