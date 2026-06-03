@@ -554,26 +554,38 @@ function mojo_register_acf_blocks()
 add_action('init', 'mojo_register_acf_blocks');
 
 /**
- * Enqueue tous les block CSS dans le <head> côté front-end.
+ * Enqueue les block CSS dans le <head> côté front-end.
  * wp_footer() étant désactivé dans le theme, les styles que Gutenberg
  * enqueuerait tardivement (au moment du render des blocks) sont perdus.
  * On force ici le chargement <head> via wp_enqueue_scripts.
+ *
+ * Gating : ces blocs mojo/* ne sont insérés que dans le content Gutenberg
+ * des post types `case`, `stories`, `services`. Aucune raison de charger
+ * les 8 CSS sur la home, archives, contact, etc. — c'était ~2,4s de
+ * latence empilée pour rien (8 requêtes × ~300ms).
+ *
+ * En plus du gate par post type, on filtre par bloc via has_block() pour
+ * ne charger que ce que le post utilise réellement.
  */
 function mojo_enqueue_block_styles()
 {
-    if (is_admin()) {
-        return;
-    }
+    if (is_admin()) return;
+    if (!is_singular(['case', 'stories', 'services'])) return;
+
+    global $post;
+    if (!$post) return;
+
     foreach (glob(__DIR__ . '/blocks/*/block.json') as $manifest) {
         $folder = basename(dirname($manifest));
-        $css    = __DIR__ . '/blocks/' . $folder . '/' . $folder . '.css';
-        if (!file_exists($css)) {
-            continue;
-        }
+        if (!has_block('mojo/' . $folder, $post)) continue;
+
+        $css = __DIR__ . '/blocks/' . $folder . '/' . $folder . '.css';
+        if (!file_exists($css)) continue;
+
         wp_enqueue_style(
             'mojo-block-' . $folder,
             get_template_directory_uri() . '/blocks/' . $folder . '/' . $folder . '.css',
-            array(),
+            [],
             filemtime($css)
         );
     }

@@ -78,7 +78,10 @@ export default class Router {
         barba.hooks.beforeEnter(async (data) => {
             //this.updateHeader(data);
             this.updatePage(data);
-            await this.updatePageCSS(data);
+            await Promise.all([
+                this.updatePageCSS(data),
+                this.updateMojoBlockStyles(data),
+            ]);
             this.updateBlockCSS(data);
             Menu.update(data);
             ScrollTrigger.killAll();
@@ -151,6 +154,41 @@ export default class Router {
             link.onerror = resolve; // ne pas bloquer si erreur
             document.head.appendChild(link);
         });
+    }
+
+    /**
+     * Injecte les CSS des blocs ACF mojo/* nécessaires à la nouvelle page.
+     *
+     * Côté PHP, mojo_enqueue_block_styles() ne sert ces CSS qu'aux post types
+     * case/stories/services ET seulement les blocs présents (has_block).
+     * Donc à la navigation Barba vers un de ces post types depuis une page
+     * qui ne les avait pas dans son <head>, il faut récupérer les <link>
+     * du HTML fetché et les pousser dans le head courant.
+     *
+     * On reconnaît les bons <link> par leur id `mojo-block-*-css` (WP append
+     * `-css` au handle d'enqueue). On accumule sans jamais nettoyer (mêmes
+     * raisons que updatePageCSS — éviter le flash en arrière-navigation).
+     */
+    updateMojoBlockStyles(data) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data.next.html, 'text/html');
+        const newLinks = doc.querySelectorAll('link[id^="mojo-block-"]');
+        if (newLinks.length === 0) return Promise.resolve();
+
+        const promises = [];
+        newLinks.forEach((srcLink) => {
+            if (document.getElementById(srcLink.id)) return; // déjà chargé
+            const link = document.createElement('link');
+            link.rel  = 'stylesheet';
+            link.id   = srcLink.id;
+            link.href = srcLink.href;
+            promises.push(new Promise((resolve) => {
+                link.onload  = resolve;
+                link.onerror = resolve;
+                document.head.appendChild(link);
+            }));
+        });
+        return Promise.all(promises);
     }
 
     updateBlockCSS(data) {
