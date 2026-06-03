@@ -2,12 +2,28 @@
 let productionSourceMaps = false;
 
 let mix = require('laravel-mix');
+let fs   = require('fs');
+let path = require('path');
 require('laravel-mix-bundle-analyzer');
 
 let pluton_path = __dirname + '/wp-content/themes/mojo-v2/src/js/components';
 if (!mix.inProduction()) {
     mix.bundleAnalyzer();
 }
+
+// Auto-discovery des blocks ACF/Gutenberg : scanne src/scss/blocks/*.scss
+// et génère une entry .sass() + .copy() par fichier.
+// Drop un block.scss → automatiquement compilé.
+const BLOCKS_SRC  = 'wp-content/themes/mojo-v2/src/scss/blocks';
+const BLOCKS_DEST = 'wp-content/themes/mojo-v2/dist/css/blocks';
+const BLOCKS_FINAL = 'wp-content/themes/mojo-v2/blocks';
+const blockEntries = fs.readdirSync(BLOCKS_SRC)
+    .filter((f) => f.endsWith('.scss') && !f.startsWith('_'))
+    .map((f) => {
+        const base   = path.basename(f, '.scss');         // ex: "imagesslider" ou "quoteImage"
+        const folder = base.toLowerCase();                // dossier de sortie en minuscules
+        return { source: f, base, folder };
+    });
 
 mix
     .options({
@@ -39,28 +55,30 @@ mix
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
     .copy('wp-content/themes/mojo-v2/src/images/globe/*', 'wp-content/themes/mojo-v2/dist/images/globe/')
 
-    // doing the css of acf blocks and then copy it to the right place
-    .sass('wp-content/themes/mojo-v2/src/scss/blocks/twoimages.scss', 'css/blocks/twoimages/twoimages.css')
-    .sass('wp-content/themes/mojo-v2/src/scss/blocks/quoteImage.scss', 'css/blocks/quoteimage/quoteimage.css')
-    .sass('wp-content/themes/mojo-v2/src/scss/blocks/textimage.scss', 'css/blocks/textimage/textimage.css')
-    .sass('wp-content/themes/mojo-v2/src/scss/blocks/textgallery.scss', 'css/blocks/textgallery/textgallery.css')
-    .sass('wp-content/themes/mojo-v2/src/scss/blocks/fullblackimage.scss', 'css/blocks/fullblackimage/fullblackimage.css')
-    .sass('wp-content/themes/mojo-v2/src/scss/blocks/fullimage.scss', 'css/blocks/fullimage/fullimage.css')
-    .sass('wp-content/themes/mojo-v2/src/scss/blocks/imagesslider.scss', 'css/blocks/imagesslider/imagesslider.css')
-
-    .copy('wp-content/themes/mojo-v2/dist/css/blocks/twoimages/*', 'wp-content/themes/mojo-v2/blocks/twoimages/')
-    .copy('wp-content/themes/mojo-v2/dist/css/blocks/quoteimage/*', 'wp-content/themes/mojo-v2/blocks/quoteimage/')
-    .copy('wp-content/themes/mojo-v2/dist/css/blocks/textimage/*', 'wp-content/themes/mojo-v2/blocks/textimage/')
-    .copy('wp-content/themes/mojo-v2/dist/css/blocks/fullblackimage/*', 'wp-content/themes/mojo-v2/blocks/fullblackimage/')
-    .copy('wp-content/themes/mojo-v2/dist/css/blocks/fullimage/*', 'wp-content/themes/mojo-v2/blocks/fullimage/')
-    .copy('wp-content/themes/mojo-v2/dist/css/blocks/imagesslider/*', 'wp-content/themes/mojo-v2/blocks/imagesslider/')
+    // ACF/Gutenberg blocks : compile chaque src/scss/blocks/*.scss → dist/css/blocks/<name>/<name>.css
+    // puis copie vers theme/blocks/<name>/ là où PHP enqueue le CSS du block.
+    // La liste est auto-générée — drop un nouveau .scss dans src/scss/blocks/.
 
     .copy('wp-content/themes/mojo-v2/src/fonts/*', 'wp-content/themes/mojo-v2/dist/fonts/')
     .copy('node_modules/@qwik.dev/partytown/lib/*', 'wp-content/themes/mojo-v2/dist/~partytown/')
     .copy('node_modules/vanilla-cookieconsent/dist/cookieconsent.css', 'wp-content/themes/mojo-v2/dist/css/cookieconsent.css')
-    
+
     .sourceMaps(productionSourceMaps, 'source-map')
     .setPublicPath('wp-content/themes/mojo-v2/dist');
+
+
+// Auto-registered block entries (cf. blockEntries en haut du fichier).
+blockEntries.forEach((entry) => {
+    mix
+        .sass(
+            `${BLOCKS_SRC}/${entry.source}`,
+            `css/blocks/${entry.folder}/${entry.folder}.css`
+        )
+        .copy(
+            `${BLOCKS_DEST}/${entry.folder}/*`,
+            `${BLOCKS_FINAL}/${entry.folder}/`
+        );
+});
 
     
 mix.webpackConfig(webpack => {
