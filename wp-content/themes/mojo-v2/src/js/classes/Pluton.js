@@ -14,11 +14,17 @@
 // Ajouter un composant → drop le fichier dans /components/, rebuild.
 // Supprimer un composant → delete le fichier, rebuild. Pas de touche à Pluton.js.
 
+// Doit refléter le getter `static selector` de chaque composant quand il
+// diffère de la convention « .${nomDeFichier} ». Vérifier avec :
+//   grep -E "return '\\.[^']+'" components/*.js
 const SELECTOR_OVERRIDES = {
-    ContactForm:           '.contact',
-    Globe:                 null, // instancié par pageClient.js, ne PAS auto-discover
-    archiveStoriesFilters: '.archiveStories',
-    'wp-block-details':    '.wp-block-details', // déjà OK par convention, juste pour clarté
+    ContactForm:            '.contact',
+    Globe:                  null,                              // instancié par pageClient.js
+    archiveStoriesFilters:  '.archiveStories__filtersSelect',
+    cta:                    '.homeService--lead',
+    pageClient:             '.pageclient',                     // lowercase, attention
+    serviceCard:            '.serviceCard--animated',
+    'wp-block-details':     '.wp-block-details',
 };
 
 // require.context — scanné à BUILD TIME par webpack.
