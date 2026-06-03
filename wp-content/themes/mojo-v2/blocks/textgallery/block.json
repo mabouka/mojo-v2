@@ -3,7 +3,7 @@
     "title": "Text + Gallery",
     "description": "a block that contain serverals images and one text who follow sticky",
     "editorStyle": [
-        "file:./textgallery.css"
+        "file:./textgallery-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",

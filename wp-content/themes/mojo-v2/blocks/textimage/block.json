@@ -3,7 +3,7 @@
     "title": "Text + Image",
     "description": "a block that contain one image and one text",
     "editorStyle": [
-        "file:./textimage.css"
+        "file:./textimage-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",

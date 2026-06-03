@@ -3,7 +3,7 @@
     "title": "Full Image",
     "description": "a block that contain one image fullScreen",
     "editorStyle": [
-        "file:./fullimage.css"
+        "file:./fullimage-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",

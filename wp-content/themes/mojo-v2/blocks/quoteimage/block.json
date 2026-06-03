@@ -3,7 +3,7 @@
     "title": "Quote + Image",
     "description": "a block that contain one image and one quote",
     "editorStyle": [
-        "file:./quoteimage.css"
+        "file:./quoteimage-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",

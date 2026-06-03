@@ -11,13 +11,21 @@ if (!mix.inProduction()) {
     mix.bundleAnalyzer();
 }
 
-// Auto-discovery des blocks ACF/Gutenberg : scanne src/scss/blocks/*.scss
-// et génère une entry .sass() + .copy() par fichier.
-// Drop un block.scss → automatiquement compilé.
-const BLOCKS_SRC  = 'wp-content/themes/mojo-v2/src/scss/blocks';
-const BLOCKS_DEST = 'wp-content/themes/mojo-v2/dist/css/blocks';
-const BLOCKS_FINAL = 'wp-content/themes/mojo-v2/blocks';
-const blockEntries = fs.readdirSync(BLOCKS_SRC)
+// Auto-discovery des blocks ACF/Gutenberg.
+//
+// Deux contextes de style par block :
+//  - src/scss/blocks-render/<name>.scss → contexte page rendue (front-end)
+//      compile en theme/blocks/<name>/<name>.css → pointé par block.json "style"
+//  - src/scss/blocks/<name>.scss        → contexte editor Gutenberg
+//      compile en theme/blocks/<name>/<name>-editor.css → pointé par "editorStyle"
+//
+// Drop un block.scss dans les deux dossiers → auto-discovered.
+const BLOCKS_EDITOR_SRC = 'wp-content/themes/mojo-v2/src/scss/blocks';
+const BLOCKS_RENDER_SRC = 'wp-content/themes/mojo-v2/src/scss/blocks-render';
+const BLOCKS_DEST       = 'wp-content/themes/mojo-v2/dist/css/blocks';
+const BLOCKS_FINAL      = 'wp-content/themes/mojo-v2/blocks';
+
+const blockEntries = fs.readdirSync(BLOCKS_RENDER_SRC)
     .filter((f) => f.endsWith('.scss') && !f.startsWith('_'))
     .map((f) => {
         const base   = path.basename(f, '.scss');         // ex: "imagesslider" ou "quoteImage"
@@ -68,16 +76,28 @@ mix
 
 
 // Auto-registered block entries (cf. blockEntries en haut du fichier).
+// On compile à la fois le style "front" (blocks-render) et le style "editor" (blocks),
+// puis on copie les 2 dans theme/blocks/<name>/.
 blockEntries.forEach((entry) => {
-    mix
-        .sass(
-            `${BLOCKS_SRC}/${entry.source}`,
-            `css/blocks/${entry.folder}/${entry.folder}.css`
-        )
-        .copy(
-            `${BLOCKS_DEST}/${entry.folder}/*`,
-            `${BLOCKS_FINAL}/${entry.folder}/`
+    // Front-end → <name>.css
+    mix.sass(
+        `${BLOCKS_RENDER_SRC}/${entry.source}`,
+        `css/blocks/${entry.folder}/${entry.folder}.css`
+    );
+
+    // Editor → <name>-editor.css (seulement si le fichier source existe)
+    const editorSrc = `${BLOCKS_EDITOR_SRC}/${entry.source}`;
+    if (fs.existsSync(editorSrc)) {
+        mix.sass(
+            editorSrc,
+            `css/blocks/${entry.folder}/${entry.folder}-editor.css`
         );
+    }
+
+    mix.copy(
+        `${BLOCKS_DEST}/${entry.folder}/*`,
+        `${BLOCKS_FINAL}/${entry.folder}/`
+    );
 });
 
     

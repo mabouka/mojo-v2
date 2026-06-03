@@ -3,7 +3,7 @@
     "title": "Two Images",
     "description": "a block that contain two images",
     "editorStyle": [
-        "file:./twoimages.css"
+        "file:./twoimages-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",

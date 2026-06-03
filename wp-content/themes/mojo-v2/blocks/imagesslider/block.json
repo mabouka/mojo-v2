@@ -3,7 +3,7 @@
     "title": "Images Slider",
     "description": "a slider",
     "editorStyle": [
-        "file:./imagesslider.css"
+        "file:./imagesslider-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",

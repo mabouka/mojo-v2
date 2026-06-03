@@ -3,7 +3,7 @@
     "title": "Wrapper Image",
     "description": "a block that contain one image that is full on the wrapper size",
     "editorStyle": [
-        "file:./wrapperimage.css"
+        "file:./wrapperimage-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",

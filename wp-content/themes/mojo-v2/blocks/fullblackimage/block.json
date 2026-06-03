@@ -3,7 +3,7 @@
     "title": "Full Black Image",
     "description": "a block that contain one image and black curtains",
     "editorStyle": [
-        "file:./fullblackimage.css"
+        "file:./fullblackimage-editor.css"
     ],
     "category": "formatting",
     "icon": "format-gallery",
