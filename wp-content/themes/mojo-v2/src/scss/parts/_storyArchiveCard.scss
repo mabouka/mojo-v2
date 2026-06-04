@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: s(20);
-    padding-bottom: s(20);
+    padding-bottom: s(15);
     border-bottom: 1px solid rgba(color(dark), 0.5);
     min-height: 100%;
 
@@ -64,11 +64,17 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        margin-top: 16px;
+        padding-bottom: s(5);
+
+        &:hover{
+            text-decoration: underline;
+        }
     }
 
     &--featured{
         gap: s(32);
-        padding-bottom: s(32);
+        padding-bottom: s(49);
 
         .storyArchiveCard__media{
             height: s(619);
@@ -81,9 +87,9 @@
 
         .storyArchiveCard__title{
             @extend .title50;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: s(4);
+            padding-bottom: s(5);
+
+            margin-top: 20px;
         }
     }
 
