@@ -370,6 +370,10 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
     &.alignfull{
         width: 100vw;
         margin-left: calc(422.5px - 50vw);
+        img{
+          width: 100%;
+          height: auto;
+        }
 
         @media screen and (max-width: 905px){
             width: calc(100% + s(60));

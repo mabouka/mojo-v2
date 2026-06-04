@@ -1,18 +1,1 @@
-.fullBlackImage {
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  margin: s(80) 0;
-}
-.fullBlackImage__image {
-  position: relative;
-  height: 700px;
-  margin-bottom: 0;
-}
-.fullBlackImage__image img {
-  width: auto;
-  height: 700px;
-  display: block;
-}
-
-/*# sourceMappingURL=fullblackimage.css.map*/
+.fullBlackImage{background-color:#000;display:flex;justify-content:center;margin:s(80) 0}.fullBlackImage__image{height:700px;margin-bottom:0;position:relative}.fullBlackImage__image img{display:block;height:700px;width:auto}
