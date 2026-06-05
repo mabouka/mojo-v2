@@ -29,6 +29,11 @@
         height: 100%;
         object-fit: cover;
         transition: 600ms transform easing(ease-out-quad);
+        position: relative;
+
+        &:before{
+            @extend .photoNoise;
+        }
     }
 
     &__meta{
@@ -66,10 +71,6 @@
         overflow: hidden;
         margin-top: 16px;
         padding-bottom: s(5);
-
-        &:hover{
-            text-decoration: underline;
-        }
     }
 
     &--featured{
@@ -88,7 +89,6 @@
         .storyArchiveCard__title{
             @extend .title50;
             padding-bottom: s(5);
-
             margin-top: 20px;
         }
     }
@@ -108,13 +108,15 @@
             transform: scale(1.08);
         }
 
-        .storyArchiveCard--small .storyArchiveCard__link:hover ~ .storyArchiveCard__content .storyArchiveCard__title{
+        // Hover sur le lien (overlay absolu) -> underline du titre,
+        // valable pour la card de base, --small ET --featured.
+        .storyArchiveCard__link:hover ~ .storyArchiveCard__content .storyArchiveCard__title{
             text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3.5px;
         }
 
-        .storyArchiveCard--featured .storyArchiveCard__link:hover ~ .storyArchiveCard__content .storyArchiveCard__title{
-            text-decoration-thickness: 2px;
-        }
+  
     }
 
     @media screen and (max-width: 800px) {
