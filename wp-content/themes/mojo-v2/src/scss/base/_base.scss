@@ -10,11 +10,14 @@ html {
 body{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
+
     &.loading{
         cursor: wait;
     }
-    &:before{
+    // Overlay de chargement front uniquement.
+    // Exclu de l'admin WP (sinon il couvre l'éditeur Gutenberg et bloque tous les clics)
+    // car ce CSS est embarqué dans chaque CSS de bloc, donc chargé aussi en /wp-admin.
+    &:not(.wp-admin):before{
         content: '';
         @include cover();
         z-index: 10000;

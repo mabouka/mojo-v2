@@ -3,7 +3,22 @@ global $post;
 
 $categories = get_the_terms($post->ID, 'storyCategory');
 $categories = is_array($categories) ? array_slice($categories, 0, 2) : [];
-$hero = getCustomThumbnail($post->ID, ['storyHero', 'storyHero@2x']);
+// Hero image vient du champ ACF `hero_image` (plus du featured image).
+// Si le champ est vide, pas d'image hero — pas de fallback.
+$hero = null;
+if (function_exists('get_field')) {
+    $heroField = get_field('hero_image', $post->ID);
+    $heroId    = is_array($heroField) ? ($heroField['ID'] ?? null) : (int) $heroField;
+    if ($heroId) {
+        $hero = (object) [
+            'src' => [
+                'storyHero'    => wp_get_attachment_image_src($heroId, 'storyHero')[0]    ?? '',
+                'storyHero@2x' => wp_get_attachment_image_src($heroId, 'storyHero@2x')[0] ?? '',
+            ],
+            'alt' => get_post_meta($heroId, '_wp_attachment_image_alt', true),
+        ];
+    }
+}
 $author = function_exists('get_field') ? get_field('author', $post->ID) : '';
 
 $latestStories = new WP_Query([

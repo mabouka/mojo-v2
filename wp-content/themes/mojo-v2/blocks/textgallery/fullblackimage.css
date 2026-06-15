@@ -1,0 +1,15 @@
+.fullBlackImage {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+.fullBlackImage__image {
+  height: s(700);
+}
+.fullBlackImage__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*# sourceMappingURL=fullblackimage.css.map*/

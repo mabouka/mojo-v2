@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "webpack.mix.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx mix watch",
+    "build": "npx mix --production"
   },
   "keywords": [],
   "author": "",

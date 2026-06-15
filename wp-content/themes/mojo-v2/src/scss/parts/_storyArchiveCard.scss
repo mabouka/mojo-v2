@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: s(20);
-    padding-bottom: s(20);
+    padding-bottom: s(15);
     border-bottom: 1px solid rgba(color(dark), 0.5);
     min-height: 100%;
 
@@ -29,6 +29,11 @@
         height: 100%;
         object-fit: cover;
         transition: 600ms transform easing(ease-out-quad);
+        position: relative;
+
+        &:before{
+            @extend .photoNoise;
+        }
     }
 
     &__meta{
@@ -64,11 +69,13 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        margin-top: 16px;
+        padding-bottom: s(5);
     }
 
     &--featured{
         gap: s(32);
-        padding-bottom: s(32);
+        padding-bottom: s(49);
 
         .storyArchiveCard__media{
             height: s(619);
@@ -81,9 +88,8 @@
 
         .storyArchiveCard__title{
             @extend .title50;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: s(4);
+            padding-bottom: s(5);
+            margin-top: 20px;
         }
     }
 
@@ -102,13 +108,15 @@
             transform: scale(1.08);
         }
 
-        .storyArchiveCard--small .storyArchiveCard__link:hover ~ .storyArchiveCard__content .storyArchiveCard__title{
+        // Hover sur le lien (overlay absolu) -> underline du titre,
+        // valable pour la card de base, --small ET --featured.
+        .storyArchiveCard__link:hover ~ .storyArchiveCard__content .storyArchiveCard__title{
             text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3.5px;
         }
 
-        .storyArchiveCard--featured .storyArchiveCard__link:hover ~ .storyArchiveCard__content .storyArchiveCard__title{
-            text-decoration-thickness: 2px;
-        }
+  
     }
 
     @media screen and (max-width: 800px) {

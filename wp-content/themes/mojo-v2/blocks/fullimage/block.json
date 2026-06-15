@@ -2,8 +2,9 @@
     "name": "mojo/fullimage",
     "title": "Full Image",
     "description": "a block that contain one image fullScreen",
-    "editorStyle": [ "file:./fullimage.css" ],
-
+    "editorStyle": [
+        "file:./fullimage-editor.css"
+    ],
     "category": "formatting",
     "icon": "format-gallery",
     "keywords": [
@@ -16,5 +17,8 @@
     },
     "supports": {
         "anchor": true
-    }
+    },
+    "style": [
+        "file:./fullimage.css"
+    ]
 }
