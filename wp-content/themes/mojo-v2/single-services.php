@@ -2,12 +2,6 @@
 global $post;
 $ancestors = get_post_ancestors($post->ID);
 $parent    = array_reverse($ancestors);
-
-// N2 pages (1 ancestor = direct child of N1) redirect to N1
-if (count($ancestors) === 1) {
-    wp_redirect(get_permalink($ancestors[0]), 301);
-    exit;
-}
 ?>
 <?php get_header(); ?>
 <?php if ($parent): ?>
@@ -75,13 +69,12 @@ if (count($ancestors) === 1) {
             'posts_per_page' => -1,
             'post_status'    => 'publish',
         ]);
-        getPartial('littleCards', [
-            'title'   => get_field('card_title'),
+
+        getPartial('wedo', [
             'items'   => $childPages,
+            'prefix'  => get_field('we_do_prefix') ?: __('We do', 'mj'),
             'isLight' => $isLight,
         ]);
-
-
 
         getPartial('serviceProjects', [
             'title' => get_field('projects_title'),

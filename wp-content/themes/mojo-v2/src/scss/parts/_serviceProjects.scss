@@ -86,7 +86,8 @@
 
     @media screen and (max-width: 600px){
         &__title{
-            font-size: s(50);
+            font-family: dm, sans-serif;
+            font-size: s(30);
         }
 
         &__btn{
