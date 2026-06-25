@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="servicePeople__backWrap">
-                <a href="<?= get_post_type_archive_link('services') ?>" class="btn <?= $isLight ? 'btn--light' : 'btn--dark' ?>">
+                <a href="<?= get_post_type_archive_link('services') ?>" class="btn <?= $isLight ? 'btn--dark' : 'btn--light' ?>">
                     <?= __('Back to expertise', 'mj') ?>
                 </a>
             </div>
