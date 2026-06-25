@@ -43,6 +43,7 @@
         &__grid{
 
             .serviceCard{
+                width: col(3,12);
                 
                 margin-left: gutter(12);
                 &:nth-child(4n+1){
