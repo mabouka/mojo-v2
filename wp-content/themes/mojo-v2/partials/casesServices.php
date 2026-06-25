@@ -22,7 +22,7 @@ $the_query = new WP_Query([
                         <?php foreach ($the_query->posts as $key => $service) : ?>
                             <?php getPartial('serviceCard', [
                                 'service' => $service,
-                                'modifier' => 'animated'
+                                /*'modifier' => 'animated'*/
                             ]); ?>
                         <?php endforeach; ?>
                     </div>
