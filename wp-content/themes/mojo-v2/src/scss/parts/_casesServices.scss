@@ -21,6 +21,9 @@
         justify-content: flex-start;
         margin-top: s(30);
     }
+    &__gridContainer{
+        width: 100%;
+    }
 
     &__grid{
         margin-top: s(110);
@@ -29,6 +32,8 @@
         flex-wrap: wrap;
         width: 100%;
         justify-content: flex-start;
+        perspective: 1500px;
+
         @media (any-pointer: fine) {
             .serviceCard{
                 transform: translate3d(0, 0, 0);
