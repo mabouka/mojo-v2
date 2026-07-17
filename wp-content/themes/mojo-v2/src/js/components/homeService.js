@@ -66,7 +66,7 @@ export default class HomeService {
                 trigger: this.el,
                 endTrigger: this.triggerStart,
                 start: '-400px',
-                //markers: true,
+                markers: true,
                 scrub: true,         
                 id:'appearing',
             }
