@@ -17,13 +17,15 @@ function mojo_register_story_category_taxonomy()
     ];
 
     register_taxonomy('storyCategory', ['stories'], [
-        'hierarchical' => true,
-        'labels' => $labels,
-        'show_ui' => true,
-        'show_admin_column' => true,
-        'query_var' => true,
-        'rewrite' => ['slug' => 'story-category'],
-        'show_in_rest' => true,
+        'hierarchical'       => true,
+        'labels'             => $labels,
+        'show_ui'            => true,
+        'show_admin_column'  => true,
+        'public'             => false,   // pas d'archives front
+        'publicly_queryable' => false,   // pas de requêtes front
+        'query_var'          => false,
+        'rewrite'            => false,   // supprime /story-category/* et les feeds
+        'show_in_rest'       => true,    // indispensable pour le panneau Gutenberg
     ]);
 }
 add_action('init', 'mojo_register_story_category_taxonomy');
