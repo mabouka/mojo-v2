@@ -92,25 +92,37 @@
 
     <?php elseif($imageCard): ?>
     <figure class="caseCard__image">
-        <img 
-            src="<?= $imageCard['sizes']['caseCard'] ?>" 
-            srcset="<?= $imageCard['sizes']['caseCard'] ?> 1x, <?= $imageCard['sizes']['caseCard@2x'] ?> 2x" 
-            alt="<?= $imageCard['alt']?>"
-            width="625"
-            height="500"
-            lazyload
-        >
+        <picture>
+            <source
+                srcset="<?= $imageCard['sizes']['caseCardMobile'] ?> 1x, <?= $imageCard['sizes']['caseCardMobile@2x'] ?> 2x"
+                media="screen and (max-width: 600px)"
+            >
+            <img
+                src="<?= $imageCard['sizes']['caseCard'] ?>"
+                srcset="<?= $imageCard['sizes']['caseCard'] ?> 1x, <?= $imageCard['sizes']['caseCard@2x'] ?> 2x"
+                alt="<?= $imageCard['alt']?>"
+                width="625"
+                height="500"
+                lazyload
+            >
+        </picture>
     </figure>
     <?php elseif($image): ?>
     <figure class="caseCard__image">
-        <img 
-            src="<?= $image->src['caseCard'] ?>" 
-            srcset="<?= $image->src['caseCard'] ?> 1x, <?= $image->src['caseCard@2x'] ?> 2x" 
-            alt="<?= $image->alt ?>"
-            width="625"
-            height="500"
-            lazyload
-        >
+        <picture>
+            <source
+                srcset="<?= $image->src['caseCardMobile'] ?> 1x, <?= $image->src['caseCardMobile@2x'] ?> 2x"
+                media="screen and (max-width: 600px)"
+            >
+            <img
+                src="<?= $image->src['caseCard'] ?>"
+                srcset="<?= $image->src['caseCard'] ?> 1x, <?= $image->src['caseCard@2x'] ?> 2x"
+                alt="<?= $image->alt ?>"
+                width="625"
+                height="500"
+                lazyload
+            >
+        </picture>
     </figure>
     <?php endif; ?>
 
