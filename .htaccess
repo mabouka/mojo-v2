@@ -1,28 +1,3 @@
-# BEGIN SMUSH-WEBP
-<IfModule mod_rewrite.c>
- RewriteEngine On
- RewriteCond %{DOCUMENT_ROOT}/wp-content/smush-webp/disable_smush_webp !-f
- RewriteCond %{HTTP_ACCEPT} image/webp
- RewriteCond %{DOCUMENT_ROOT}/wp-content/smush-webp/$1.webp -f
- RewriteRule wp-content/uploads/(.*\.(?:png|jpe?g))$ wp-content/smush-webp/$1.webp [NC,T=image/webp]
-</IfModule>
-
-SetEnvIf X-Forwarded-Proto "https" HTTPS=on
-
-<IfModule mod_headers.c>
- Header append Vary Accept env=WEBP_image
-</IfModule>
-
-# Fix for serving webp in compatible browsers with "webp express" wordpress plugin
-<IfModule mod_headers.c>
-    Header append Vary "content-type"
-</IfModule>
-
-<IfModule mod_mime.c>
- AddType image/webp .webp
-</IfModule>
-# END SMUSH-WEBP
-
 # BEGIN WordPress
 RewriteEngine On
 RewriteBase /
