@@ -93,6 +93,12 @@
     <?php elseif($imageCard): ?>
     <figure class="caseCard__image">
         <picture>
+            <?php if (isset($mobileOnly) && $mobileOnly): ?>
+            <source
+                srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+                media="screen and (min-width: 601px)"
+            >
+            <?php endif ?>
             <source
                 srcset="<?= $imageCard['sizes']['caseCardMobile'] ?> 1x, <?= $imageCard['sizes']['caseCardMobile@2x'] ?> 2x"
                 media="screen and (max-width: 600px)"
@@ -110,6 +116,12 @@
     <?php elseif($image): ?>
     <figure class="caseCard__image">
         <picture>
+            <?php if (isset($mobileOnly) && $mobileOnly): ?>
+            <source
+                srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+                media="screen and (min-width: 601px)"
+            >
+            <?php endif ?>
             <source
                 srcset="<?= $image->src['caseCardMobile'] ?> 1x, <?= $image->src['caseCardMobile@2x'] ?> 2x"
                 media="screen and (max-width: 600px)"
