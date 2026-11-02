@@ -1,0 +1,6 @@
+// Outils communs à TOUS les bundles CSS (base.scss, page-*.scss, blocs).
+// Ne produit aucun CSS : variables, mixins et %placeholders uniquement.
+// Un %placeholder étendu dans un bundle n'émet que les règles de ce bundle.
+@import "tools";
+@import "base/helpers";
+@import "base/placeholders";
