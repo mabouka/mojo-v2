@@ -50,6 +50,7 @@
     &__carousel{
         padding-top: s(125);
         padding-bottom: s(156);
+        overflow: hidden; // posé par Reeller avant ; indispensable au bandeau défilant
 
         &.leadLogoCarrousel{
             padding-top: s(43);
@@ -60,6 +61,22 @@
     &__carouselWrapper{
         display: flex;
         width: fit-content;
+
+        // Activé par utils/marquee.js, qui duplique les logos et calcule la durée.
+        &--marquee{
+            animation: ourClientsMarquee var(--marquee-duration, 50s) linear infinite;
+            will-change: transform;
+        }
+
+        &.is-paused{
+            animation-play-state: paused; // hors écran
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            &--marquee{
+                animation: none;
+            }
+        }
     }
 
     &__carouselItem{
@@ -311,3 +328,10 @@
 }
 
 
+
+// Bandeau de logos défilant vers la gauche (cf. utils/marquee.js).
+// translateX(-50%) : le JS construit deux moitiés identiques, la boucle est invisible.
+@keyframes ourClientsMarquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}

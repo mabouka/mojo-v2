@@ -1,5 +1,4 @@
-import {Reeller} from 'reeller';
-import gsap from 'gsap';
+import Marquee from '../utils/marquee';
 
 export default class leadLogoCarrousel {
 
@@ -8,18 +7,10 @@ export default class leadLogoCarrousel {
     }
 
     constructor(el) {
-        this.startCarousel();
+        this.marquee = new Marquee(el);
     }
 
-    startCarousel() {
-        Reeller.registerGSAP(gsap);
-
-        const reeller = new Reeller({
-            container: '.ourClients__carousel',
-            wrapper: '.ourClients__carouselWrapper',
-            itemSelector: '.ourClients__carouselWrapper',
-            speed: 50,
-            reversed: true
-        });
+    destroy() {
+        if (this.marquee) this.marquee.destroy();
     }
 }

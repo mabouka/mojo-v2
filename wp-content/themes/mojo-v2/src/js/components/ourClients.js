@@ -1,5 +1,4 @@
-import {Reeller} from 'reeller';
-import gsap from 'gsap';
+import Marquee from '../utils/marquee';
 
 export default class OurClients {
 
@@ -21,15 +20,12 @@ export default class OurClients {
     }
 
     startCarousel() {
-        Reeller.registerGSAP(gsap);
+        this.marquee = new Marquee(this.el.querySelector('.ourClients__carousel'));
+    }
 
-        const reeller = new Reeller({
-            container: '.ourClients__carousel',
-            wrapper: '.ourClients__carouselWrapper',
-            itemSelector: '.ourClients__carouselWrapper',
-            speed: 50,
-            reversed: true
-        });
+    destroy() {
+        clearInterval(this.timer);
+        if (this.marquee) this.marquee.destroy();
     }
 
     getTimer() {
