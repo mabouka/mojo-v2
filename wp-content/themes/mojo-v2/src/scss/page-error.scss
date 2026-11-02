@@ -1,0 +1,7 @@
+// Bundle CSS d'un type de page (choisi par inc/pageCss.php). Composants listés dans l'ordre
+// historique de main.scss. Ajouter ici tout partial rendu par les templates de ce bundle.
+// 404.php (étoiles décoratives .serviceCard__star → serviceCard)
+@import "page-tools";
+
+@import "parts/serviceCard";
+@import "pages/error";

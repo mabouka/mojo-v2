@@ -24,9 +24,12 @@ function mojoPageCssBundle()
     if (is_page_template('template-ourclients.php'))     return 'page-clients';
     if (is_page_template('template-commitments.php'))   return 'page-commitments';
     if (is_page_template('template-contact.php'))        return 'page-contact';
+    if (is_page_template('template-faq.php'))            return 'page-faq';
+    if (is_404())                                        return 'page-error';
+    if (is_page())                                       return 'page-default'; // page.php
 
-    // 404, page.php, template-faq.php, index.php, single-work.php
-    return 'page-misc';
+    // index.php (ex. archive lead) et single-work.php : rien au-delà de base.css
+    return null;
 }
 
 /**
@@ -36,7 +39,9 @@ function mojoPageCssBundle()
  */
 function mojoPageCssLinks($preload = false)
 {
-    $files = ['dist/css/base.css', 'dist/css/' . mojoPageCssBundle() . '.css'];
+    $bundle = mojoPageCssBundle();
+    $files  = ['dist/css/base.css'];
+    if ($bundle) $files[] = 'dist/css/' . $bundle . '.css';
     foreach ($files as $i => $path) {
         $url = getUrlVersion($path);
         if (!$url) continue;

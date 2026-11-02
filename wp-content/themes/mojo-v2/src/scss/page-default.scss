@@ -1,11 +1,8 @@
 // Bundle CSS d'un type de page (choisi par inc/pageCss.php). Composants listés dans l'ordre
 // historique de main.scss. Ajouter ici tout partial rendu par les templates de ce bundle.
+// page.php : pages standard (Jobs, Cookie policy…) avec contenu Gutenberg.
 @import "page-tools";
 
 @import "content";
 
-@import "parts/serviceCard";
-@import "parts/commitmentsFaq";
 @import "pages/pageTemplate";
-@import "pages/error";
-@import "pages/faq";

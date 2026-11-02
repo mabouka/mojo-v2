@@ -1,9 +1,8 @@
 // Classes typo publiques (utilisables dans le HTML).
 // Le contenu vit dans base/_placeholders.scss : dans les SCSS, étendre %nom, pas .nom.
+// %body, %star, %star-light, %tag-underline n'ont pas de classe publique : jamais
+// utilisées dans le HTML/JS/contenu (vérifié le 02/11/2026), seulement étendues.
 
-.body{ @extend %body; }
-.star{ @extend %star; }
-.star-light{ @extend %star-light; }
 .body16{ @extend %body16; }
 .body18{ @extend %body18; }
 .body18serif{ @extend %body18serif; }
@@ -14,7 +13,6 @@
 .title100{ @extend %title100; }
 .subtitle{ @extend %subtitle; }
 .tag{ @extend %tag; }
-.tag-underline{ @extend %tag-underline; }
 
 .btn {
     display: inline-block;

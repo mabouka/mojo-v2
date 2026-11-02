@@ -169,8 +169,8 @@ export default class Router {
 
     // Après l'entrée (ancien conteneur retiré) : seuls base.css et le CSS de la
     // page courante restent actifs. Les autres restent chargés, mais inactifs.
+    // href null = page sans bundle (base.css seul) : tous les CSS de page sont coupés.
     disableOtherPageCss(href) {
-        if (!href) return;
         this.pageCssLinks().forEach((l) => {
             this.setSheetEnabled(l, l.getAttribute('href') === href);
         });
