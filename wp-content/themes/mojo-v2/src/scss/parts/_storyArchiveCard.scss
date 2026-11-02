@@ -19,7 +19,7 @@
         background-color: rgba(color(dark), 0.06);
 
         &:before{
-            @extend .photoNoise;
+            @extend %photoNoise;
         }
     }
 
@@ -32,7 +32,7 @@
         position: relative;
 
         &:before{
-            @extend .photoNoise;
+            @extend %photoNoise;
         }
     }
 
@@ -48,7 +48,7 @@
     }
 
     &__category{
-        @extend .tag;
+        @extend %tag;
         color: color(dark);
 
         & + &::before{
@@ -59,7 +59,7 @@
     }
 
     &__date{
-        @extend .tag;
+        @extend %tag;
         color: color(dark);
     }
 
@@ -87,7 +87,7 @@
         }
 
         .storyArchiveCard__title{
-            @extend .title50;
+            @extend %title50;
             padding-bottom: s(5);
             margin-top: 20px;
         }
@@ -99,7 +99,7 @@
         }
 
         .storyArchiveCard__title{
-            @extend .title30;
+            @extend %title30;
         }
     }
 

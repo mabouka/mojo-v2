@@ -24,7 +24,7 @@
         color: color(sand);
         margin-bottom: s(80);
         text-align: center;
-        @extend .title50;
+        @extend %title50;
         z-index: 5;
     }
 

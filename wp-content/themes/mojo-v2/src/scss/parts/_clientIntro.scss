@@ -157,7 +157,7 @@
     }
 
     &__secondText{
-        @extend .title50;
+        @extend %title50;
         font-size: 50/1440*100vw;
         max-width: s(452);
         max-width: 452/1440*100vw;
@@ -186,7 +186,7 @@
     }
 
     &__secondText2{
-        @extend .title50;
+        @extend %title50;
         color: color(sand);
         position: absolute;
         width: 776/1440*100%;

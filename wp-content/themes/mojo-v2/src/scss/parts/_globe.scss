@@ -28,19 +28,19 @@
     }
 
     &__title{
-        @extend .title50;
+        @extend %title50;
         max-width: s(450);
     }
 
     &__subtitle{
         margin-top: s(20);
-        @extend .subtitle;
+        @extend %subtitle;
         max-width: s(450);
     }
 
     &__text{
         margin-top: s(80);
-        @extend .body18;
+        @extend %body18;
         max-width: s(405);
     }
 

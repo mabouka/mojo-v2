@@ -6,7 +6,7 @@
     &__title{
         max-width: s(695+20);
         color: color(dark);
-        @extend .title100;
+        @extend %title100;
         margin-bottom: s(110);
 
     }
@@ -168,7 +168,7 @@
         display: flex;
         justify-content: space-between;
         text-decoration: none;
-        @extend .body16;
+        @extend %body16;
         color: color(dark);
 
         &+&{
@@ -198,12 +198,12 @@
     }
 
     &__noItemTitle{
-        @extend .body18serif;
+        @extend %body18serif;
         font-size: 36px;
     }
 
     &__noItemText{
-        @extend .body18;
+        @extend %body18;
     }
 
 

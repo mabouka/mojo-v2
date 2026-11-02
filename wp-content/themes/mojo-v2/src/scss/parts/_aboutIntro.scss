@@ -28,7 +28,7 @@
     }
 
     &__title{
-        @extend .title100;
+        @extend %title100;
 
         width: col(7,12);
         margin-left: gutter(12);
@@ -40,8 +40,8 @@
     }
 
     &__text{
-        @extend .body;
-        @extend .body18;
+        @extend %body;
+        @extend %body18;
 
         margin-bottom: s(50);
     }

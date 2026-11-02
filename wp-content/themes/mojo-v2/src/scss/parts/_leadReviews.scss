@@ -71,8 +71,8 @@
     }
 
     &__text{
-        @extend .body;
-        @extend .body22;
+        @extend %body;
+        @extend %body22;
         color: color(dark);
         margin-top: s(30);
     }

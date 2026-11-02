@@ -30,7 +30,7 @@
     &__title{
         position: relative;
         z-index: 2;
-        @extend .title100;
+        @extend %title100;
         color: color(sand);
         max-width: s(1139);
         margin-bottom: s(70);

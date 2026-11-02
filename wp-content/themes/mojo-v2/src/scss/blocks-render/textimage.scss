@@ -35,8 +35,8 @@
     }
 
     &__text{
-        @extend .body;
-        @extend .body18;
+        @extend %body;
+        @extend %body18;
     }
 
     @media screen and (max-width: 600px) {

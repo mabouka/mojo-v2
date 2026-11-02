@@ -20,7 +20,7 @@
 
     &__title{
         float: left;
-        @extend .title80;
+        @extend %title80;
         position: sticky;
         top: s(85);
     }
@@ -33,8 +33,8 @@
     }
 
     &__text{
-        @extend .body;
-        @extend .body22;
+        @extend %body;
+        @extend %body22;
         margin-bottom: s(50);
     }
 
@@ -45,7 +45,7 @@
 
     &__contactText,
     &__address{
-        @extend .body16;
+        @extend %body16;
     }
 
     &__contactText{
@@ -166,7 +166,7 @@
 
             &__label{
                 color:  #FAF6ED80;
-                @extend .body18;
+                @extend %body18;
                 text-wrap: nowrap;
                 flex-shrink: 0;
             }
@@ -291,7 +291,7 @@
                 background-color: transparent;
                 outline-style: none;
                 color: color(lightblue);
-                @extend .body18;
+                @extend %body18;
 
                 &:-webkit-autofill,
                 &:-webkit-autofill:hover, 
@@ -315,7 +315,7 @@
                 margin-top: s(14);
                 resize: none;
                 outline: none;
-                @extend .body18;
+                @extend %body18;
     
                 padding: s(30);
             }
@@ -462,7 +462,7 @@
         }
 
         .contact__subtitle{
-            @extend .subtitle;
+            @extend %subtitle;
             color: color(dark);
             margin-bottom: s(12);
         }

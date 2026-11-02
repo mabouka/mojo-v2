@@ -5,7 +5,7 @@
 
     &:before{
         z-index: 2;
-        @extend .photoNoise;
+        @extend %photoNoise;
     }
 
 

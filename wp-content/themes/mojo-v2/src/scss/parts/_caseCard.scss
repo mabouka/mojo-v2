@@ -42,7 +42,7 @@
 
         &:before{
             z-index: 2;
-            @extend .photoNoise;
+            @extend %photoNoise;
         }
     }
 
@@ -54,7 +54,7 @@
         margin-bottom: s(16);
 
         &:after{
-            //@extend .photoNoise;
+            //@extend %photoNoise;
         }
     }
 
@@ -71,7 +71,7 @@
         transition: 300ms clip-path easing(ease-in-quad) 200ms;
         &:before{
             z-index: 2;
-            @extend .photoNoise;
+            @extend %photoNoise;
         }
     }
 
@@ -133,11 +133,11 @@
     }
 
     &__title{
-        @extend .body18;
+        @extend %body18;
     }
 
     &__category{
-        @extend .tag-underline;
+        @extend %tag-underline;
     }
 
     @media screen and (max-width: 1100px) and (min-width: 701px){ 

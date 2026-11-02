@@ -2,7 +2,7 @@
     margin: s(100) 0 s(80);
 
     &__title{
-        @extend .title50;
+        @extend %title50;
         width: 100%;
         color: color(dark);
     }

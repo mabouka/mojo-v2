@@ -46,8 +46,8 @@
     }
     
     &__text{
-        @extend .body18;
-        @extend .body;
+        @extend %body18;
+        @extend %body;
 
     }
 

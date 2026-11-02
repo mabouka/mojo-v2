@@ -14,7 +14,7 @@
     }
 
     &__title{
-        @extend .title80;
+        @extend %title80;
         color: color(dark);
         margin-bottom: s(60);
     }
@@ -37,14 +37,14 @@
     }
 
     &__metaLabel{
-        @extend .subtitle;
+        @extend %subtitle;
         display: block;
         color: rgba(color(dark), 0.4);
         margin-bottom: s(10);
     }
 
     &__metaValue{
-        @extend .subtitle;
+        @extend %subtitle;
         display: block;
         color: color(dark);
         text-transform: uppercase;
@@ -78,12 +78,12 @@
         }
 
         &:before{
-            @extend .photoNoise;
+            @extend %photoNoise;
         }
     }
 
     &__intro{
-        @extend .title30;
+        @extend %title30;
         color: color(dark);
         margin-bottom: s(36);
     }
@@ -120,7 +120,7 @@
     }
 
     &__shareTitle{
-        @extend .subtitle;
+        @extend %subtitle;
         color: rgba(color(dark), 0.4);
     }
 
@@ -130,7 +130,7 @@
         gap: s(4);
 
         a{
-            @extend .body16;
+            @extend %body16;
             color: color(dark);
             text-decoration: none;
 
@@ -147,7 +147,7 @@
     }
 
     &__latestTitle{
-        @extend .title30;
+        @extend %title30;
         color: color(dark);
         text-align: center;
         margin-bottom: s(40);

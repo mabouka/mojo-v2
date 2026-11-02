@@ -7,14 +7,14 @@
     }
 
     &__subtitle {
-        @extend .subtitle;
+        @extend %subtitle;
         margin-bottom: s(35);
         color: color(sand)
     }
 
     &__title {
         color: color(sand);
-        @extend .title50;
+        @extend %title50;
         margin-bottom: s(70);
     }
 

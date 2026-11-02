@@ -28,7 +28,7 @@
     }
 
     &__title{
-        @extend .body18;
+        @extend %body18;
         color: color(white);
         margin-right: s(30);
     }
@@ -41,7 +41,7 @@
     }
 
     &__category{
-        @extend .tag-underline;
+        @extend %tag-underline;
         color: color(white);
         &:after{
             background-color: color(white);
@@ -53,7 +53,7 @@
     }
 
     &__pseudoLink{
-        @extend .title80;
+        @extend %title80;
         color: color(white);
     }
 

@@ -44,7 +44,7 @@
     }
 
     &__cite{
-        @extend .body18;
+        @extend %body18;
         font-family: dm;
         margin-top: s(42);
         display: block;

@@ -8,15 +8,15 @@
     }
 
     &__title{
-        @extend .title50;
+        @extend %title50;
         color: color(dark);
         width: colGut(5,1,12,0);
         font-size: s(40);
     }
 
     &__text{
-        @extend .body;
-        @extend .body22;
+        @extend %body;
+        @extend %body22;
         font-size: s(20);
         color: color(dark);
         width: col(6,12);
@@ -29,7 +29,7 @@
         li:before{
             width: s(12) !important;
             height: s(11) !important;
-            @extend .star;
+            @extend %star;
             background-color: transparent !important;
             border-radius: 0 !important;
             opacity: 1 !important;

@@ -71,8 +71,8 @@
 
     &__text{
         width: col(4,8);
-        @extend .body;
-        @extend .body18;
+        @extend %body;
+        @extend %body18;
         color: color(sand);
     }
 

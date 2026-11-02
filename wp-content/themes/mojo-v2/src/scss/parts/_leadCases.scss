@@ -5,12 +5,12 @@
     }
 
     &__subtitle{
-        @extend .subtitle;
+        @extend %subtitle;
         margin-bottom: s(24)
     }
 
     &__title{
-        @extend .title50;
+        @extend %title50;
         font-size: s(40);
         font-weight: 600;
     }

@@ -7,7 +7,7 @@
     margin-bottom: s(80);
 
     &__title{
-        @extend .title80;
+        @extend %title80;
         hyphens: auto;
         margin-bottom: s(45);
     }

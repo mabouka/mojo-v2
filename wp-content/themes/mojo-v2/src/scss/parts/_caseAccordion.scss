@@ -139,7 +139,7 @@
         }
 
         &:before{
-            @extend .photoNoise;
+            @extend %photoNoise;
             border-radius: 100%;
         }
 

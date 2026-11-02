@@ -11,7 +11,7 @@
 
     &__title{
         width: col(4,12);
-        @extend .title30;
+        @extend %title30;
         margin-bottom: s(112);
     }
     &__clients{
@@ -55,7 +55,7 @@
         }
 
         &:before{
-            @extend .photoNoise;
+            @extend %photoNoise;
         }
 
     }
@@ -109,7 +109,7 @@
         }
     
         &__text{
-            @extend .body18;
+            @extend %body18;
             margin-top: s(10);
             margin-bottom: s(20);
 
@@ -132,7 +132,7 @@
             left: 0;
             right: 0;
             padding: s(23) s(25) s(27) s(45);
-            @extend .body18serif;
+            @extend %body18serif;
             color: color(dark);
             text-decoration: none;
             border-top: 1px solid color(dark);

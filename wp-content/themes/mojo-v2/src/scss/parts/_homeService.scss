@@ -45,7 +45,7 @@
         
 
         .homeService--lead &{
-            @extend .subtitle;
+            @extend %subtitle;
             color: color(sand);        
         }
 

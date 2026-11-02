@@ -15,7 +15,7 @@
     }
 
     &__itemTitle{
-        @extend .subtitle;
+        @extend %subtitle;
         color: color(dark);
         opacity: 0.4;
         margin-bottom: s(10);
@@ -25,7 +25,7 @@
 
     &__itemList,
     &__itemContent{
-        @extend .subtitle;
+        @extend %subtitle;
         color: color(dark);
     }
 
@@ -40,7 +40,7 @@
 
     &__item--service .sCaseFeatures__itemList{
         li{
-            @extend .tag-underline;
+            @extend %tag-underline;
             display: inline-block;
             margin-left: 0 !important;
             margin-right: s(8);

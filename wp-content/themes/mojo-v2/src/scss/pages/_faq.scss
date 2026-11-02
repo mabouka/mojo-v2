@@ -7,7 +7,7 @@
     }
 
     &__title{
-        @extend .title100;
+        @extend %title100;
         margin-bottom: s(209);
         color: color(dark);
     }

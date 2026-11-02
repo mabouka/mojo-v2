@@ -24,7 +24,7 @@
     }
 
     &__sectionText{
-        @extend .title30;
+        @extend %title30;
         color: color(sand);
         margin-bottom: s(30);
     }

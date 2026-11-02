@@ -3,7 +3,7 @@
     padding-bottom: s(80);
 
     &__title{
-        @extend .title50;
+        @extend %title50;
         margin-bottom: s(50);
     }
     &__grid{

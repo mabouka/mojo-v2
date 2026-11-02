@@ -4,7 +4,7 @@
     padding-bottom: s(140);
 
     &__title{
-        @extend .subtitle;
+        @extend %subtitle;
         color: color(white);
         text-align: center;
         margin-bottom: s(50);
@@ -19,7 +19,7 @@
         padding: s(35/2) 0;
         color: color(sand);
         text-align: center;
-        @extend .title80;
+        @extend %title80;
         text-decoration: none;
         position: relative;
 
@@ -103,7 +103,7 @@
         }
 
         &:before{
-            @extend .photoNoise;
+            @extend %photoNoise;
             border-radius: 100%;
         }
 

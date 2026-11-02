@@ -10,7 +10,7 @@
     &__titleLine2{
         //float: left;
         width: col(6,12);
-        @extend .title100;
+        @extend %title100;
         display: block;
         position: sticky;
         top: s(70);
@@ -37,13 +37,13 @@
     }
 
     &__intro{
-        @extend .title30;
+        @extend %title30;
         margin-bottom: s(30);
     }
 
     &__text{
-        @extend .body;
-        @extend .body18;
+        @extend %body;
+        @extend %body18;
     }
 
     &__svg{

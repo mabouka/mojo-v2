@@ -21,7 +21,7 @@
     }
 
     &__title{
-        @extend .title80;
+        @extend %title80;
         position: absolute;
         bottom: 50%;
         left: colGut(1,1.5,12,0);
@@ -42,7 +42,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        @extend .body18;
+        @extend %body18;
         color: color(sand);
     }
 

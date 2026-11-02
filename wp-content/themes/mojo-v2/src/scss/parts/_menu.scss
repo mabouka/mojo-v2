@@ -129,7 +129,7 @@ body{
     &__secondary{
         width: col(5,12);
         display: flex;
-        @extend .body18;
+        @extend %body18;
 
         //anim
         opacity: 0;
@@ -185,7 +185,7 @@ body{
 
     &__mainItem{
         display: block;
-        @extend .title100;
+        @extend %title100;
         font-size: s(80);
         text-decoration: none;
         color: color(dark);

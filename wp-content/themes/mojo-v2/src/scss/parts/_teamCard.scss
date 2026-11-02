@@ -14,7 +14,7 @@
 
         &:before{
             z-index: 1;
-            @extend .photoNoise;
+            @extend %photoNoise;
         }
 
 
@@ -79,7 +79,7 @@
 
     &__title,
     &__name{
-        @extend .body22;
+        @extend %body22;
         color: color(sand);
         margin-bottom: s(7);
         overflow: hidden;
@@ -95,7 +95,7 @@
     &__text{
         justify-self: flex-end;
         margin-top: auto;
-        @extend .body18;
+        @extend %body18;
         overflow: hidden;
         color: color(sand);
         max-height: s(26*8); 
@@ -123,7 +123,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        @extend .body18;
+        @extend %body18;
     }
 
     &__infoTitle{

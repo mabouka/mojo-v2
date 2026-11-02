@@ -10,7 +10,7 @@
     }
 
     &__title{
-        @extend .title80;
+        @extend %title80;
         margin-left: colGut(2,1,12,0);
         margin-bottom: s(100);
         width: col(7,12);

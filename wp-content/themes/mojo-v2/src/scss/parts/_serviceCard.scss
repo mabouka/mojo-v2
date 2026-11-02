@@ -131,7 +131,7 @@
         display: block;
         color: color(dark);
         text-align: center;
-        @extend .tag;
+        @extend %tag;
         line-height: 12px;
         text-decoration: none;
         padding: s(12) 0;
@@ -242,7 +242,7 @@
     }
 
     &__more{
-        @extend .tag;
+        @extend %tag;
         position: absolute;
         left: 50%;
         bottom: s(23);

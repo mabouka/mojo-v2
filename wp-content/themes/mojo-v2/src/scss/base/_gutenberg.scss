@@ -88,7 +88,7 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
     }
     &:before{
         z-index: 2;
-        //@extend .photoNoise;
+        //@extend %photoNoise;
     }
 }
 
@@ -245,13 +245,13 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
   }
 
   p {
-    @extend .body18;
+    @extend %body18;
     margin: 0 0 s(20);
     text-wrap: pretty;
   }
 
   li {
-    @extend .body18;
+    @extend %body18;
   }
 
   h1,

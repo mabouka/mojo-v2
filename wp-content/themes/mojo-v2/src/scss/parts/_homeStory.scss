@@ -4,7 +4,7 @@
     overflow: hidden;
 
     &__title{
-        @extend .subtitle;
+        @extend %subtitle;
         color: color(dark);
         padding-top: s(75);
     }

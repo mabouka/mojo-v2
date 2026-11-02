@@ -52,7 +52,7 @@
     
 
     &__itemNumber{
-        @extend .title80;
+        @extend %title80;
         color: color(sand);
         background-color: color(dark);
         border: 1px solid color(sand);
@@ -73,7 +73,7 @@
     &__itemLabel{
         color: color(sand);
         text-transform: uppercase;
-        @extend .subtitle;
+        @extend %subtitle;
         text-align: center;
     }
 
@@ -82,7 +82,7 @@
         margin-top: s(20);
         color: color(sand);
         display: inline-block;
-        @extend .tag;
+        @extend %tag;
         padding-bottom: s(7);
         position: relative;
         transition: 200ms color easing(ease-out-quad);

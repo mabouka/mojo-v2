@@ -25,7 +25,7 @@
     }
 
     &__text {
-        @extend .title50;
+        @extend %title50;
         color: color(sand);
         text-align: center;
     }

@@ -13,7 +13,7 @@
     }
 
     &__title{
-        @extend .title80;
+        @extend %title80;
         width: col(6,12);
         color: color(sand);
     }
@@ -22,7 +22,7 @@
         margin-top: s(19);
         width: col(4,12);
         margin-left: gutter(12);
-        @extend .body;
+        @extend %body;
         color: color(sand);
         font-family: 'dm', sans-serif;
         font-size: s(20);

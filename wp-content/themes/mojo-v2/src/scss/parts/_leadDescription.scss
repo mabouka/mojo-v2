@@ -7,7 +7,7 @@
     }
 
     &__title{
-        @extend .title50;
+        @extend %title50;
         margin-bottom: s(24);
         width: colGut(5,1,12,0);
         color: color(sand);
@@ -23,15 +23,15 @@
         margin-left: colGut(1,1,12,0);
     }
     &__text{
-        @extend .body;
-        @extend .body22;
+        @extend %body;
+        @extend %body22;
         font-size: s(20);
         color: color(sand);
 
         li:before{
             width: s(12) !important;
             height: s(11) !important;
-            @extend .star-light;
+            @extend %star-light;
             background-color: transparent !important;
             border-radius: 0 !important;
             opacity: 1 !important;

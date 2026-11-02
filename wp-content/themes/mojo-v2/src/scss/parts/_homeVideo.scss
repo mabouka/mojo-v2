@@ -22,7 +22,7 @@
 
     &__noise{
         z-index: 2;
-        @extend .photoNoise;
+        @extend %photoNoise;
     }
     .no-js &,
     .no-inview &, 

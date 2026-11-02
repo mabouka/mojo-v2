@@ -10,7 +10,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        @extend .subtitle;
+        @extend %subtitle;
     }
 
     &__grid{
@@ -119,13 +119,13 @@
 .teamCitation{
     &__text{
         padding-right: s(33);
-        @extend .title50;
+        @extend %title50;
     }
 }
 
 .teamText{
     &__text{
-        @extend .body22;
+        @extend %body22;
         color: color(dark);
         padding-bottom: s(30);
         border-bottom: 1px solid color(dark);

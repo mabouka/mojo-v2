@@ -122,8 +122,8 @@
     }
 
     &__hoverText{
-        @extend .body;
-        @extend .body18;
+        @extend %body;
+        @extend %body18;
         text-align: center;
         justify-self: center;
         margin-top: auto;

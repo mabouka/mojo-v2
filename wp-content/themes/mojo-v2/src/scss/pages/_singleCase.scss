@@ -4,8 +4,8 @@
 .singleCase{
     .content{
 
-        @extend .body18;
-        @extend .body;
+        @extend %body18;
+        @extend %body;
 
         h2,
         .h2{
@@ -28,7 +28,7 @@
                 top: 0;
                 left: 0;
                 margin-left: 0;
-                @extend .body18;                
+                @extend %body18;                
             }
         }
     } 

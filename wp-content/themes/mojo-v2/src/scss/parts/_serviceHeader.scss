@@ -47,7 +47,7 @@
 
     &__title{
         margin-top: s(75);
-        @extend .title100;
+        @extend %title100;
         color: color(white);
         width: col(7,12);
     }

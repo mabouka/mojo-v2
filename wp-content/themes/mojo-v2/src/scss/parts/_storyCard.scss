@@ -69,7 +69,7 @@
     }
 
     &__category{
-        @extend .tag;
+        @extend %tag;
         color: color(dark);
         margin-bottom: 0;
 
@@ -86,7 +86,7 @@
     }
 
     &__title{
-        @extend .title50;
+        @extend %title50;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
@@ -95,7 +95,7 @@
     }
 
     &__date{
-        @extend .tag;
+        @extend %tag;
         color: color(dark);
     }
 
