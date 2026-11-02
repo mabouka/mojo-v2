@@ -146,7 +146,7 @@ export default class Router {
 
         const existing = this.pageCssLinks().find((l) => l.getAttribute('href') === href);
         if (existing) {
-            existing.disabled = false;
+            this.setSheetEnabled(existing, true);
             return Promise.resolve();
         }
 
@@ -168,12 +168,19 @@ export default class Router {
     }
 
     // Après l'entrée (ancien conteneur retiré) : seuls base.css et le CSS de la
-    // page courante restent actifs. Les autres restent en cache, désactivés.
+    // page courante restent actifs. Les autres restent chargés, mais inactifs.
     disableOtherPageCss(href) {
         if (!href) return;
         this.pageCssLinks().forEach((l) => {
-            l.disabled = l.getAttribute('href') !== href;
+            this.setSheetEnabled(l, l.getAttribute('href') === href);
         });
+    }
+
+    // On bascule la feuille (CSSOM), PAS l'attribut `disabled` du <link> :
+    // celui-ci fait décharger puis retélécharger le fichier par le navigateur.
+    setSheetEnabled(link, enabled) {
+        if (link.disabled) link.disabled = false; // héritage : ne jamais décharger le <link>
+        if (link.sheet) link.sheet.disabled = !enabled;
     }
 
     updatePage(data){
