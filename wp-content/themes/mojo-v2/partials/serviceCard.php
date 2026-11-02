@@ -75,6 +75,7 @@ $children = get_children($child_args);
 
 
     <h3 class="serviceCard__title"><?= get_the_title($service); ?></h3>
+    <span class="serviceCard__more"><?= __('Click to see more', 'mj'); ?></span>
 
     <div class="serviceCard__hoverMenu">
         <span class="serviceCard__hoverMenuTitle">

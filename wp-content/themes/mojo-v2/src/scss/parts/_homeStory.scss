@@ -1,0 +1,23 @@
+.homeStory{
+    padding-bottom: s(120);
+    border-top: 1px solid rgba(color(dark), 0.5);
+    overflow: hidden;
+
+    &__title{
+        @extend .subtitle;
+        color: color(dark);
+        padding-top: s(75);
+    }
+
+    &__grid{
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-bottom: s(90);
+
+        &__title{
+            padding-top: s(34);
+            margin-bottom: s(40);
+        }
+    }
+}

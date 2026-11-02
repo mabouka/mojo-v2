@@ -1,0 +1,95 @@
+{
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+
+    "layout": {
+      "contentSize": "860px",
+      "wideSize": "1280px"
+    },
+
+    "spacing": {
+      "units": ["px", "rem", "%"],
+		"spacingSizes": [
+			{ "slug": "xs", "size": "0.5rem" },
+			{ "slug": "sm", "size": "0.75rem" },
+			{ "slug": "md", "size": "1rem" },
+			{ "slug": "lg", "size": "1.5rem" },
+			{ "slug": "xl", "size": "2rem" },
+			{ "slug": "2xl", "size": "3rem" },
+			{ "slug": "3xl", "size": "4rem" },
+			{ "slug": "4xl", "size": "6rem" }
+		]
+    },
+
+    "color": {
+      "palette": [
+        { "slug": "dark", "color": "#131C23" },
+        { "slug": "sand", "color": "#FAF6ED" },
+        { "slug": "orange", "color": "#FF542E" },
+        { "slug": "border", "color": "#D9D2C3" },
+        { "slug": "muted", "color": "#6B7280" }
+      ]
+    },
+
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Cambon\", serif",
+          "slug": "cambon",
+          "name": "Cambon"
+        },
+        {
+          "fontFamily": "\"DM Sans\", sans-serif",
+          "slug": "dm",
+          "name": "DM Sans"
+        }
+      ]
+    }
+  },
+
+  "styles": {
+    "color": {
+      "background": "var:preset|color|sand",
+      "text": "var:preset|color|dark"
+    },
+
+    "typography": {
+      "fontFamily": "var:preset|font-family|dm",
+      "fontSize": "1rem",
+      "lineHeight": "1.7"
+    },
+
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var:preset|color|orange"
+        }
+      }
+    },
+
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": "999px"
+        },
+        "typography": {
+          "fontWeight": "600"
+        }
+      },
+
+      "core/image": {
+        "border": {
+          "radius": "0px"
+        }
+      },
+
+      "core/post-featured-image": {
+        "border": {
+          "radius": "0px"
+        }
+      }
+    }
+  }
+}

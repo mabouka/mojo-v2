@@ -1,7 +1,7 @@
 .serviceChIntro{
 
     float: left;
-    width: col(4,12);
+    width: col(3,12);
     position: sticky;
     top: s(30);
     margin-bottom: s(80);
@@ -24,7 +24,7 @@
             border-top: 1px solid color(dark);
         }
         width: 100%;
-        padding: s(15) 0 s(18);
+        padding: s(20) 0 s(20);
         font-family: Cambon, serif;
         font-size: s(18);
         font-weight: 600;
@@ -64,12 +64,7 @@
     }
 
     @media screen and (max-width: 800px) {
-        &__title{
-            font-size: s(50);
-            width: 100%;
-        }
-
-        width: col(4.5,12);
+        width: col(12,12);
     }
 
     @media screen and (max-width: 600px) {

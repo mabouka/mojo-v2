@@ -1,0 +1,179 @@
+.archiveStories{
+    padding-top: s(236);
+    padding-bottom: s(140);
+
+    &__inside{
+        max-width: s(1057);
+        margin: 0 auto;
+    }
+
+    &__title{
+        @extend .title80;
+        color: color(dark);
+        margin-bottom: s(60);
+    }
+
+    &__filters{
+        display: flex;
+        flex-wrap: wrap;
+        gap: s(16) s(37);
+        margin-bottom: s(60);
+    }
+
+    &__filtersSelect{
+        display: none;
+    }
+
+    &__filter{
+        font-family: Cambon, serif;
+        font-size: s(18);
+        font-weight: 600;
+        line-height: em(23, 18);
+        color: color(dark);
+        text-decoration: none;
+
+        &:hover{
+            text-decoration: underline;
+        }
+
+        &--current{
+            text-decoration: underline;
+        }
+    }
+
+    &__grid{
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: s(32) s(36);
+    }
+
+    &__gridItem{
+        &--featured{
+            grid-column: span 2;
+            grid-row: span 2;
+
+            .storyArchiveCard{
+                height: 100%;
+
+                .storyArchiveCard__media{
+                    flex: 1;
+                    height: auto;
+                }
+            }
+        }
+    }
+
+    &__pagination{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: s(24);
+        margin-top: s(60);
+        color: color(dark);
+    }
+
+    &__paginationItem{
+        @extend .body16;
+
+        a,
+        span{
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .current{
+            font-weight: 700;
+        }
+
+        a:hover{
+            text-decoration: underline;
+        }
+    }
+
+    &__empty{
+        @extend .body18;
+        color: color(dark);
+    }
+
+    @media screen and (max-width: 1100px) {
+        &__grid{
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        &__gridItem--featured{
+            grid-column: span 2;
+            grid-row: auto;
+
+            .storyArchiveCard{
+                height: auto;
+
+                .storyArchiveCard__media{
+                    flex: none;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        padding-top: s(180);
+        padding-bottom: s(100);
+    }
+
+    @media screen and (max-width: 600px) {
+        padding-top: s(140);
+        padding-bottom: s(80);
+
+        &__title{
+            font-size: s(50);
+            margin-bottom: s(40);
+        }
+
+        &__filters{
+            display: none;
+        }
+
+        &__filtersSelect{
+            display: block;
+            margin-bottom: s(40);
+        }
+
+        &__select{
+            appearance: none;
+            background: none;
+            border: none;
+            border-top: 1px solid rgba(color(dark), 0.5);
+            border-bottom: 1px solid rgba(color(dark), 0.5);
+            width: 100%;
+            padding: s(12) s(32) s(12) 0;
+            font-family: Cambon, serif;
+            font-size: s(18);
+            font-weight: 600;
+            color: color(dark);
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg width='11' height='7' viewBox='0 0 11 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg transform='rotate(180 5.5 3.5)'%3E%3Cpath d='M5.24023 -4.58031e-07L10.4795 6.43945C5.31953 4.89935 5.2395 0.336959 5.24023 0.0156245C5.24095 0.336976 5.15954 4.89923 0 6.43945L5.24023 -4.58031e-07Z' fill='%23131C23'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            background-size: em(11, 18) em(7, 18);
+        }
+
+        &__filter{
+            font-size: s(14);
+            line-height: em(18, 14);
+        }
+
+        &__grid{
+            grid-template-columns: 1fr;
+            gap: s(24);
+        }
+
+        &__gridItem--featured{
+            grid-column: span 1;
+        }
+
+        &__pagination{
+            flex-wrap: wrap;
+            gap: s(14);
+            margin-top: s(40);
+        }
+    }
+}

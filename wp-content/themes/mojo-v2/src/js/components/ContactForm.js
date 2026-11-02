@@ -113,9 +113,21 @@ export default class Contactform {
     }
 
     setEvents() {
-        window.addEventListener('sendForm', this.e_sendForm.bind(this));
-        this.form.addEventListener('submit', this.e_submit.bind(this));
-        this.fileInput.addEventListener('change', this.e_fileChange.bind(this))
+        this._boundSendForm = this.e_sendForm.bind(this);
+        this._boundSubmit   = this.e_submit.bind(this);
+        this._boundFileChange = this.e_fileChange.bind(this);
+
+        window.removeEventListener('sendForm', this._boundSendForm);
+        window.addEventListener('sendForm', this._boundSendForm);
+
+        this.form.addEventListener('submit', this._boundSubmit);
+        this.fileInput.addEventListener('change', this._boundFileChange);
+    }
+
+    destroy() {
+        window.removeEventListener('sendForm', this._boundSendForm);
+        this.form.removeEventListener('submit', this._boundSubmit);
+        this.fileInput.removeEventListener('change', this._boundFileChange);
     }
 
     e_removeFile(e, index) {
@@ -127,10 +139,10 @@ export default class Contactform {
         var files = this.fileInput.files;
         this.showFiles(files);
     }
-    
-    
+
     e_sendForm(e) {
-        if(e.detail.token) {
+        if (this._submitting) return;
+        if (e.detail.token) {
             let token = e.detail.token;
             Array.from(this.captchaFields).forEach(field => {
                 field.setAttribute("value", token);
@@ -141,13 +153,21 @@ export default class Contactform {
 
     e_submit(e) {
         e.preventDefault();
+        if (this._submitting) return;
+        this._submitting = true;
+
+        const submit = this.form.querySelector('[type="submit"]');
+        if (submit) submit.disabled = true;
+
         grecaptcha.ready(() => {
             grecaptcha.execute(window.recaptchaKey, {action: 'submit'}).then((token) => {
                 Array.from(this.captchaFields).forEach(field => {
                     field.setAttribute("value", token);
                 });
-                
                 this.form.submit();
+            }).catch(() => {
+                this._submitting = false;
+                if (submit) submit.disabled = false;
             });
         });
     }

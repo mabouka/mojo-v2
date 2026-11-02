@@ -2,8 +2,9 @@
     "name": "mojo/twoimages",
     "title": "Two Images",
     "description": "a block that contain two images",
-    "editorStyle": [ "file:./twoimages.css" ],
-
+    "editorStyle": [
+        "file:./twoimages-editor.css"
+    ],
     "category": "formatting",
     "icon": "format-gallery",
     "keywords": [
@@ -15,5 +16,8 @@
     },
     "supports": {
         "anchor": true
-    }
+    },
+    "style": [
+        "file:./twoimages.css"
+    ]
 }

@@ -28,13 +28,15 @@
             <?php 
                 global $wp;
                 $current_url = home_url(add_query_arg(array(), $wp->request));
+                $menuCount = count($sitemap);
             ?>
             <div class="menu__main">
                 <?php foreach ($sitemap as $key => $item) : ?>
                 <?php 
                     $isCurrent = $item['url'] === $current_url . '/';
+                    $menuDelay = 500 + (($menuCount - $key - 1) * 15);
                     ?>
-                <a class="menu__mainItem<?= $isCurrent ? ' menu__mainItem--current' : '' ?> menu__mainItem--<?= $key ?>" href="<?= $item['url'] ?>">
+                <a class="menu__mainItem<?= $isCurrent ? ' menu__mainItem--current' : '' ?>" href="<?= $item['url'] ?>" style="--menu-delay: <?= $menuDelay ?>ms;">
                     <span><?= $item['title'] ?></span>
                 </a>
                 <?php endforeach; ?>

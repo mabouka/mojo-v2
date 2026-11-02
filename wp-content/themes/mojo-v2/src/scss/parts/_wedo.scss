@@ -1,0 +1,94 @@
+.wedo {
+    position: relative;
+    z-index: 1;
+    padding: s(80) s(15);
+
+    // Texture noise par-dessus le fond coloré (même système que serviceProjects).
+    &:before {
+        content: '';
+        @include cover();
+        background-image: url('../images/noise.jpg');
+        @supports (gap: 1px) {
+            background-image: url('../images/noise.webp');
+        }
+        background-size: 200px 200px;
+        mix-blend-mode: darken;
+        opacity: 0.20;
+        pointer-events: none;
+    }
+
+    &__inside {
+        position: relative;
+        z-index: 5;
+        max-width: s(1200);
+        margin: 0 auto;
+    }
+
+    &__text {
+        @extend .title50;
+        color: color(sand);
+        text-align: center;
+    }
+
+    &__sep {
+        // Tiret de séparation, hors des liens pour ne jamais être souligné.
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: s(4);
+    }
+
+    // Couleur du fond pilotée par le champ ACF `color` de la page (même set que serviceProjects).
+    &--dodgerblue       { background-color: #784FE0; }
+    &--lightblue        { background-color: color(lightblue); }
+    &--outrageousorange { background-color: #FF542E; }
+    &--pink             { background-color: #FEC5D4; }
+    &--denimblue        { background-color: #1C6ECF; }
+    &--greenpea         { background-color: #1F5C40; }
+    &--sungloworange    { background-color: #FFC833; }
+    &--darkgreyblue     { background-color: #1D2B33; }
+
+    // Sur les fonds sombres, le noise s'éclaircit au lieu de s'assombrir.
+    &--dodgerblue,
+    &--outrageousorange,
+    &--denimblue,
+    &--greenpea,
+    &--darkgreyblue {
+        &:before {
+            mix-blend-mode: lighten;
+            opacity: 0.14;
+        }
+    }
+
+    // Fonds clairs : texte foncé.
+    &--light {
+        .wedo__text {
+            color: color(dark);
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        &__text {
+            font-size: s(34);
+            line-height: em(40, 34);
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        &__text {
+            font-size: s(28);
+            line-height: em(34, 28);
+        }
+
+        // Préfixe « We do » et liens passent en DM Sans 22px sur mobile
+        // (les tirets restent en Cambon, hérités de __text).
+        &__prefix,
+        &__link {
+            font-family: dm, sans-serif;
+            font-size: s(22);
+        }
+    }
+}

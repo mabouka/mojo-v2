@@ -1,0 +1,22 @@
+// Standalone build wrapper for the imagesslider block frontend styles.
+// Imports vars/mixins/typography so @extend and mixin calls resolve when this
+// file is compiled outside the main.scss entry. The output is loaded by the
+// block's "style" enqueue (front + editor preview).
+@import "../vars/fonts";
+@import "../vars/easing";
+@import "../vars/colors";
+@import "../vars/icons";
+@import "../vars/sizes";
+@import "../vars/grid";
+@import "../mixins/font";
+@import "../mixins/grid";
+@import "../mixins/sizing";
+@import "../mixins/icons";
+@import "../mixins/color";
+@import "../mixins/easing";
+@import "../mixins/background";
+@import "../mixins/utils";
+@import "../mixins/helpers";
+@import "../base/helpers";
+@import "../base/typography";
+@import "../blocks-render/imagesslider";
