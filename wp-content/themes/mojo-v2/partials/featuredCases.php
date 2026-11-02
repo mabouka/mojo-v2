@@ -17,7 +17,8 @@
                 <?php foreach ($casesGallery as $key => $case) : ?>
                     <?php getPartial('caseCard', [
                         'case' => $case,
-                        'mobileOnly' => true
+                        'mobileOnly' => true,
+                        'isLcp' => ($key === 0)
                     ]); ?>
                 <?php endforeach ?>
                 </div>

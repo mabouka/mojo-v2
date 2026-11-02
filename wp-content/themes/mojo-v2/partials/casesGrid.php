@@ -113,7 +113,8 @@
             <div class="casesGrid__grid">
                 <?php foreach ($wp_query->posts as $key => $case) : ?>
                     <?php getPartial('caseCard', [
-                        'case' => $case
+                        'case' => $case,
+                        'isLcp' => ($key === 0)
                     ]); ?>
                 <?php endforeach; ?>
             </div>

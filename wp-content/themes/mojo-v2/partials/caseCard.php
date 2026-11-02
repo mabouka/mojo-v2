@@ -109,7 +109,7 @@
                 alt="<?= $imageCard['alt']?>"
                 width="625"
                 height="500"
-                lazyload
+                <?php if (!empty($isLcp)): ?>fetchpriority="high"<?php else: ?>loading="lazy"<?php endif ?>
             >
         </picture>
     </figure>
@@ -132,7 +132,7 @@
                 alt="<?= $image->alt ?>"
                 width="625"
                 height="500"
-                lazyload
+                <?php if (!empty($isLcp)): ?>fetchpriority="high"<?php else: ?>loading="lazy"<?php endif ?>
             >
         </picture>
     </figure>
