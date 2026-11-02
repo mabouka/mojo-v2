@@ -145,6 +145,13 @@ require_once('inc/images.php');
 
 
 /*
+ * CSS découpé par page (base.css + page-*.css)
+ */
+
+require_once('inc/pageCss.php');
+
+
+/*
  * Posttype
  */
 require_once('inc/posttype/stories.php');

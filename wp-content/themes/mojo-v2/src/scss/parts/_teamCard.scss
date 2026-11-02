@@ -197,3 +197,10 @@
         }
     }
 }
+// Tablette : taille du nom, pour toutes les cartes équipe (About, Services, Lead).
+// (était dans _teamGrid.scss, chargé seulement sur About depuis le découpage CSS)
+@media screen and (max-width: 1100px)  and (min-width: 801px){
+    .teamCard__infoName{
+        font-size: s(22);
+    }
+}

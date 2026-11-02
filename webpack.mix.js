@@ -17,7 +17,9 @@ mix
     .js('wp-content/themes/mojo-v2/src/js/main.js', 'dist/js')
     .extract()
 
-    .sass('wp-content/themes/mojo-v2/src/scss/main.scss', 'css/main.css')
+    // CSS découpé : base.css (toutes pages) + un bundle par type de page.
+    // Le bundle de la page est choisi par inc/pageCss.php.
+    .sass('wp-content/themes/mojo-v2/src/scss/base.scss', 'css/base.css')
 
     
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
@@ -68,6 +70,15 @@ mix
     .setPublicPath('wp-content/themes/mojo-v2/dist');
 
     
+// Bundles par page : auto-découverte de src/scss/page-*.scss
+require('fs')
+    .readdirSync(__dirname + '/wp-content/themes/mojo-v2/src/scss')
+    .filter((f) => /^page-.+\.scss$/.test(f))
+    .forEach((f) => mix.sass(
+        'wp-content/themes/mojo-v2/src/scss/' + f,
+        'css/' + f.replace(/\.scss$/, '.css')
+    ));
+
 mix.webpackConfig(webpack => {
     return {
         plugins: [

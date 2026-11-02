@@ -1,10 +1,13 @@
-// GÉNÉRÉ depuis le mapping des templates — ordre = celui de main.scss (cascade identique).
+// Bundle CSS d'un type de page (choisi par inc/pageCss.php). Composants listés dans l'ordre
+// historique de main.scss. Ajouter ici tout partial rendu par les templates de ce bundle.
 @import "page-tools";
 
+@import "blocks-render/imagesslider";
 @import "parts/serviceCard";
 @import "parts/teamCard";
 @import "parts/featuredCases";
 @import "parts/homeService";
+@import "parts/ourClients";
 @import "parts/caseCard";
 @import "parts/commitmentsFaq";
 @import "parts/leadBanner";

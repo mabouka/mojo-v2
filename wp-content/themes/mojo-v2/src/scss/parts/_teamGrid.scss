@@ -142,10 +142,8 @@
     .teamText__text{
         font-size: 16px;
     }
-
-    .teamCard__infoName{
-        font-size: s(22);
-    }
+    // .teamCard__infoName : déplacé dans _teamCard.scss (s'applique à toutes
+    // les cartes équipe, pas seulement à la grille About).
 }
 
 @media screen and (max-width: 600px){

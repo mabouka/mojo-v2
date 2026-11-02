@@ -12,7 +12,7 @@
 
     <!-- Preload -->
 
-    <link rel="preload" href="<?= getUrlVersion('dist/css/main.css'); ?>" as="style">
+    <?php mojoPageCssLinks(true); ?>
     <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
@@ -29,7 +29,7 @@
     <!-- Responsive -->
     <meta name="HandheldFriendly" content="true">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?= getUrlVersion('dist/css/main.css'); ?>">
+    <?php mojoPageCssLinks(); ?>
 
     <?php
     $gtag = 'G-RS946CZMGV';

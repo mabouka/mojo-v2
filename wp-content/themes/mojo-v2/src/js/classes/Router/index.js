@@ -74,7 +74,12 @@ export default class Router {
             window.lenis.stop();    
         });
         
-        barba.hooks.beforeEnter((data) => {
+        barba.hooks.beforeEnter(async (data) => {
+            // Barba ne remplace pas le <head> : charger le CSS de la page
+            // suivante AVANT de l'afficher (sinon flash sans style).
+            this.nextPageCss = this.pageCssHrefFrom(data.next.html);
+            await this.loadPageCss(this.nextPageCss);
+
             //this.updateHeader(data);
             this.updatePage(data);
             Menu.update(data);
@@ -98,6 +103,10 @@ export default class Router {
         });
 
         barba.hooks.afterEnter((data) => {
+            // L'ancien conteneur est retiré : on coupe les CSS des autres pages
+            // pour retrouver exactement la cascade d'un premier chargement.
+            this.disableOtherPageCss(this.nextPageCss);
+
             forceAutoplay(data)
             setTimeout(() => {
                 window.lenis.resize();
@@ -118,6 +127,55 @@ export default class Router {
             
         });
     }
+    // --- CSS découpé par page (voir inc/pageCss.php) -----------------------
+    // Le <head> de la page suivante (récupéré par Barba) contient son
+    // <link data-page-css> : aucune déclaration à maintenir dans les templates.
+
+    pageCssHrefFrom(html) {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const link = doc.querySelector('link[rel="stylesheet"][data-page-css]');
+        return link ? link.getAttribute('href') : null;
+    }
+
+    pageCssLinks() {
+        return [...document.querySelectorAll('link[rel="stylesheet"][data-page-css]')];
+    }
+
+    loadPageCss(href, timeout = 3000) {
+        if (!href) return Promise.resolve();
+
+        const existing = this.pageCssLinks().find((l) => l.getAttribute('href') === href);
+        if (existing) {
+            existing.disabled = false;
+            return Promise.resolve();
+        }
+
+        return new Promise((resolve) => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            link.setAttribute('data-page-css', '');
+            // Ne jamais bloquer la transition : au pire on affiche après `timeout`.
+            const timer = setTimeout(resolve, timeout);
+            link.onload = () => { clearTimeout(timer); resolve(); };
+            link.onerror = () => {
+                clearTimeout(timer);
+                link.remove(); // pas de lien cassé réutilisé : on retentera à la prochaine visite
+                resolve();
+            };
+            document.head.appendChild(link);
+        });
+    }
+
+    // Après l'entrée (ancien conteneur retiré) : seuls base.css et le CSS de la
+    // page courante restent actifs. Les autres restent en cache, désactivés.
+    disableOtherPageCss(href) {
+        if (!href) return;
+        this.pageCssLinks().forEach((l) => {
+            l.disabled = l.getAttribute('href') !== href;
+        });
+    }
+
     updatePage(data){
         let parser = new DOMParser();
         const doc = parser.parseFromString(data.next.html, 'text/html');
