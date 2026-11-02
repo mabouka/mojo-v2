@@ -848,5 +848,8 @@
     "/fonts/dm-sans-3.woff2": "/fonts/dm-sans-3.woff2",
     "/fonts/dm-sans-4.woff2": "/fonts/dm-sans-4.woff2",
     "/fonts/dm-sans-5.woff2": "/fonts/dm-sans-5.woff2",
-    "/fonts/dm-sans-6.woff2": "/fonts/dm-sans-6.woff2"
+    "/fonts/dm-sans-6.woff2": "/fonts/dm-sans-6.woff2",
+    "/js/vendor/cookieconsent-3.0.1.esm.js": "/js/vendor/cookieconsent-3.0.1.esm.js",
+    "/css/cookieconsent.css": "/css/cookieconsent.css",
+    "/js/cookieconsent-config.js": "/js/cookieconsent-config.js"
 }

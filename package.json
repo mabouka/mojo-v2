@@ -25,6 +25,7 @@
     "@whitecube/pluton": "^1.0.13",
     "gsap": "^3.15.0",
     "hls.js": "^1.5.3",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "vanilla-cookieconsent": "3.0.1"
   }
 }

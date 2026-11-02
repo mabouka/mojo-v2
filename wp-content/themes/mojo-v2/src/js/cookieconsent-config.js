@@ -1,4 +1,10 @@
-import 'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js';
+// Librairie servie depuis le thème (paquet npm vanilla-cookieconsent, copié par
+// webpack.mix.js). La version est dans le nom du fichier pour casser le cache
+// navigateur (6 mois) lors d'une mise à jour : le build vérifie la cohérence.
+import * as CookieConsent from './vendor/cookieconsent-3.0.1.esm.js';
+
+// L'ancienne version UMD exposait window.CookieConsent : on le conserve.
+window.CookieConsent = CookieConsent;
 
 // Enable dark mode
 document.documentElement.classList.add('cc--darkmode');

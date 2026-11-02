@@ -11,7 +11,6 @@
     <!-- WPHEAD END -->
 
     <!-- Preload -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     <?php mojoPageCssLinks(true); ?>
     <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
@@ -141,8 +140,8 @@
 
     <!-- Cookie consent : la bannière n'apparaît qu'après le JS (module, fin de page),
          son CSS ne doit donc pas bloquer le premier affichage. -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css"></noscript>
+    <link rel="preload" href="<?= getUrlVersion('dist/css/cookieconsent.css'); ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="<?= getUrlVersion('dist/css/cookieconsent.css'); ?>"></noscript>
 
 </head>
 
