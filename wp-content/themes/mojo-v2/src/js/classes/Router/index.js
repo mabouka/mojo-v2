@@ -78,6 +78,7 @@ export default class Router {
             // Barba ne remplace pas le <head> : charger le CSS de la page
             // suivante AVANT de l'afficher (sinon flash sans style).
             this.nextPageCss = this.pageCssHrefFrom(data.next.html);
+            this.pageCssPending = true; // une vraie transition est en cours
             await this.loadPageCss(this.nextPageCss);
 
             //this.updateHeader(data);
@@ -105,7 +106,12 @@ export default class Router {
         barba.hooks.afterEnter((data) => {
             // L'ancien conteneur est retiré : on coupe les CSS des autres pages
             // pour retrouver exactement la cascade d'un premier chargement.
-            this.disableOtherPageCss(this.nextPageCss);
+            // Barba appelle aussi afterEnter au premier chargement (sans
+            // beforeEnter) : ne couper les CSS qu'après une vraie transition.
+            if (this.pageCssPending) {
+                this.pageCssPending = false;
+                this.disableOtherPageCss(this.nextPageCss);
+            }
 
             forceAutoplay(data)
             setTimeout(() => {
