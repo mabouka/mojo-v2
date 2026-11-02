@@ -19,7 +19,6 @@ wp-content/themes/mojo-v2/node_modules/
 # Misc
 node_modules/
 .env
-package-lock.json
 .DS_Store
 .claude/
 license.txt
