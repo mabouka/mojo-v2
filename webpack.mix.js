@@ -76,13 +76,17 @@ mix
 {
     const ccVersion = require('vanilla-cookieconsent/package.json').version;
     const ccFile = `cookieconsent-${ccVersion}.esm.js`;
+    const ccCss = `cookieconsent-${ccVersion}.css`; // chargée à la demande par le script
     const configSrc = 'wp-content/themes/mojo-v2/src/js/cookieconsent-config.js';
-    if (!require('fs').readFileSync(__dirname + '/' + configSrc, 'utf8').includes(`./vendor/${ccFile}`)) {
-        throw new Error(`cookieconsent-config.js doit importer ./vendor/${ccFile} (version npm installée)`);
+    const config = require('fs').readFileSync(__dirname + '/' + configSrc, 'utf8');
+    for (const expected of [`./vendor/${ccFile}`, `../css/${ccCss}`]) {
+        if (!config.includes(expected)) {
+            throw new Error(`cookieconsent-config.js doit référencer ${expected} (version npm installée)`);
+        }
     }
     mix
         .copy('node_modules/vanilla-cookieconsent/dist/cookieconsent.esm.js', `wp-content/themes/mojo-v2/dist/js/vendor/${ccFile}`)
-        .copy('node_modules/vanilla-cookieconsent/dist/cookieconsent.css', 'wp-content/themes/mojo-v2/dist/css/cookieconsent.css')
+        .copy('node_modules/vanilla-cookieconsent/dist/cookieconsent.css', `wp-content/themes/mojo-v2/dist/css/${ccCss}`)
         .copy(configSrc, 'wp-content/themes/mojo-v2/dist/js/cookieconsent-config.js');
 }
 

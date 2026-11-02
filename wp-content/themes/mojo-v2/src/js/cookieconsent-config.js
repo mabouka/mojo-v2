@@ -6,10 +6,39 @@ import * as CookieConsent from './vendor/cookieconsent-3.0.1.esm.js';
 // L'ancienne version UMD exposait window.CookieConsent : on le conserve.
 window.CookieConsent = CookieConsent;
 
+// --- CSS chargée seulement si une fenêtre doit s'afficher ----------------
+// Un visiteur qui a déjà consenti ne télécharge jamais cookieconsent.css.
+const CC_CSS = new URL('../css/cookieconsent-3.0.1.css', import.meta.url).href;
+let ccCss = null;
+function loadCookieConsentCss() {
+    if (!ccCss) {
+        ccCss = new Promise((resolve) => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = CC_CSS;
+            link.onload = link.onerror = resolve;
+            document.head.appendChild(link);
+            setTimeout(resolve, 3000); // ne jamais bloquer l'affichage du bandeau
+        });
+    }
+    return ccCss;
+}
+
+// Liens [data-cc] (ex. futur « Gérer mes cookies » dans le footer) : charger
+// la CSS avant que la librairie n'ouvre la fenêtre, puis relancer le clic.
+let ccCssReady = false;
+document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-cc]');
+    if (!trigger || ccCssReady) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    loadCookieConsentCss().then(() => { ccCssReady = true; trigger.click(); });
+}, true);
+
 // Enable dark mode
 document.documentElement.classList.add('cc--darkmode');
 
-CookieConsent.run({
+const ccConfig = {
     guiOptions: {
         consentModal: {
             layout: "box wide",
@@ -149,5 +178,22 @@ CookieConsent.run({
                 }
             }
         }
+    }
+};
+
+// autoShow désactivé : on n'affiche le bandeau (et ne charge sa CSS) que si
+// le consentement manque ou n'est plus valide (révision, expiration).
+CookieConsent.run({
+    ...ccConfig,
+    autoShow: false,
+    onModalShow: (...args) => {
+        loadCookieConsentCss(); // filet de sécurité si une fenêtre s'ouvre autrement
+        if (typeof ccConfig.onModalShow === 'function') ccConfig.onModalShow(...args);
+    },
+}).then(async () => {
+    if (!CookieConsent.validConsent()) {
+        await loadCookieConsentCss();
+        ccCssReady = true;
+        CookieConsent.show(true);
     }
 });
