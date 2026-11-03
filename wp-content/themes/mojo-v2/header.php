@@ -124,13 +124,13 @@
 
             window.dataLayer = window.dataLayer || [];
 
+            // gtag() sert au Router (page_view des navigations Barba), relayé
+            // par la balise Google de GTM. Pas de gtag('config') ici : il visait
+            // l'ID du conteneur GTM, qui n'est pas une destination GA/Ads.
             function gtag() {
                 dataLayer.push(arguments)
             };
             gtag('js', new Date());
-            gtag('config', '<?= $gtag ?>', {
-                send_page_view: false,
-            });
         </script>
         <!-- End Google Tag Manager -->
 

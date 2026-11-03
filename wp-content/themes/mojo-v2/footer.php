@@ -162,8 +162,9 @@
     $new_tree_nation = false;
 ?>
 <?php if($old_tree_nation): ?>
-<script src="https://tree-nation.com/js/track.js"></script>
-<script>if(treenation_track)treenation_track("6322d1badbb2d");</script>
+<!-- async : ne bloque plus DOMContentLoaded (donc le démarrage de main.js).
+     Le suivi est lancé quand le script est arrivé. -->
+<script async src="https://tree-nation.com/js/track.js" onload="treenation_track('6322d1badbb2d')"></script>
 <?php endif ?>
 
 <?php if ($new_tree_nation): ?>
