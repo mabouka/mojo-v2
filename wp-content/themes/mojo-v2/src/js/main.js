@@ -32,8 +32,25 @@ class Mojo {
     }
 }
 
-window.addEventListener("DOMContentLoaded", function (event) {
-    this.scroller = new Scroller();
+function boot() {
+    window.scroller = new Scroller();
     window.MJ = new Mojo();
     window.document.documentElement.classList.add('js-active');
+}
+
+// Démarrer juste APRÈS la première peinture : lancé directement sur
+// DOMContentLoaded, le navigateur n'affichait rien avant la fin de toute
+// l'initialisation (Scroller, Mojo, Pluton…), ce qui retardait FCP et LCP.
+// Ce qui ne doit pas apparaître avant le JS est masqué en CSS (.js, data-mounted).
+window.addEventListener("DOMContentLoaded", function () {
+    let started = false;
+    const start = () => {
+        if (started) return;
+        started = true;
+        boot();
+    };
+    // rAF puis setTimeout : exécuté une fois la frame peinte.
+    requestAnimationFrame(() => setTimeout(start, 0));
+    // Onglet en arrière-plan : rAF est suspendu, on démarre quand même.
+    setTimeout(start, 500);
 });

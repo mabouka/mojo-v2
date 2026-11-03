@@ -27,6 +27,12 @@
         width: auto;
         pointer-events: none;
 
+        // Masqué tant que homeIntro.js n'a pas posé l'état de départ de la lune
+        // et du polygone (sinon ils s'affichent en place, puis sautent hors écran).
+        .js .homeIntro:not([data-mounted]) & {
+            visibility: hidden;
+        }
+
         #moon,
         #poly{
             will-change: transform;

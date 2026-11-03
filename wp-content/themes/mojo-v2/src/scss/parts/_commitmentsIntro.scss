@@ -47,6 +47,12 @@
     }
 
     &__svg{
+        // Masqué tant que commitmentsIntro.js n'a pas posé l'état de départ
+        // (sinon le cercle s'affiche, disparaît, puis réapparaît animé).
+        .js .commitmentsIntro:not([data-mounted]) & {
+            visibility: hidden;
+        }
+
         position: absolute;
         left: 0;
         bottom: 0;

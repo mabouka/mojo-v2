@@ -51,6 +51,12 @@
     }
 
     &__svg{
+        // Masqué tant que clientIntro.js (instancié par pageClient) n'a pas
+        // écarté les deux cercles (sinon un disque plein s'affiche d'abord).
+        .js .pageclient:not([data-mounted]) & {
+            visibility: hidden;
+        }
+
         position: absolute;
         left: 0;
         right: 0;

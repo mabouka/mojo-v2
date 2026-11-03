@@ -77,6 +77,11 @@ class PlutonClass {
         [].forEach.call((root||document).querySelectorAll(this.selectors[className]), (el) => {
             if (!this.instances[className]) this.instances[className] = [];
             this.instances[className].push(new component(el));
+            // Composant prêt (états initiaux posés) : le CSS peut afficher ce
+            // qu'il masquait en attendant, ex. `.js .homeIntro:not([data-mounted])`.
+            // Les chunks arrivent après la première peinture : sans ça, un
+            // élément s'affiche dans son état final puis saute à son état de départ.
+            el.setAttribute('data-mounted', '');
         });
     }
 
