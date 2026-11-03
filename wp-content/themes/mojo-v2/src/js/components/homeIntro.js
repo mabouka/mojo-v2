@@ -59,8 +59,10 @@ export default class HomeIntro {
             transformOrigin: '50% 50%'
         });
 
+        // Les étoiles restent visibles (pas d'autoAlpha) : c'est l'élément LCP
+        // de la home. Les masquer ici faisait dépendre le LCP de ce chunk JS
+        // (course avec la première peinture), puis de leur fondu.
         gsap.set(this.stars, {
-            autoAlpha: 0,
             scale : 0.8,
             transformOrigin: '50% 0%'
         });
@@ -96,7 +98,6 @@ export default class HomeIntro {
         }, 1.1);
 
         main.to(this.stars, {
-            autoAlpha: 1,
             scale: 1,
             duration: 2,
             ease: "power3.out",
