@@ -10,7 +10,25 @@ export default class featuredCases {
         this.gallery = this.el.querySelector('.featuredCases__gallery');
         this.videos = this.getVideos();
         this.setEvents();
+        this.preloadVideosNearby();
 
+    }
+
+    // Les vidéos ne jouent qu'au survol : rien à charger sur écran tactile. Avec
+    // une souris, on lance le préchargement quand la section approche de l'écran
+    // (elles étaient sinon toutes téléchargées dès l'ouverture de la page).
+    preloadVideosNearby() {
+        if (!window.matchMedia('(hover: hover)').matches || !('IntersectionObserver' in window)) return;
+        this.preloadObserver = new IntersectionObserver((entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            this.videos.forEach(({ video }) => { if (video) video.preload = 'auto'; });
+            this.preloadObserver.disconnect();
+        }, { rootMargin: '400px 0px' });
+        this.preloadObserver.observe(this.el);
+    }
+
+    destroy() {
+        if (this.preloadObserver) this.preloadObserver.disconnect();
     }
 
     getVideos() {

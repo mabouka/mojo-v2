@@ -96,8 +96,10 @@
                         <div class="featuredCases__video" id="featuredVideo-<?= $key ?>">
                             <div class="featuredCases__videoWrapper">
                                 <?php if ($video) : ?>
-                                    <video 
-                                        src="<?= $video; ?>" 
+                                    <?php // preload="none" : vidéo de survol (desktop), préchargée par featuredCases.js à l'approche de la section ; jamais sur écran tactile. ?>
+                                    <video
+                                        src="<?= $video; ?>"
+                                        preload="none"
                                         <?php if (0 && $picture): ?>
                                         poster="<?= $picture['sizes']['featuredVideo']; ?>"
                                         <?php endif ?>
