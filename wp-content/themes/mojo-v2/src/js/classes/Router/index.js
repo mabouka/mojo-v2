@@ -9,6 +9,7 @@ import IsTop                from '../IsTop';
 
 import Menu                 from '../Menu';
 import LazyVideos           from '../lazyVideos';
+import Pluton               from '../Pluton';
 
 
 // utils
@@ -79,7 +80,11 @@ export default class Router {
             // suivante AVANT de l'afficher (sinon flash sans style).
             this.nextPageCss = this.pageCssHrefFrom(data.next.html);
             this.pageCssPending = true; // une vraie transition est en cours
-            await this.loadPageCss(this.nextPageCss);
+            // En parallèle : les chunks JS des composants de la page suivante.
+            await Promise.all([
+                this.loadPageCss(this.nextPageCss),
+                window.MJ.parts.load(data.next.container),
+            ]);
 
             //this.updateHeader(data);
             this.updatePage(data);
@@ -114,10 +119,13 @@ export default class Router {
             }
 
             forceAutoplay(data)
-            setTimeout(() => {
+            // Les composants sont instanciés de façon asynchrone. Pluton est
+            // importé directement : au premier chargement, window.MJ n'existe
+            // peut-être pas encore.
+            Pluton.ready.then(() => setTimeout(() => {
                 window.lenis.resize();
                 ScrollTrigger.refresh();
-            }, 200)
+            }, 200));
 
             this.lazyVideos.refresh(data.next.container);
         });

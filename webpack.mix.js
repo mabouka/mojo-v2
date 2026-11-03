@@ -15,7 +15,12 @@ mix
     })
 
     .js('wp-content/themes/mojo-v2/src/js/main.js', 'dist/js')
-    .extract()
+    // vendor.js = socle commun à toutes les pages. Les autres librairies
+    // (swiper, plugins gsap spécifiques…) suivent les chunks des composants.
+    // MotionPathPlugin (+ ses utils) ne sert qu'à homeTransformation.
+    .extract((module) =>
+        /[\\/]node_modules[\\/](gsap|@barba[\\/]core|@studio-freight[\\/]lenis)[\\/]/.test(module.resource || '')
+        && !/[\\/]gsap[\\/](MotionPathPlugin|utils[\\/](paths|matrix))\.js$/.test(module.resource))
 
     // CSS découpé : base.css (toutes pages) + un bundle par type de page.
     // Le bundle de la page est choisi par inc/pageCss.php.
@@ -99,11 +104,50 @@ require('fs')
         'css/' + f.replace(/\.scss$/, '.css')
     ));
 
+// Pluton : chaque composant est chargé à la demande (chunk séparé) quand son
+// sélecteur est présent dans la page. Le sélecteur reste défini à UN seul
+// endroit, le `static get selector()` du composant, lu ici au build.
+// Un composant sans sélecteur littéral n'est pas auto-instancié (ex. Globe et
+// clientIntro, créés par pageClient ; clientNumbers, désactivé).
+const plutonSelectors = {};
+{
+    const fs = require('fs');
+    const re = /static\s+get\s+selector\s*\(\s*\)\s*\{\s*return\s+(['"])(.+?)\1\s*;?\s*\}/s;
+    for (const file of fs.readdirSync(pluton_path).filter((f) => f.endsWith('.js'))) {
+        const match = fs.readFileSync(`${pluton_path}/${file}`, 'utf8').match(re);
+        if (match) plutonSelectors[file.replace(/\.js$/, '')] = match[2];
+    }
+}
+
+// Chunks : nom avec hash (cache navigateur de 6 mois), dossier vidé à chaque
+// build pour ne pas accumuler d'anciens chunks dans dist/.
+require('fs').rmSync(__dirname + '/wp-content/themes/mojo-v2/dist/js/chunks', { recursive: true, force: true });
+
 mix.webpackConfig(webpack => {
     return {
+        output: {
+            // URL de chargement des chunks (identique en local et en prod).
+            publicPath: '/wp-content/themes/mojo-v2/dist/',
+            chunkFilename: 'js/chunks/[name].[contenthash:8].js',
+        },
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    // Librairies partagées par plusieurs composants (swiper…) :
+                    // un seul chunk commun au lieu d'une copie par composant.
+                    lazyVendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        chunks: 'async',
+                        minChunks: 2,
+                        name: 'lazy-vendor',
+                        enforce: true,
+                    },
+                },
+            },
+        },
         plugins: [
             new webpack.DefinePlugin({
-                PLUTON_PATH: JSON.stringify(pluton_path)
+                PLUTON_SELECTORS: JSON.stringify(plutonSelectors),
             }),
 
         ]
