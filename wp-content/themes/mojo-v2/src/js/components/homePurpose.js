@@ -20,7 +20,6 @@ export default class HomePurpose {
         this.svgRect = { left: 0, top: 0 }; // position du wrapper dans le viewport
 
         // BOUND handlers stockés pour pouvoir les removeEventListener correctement
-        this._boundFrame = this.frame.bind(this);
         this._boundResize = this.e_resize.bind(this);
         this._boundMouseMove = this.e_mousemove.bind(this);
         this._boundMouseEnter = this.e_mousenter.bind(this);
@@ -30,19 +29,25 @@ export default class HomePurpose {
         this._boundMouseEnterEl = this.e_mousenterEl.bind(this);
         this._boundMouseLeaveEl = this.e_mouseleaveEl.bind(this);
 
-        // ajout du ticker (on utilise la référence stockée pour remove après)
-        gsap.ticker.add(this._boundFrame);
+        // Le cercle suit (souris − position du wrapper). Cette cible ne change
+        // qu'au scroll, au resize et au mousemove : on la met à jour sur ces
+        // événements via deux quickTo créés une seule fois. Avant, frame() était
+        // sur le ticker GSAP et créait un nouveau tween 60 fois/s en continu
+        // (~680 lectures de style en 8 s au chargement de la home, même sur mobile).
+        gsap.set(this.circle, { transformOrigin: "center center" });
+        this.moveX = gsap.quickTo(this.circle, "x", { duration: 0.4, ease: "power2.out" });
+        this.moveY = gsap.quickTo(this.circle, "y", { duration: 0.4, ease: "power2.out" });
 
         this.setRect();
         this.setEvents();
     }
 
     destroy() {
-        // retire le ticker
-        gsap.ticker.remove(this._boundFrame);
+        gsap.killTweensOf(this.circle);
 
         // retire les listeners globaux
         window.removeEventListener('resize', this._boundResize);
+        if (this._boundNativeScroll) window.removeEventListener('scroll', this._boundNativeScroll);
 
         // retire lenis scroll si présent
         if (window.lenis && typeof window.lenis.off === 'function') {
@@ -78,15 +83,11 @@ export default class HomePurpose {
         this.el = null;
     }
 
+    // Envoie le cercle vers sa cible (même calcul que l'ancien frame()).
     frame() {
-        // On anime l'élément déjà sélectionné (pas de lookup DOM à chaque tick)
-        gsap.to(this.circle, {
-            x: this.mousePos.x - this.svgRect.left,
-            y: this.mousePos.y - this.svgRect.top,
-            duration: 0.4,
-            ease: "power2.out",
-            transformOrigin: "center center"
-        });
+        if (!this.circle) return;
+        this.moveX(this.mousePos.x - this.svgRect.left);
+        this.moveY(this.mousePos.y - this.svgRect.top);
     }
 
     setRect() {
@@ -94,6 +95,7 @@ export default class HomePurpose {
         const r = this.svgWrapper.getBoundingClientRect();
         this.svgRect.left = r.left;
         this.svgRect.top = r.top;
+        this.frame();
     }
 
     setEvents() {
@@ -141,6 +143,7 @@ export default class HomePurpose {
     e_mousemove(e) {
         this.mousePos.x = e.clientX;
         this.mousePos.y = e.clientY;
+        this.frame();
     }
 
     e_mousenterEl(e) {
