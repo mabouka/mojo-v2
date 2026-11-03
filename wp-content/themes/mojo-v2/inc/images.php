@@ -142,6 +142,39 @@ function mojoSvgImageSrc($image, $attachmentId, $size)
 // Après bodhi_svgs_dimension_fallback (priorité 10) qui force 1×1.
 add_filter('wp_get_attachment_image_src', 'mojoSvgImageSrc', 20, 3);
 
+// Pages case : la bannière (sCaseBanner) est toujours au-dessus du contenu.
+// WordPress ne mettait aucune image du contenu en lazy, et ajoutait
+// fetchpriority="high" à la première, prise à tort pour l'image principale :
+// tout partait au chargement (~2,5 Mo sur euractiv-en).
+function mojoCaseContentImages($image, $context)
+{
+    if ($context !== 'the_content' || !is_singular('case')) return $image;
+    $image = preg_replace('/\sfetchpriority=(["\'])high\1/i', '', $image);
+    if (!preg_match('/\sloading=/i', $image)) {
+        $image = preg_replace('/^<img\b/i', '<img loading="lazy"', $image);
+    }
+    return $image;
+}
+add_filter('wp_content_img_tag', 'mojoCaseContentImages', 20, 2);
+
+// Bloc vidéo Gutenberg : chargé à l'approche de l'écran par LazyVideos
+// (src/js/classes/lazyVideos.js : <video class="lazy"> + <source data-src>)
+// au lieu d'être téléchargé dès l'ouverture de la page. L'autoplay est
+// conservé : il démarre une fois la source posée.
+function mojoLazyContentVideo($html)
+{
+    if (is_admin() || wp_is_json_request()) return $html;
+    return preg_replace_callback('/<video\b([^>]*?)\ssrc=(["\'])([^"\']+)\2([^>]*)>/i', function ($m) {
+        $attrs = preg_replace('/\spreload=(["\'])[^"\']*\1/i', '', $m[1] . $m[4]);
+        $attrs = preg_match('/\sclass=["\']/', $attrs)
+            ? preg_replace('/\sclass=(["\'])/', ' class=$1lazy ', $attrs, 1)
+            : $attrs . ' class="lazy"';
+        $type = preg_match('/\.webm(\?|$)/i', $m[3]) ? 'video/webm' : 'video/mp4';
+        return '<video' . $attrs . ' preload="none"><source data-src="' . esc_url($m[3]) . '" type="' . $type . '">';
+    }, $html);
+}
+add_filter('render_block_core/video', 'mojoLazyContentVideo');
+
 // Switch to Image Magick
 function change_graphic_lib($array)
 {
