@@ -191,7 +191,9 @@ CookieConsent.run({
         if (typeof ccConfig.onModalShow === 'function') ccConfig.onModalShow(...args);
     },
 }).then(async () => {
-    if (!CookieConsent.validConsent()) {
+    // #cc-main n'existe pas si la librairie n'a rien généré (robots :
+    // hideFromBots) : show() planterait.
+    if (!CookieConsent.validConsent() && document.getElementById('cc-main')) {
         await loadCookieConsentCss();
         ccCssReady = true;
         CookieConsent.show(true);
