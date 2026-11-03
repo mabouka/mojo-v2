@@ -27,17 +27,23 @@ export default class Globe {
         this.currentFrame    = -1;
         this.firstFrame      = 53;
         this.frameCount      = 250;
-        this.fileType        = 'jpg';
+        // WebP est lu par tous les navigateurs depuis 2020. L'ancien test était
+        // asynchrone : les ScrollTriggers étaient créés après le refresh() de
+        // Barba, avec des positions fausses (~1 transition sur 2).
+        this.fileType        = 'webp';
 
         this.anim = {
             frame: 0
         }
 
+        this.initialize();
+    }
 
-        this.check_webp_feature('lossy', (feature, isSupported) => {
-            if (isSupported) this.fileType = 'webp';
-            this.initialize();
-        });
+    // Annule les animations, leurs ScrollTriggers et l'écoute des media queries
+    // (sinon un passage de part et d'autre de 600 px les recréait sur un globe
+    // retiré de la page).
+    destroy() {
+        if (this.mm) this.mm.revert();
     }
 
     initialize() {
@@ -158,27 +164,6 @@ export default class Globe {
         return img;
     }
 
-    // check_webp_feature:
-    //   'feature' can be one of 'lossy', 'lossless', 'alpha' or 'animation'.
-    //   'callback(feature, isSupported)' will be passed back the detection result (in an asynchronous way!)
-    check_webp_feature(feature, callback) {
-        var kTestImages = {
-            lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
-            lossless: "UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==",
-            alpha: "UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==",
-            animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
-        };
-        var img = new Image();
-        img.onload = function () {
-            var result = (img.width > 0) && (img.height > 0);
-            callback(feature, result);
-        };
-        img.onerror = function () {
-            callback(feature, false);
-        };
-        img.src = "data:image/webp;base64," + kTestImages[feature];
-    }
-    
     render(e) {
         try {
             if (this.anim.frame !== this.currentFrame) { 

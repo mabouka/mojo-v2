@@ -414,41 +414,44 @@ function my_theme_setup()
     load_theme_textdomain('mj', get_template_directory() . '/languages');
 }
 
-function getLanguageLinks($class = "header__language")
+// Langues WPML sans jamais faire tomber la page : une traduction corrompue
+// peut faire planter icl_get_languages(), appelé dans le header de chaque page.
+// En cas d'échec, le sélecteur de langue disparaît, le reste de la page s'affiche.
+function mojoLanguages()
 {
     if (!function_exists('icl_get_languages')) {
-        return '';
+        return [];
     }
-    $languages = icl_get_languages('skip_missing=0');
+    try {
+        $languages = icl_get_languages('skip_missing=0');
+    } catch (\Throwable $e) {
+        error_log('mojoLanguages : ' . $e->getMessage());
+        return [];
+    }
+    return is_array($languages) ? $languages : [];
+}
 
-    $active = $languages[ICL_LANGUAGE_CODE];
+function getLanguageLinks($class = "header__language")
+{
     $link = '';
-    if (!empty($languages)) {
-        foreach ($languages as $c => $l) {
-            if (!$l['active']) {
-                $link .= '<a href="' . $l['url'] . '" class="' . $class . '" data-barba-prevent>';
-                $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
-                $link .= '</a>';
-            }
-        }
+    foreach (mojoLanguages() as $c => $l) {
+        if (!empty($l['active']) || empty($l['url'])) continue;
+        $link .= '<a href="' . esc_url($l['url']) . '" class="' . esc_attr($class) . '" data-barba-prevent>';
+        $link .= '<abbr title="' . esc_attr($l['native_name'] ?? '') . '">' . esc_html(ucfirst($c)) . '</abbr>';
+        $link .= '</a>';
     }
     return $link;
 }
 
 function get2LanguageLinks($class = "header__language")
 {
-    if (!function_exists('icl_get_languages')) {
-        return '';
-    }
-    $languages = icl_get_languages('skip_missing=0');
-    $active = $languages[ICL_LANGUAGE_CODE];
     $link = '';
-    if (!empty($languages)) {
-        foreach ($languages as $c => $l) {
-            $link .= '<a href="' . $l['url'] . '" class="' . $class . ($l['active'] ? (' ' . $class . '--current') : '') . '" data-barba-prevent>';
-            $link .= '<abbr title="' . $l['native_name'] . '">' . ucfirst($c) . '</abbr>';
-            $link .= '</a>';
-        }
+    foreach (mojoLanguages() as $c => $l) {
+        if (empty($l['url'])) continue;
+        $current = !empty($l['active']) ? ' ' . $class . '--current' : '';
+        $link .= '<a href="' . esc_url($l['url']) . '" class="' . esc_attr($class . $current) . '" data-barba-prevent>';
+        $link .= '<abbr title="' . esc_attr($l['native_name'] ?? '') . '">' . esc_html(ucfirst($c)) . '</abbr>';
+        $link .= '</a>';
     }
     return $link;
 }

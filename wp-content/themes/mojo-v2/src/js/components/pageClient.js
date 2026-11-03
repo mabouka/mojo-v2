@@ -25,12 +25,16 @@ export default class PageClient {
         this.setEvents();
     }
 
+    // Appelé par Pluton en quittant la page (Barba) : sans ça, l'écouteur
+    // resize et le matchMedia du globe survivaient à la page.
     destroy() {
-        
-    } 
+        window.removeEventListener("resize", this.onResize);
+        this.globe.destroy();
+    }
 
     setEvents() {
-        window.addEventListener("resize", this.e_resize.bind(this));
+        this.onResize = this.e_resize.bind(this);
+        window.addEventListener("resize", this.onResize);
     }
 
 

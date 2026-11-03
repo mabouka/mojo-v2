@@ -36,7 +36,6 @@ export default class Router {
 
 
         this.header = document.querySelector('.header');
-        this.languageSelector = document.querySelector('.header__language');
 
         barba.init({
                 timeout: 5000, // default is 2000ms
@@ -219,9 +218,15 @@ export default class Router {
             else this.header.classList.remove(className);
         });
 
-        // header language
-        let newLanguageSelector = doc.querySelector('.header__language');
-        this.languageSelector.setAttribute('href', newLanguageSelector.getAttribute('href'));
+        // Liens de langue : le header ET le menu sont hors du conteneur Barba,
+        // il faut leur donner l'URL traduite de la page suivante.
+        // Absent (WPML en échec, voir mojoLanguages) : on laisse tel quel.
+        const nextLanguage = doc.querySelector('.header__language');
+        if (nextLanguage) {
+            document.querySelectorAll('.header__language, .menu__headerLanguage').forEach((link) => {
+                link.setAttribute('href', nextLanguage.getAttribute('href'));
+            });
+        }
 
     }    
 }
