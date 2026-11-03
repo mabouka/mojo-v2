@@ -1,6 +1,6 @@
 <div class="homeIntro darkSection">
 
-    <img class="homeIntro__stars" src="<?= getUrl('dist/images/homeIntroStars.svg') ?>" width="1277" height="701" alt="">
+    <img class="homeIntro__stars" src="<?= getUrlVersion('dist/images/homeIntroStars.svg') ?>" width="1277" height="701" alt="">
 
     <div class="wrapper">
         <div class="homeIntro__inside">
