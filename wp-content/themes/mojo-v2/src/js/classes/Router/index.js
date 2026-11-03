@@ -78,7 +78,8 @@ export default class Router {
         barba.hooks.beforeEnter(async (data) => {
             // Barba ne remplace pas le <head> : charger le CSS de la page
             // suivante AVANT de l'afficher (sinon flash sans style).
-            this.nextPageCss = this.pageCssHrefFrom(data.next.html);
+            const nextDoc = new DOMParser().parseFromString(data.next.html, 'text/html');
+            this.nextPageCss = this.pageCssHrefFrom(nextDoc);
             this.pageCssPending = true; // une vraie transition est en cours
             // En parallèle : les chunks JS des composants de la page suivante.
             await Promise.all([
@@ -87,7 +88,7 @@ export default class Router {
             ]);
 
             //this.updateHeader(data);
-            this.updatePage(data);
+            this.updatePage(nextDoc);
             Menu.update(data);
             ScrollTrigger.killAll();
             ScrollTrigger.refresh();
@@ -145,8 +146,7 @@ export default class Router {
     // Le <head> de la page suivante (récupéré par Barba) contient son
     // <link data-page-css> : aucune déclaration à maintenir dans les templates.
 
-    pageCssHrefFrom(html) {
-        const doc = new DOMParser().parseFromString(html, 'text/html');
+    pageCssHrefFrom(doc) {
         const link = doc.querySelector('link[rel="stylesheet"][data-page-css]');
         return link ? link.getAttribute('href') : null;
     }
@@ -158,27 +158,33 @@ export default class Router {
     loadPageCss(href, timeout = 3000) {
         if (!href) return Promise.resolve();
 
-        const existing = this.pageCssLinks().find((l) => l.getAttribute('href') === href);
-        if (existing) {
-            this.setSheetEnabled(existing, true);
-            return Promise.resolve();
-        }
-
-        return new Promise((resolve) => {
-            const link = document.createElement('link');
+        let link = this.pageCssLinks().find((l) => l.getAttribute('href') === href);
+        if (!link) {
+            link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = href;
             link.setAttribute('data-page-css', '');
-            // Ne jamais bloquer la transition : au pire on affiche après `timeout`.
-            const timer = setTimeout(resolve, timeout);
-            link.onload = () => { clearTimeout(timer); resolve(); };
-            link.onerror = () => {
-                clearTimeout(timer);
-                link.remove(); // pas de lien cassé réutilisé : on retentera à la prochaine visite
-                resolve();
-            };
+            link.mojoLoaded = new Promise((resolve) => {
+                link.onload = () => {
+                    // Feuille arrivée après le délai : appliquer l'état voulu entre-temps.
+                    link.sheet.disabled = link.mojoEnabled === false;
+                    resolve();
+                };
+                link.onerror = () => {
+                    link.remove(); // pas de lien cassé réutilisé : on retentera à la prochaine visite
+                    resolve();
+                };
+            });
             document.head.appendChild(link);
-        });
+        }
+        this.setSheetEnabled(link, true);
+
+        // Ne jamais bloquer la transition : au pire on affiche après `timeout`.
+        // Un lien encore en cours de chargement (visite précédente) est attendu aussi.
+        return Promise.race([
+            link.mojoLoaded || Promise.resolve(),
+            new Promise((resolve) => setTimeout(resolve, timeout)),
+        ]);
     }
 
     // Après l'entrée (ancien conteneur retiré) : seuls base.css et le CSS de la
@@ -194,12 +200,11 @@ export default class Router {
     // celui-ci fait décharger puis retélécharger le fichier par le navigateur.
     setSheetEnabled(link, enabled) {
         if (link.disabled) link.disabled = false; // héritage : ne jamais décharger le <link>
+        link.mojoEnabled = enabled; // appliqué au onload si la feuille n'est pas encore là
         if (link.sheet) link.sheet.disabled = !enabled;
     }
 
-    updatePage(data){
-        let parser = new DOMParser();
-        const doc = parser.parseFromString(data.next.html, 'text/html');
+    updatePage(doc){
 
         // header className
         let newHeader = doc.querySelector('.header');

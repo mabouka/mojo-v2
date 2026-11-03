@@ -186,10 +186,7 @@ const ccConfig = {
 CookieConsent.run({
     ...ccConfig,
     autoShow: false,
-    onModalShow: (...args) => {
-        loadCookieConsentCss(); // filet de sécurité si une fenêtre s'ouvre autrement
-        if (typeof ccConfig.onModalShow === 'function') ccConfig.onModalShow(...args);
-    },
+    onModalShow: loadCookieConsentCss, // filet de sécurité si une fenêtre s'ouvre autrement
 }).then(async () => {
     // #cc-main n'existe pas si la librairie n'a rien généré (robots :
     // hideFromBots) : show() planterait.

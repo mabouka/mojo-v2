@@ -107,8 +107,8 @@ require('fs')
 // Pluton : chaque composant est chargé à la demande (chunk séparé) quand son
 // sélecteur est présent dans la page. Le sélecteur reste défini à UN seul
 // endroit, le `static get selector()` du composant, lu ici au build.
-// Un composant sans sélecteur littéral n'est pas auto-instancié (ex. Globe et
-// clientIntro, créés par pageClient ; clientNumbers, désactivé).
+// Seuls les fichiers à la racine de components/ sont des composants ; les
+// sous-composants vont dans un sous-dossier (ex. components/pageClient/).
 const plutonSelectors = {};
 {
     const fs = require('fs');
@@ -119,9 +119,36 @@ const plutonSelectors = {};
     }
 }
 
-// Chunks : nom avec hash (cache navigateur de 6 mois), dossier vidé à chaque
-// build pour ne pas accumuler d'anciens chunks dans dist/.
-require('fs').rmSync(__dirname + '/wp-content/themes/mojo-v2/dist/js/chunks', { recursive: true, force: true });
+// Chunks : nom avec hash (cache navigateur de 6 mois). Un chunk que le build ne
+// produit plus n'est PAS supprimé tout de suite : une page HTML encore en cache
+// (Cloudflare APO, onglet ouvert) charge l'ancien manifest, qui le demande.
+// Il est supprimé 30 jours après être devenu obsolète (date notée dans
+// dist/js/chunks/obsolete.json, versionné avec dist/).
+class PruneObsoleteChunks {
+    apply(compiler) {
+        compiler.hooks.afterEmit.tap('PruneObsoleteChunks', (compilation) => {
+            const fs = require('fs');
+            const path = require('path');
+            const dir = __dirname + '/wp-content/themes/mojo-v2/dist/js/chunks';
+            const ledgerFile = `${dir}/obsolete.json`;
+            if (!fs.existsSync(dir)) return;
+
+            const emitted = new Set(Object.keys(compilation.assets).map((a) => path.basename(a)));
+            const ledger = fs.existsSync(ledgerFile) ? JSON.parse(fs.readFileSync(ledgerFile, 'utf8')) : {};
+            const next = {};
+            const now = Date.now();
+            const maxAge = 30 * 24 * 3600 * 1000;
+
+            for (const file of fs.readdirSync(dir)) {
+                if (file === 'obsolete.json' || emitted.has(file)) continue;
+                const since = ledger[file] || now;
+                if (now - since > maxAge) fs.unlinkSync(`${dir}/${file}`);
+                else next[file] = since;
+            }
+            fs.writeFileSync(ledgerFile, JSON.stringify(next, null, 2) + '\n');
+        });
+    }
+}
 
 mix.webpackConfig(webpack => {
     return {
@@ -142,10 +169,19 @@ mix.webpackConfig(webpack => {
                         name: 'lazy-vendor',
                         enforce: true,
                     },
+                    // Idem pour notre propre code partagé (utils/marquee…).
+                    lazyShared: {
+                        test: /[\\/]src[\\/]js[\\/]/,
+                        chunks: 'async',
+                        minChunks: 2,
+                        name: 'lazy-shared',
+                        enforce: true,
+                    },
                 },
             },
         },
         plugins: [
+            new PruneObsoleteChunks(),
             new webpack.DefinePlugin({
                 PLUTON_SELECTORS: JSON.stringify(plutonSelectors),
             }),

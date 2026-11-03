@@ -112,19 +112,19 @@ function mojoSvgImageSrc($image, $attachmentId, $size)
     if (!($intrinsic = mojoSvgIntrinsicSize($attachmentId))) return $image;
     [$width, $height] = $intrinsic;
 
-    // Boîte de la taille demandée (9999 ou 0 = pas de limite).
+    // Boîte de la taille demandée (9999 ou 0 = pas de limite). Même pour une
+    // taille recadrée, le fichier servi reste le SVG d'origine : on le fait
+    // tenir dans la boîte en gardant son ratio.
+    static $sizes = null;
     $box = null;
     if (is_array($size)) {
-        $box = ['width' => $size[0], 'height' => $size[1] ?? 0, 'crop' => false];
+        $box = ['width' => $size[0], 'height' => $size[1] ?? 0];
     } elseif ($size !== 'full') {
-        $sizes = wp_get_registered_image_subsizes();
+        $sizes ??= wp_get_registered_image_subsizes();
         $box = $sizes[$size] ?? null;
     }
 
-    if ($box && !empty($box['crop']) && $box['width'] && $box['height']) {
-        $width  = $box['width'];
-        $height = $box['height'];
-    } elseif ($box) {
+    if ($box) {
         $ratios = [];
         if ($box['width'] && $box['width'] < 9999)   $ratios[] = $box['width'] / $width;
         if ($box['height'] && $box['height'] < 9999) $ratios[] = $box['height'] / $height;

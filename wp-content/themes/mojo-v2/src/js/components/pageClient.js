@@ -1,6 +1,6 @@
-import Globe            from "./Globe";
-import ClientIntro      from "./clientIntro";
-import ClientNumbers    from "./clientNumbers";
+import Globe            from "./pageClient/Globe";
+import ClientIntro      from "./pageClient/clientIntro";
+import ClientNumbers    from "./pageClient/clientNumbers";
 
 export default class PageClient {
 

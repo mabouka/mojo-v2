@@ -15,10 +15,10 @@
                 <?php if ($casesGallery) : ?>
                 <div class="featuredCases__galleryMobile">
                 <?php foreach ($casesGallery as $key => $case) : ?>
-                    <?php getPartial('caseCard', [
+                    <?php // Pas d'isLcp : la section est sous homeIntro/homeVideo, jamais le LCP.
+                    getPartial('caseCard', [
                         'case' => $case,
                         'mobileOnly' => true,
-                        'isLcp' => ($key === 0)
                     ]); ?>
                 <?php endforeach ?>
                 </div>

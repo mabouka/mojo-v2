@@ -33,8 +33,16 @@ class PlutonClass {
         if (!this.classes[name]) {
             this.classes[name] = import(
                 /* webpackChunkName: "pluton-[request]" */
+                // Sous-dossiers exclus : ce sont des sous-composants importés
+                // par leur parent (ex. components/pageClient/), pas des chunks.
+                /* webpackExclude: /components[\\/][^\\/]+[\\/]/ */
                 `../components/${name}.js`
-            ).then(module => module.default);
+            ).then(module => module.default, error => {
+                // Échec (réseau…) : ne pas garder la promesse rejetée en cache,
+                // la prochaine page qui utilise le composant retentera.
+                delete this.classes[name];
+                throw error;
+            });
         }
         return this.classes[name];
     }
@@ -44,7 +52,8 @@ class PlutonClass {
 
         this.ready = this.load(root).then(async names => {
             for (const name of names) {
-                const component = await this.classes[name].catch(() => null);
+                // Absent du cache = échec déjà signalé par load().
+                const component = this.classes[name] && await this.classes[name].catch(() => null);
                 // Page quittée pendant le téléchargement : ne rien instancier.
                 if (generation !== this.generation) return;
                 if (component) this.setupComponent(name, component, root);
