@@ -132,8 +132,11 @@ export default class Router {
 
         barba.hooks.after(() => {
             this.lazyVideos.loadAllVisible();
-            
-            gtag('event', 'page_view', {
+
+            // gtag() peut ne pas exister (tags chargés seulement après
+            // consentement, ou retirés) : ne pas casser la navigation.
+            if (typeof window.gtag !== 'function') return;
+            window.gtag('event', 'page_view', {
               'page_title': document.title,
               'page_location': location.href,
               'page_path': location.pathname,
