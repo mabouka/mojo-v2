@@ -70,6 +70,78 @@ add_image_size('storyArchiveFeatured@2x', 691 * 2, 619 * 2, true);
 add_image_size('storyHero', 1065, 553, true);
 add_image_size('storyHero@2x', 1065 * 2, 553 * 2, true);
 
+// SVG : WordPress n'en connaît pas les dimensions (métadonnées à 0) et le plugin
+// svg-support renvoie alors 1×1 → <img width="1" height="1">, donc un carré
+// réservé puis un saut de mise en page au chargement. On lit les dimensions
+// réelles dans le fichier (width/height ou viewBox) et on les ajuste à la
+// taille demandée, comme WordPress le ferait pour une image bitmap.
+function mojoSvgIntrinsicSize($attachmentId)
+{
+    static $cache = [];
+    if (array_key_exists($attachmentId, $cache)) return $cache[$attachmentId];
+
+    $cache[$attachmentId] = null;
+    $file = get_attached_file($attachmentId);
+    if (!$file || !is_readable($file)) return null;
+
+    // La balise <svg> est au début du fichier : inutile de tout lire.
+    $head = file_get_contents($file, false, null, 0, 4096);
+    if (!preg_match('/<svg\b[^>]*>/is', $head, $tag)) return null;
+
+    $attr = function ($name) use ($tag) {
+        return preg_match('/\s' . $name . '\s*=\s*["\']([^"\']*)["\']/i', $tag[0], $m) ? trim($m[1]) : null;
+    };
+    $width  = (float) $attr('width');   // "100%" ou "12em" → ignorés plus bas
+    $height = (float) $attr('height');
+    $unitless = fn($v) => $v === null || preg_match('/^[\d.]+(px)?$/', $v);
+
+    if (!($width > 0 && $height > 0 && $unitless($attr('width')) && $unitless($attr('height')))) {
+        $viewBox = preg_split('/[\s,]+/', (string) $attr('viewBox'));
+        if (count($viewBox) !== 4) return null;
+        $width  = (float) $viewBox[2];
+        $height = (float) $viewBox[3];
+    }
+    if ($width <= 0 || $height <= 0) return null;
+
+    return $cache[$attachmentId] = [$width, $height];
+}
+
+function mojoSvgImageSrc($image, $attachmentId, $size)
+{
+    if (!$image || get_post_mime_type($attachmentId) !== 'image/svg+xml') return $image;
+    if (!($intrinsic = mojoSvgIntrinsicSize($attachmentId))) return $image;
+    [$width, $height] = $intrinsic;
+
+    // Boîte de la taille demandée (9999 ou 0 = pas de limite).
+    $box = null;
+    if (is_array($size)) {
+        $box = ['width' => $size[0], 'height' => $size[1] ?? 0, 'crop' => false];
+    } elseif ($size !== 'full') {
+        $sizes = wp_get_registered_image_subsizes();
+        $box = $sizes[$size] ?? null;
+    }
+
+    if ($box && !empty($box['crop']) && $box['width'] && $box['height']) {
+        $width  = $box['width'];
+        $height = $box['height'];
+    } elseif ($box) {
+        $ratios = [];
+        if ($box['width'] && $box['width'] < 9999)   $ratios[] = $box['width'] / $width;
+        if ($box['height'] && $box['height'] < 9999) $ratios[] = $box['height'] / $height;
+        if ($ratios) {
+            $scale  = min($ratios); // un SVG peut être agrandi sans perte
+            $width  *= $scale;
+            $height *= $scale;
+        }
+    }
+
+    $image[1] = max(1, (int) round($width));
+    $image[2] = max(1, (int) round($height));
+    return $image;
+}
+// Après bodhi_svgs_dimension_fallback (priorité 10) qui force 1×1.
+add_filter('wp_get_attachment_image_src', 'mojoSvgImageSrc', 20, 3);
+
 // Switch to Image Magick
 function change_graphic_lib($array)
 {
