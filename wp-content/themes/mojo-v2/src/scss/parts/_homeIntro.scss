@@ -123,7 +123,10 @@
 .homeIntro {
     .fx-letter {
         transform: translate3d(-120px, 57px, -300px) scaleY(0.01) rotateX(-90deg) rotateZ(-35deg);
-        transition: all 1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990);
+        // Seulement transform/opacity (animables par le GPU) : avec `all`, un
+        // changement de couleur était aussi animé, lettre par lettre.
+        transition: transform 1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990),
+                    opacity   1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990);
 
         @for $n from 1 through 35 {
             &--#{$n} {
