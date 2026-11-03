@@ -15,19 +15,33 @@ export default class HomeVideo {
     }
 
     // Une seule source, choisie selon l'écran (même seuil que l'ancien
-    // <source media="(max-width: 600px)">). L'autoplay démarre dès qu'elle est posée.
+    // <source media="(max-width: 600px)">) et le format : MP4 si le navigateur
+    // lit le HEVC, sinon WebM (VP9). Si le fichier choisi échoue quand même,
+    // on passe à l'autre. L'autoplay démarre dès que la source est posée.
     setSource() {
-        const { src, srcMobile } = this.video.dataset;
-        const mobile = srcMobile && window.matchMedia('(max-width: 600px)').matches;
-        const url = mobile ? srcMobile : src;
-        if (!url || this.video.getAttribute('src') === url) return;
+        const d = this.video.dataset;
+        const mobile = window.matchMedia('(max-width: 600px)').matches;
+        const mp4 = (mobile && d.srcMobile) || d.src;
+        const webm = (mobile && d.srcMobileWebm) || d.srcWebm;
+        const hevc = this.video.canPlayType('video/mp4; codecs="hvc1.1.6.L93.B0"') !== '';
+        this.sources = (hevc ? [mp4, webm] : [webm, mp4]).filter(Boolean);
+
+        this._onError = () => this.nextSource();
+        this.video.addEventListener('error', this._onError);
+        this.nextSource();
+    }
+
+    nextSource() {
+        const url = this.sources.shift();
+        if (!url) return;
         this.video.src = url;
         const play = this.video.play();
         if (play) play.catch(() => {});
     }
 
     destroy() {
-        this.removeEvents();        
+        this.removeEvents();
+        if (this._onError) this.video.removeEventListener('error', this._onError);
     }
 
     setEvents() {
