@@ -28,7 +28,9 @@ mix
 
     
     .copy('wp-content/themes/mojo-v2/src/images/*', 'wp-content/themes/mojo-v2/dist/images/')
-    .copy('wp-content/themes/mojo-v2/src/images/globe/*', 'wp-content/themes/mojo-v2/dist/images/globe/')
+    // Globe : seules les images WebP sont utilisées (Globe.js). Les JPG/PNG de
+    // src/ ne sont plus copiés (~620 Mo inutiles dans dist/).
+    .copy('wp-content/themes/mojo-v2/src/images/globe/*.webp', 'wp-content/themes/mojo-v2/dist/images/globe/')
 
     // ACF Blocks CSS pipeline
     // - src/scss/blocks/<block>.scss        -> blocks/<block>/<block>-editor.css (admin/editorStyle)
