@@ -13,9 +13,8 @@
     <!-- Preload -->
 
     <?php mojoPageCssLinks(true); ?>
-    <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
-    <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
-    <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
+    <?php // JS du thème en defer (footer.php), sans preload : il ne doit pas
+          // prendre la bande passante des CSS, polices et images du haut de page. ?>
     <?php if (is_front_page()): ?>
         <link rel="preload" href="<?= getUrlVersion('dist/images/homeIntroStars.svg'); ?>" fetchpriority="high" as="image" type="image/svg+xml">
     <?php endif ?>
@@ -23,7 +22,7 @@
     <link rel="preload" href="<?= getUrl('dist/fonts/dm-sans-4.woff2'); ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?= getUrl('dist/fonts/Cambon-Regular.woff2'); ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?= getUrl('dist/fonts/Cambon-SemiBold.woff2'); ?>" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="<?= getUrl('dist/fonts/Cambon-Bold.woff2'); ?>" as="font" type="font/woff2" crossorigin>
+    <?php // Cambon Bold (menu, quelques titres plus bas) n'est pas préchargée. ?>
 
     <!-- Responsive -->
     <meta name="HandheldFriendly" content="true">

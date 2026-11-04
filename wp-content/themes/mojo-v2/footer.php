@@ -146,9 +146,12 @@
 <?php getPartial('menu'); ?>
 
 
-<script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
-<script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
-<script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
+<!-- defer : le navigateur affiche la page sans attendre ces scripts, qui
+     s'exécutent dans l'ordre juste avant DOMContentLoaded (main.js démarre
+     sur cet événement). -->
+<script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>" defer></script>
+<script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>" defer></script>
+<script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>" defer></script>
 
 <?php 
     
