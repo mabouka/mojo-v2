@@ -1,16 +1,7 @@
-let appendScripts = (root = document.documentElement ) => {
-    let script = document.createElement("script");
-        script.src = window.location.origin + '/recaptcha.php';
-        root.appendChild(script);
-        console.log('recaptcha');
-}
-
-
+// reCAPTCHA est chargé par le formulaire lui-même, au premier contact
+// (components/ContactForm.js), plus à l'ouverture de la page.
 let contact = {
     namespace: 'contact',
-    beforeEnter(data) {
-        appendScripts( data.next.container);
-    }
 }
 
 export default contact;

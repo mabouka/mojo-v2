@@ -1,5 +1,24 @@
 import gsap from "gsap";
 
+// reCAPTCHA (~1 Mo, ~1,5 s de calcul sur mobile) n'est chargé qu'au premier
+// contact avec le formulaire (focus, clic), ou à l'envoi au plus tard : avant,
+// les vues Barba contact / singlelead l'ajoutaient à l'ouverture de la page.
+let recaptchaLoading = null;
+function loadRecaptcha() {
+    if (window.grecaptcha && window.grecaptcha.execute) return Promise.resolve();
+    if (!recaptchaLoading) {
+        recaptchaLoading = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = window.location.origin + '/recaptcha.php';
+            script.async = true;
+            script.onload = resolve;
+            script.onerror = () => { recaptchaLoading = null; reject(); };
+            document.head.appendChild(script);
+        });
+    }
+    return recaptchaLoading;
+}
+
 export default class Contactform {
 
     static get selector() {
@@ -122,12 +141,18 @@ export default class Contactform {
 
         this.form.addEventListener('submit', this._boundSubmit);
         this.fileInput.addEventListener('change', this._boundFileChange);
+
+        this._boundWarm = () => { loadRecaptcha().catch(() => {}); };
+        this.form.addEventListener('focusin', this._boundWarm, { once: true });
+        this.form.addEventListener('pointerdown', this._boundWarm, { once: true });
     }
 
     destroy() {
         window.removeEventListener('sendForm', this._boundSendForm);
         this.form.removeEventListener('submit', this._boundSubmit);
         this.fileInput.removeEventListener('change', this._boundFileChange);
+        this.form.removeEventListener('focusin', this._boundWarm);
+        this.form.removeEventListener('pointerdown', this._boundWarm);
     }
 
     e_removeFile(e, index) {
@@ -159,16 +184,18 @@ export default class Contactform {
         const submit = this.form.querySelector('[type="submit"]');
         if (submit) submit.disabled = true;
 
-        grecaptcha.ready(() => {
+        const fail = () => {
+            this._submitting = false;
+            if (submit) submit.disabled = false;
+        };
+
+        loadRecaptcha().then(() => grecaptcha.ready(() => {
             grecaptcha.execute(window.recaptchaKey, {action: 'submit'}).then((token) => {
                 Array.from(this.captchaFields).forEach(field => {
                     field.setAttribute("value", token);
                 });
                 this.form.submit();
-            }).catch(() => {
-                this._submitting = false;
-                if (submit) submit.disabled = false;
-            });
-        });
+            }).catch(fail);
+        })).catch(fail);
     }
 }
