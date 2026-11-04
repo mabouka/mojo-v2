@@ -5,12 +5,13 @@
                 <?= __('Back to Expertises', 'mj'); ?>
             </a>
 
-            <h1 class="serviceHeader__title js-in-view appear-fade">
+            <?php // Sans fondu : titre et illustration visibles dès le premier affichage (LCP). ?>
+            <h1 class="serviceHeader__title">
                 <?= $title; ?>
             </h1>
 
             <?php if ($svg): ?>
-                <img class="serviceHeader__picture js-in-view appear-fade" src="<?= $svg['url'] ?>" alt="<?= $svg['alt'] ?>">
+                <img class="serviceHeader__picture" fetchpriority="high" src="<?= $svg['url'] ?>" alt="<?= $svg['alt'] ?>">
             <?php endif ?>
 
         </div>

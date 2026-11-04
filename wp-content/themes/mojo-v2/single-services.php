@@ -15,8 +15,9 @@ $parent    = array_reverse($ancestors);
             <div class="wrapper">
                 <div class="serviceChild__inside">
                     <div class="serviceChild__body">
-                        <h1 class="serviceChild__title js-in-view appear-fade"><?= get_the_title(); ?></h1>
-                        <div class="serviceChild__content guthContent guthContent--medium  js-in-view appear-fade appear-delay2">
+                        <?php // Haut de page sans fondu : visible dès le premier affichage (élément LCP). ?>
+                        <h1 class="serviceChild__title"><?= get_the_title(); ?></h1>
+                        <div class="serviceChild__content guthContent guthContent--medium">
                             <?= the_content(); ?>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ $children = get_children($child_args);
 <div class="serviceChIntro">
 
     <?php if ($children): ?>
-        <div class="serviceChIntro__nav js-in-view appear-fade appear-delay4">
+        <div class="serviceChIntro__nav">
             <?php foreach ($children as $child): ?>
                 <a class="serviceChIntro__navItem" href="<?= get_the_permalink($child); ?>">
                     <?= get_the_title($child) ?>
