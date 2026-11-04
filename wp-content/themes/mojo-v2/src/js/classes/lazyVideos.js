@@ -1,5 +1,9 @@
 class LazyVideos {
-    constructor({ rootMargin = "-100% 0% 0% 0%", threshold = 0 } = {}) {
+    // Charge une vidéo quand elle arrive à une demi-hauteur d'écran sous la zone
+    // visible. L'ancienne marge (« -100% » en haut) réduisait la zone observée à
+    // la seule ligne du bas de l'écran : une vidéo qui la sautait (défilement
+    // rapide, ancre, retour arrière) ne se chargeait jamais.
+    constructor({ rootMargin = "0% 0% 50% 0%", threshold = 0 } = {}) {
         this.options = { rootMargin, threshold };
         this.lazyVideos = [];
         this.lazyVideoObserver = null;

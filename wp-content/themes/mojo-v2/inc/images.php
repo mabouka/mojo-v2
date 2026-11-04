@@ -161,11 +161,17 @@ add_filter('wp_content_img_tag', 'mojoCaseContentImages', 20, 2);
 // (src/js/classes/lazyVideos.js : <video class="lazy"> + <source data-src>)
 // au lieu d'être téléchargé dès l'ouverture de la page. L'autoplay est
 // conservé : il démarre une fois la source posée.
-function mojoLazyContentVideo($html)
+// Les dimensions de la vidéo (médiathèque) sont ajoutées en width/height : sans
+// source chargée, le navigateur réservait 150 px de haut, puis la page sautait.
+function mojoLazyContentVideo($html, $block = [])
 {
     if (is_admin() || wp_is_json_request()) return $html;
-    return preg_replace_callback('/<video\b([^>]*?)\ssrc=(["\'])([^"\']+)\2([^>]*)>/i', function ($m) {
+    $meta = !empty($block['attrs']['id']) ? wp_get_attachment_metadata((int) $block['attrs']['id']) : [];
+    return preg_replace_callback('/<video\b([^>]*?)\ssrc=(["\'])([^"\']+)\2([^>]*)>/i', function ($m) use ($meta) {
         $attrs = preg_replace('/\spreload=(["\'])[^"\']*\1/i', '', $m[1] . $m[4]);
+        if (!empty($meta['width']) && !empty($meta['height']) && !preg_match('/\swidth=/i', $attrs)) {
+            $attrs .= ' width="' . (int) $meta['width'] . '" height="' . (int) $meta['height'] . '"';
+        }
         $attrs = preg_match('/\sclass=["\']/', $attrs)
             ? preg_replace('/\sclass=(["\'])/', ' class=$1lazy ', $attrs, 1)
             : $attrs . ' class="lazy"';
@@ -173,7 +179,7 @@ function mojoLazyContentVideo($html)
         return '<video' . $attrs . ' preload="none"><source data-src="' . esc_url($m[3]) . '" type="' . $type . '">';
     }, $html);
 }
-add_filter('render_block_core/video', 'mojoLazyContentVideo');
+add_filter('render_block_core/video', 'mojoLazyContentVideo', 10, 2);
 
 // Switch to Image Magick
 function change_graphic_lib($array)
