@@ -163,10 +163,33 @@ add_filter('wp_content_img_tag', 'mojoCaseContentImages', 20, 2);
 // conservé : il démarre une fois la source posée.
 // Les dimensions de la vidéo (médiathèque) sont ajoutées en width/height : sans
 // source chargée, le navigateur réservait 150 px de haut, puis la page sautait.
+// Dimensions d'une vidéo de la médiathèque. Beaucoup n'en ont pas (métadonnées
+// vides) : on les lit une fois dans le fichier (en-têtes seulement, via getID3)
+// et on les enregistre, les affichages suivants ne relisent plus rien.
+function mojoVideoDimensions($attachmentId)
+{
+    $meta = wp_get_attachment_metadata($attachmentId) ?: [];
+    if (!empty($meta['width']) && !empty($meta['height'])) return $meta;
+    if (!empty($meta['mojo_no_dimensions'])) return $meta; // déjà tenté, illisible
+
+    $file = get_attached_file($attachmentId);
+    if (!$file || !is_readable($file)) return $meta;
+    if (!function_exists('wp_read_video_metadata')) require_once ABSPATH . 'wp-admin/includes/media.php';
+
+    $read = wp_read_video_metadata($file) ?: [];
+    if (!empty($read['width']) && !empty($read['height'])) {
+        $meta = array_merge($read, $meta, ['width' => (int) $read['width'], 'height' => (int) $read['height']]);
+    } else {
+        $meta['mojo_no_dimensions'] = 1;
+    }
+    wp_update_attachment_metadata($attachmentId, $meta);
+    return $meta;
+}
+
 function mojoLazyContentVideo($html, $block = [])
 {
     if (is_admin() || wp_is_json_request()) return $html;
-    $meta = !empty($block['attrs']['id']) ? wp_get_attachment_metadata((int) $block['attrs']['id']) : [];
+    $meta = !empty($block['attrs']['id']) ? mojoVideoDimensions((int) $block['attrs']['id']) : [];
     return preg_replace_callback('/<video\b([^>]*?)\ssrc=(["\'])([^"\']+)\2([^>]*)>/i', function ($m) use ($meta) {
         $attrs = preg_replace('/\spreload=(["\'])[^"\']*\1/i', '', $m[1] . $m[4]);
         if (!empty($meta['width']) && !empty($meta['height']) && !preg_match('/\swidth=/i', $attrs)) {
