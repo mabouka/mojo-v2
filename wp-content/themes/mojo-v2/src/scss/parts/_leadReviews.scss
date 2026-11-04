@@ -40,6 +40,9 @@
     }
 
     &__logo{
+        // Dans la rangée flex de .leadReviews__top : sans flex-shrink 0, un nom
+        // ou une fonction longs écrasaient le logo en ovale.
+        flex-shrink: 0;
         width: s(104);
         height: s(104);
         border-radius: 100%;
