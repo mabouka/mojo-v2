@@ -19,11 +19,8 @@
     <div class="homePurpose__svgWrapper">
         <svg class="homePurpose__svg" id="purposeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5000 5000">
             <defs>
-                <g id="purposeSvg_circleWrapper">
-                    <g id="purposeSvg_circleWrapperPos">
-                        <circle id="purposeSvg_circle" cx="0" cy="0" r="18" />
-                    </g>
-                </g>
+                <?php // Disque qui suit la souris (classes/LogoCursor.js : transform + r). ?>
+                <circle id="purposeSvg_circle" cx="0" cy="0" r="0" />
                 <g id="purposeSvg_logo">
                     <path d="M302.57,4721h-53.61l-158.63,261.43v-261.43H25.3l-169.3,279h77.07l145.84-240.34v240.34h77.83l145.84-240.34v240.34h11.43v-279h-11.43Z" stroke-width="0" />
                     <path d="M349.93,4856c0-79.53,68.35-144,152.67-144s152.66,64.48,152.66,144-68.35,144-152.66,144-152.67-64.47-152.67-144ZM432.24,4972.72c37.17,23.15,98.8-10.33,137.65-74.79,38.85-64.46,40.23-135.49,3.06-158.65-37.17-23.15-98.79,10.34-137.64,74.8-38.86,64.46-40.23,135.48-3.07,158.64Z" fill-rule="evenodd" stroke-width="0" />
@@ -32,25 +29,20 @@
 
                 </g>
 
-                <!-- the masks -->
-                <mask id="purposeSvg_circleMask">
-                    <use xlink:href="#purposeSvg_circleWrapper" fill="white" />
-                </mask>
-                <mask id="purposeSvg_logoMask">
-                    <use xlink:href="#purposeSvg_logo" fill="white" />
-                </mask>
+                <?php // Découpe géométrique (pas de masque) : à chaque image, le
+                      // navigateur ne redessine que la zone du disque. ?>
+                <clipPath id="purposeSvg_circleClip">
+                    <use xlink:href="#purposeSvg_circle" />
+                </clipPath>
 
                 <clipPath id="purposeSvg_clipPath">
                     <use xlink:href="#tr_path" />
                 </clipPath>
             </defs>
 
-            <use xlink:href="#purposeSvg_circleWrapper" fill="#784FE0" />
+            <use xlink:href="#purposeSvg_circle" fill="#784FE0" />
             <use xlink:href="#purposeSvg_logo" fill="#000" />
-
-            <g mask="url(#purposeSvg_circleMask)">
-                <rect width="100%" height="100%" fill="#FFC833" mask="url(#purposeSvg_logoMask)" />
-            </g>
+            <use xlink:href="#purposeSvg_logo" fill="#FFC833" clip-path="url(#purposeSvg_circleClip)" />
 
             <rect id="purposeSensible" x="0" y="4650" width="1300" height="350" fill="none" />
 

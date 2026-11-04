@@ -1,3 +1,17 @@
+// Curseur du site (classes/Cursor.js).
+// Position et étirement viennent du JS à chaque image, sans transition :
+//   --cx/--cy (translate), --cr (rotate), --csx/--csy (transform).
+// La taille de chaque état passe par `scale`, seule propriété animée en CSS.
+// Les calques restent chacun en position fixe : un parent transformé isolerait
+// leurs mix-blend-mode.
+$cursorSize: 360;
+
+@mixin cursorSize($px) {
+    .cursor__bg {
+        scale: #{$px / $cursorSize};
+    }
+}
+
 .cursor{
     display: none;
 
@@ -5,32 +19,24 @@
         position: fixed;
         left: 0;
         top: 0;
-        width: s(360);
-        height: s(360);
-        margin-top: s(-360/2);
-        margin-left: s(-360/2);
+        width: s($cursorSize);
+        height: s($cursorSize);
+        margin-top: s(-$cursorSize/2);
+        margin-left: s(-$cursorSize/2);
         z-index: 600;
         border-radius: 100%;
         background-color: color(yellow);
         mix-blend-mode: darken;
         opacity: 1;
 
-        will-change: opacity, color, transform;
-        //transform: matrix(#{(3.6 / 360)}, 0,0, #{(3.6 / 360)}, var(--x,50vw), var(--y,50vh));
-        //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(0.1);
-
-        $scale: 3.6 / 360;
-
-        transform: matrix3d(
-            $scale, 0, 0, 0,
-            0, $scale, 0, 0,
-            0, 0, 1, 0,
-            var(--x,50vw), var(--y,50vh), 0, 1
-        );
+        translate: var(--cx, 50vw) var(--cy, 50vh);
+        rotate: var(--cr, 0deg);
+        scale: #{3.6 / $cursorSize};
+        transform: scale(var(--csx, 1), var(--csy, 1));
         transform-origin: center center;
+        will-change: translate, transform, scale;
         pointer-events: none;
         user-select: none;
-
 
         &--screen{
             opacity: 0;
@@ -51,20 +57,11 @@
 
     &--active{
         display: block;
+        @include cursorSize(36);
+
         .cursor__bg{
-            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(1);
-            //transform: matrix(#{(36 / 360)}, 0,0, #{(36 / 360)}, var(--x,50vw), var(--y,50vh));
-
-            $scale : 36 / 360;
-
-            transform: matrix3d(
-            $scale, 0, 0, 0,
-            0, $scale, 0, 0,
-            0, 0, 1, 0,
-            var(--x,50vw), var(--y,50vh), 0, 1
-            );
             transition: opacity 400ms easing(ease-out-quint),
-                        transform 400ms easing(ease-out-quint), 
+                        scale 500ms easing(ease-out-quint),
                         background-color 400ms easing(ease-out-quint);
         }
     }
@@ -125,7 +122,7 @@
 
     &--service{
         @extend .cursor--big;
-        .cursor__bg{ 
+        .cursor__bg{
             opacity: 0;
         }
 
@@ -133,12 +130,12 @@
             opacity: 1;
         }
 
-        
+
         &:not(.cursor--dark){
-            .cursor__bg{ 
+            .cursor__bg{
                 opacity: 0;
             }
-    
+
             .cursor__bg--screen{
                 opacity: 0;
             }
@@ -147,18 +144,20 @@
                 opacity: 1;
             }
         }
-        
+
     }
 
 
+    // .homePurpose et footer : le curseur passe sous la section, où le disque
+    // du SVG prend le relais (classes/LogoCursor.js) ; il disparaît, sans quoi
+    // il réapparaîtrait en bleu par-dessus en sortant.
     &--below{
-        .cursor__bg{ 
+        .cursor__bg{
             z-index: 10;
             background-color: color(blue);
-            opacity: 1;
+            opacity: 0;
             mix-blend-mode: normal;
-        }
-        .cursor__bg--lighten{
+            transition-duration: 150ms;
         }
     }
 
@@ -170,62 +169,21 @@
     }
 
     &--medium{
-        .cursor__bg{
-            // matrix(${scale}, 0,0, ${scale}, ${x}, ${y})
-            //transform: matrix(#{(72 / 360)}, 0,0, #{(72 / 360)}, var(--x,50vw), var(--y,50vh));
-            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(72 / 360)});
-
-            $scale : 72 / 360;
-            transform: matrix3d(
-                $scale, 0, 0, 0,
-                0, $scale, 0, 0,
-                0, 0, 1, 0,
-                var(--x,50vw), var(--y,50vh), 0, 1
-            );
-        }
+        @include cursorSize(72);
     }
     &--big{
-        .cursor__bg{
-            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(147 / 360)});
-            //transform: matrix(#{(147 / 360)}, 0,0, #{(147 / 360)}, var(--x,50vw), var(--y,50vh));
-
-            $scale : 147 / 360;
-            transform: matrix3d(
-                $scale, 0, 0, 0,
-                0, $scale, 0, 0,
-                0, 0, 1, 0,
-                var(--x,50vw), var(--y,50vh), 0, 1
-            );
-        }
+        @include cursorSize(147);
     }
 
     &--huge{
-        .cursor__bg{
-            //transform: matrix(#{(266 / 360)}, 0,0, #{(266 / 360)}, var(--x,50vw), var(--y,50vh));
-            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(266 / 360)});
-
-            $scale : 266 / 360;
-            transform: matrix3d(
-                $scale, 0, 0, 0,
-                0, $scale, 0, 0,
-                0, 0, 1, 0,
-                var(--x,50vw), var(--y,50vh), 0, 1
-            );
-        }
+        @include cursorSize(266);
     }
 
     &--offScreen {
+        @include cursorSize(1);
+
         .cursor__bg{
             opacity: 0 !important;
-            //transform: matrix(#{(1 / 360)}, 0,0, #{(1 / 360)}, var(--x,50vw), var(--y,50vh)) !important;
-            //transform: translate3d(var(--x,50vw),var(--y,50vh),0) scale(#{(1 / 360)}) !important;
-            $scale : 1 / 360;
-            transform: matrix3d(
-                $scale, 0, 0, 0,
-                0, $scale, 0, 0,
-                0, 0, 1, 0,
-                var(--x,50vw), var(--y,50vh), 0, 1
-            );
         }
     }
 

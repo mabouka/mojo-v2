@@ -78,11 +78,8 @@
             <div class="footer__svgWrapper">
                 <svg id="footerSvg" class="footerSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5000 1500">
                     <defs>
-                        <g id="footerSvg_circleWrapper">
-                            <g id="footerSvg_circleWrapperPos">
-                                <circle id="footerSvg_circle" cx="0" cy="0" r="18" />
-                            </g>
-                        </g>
+                        <?php // Disque qui suit la souris (classes/LogoCursor.js : transform + r). ?>
+                        <circle id="footerSvg_circle" cx="0" cy="0" r="0" />
                         <g id="footerSvg_logo">
                             <path d="M2139.82,1283.16h-33.84l-100.13,156.13v-144.3v-11.83h-7.21h-33.84l-106.87,166.62h48.65l92.06-143.54v143.54
                             h0.49h6.73h41.92l92.06-143.54v143.54h7.22v-154.79v-11.83H2139.82z" />
@@ -97,13 +94,11 @@
                             c36.83,0,66.76-34.66,67.96-77.92v-88.7H2444.33L2444.33,1283.16z" />
                         </g>
 
-                        <!-- the masks -->
-                        <mask id="footerSvg_circleMask">
-                            <use xlink:href="#footerSvg_circleWrapper" fill="white" />
-                        </mask>
-                        <mask id="footerSvg_logoMask">
-                            <use xlink:href="#footerSvg_logo" fill="white" />
-                        </mask>
+                        <?php // Découpe géométrique (pas de masque) : à chaque image, le
+                              // navigateur ne redessine que la zone du disque. ?>
+                        <clipPath id="footerSvg_circleClip">
+                            <use xlink:href="#footerSvg_circle" />
+                        </clipPath>
 
                         <clipPath id="footerSvg_clipPath">
                             <use xlink:href="#tr_path" />
@@ -113,12 +108,9 @@
                     <rect id="footer_limit" x="1857.5" y="788" width="1285" height="712" />
 
 
-                    <use xlink:href="#footerSvg_circleWrapper" fill="#784FE0" />
+                    <use xlink:href="#footerSvg_circle" fill="#784FE0" />
                     <use xlink:href="#footerSvg_logo" fill="#FAF6ED" />
-
-                    <g mask="url(#footerSvg_circleMask)">
-                        <rect width="100%" height="100%" fill="#FFC833" mask="url(#footerSvg_logoMask)" />
-                    </g>
+                    <use xlink:href="#footerSvg_logo" fill="#FFC833" clip-path="url(#footerSvg_circleClip)" />
 
                     <rect id="footer_sensible" x="1808.5" y="1233.5" width="972" height="266" />
 

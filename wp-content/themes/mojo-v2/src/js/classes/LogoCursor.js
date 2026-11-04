@@ -1,15 +1,17 @@
 import gsap from "gsap";
+import Cursor from "./Cursor";
 import { isMouse } from "../utils/detect";
 
-// Disque qui suit la souris et révèle le logo en jaune (.homePurpose, footer).
-// Le curseur du site passe sous ces sections (cursor--below, cursorOption.js) :
-// ce disque le remplace.
+// Disque qui révèle le logo en jaune (.homePurpose, footer). Le curseur du site
+// passe sous ces sections (cursor--below, cursorOption.js) : ce disque le
+// remplace.
 //
-// Le cercle est déplacé par ses attributs cx/cy/r, en unités du SVG
-// (getScreenCTM) : juste à toutes les tailles d'écran et dans tous les
-// navigateurs, y compris dans le <mask> (Firefox n'y appliquait pas les
-// transform CSS de l'ancienne version, et les autres navigateurs ne recevaient
-// plus la position de la souris).
+// Il suit la position lissée du curseur (Cursor.subscribe) : une seule boucle,
+// le disque et le curseur ne se décalent jamais, et le même étirement dans le
+// sens du mouvement. La position est convertie en unités du SVG
+// (getScreenCTM), juste à toutes les tailles d'écran ; le cercle est déplacé
+// par son attribut transform, ce que tous les navigateurs appliquent aussi
+// dans le clipPath du logo jaune.
 export default class LogoCursor {
     // svg, circle, sensible : sélecteurs dans `el` ; sensible = zone du logo où
     // le disque grossit ; touch = disque fixe {x, y, r} sur écran tactile.
@@ -23,79 +25,82 @@ export default class LogoCursor {
         this.radius = radius;
         this.linkRadius = linkRadius;
         this.sensibleRadius = sensibleRadius;
-        this.state = { x: 0, y: 0, r: 0 };
-        this.pointer = null;
+        this.size = { r: 0 };
+        this.inside = false;
         this.listeners = [];
-
-        const render = () => {
-            this.circle.setAttribute('cx', this.state.x.toFixed(1));
-            this.circle.setAttribute('cy', this.state.y.toFixed(1));
-            this.circle.setAttribute('r', Math.max(0, this.state.r).toFixed(1));
-        };
 
         // Écran tactile : pas de souris à suivre, disque fixe sur le logo.
         if (!isMouse()) {
-            Object.assign(this.state, touch);
-            render();
+            this.circle.setAttribute('r', touch.r);
+            this.circle.setAttribute('transform', `translate(${touch.x} ${touch.y})`);
             return;
         }
 
-        render(); // caché (r = 0) jusqu'à l'entrée de la souris
-        const ease = { ease: "power2.out", onUpdate: render };
-        this.moveX = gsap.quickTo(this.state, "x", { duration: 0.4, ...ease });
-        this.moveY = gsap.quickTo(this.state, "y", { duration: 0.4, ...ease });
-        this.resize = gsap.quickTo(this.state, "r", { duration: 0.3, ease: "power4.out", onUpdate: render });
+        this.circle.setAttribute('r', 0);
+        this.last = null;
+        this.frame = this.frame.bind(this);
+        this.unsubscribe = Cursor.subscribe(this.frame);
 
-        this.on(el, 'pointerenter', (e) => {
-            this.pointer = e;
-            this.follow(true);
-            this.resize(this.radius);
-        });
-        this.on(el, 'pointermove', (e) => {
-            this.pointer = e;
-            this.follow();
+        this.on(el, 'pointerenter', () => {
+            this.inside = true;
+            this.ctm = null;
+            this.grow(this.radius, true);
         });
         this.on(el, 'pointerleave', () => {
-            this.pointer = null;
-            this.resize(0);
+            this.inside = false;
+            this.grow(0);
         });
 
         if (this.sensible && this.sensibleRadius) {
-            this.on(this.sensible, 'pointerenter', () => this.resize(this.sensibleRadius));
-            this.on(this.sensible, 'pointerleave', () => this.pointer && this.resize(this.radius));
+            this.on(this.sensible, 'pointerenter', () => this.grow(this.sensibleRadius));
+            this.on(this.sensible, 'pointerleave', () => this.inside && this.grow(this.radius));
         }
         el.querySelectorAll('a, button').forEach((link) => {
-            this.on(link, 'pointerenter', () => this.resize(this.linkRadius));
-            this.on(link, 'pointerleave', () => this.pointer && this.resize(this.radius));
+            this.on(link, 'pointerenter', () => this.grow(this.linkRadius));
+            this.on(link, 'pointerleave', () => this.inside && this.grow(this.radius));
         });
-
-        // Au défilement, la souris ne bouge pas mais le SVG si : on recale.
-        this._onScroll = () => this.follow();
-        if (window.lenis && typeof window.lenis.on === 'function') window.lenis.on('scroll', this._onScroll);
-        else this.on(window, 'scroll', this._onScroll, { passive: true });
     }
 
-    on(target, type, fn, options) {
-        target.addEventListener(type, fn, options);
-        this.listeners.push([target, type, fn, options]);
+    on(target, type, fn) {
+        target.addEventListener(type, fn);
+        this.listeners.push([target, type, fn]);
     }
 
-    // Position de la souris convertie en coordonnées du SVG.
-    follow(immediate = false) {
-        if (!this.pointer) return;
+    // Grossit avec un léger rebond, rétrécit sans.
+    grow(r, appear = false) {
+        gsap.to(this.size, {
+            r,
+            duration: r > this.size.r ? 0.55 : 0.35,
+            ease: r > this.size.r && !appear ? "back.out(2.2)" : "power3.out",
+            overwrite: true,
+            onUpdate: () => this.draw(),
+        });
+    }
+
+    frame(state) {
+        this.last = state;
+        if (this.size.r > 0 || this.inside) this.draw();
+    }
+
+    draw() {
+        const s = this.last;
+        if (!s) return;
+        // Recalculée à chaque image : le SVG défile avec la page.
         const ctm = this.svg.getScreenCTM();
         if (!ctm) return;
-        const point = new DOMPoint(this.pointer.clientX, this.pointer.clientY).matrixTransform(ctm.inverse());
-        // À l'entrée, le disque apparaît sous la souris au lieu d'y glisser.
-        this.moveX(point.x, immediate ? point.x : undefined);
-        this.moveY(point.y, immediate ? point.y : undefined);
+        const p = new DOMPoint(s.x, s.y).matrixTransform(ctm.inverse());
+        const stretch = Math.min(s.speed / 90, 0.16);
+        const angle = Math.atan2(s.vy, s.vx) * 180 / Math.PI;
+        this.circle.setAttribute('r', Math.max(0, this.size.r).toFixed(1));
+        this.circle.setAttribute('transform',
+            `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${angle.toFixed(1)}) scale(${(1 + stretch).toFixed(3)} ${(1 / (1 + stretch)).toFixed(3)})`);
     }
 
     destroy() {
         if (!this.listeners) return;
-        this.listeners.forEach(([target, type, fn, options]) => target.removeEventListener(type, fn, options));
-        if (window.lenis && typeof window.lenis.off === 'function') window.lenis.off('scroll', this._onScroll);
-        gsap.killTweensOf(this.state);
+        this.listeners.forEach(([target, type, fn]) => target.removeEventListener(type, fn));
+        if (this.unsubscribe) this.unsubscribe();
+        gsap.killTweensOf(this.size);
         this.listeners = null;
     }
 }
