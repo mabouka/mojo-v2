@@ -24,7 +24,7 @@
                     alt="<?= $item['image']['alt'] ?>"
                     width="500"
                     height="500"
-                    >
+                    loading="lazy">
             </figure>
             <?php endif ?>
 

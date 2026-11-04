@@ -68,7 +68,7 @@
                 alt="<?= $imageCard['alt'] ?>"
                 width="500"
                 height="500"
-                >
+                loading="lazy">
         <?php else: ?>
             <img 
                 src="<?= $image->src['imagesslider'] ?>" 
@@ -76,7 +76,7 @@
                 alt="<?= $image->alt ?>"
                 width="500"
                 height="500"
-                lazyload
+                loading="lazy"
             >
         <?php endif ?>
         </figure>

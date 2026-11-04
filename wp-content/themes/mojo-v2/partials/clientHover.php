@@ -52,7 +52,7 @@
                 alt="<?= $client['image']['alt'] ?>"
                 width="500"
                 height="500"
-            >
+                loading="lazy">
         </figure>
         <?php endif ?>
         <?php endforeach ?>

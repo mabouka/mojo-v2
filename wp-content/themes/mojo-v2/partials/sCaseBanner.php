@@ -21,15 +21,15 @@
         <video autoplay playsinline muted loop <?= $image ? ('poster="' . $image['sizes']['caseFull'] .'"') : '' ?>>
 
             <?php if ($videoMobile): ?>
-            <source src="<?= $videoMobile ?>" media="(max-width: 600px)" type="video/mp4>
+            <source src="<?= $videoMobile ?>" media="(max-width: 600px)" type="video/mp4">
             <?php endif ?>
             <?php if ($videoMobileWebm): ?>
-            <source src="<?= $videoMobileWebm ?>" media="(max-width: 600px)" type="video/webm>
+            <source src="<?= $videoMobileWebm ?>" media="(max-width: 600px)" type="video/webm">
             <?php endif ?>
 
-            <source src="<?= $video ?>" type="video/mp4>
+            <source src="<?= $video ?>" type="video/mp4">
             <?php if ($videoWebm): ?>
-            <source src="<?= $videoWebm ?>" type="video/webm>
+            <source src="<?= $videoWebm ?>" type="video/webm">
             <?php endif ?>
         </video>
     </div>

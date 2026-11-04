@@ -5,7 +5,7 @@
         <div class="commitmentsEarth__planet commitmentsEarth__planet--left">
             <picture>
                 <source srcset="<?= $image['sizes']['fullImageMobile']; ?>">
-                <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750">
+                <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750" loading="lazy">
             </picture>
         </div>
         <div class="commitmentsEarth__planet commitmentsEarth__planet--main">
@@ -16,7 +16,7 @@
         <div class="commitmentsEarth__planet commitmentsEarth__planet--right">
             <picture>
                 <source srcset="<?= $image['sizes']['fullImageMobile']; ?>">
-                <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750">
+                <img src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>" width="750" height="750" loading="lazy">
             </picture>        
         </div>      
     </div>

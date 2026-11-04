@@ -23,6 +23,20 @@ $image = getCustomThumbnail($story->ID, $imageSizes);
 
     <div class="storyArchiveCard__media">
         <?php if ($image) : ?>
+            <?php if ($modifier === 'featured') : ?>
+            <?php // Carte vedette = 1re carte en haut de page, souvent l'élément LCP : pas de lazy,
+                  // priorité haute, et largeurs réelles (sur mobile, le 2x « densité » servait
+                  // un JPG de 1382 px pour ~380 px affichés). ?>
+            <img
+                class="storyArchiveCard__image"
+                src="<?= esc_url($image->src[$imageSizes[0]]); ?>"
+                srcset="<?= esc_url($image->src[$imageSizes[0]]); ?> <?= $imageWidth; ?>w, <?= esc_url($image->src[$imageSizes[1]]); ?> <?= $imageWidth * 2; ?>w"
+                sizes="(max-width: 600px) calc(100vw - 30px), <?= $imageWidth; ?>px"
+                alt="<?= esc_attr($image->alt ?: get_the_title($story->ID)); ?>"
+                width="<?= esc_attr($imageWidth); ?>"
+                height="<?= esc_attr($imageHeight); ?>"
+                fetchpriority="high">
+            <?php else : ?>
             <img
                 class="storyArchiveCard__image"
                 src="<?= esc_url($image->src[$imageSizes[0]]); ?>"
@@ -31,6 +45,7 @@ $image = getCustomThumbnail($story->ID, $imageSizes);
                 width="<?= esc_attr($imageWidth); ?>"
                 height="<?= esc_attr($imageHeight); ?>"
                 loading="lazy">
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 
