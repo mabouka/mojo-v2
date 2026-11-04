@@ -225,6 +225,15 @@
             tarteaucitron.job.push('treenation');
         });
 
+        // Le tableau de bord n'accepte qu'une URL de confidentialité (l'anglaise) :
+        // avant que tarteaucitron ne la suive (phase de capture), on met celle
+        // de la langue de la page.
+        var privacyUrl = <?= wp_json_encode(home_url(ICL_LANGUAGE_CODE === 'fr' ? '/fr/politique-de-confidentialite/' : '/privacy-policy/'), JSON_UNESCAPED_SLASHES) ?>;
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('#tarteaucitronPrivacyUrl, #tarteaucitronPrivacyUrlDialog')) return;
+            if (window.tarteaucitron && tarteaucitron.parameters) tarteaucitron.parameters.privacyUrl = privacyUrl;
+        }, true);
+
         // « Gérer mes cookies » (footer) : liens présents dans chaque page
         // chargée par Barba, d'où la délégation sur document.
         document.addEventListener('click', function (e) {
