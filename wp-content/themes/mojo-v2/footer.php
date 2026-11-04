@@ -172,11 +172,15 @@
      - tree-nation, absent du catalogue tarteaucitron. -->
 <script>
     (function () {
-        // load.js est en async : on attend que tarteaucitron existe (10 s max).
+        // load.js est en async : on attend que tarteaucitron et son catalogue de
+        // services existent (tarteaucitron.job, lui, peut ne pas encore être
+        // créé). Toutes les 100 ms pendant 3 s, puis toutes les 500 ms ; on ne
+        // renonce qu'au bout de 60 s (réseau très lent, script bloqué).
         function whenReady(fn, tries) {
             tries = tries || 0;
-            if (window.tarteaucitron && tarteaucitron.job) return fn();
-            if (tries < 100) setTimeout(function () { whenReady(fn, tries + 1); }, 100);
+            if (window.tarteaucitron && tarteaucitron.services) return fn();
+            if (tries >= 144) return; // 30 × 100 ms + 114 × 500 ms = 60 s
+            setTimeout(function () { whenReady(fn, tries + 1); }, tries < 30 ? 100 : 500);
         }
 
         function consent(state, keys) {
@@ -232,9 +236,9 @@
                 if (tries < 100) setTimeout(function () { letPanelScroll(tries + 1); }, 100);
             })(0);
 
-            tarteaucitron.job.push('mojoga4');
-            tarteaucitron.job.push('mojogads');
-            tarteaucitron.job.push('treenation');
+            (tarteaucitron.job = tarteaucitron.job || []).push('mojoga4');
+            (tarteaucitron.job = tarteaucitron.job || []).push('mojogads');
+            (tarteaucitron.job = tarteaucitron.job || []).push('treenation');
         });
 
         // Le tableau de bord n'accepte qu'une URL de confidentialité (l'anglaise) :
