@@ -83,6 +83,9 @@ export default class LogoCursor {
     }
 
     draw() {
+        // Le rayon d'abord : même si le SVG n'est pas affiché à cet instant
+        // (transition Barba), le disque ne reste pas à mi-taille.
+        this.circle.setAttribute('r', Math.max(0, this.size.r).toFixed(1));
         const s = this.last;
         if (!s) return;
         // Recalculée à chaque image : le SVG défile avec la page.
@@ -91,7 +94,6 @@ export default class LogoCursor {
         const p = new DOMPoint(s.x, s.y).matrixTransform(ctm.inverse());
         const stretch = Math.min(s.speed / 90, 0.16);
         const angle = Math.atan2(s.vy, s.vx) * 180 / Math.PI;
-        this.circle.setAttribute('r', Math.max(0, this.size.r).toFixed(1));
         this.circle.setAttribute('transform',
             `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${angle.toFixed(1)}) scale(${(1 + stretch).toFixed(3)} ${(1 / (1 + stretch)).toFixed(3)})`);
     }
