@@ -42,6 +42,12 @@ html body #tarteaucitronRoot#tarteaucitronRoot div#tarteaucitronAlertBig {
     text-align: left !important;
     overflow: hidden;
 
+    // Titre automatique de tarteaucitron (émojis) : remplacé par le nôtre.
+    &::before {
+        content: none !important;
+        display: none !important;
+    }
+
     // Pied foncé, sous les boutons (le lien de confidentialité s'y place).
     &::after {
         content: "";
@@ -60,6 +66,7 @@ html body #tarteaucitronRoot#tarteaucitronRoot div#tarteaucitronAlertBig {
         margin: 0 !important;
         padding: 16px $tac-gutter !important;
         border-bottom: 1px solid $tac-separator;
+        background: transparent !important;
         color: $tac-muted !important;
         font: 400 14.4px/1.5 'dm', sans-serif !important;
         text-align: left !important;
@@ -127,10 +134,13 @@ html body #tarteaucitronRoot#tarteaucitronRoot div#tarteaucitronAlertBig {
 
     // Lien « Politique de confidentialité », dans le pied.
     #tarteaucitronPrivacyUrl {
-        position: absolute;
+        position: absolute !important;
         bottom: 0;
-        left: $tac-gutter;
+        left: $tac-gutter !important;
         z-index: 1;
+        display: inline-block !important;
+        width: auto !important;
+        text-align: left;
         height: $tac-footer-height;
         margin: 0 !important;
         padding: 0 !important;
