@@ -186,6 +186,10 @@
         }
 
         whenReady(function () {
+            // « cookies » : tarteaucitron ne supprime au refus que les noms
+            // exacts listés. _ga_<ID> pour chaque flux GA4 : RS946CZMGV (celui
+            // du site) et CB1DX5V2VF (flux inconnu vu en 2024, cookie de 400 j
+            // peut-être encore présent chez des visiteurs).
             // Clé lue côté serveur par inc/consent.php (« mesure d'audience »).
             tarteaucitron.services.mojoga4 = {
                 key: 'mojoga4',
@@ -193,7 +197,7 @@
                 name: 'Google Analytics',
                 uri: 'https://policies.google.com/privacy',
                 needConsent: true,
-                cookies: ['_ga', '_gid'],
+                cookies: ['_ga', '_gid', '_ga_RS946CZMGV', '_ga_CB1DX5V2VF'],
                 js: function () { consent('granted', ['analytics_storage']); },
                 fallback: function () { consent('denied', ['analytics_storage']); }
             };
@@ -203,7 +207,7 @@
                 name: 'Google Ads',
                 uri: 'https://policies.google.com/privacy',
                 needConsent: true,
-                cookies: ['_gcl_au'],
+                cookies: ['_gcl_au', '_gcl_aw', '_gcl_dc'],
                 js: function () { consent('granted', ['ad_storage', 'ad_user_data', 'ad_personalization']); },
                 fallback: function () { consent('denied', ['ad_storage', 'ad_user_data', 'ad_personalization']); }
             };
