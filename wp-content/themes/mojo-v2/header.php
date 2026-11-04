@@ -121,7 +121,13 @@
         ], JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-    <link rel="preconnect" href="https://cdntag.tarteaucitron.io" crossorigin>
+    <?php // Sans crossorigin : les scripts classiques passent par une connexion
+          // « avec identifiants », qu'un preconnect crossorigin ne sert pas.
+          // cdn.tarteaucitron.io livre le moteur, la langue et les services :
+          // le bandeau en attend les trois avant de s'afficher (élément LCP
+          // des pages courtes : stories, /lead/). ?>
+    <link rel="preconnect" href="https://cdntag.tarteaucitron.io">
+    <link rel="preconnect" href="https://cdn.tarteaucitron.io">
     <!-- async (tarteaucitron conseille un script bloquant) : le bandeau ne
          retarde pas l'affichage, et les balises Google attendent son verdict
          grâce au wait_for_update ci-dessus. Son Consent Mode natif ne
