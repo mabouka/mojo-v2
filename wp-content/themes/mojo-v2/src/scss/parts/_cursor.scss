@@ -148,16 +148,25 @@ $cursorSize: 360;
     }
 
 
-    // .homePurpose et footer : le curseur passe sous la section, où le disque
-    // du SVG prend le relais (classes/LogoCursor.js) ; il disparaît, sans quoi
-    // il réapparaîtrait en bleu par-dessus en sortant.
-    &--below{
+    // .homePurpose et footer (z-index 11) : le curseur passe sous la section,
+    // où le disque du SVG qui révèle le logo prend le relais
+    // (classes/LogoCursor.js). Il reste affiché dessous, de la couleur et de la
+    // taille du disque (--cbs, écrit par LogoCursor) : au bord de la section,
+    // la partie du disque qui dépasse est ce calque, le disque n'est plus coupé.
+    // Sans transition en entrant (sinon il serait jaune ou d'une autre taille
+    // au bord) ; en sortant, les transitions de --active le ramènent au jaune.
+    &.cursor--below{
         .cursor__bg{
             z-index: 10;
-            background-color: color(blue);
+            background-color: #784FE0;
             opacity: 0;
             mix-blend-mode: normal;
-            transition-duration: 150ms;
+            scale: var(--cbs, #{36 / $cursorSize});
+            transition: opacity 150ms;
+        }
+
+        &:not(.cursor--hidden) .cursor__bg:first-child{
+            opacity: 1;
         }
     }
 

@@ -43,8 +43,12 @@ export default class LogoCursor {
 
         this.on(el, 'pointerenter', () => {
             this.inside = true;
-            this.ctm = null;
-            this.grow(this.radius, true);
+            // Tout de suite à sa taille : le curseur du site, qui vient de passer
+            // sous la section, a déjà cette taille ; grossir depuis 0 laissait
+            // un trou (et donnait une impression de retard) au passage du bord.
+            gsap.killTweensOf(this.size);
+            this.size.r = Math.max(this.size.r, this.radius);
+            this.draw();
         });
         this.on(el, 'pointerleave', () => {
             this.inside = false;
@@ -67,11 +71,11 @@ export default class LogoCursor {
     }
 
     // Grossit avec un léger rebond, rétrécit sans.
-    grow(r, appear = false) {
+    grow(r) {
         gsap.to(this.size, {
             r,
             duration: r > this.size.r ? 0.55 : 0.35,
-            ease: r > this.size.r && !appear ? "back.out(2.2)" : "power3.out",
+            ease: r > this.size.r ? "back.out(2.2)" : "power3.out",
             overwrite: true,
             onUpdate: () => this.draw(),
         });
@@ -91,11 +95,24 @@ export default class LogoCursor {
         // Recalculée à chaque image : le SVG défile avec la page.
         const ctm = this.svg.getScreenCTM();
         if (!ctm) return;
+        if (this.inside) this.shareSize(ctm);
         const p = new DOMPoint(s.x, s.y).matrixTransform(ctm.inverse());
         const stretch = Math.min(s.speed / 90, 0.16);
         const angle = Math.atan2(s.vy, s.vx) * 180 / Math.PI;
         this.circle.setAttribute('transform',
             `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${angle.toFixed(1)}) scale(${(1 + stretch).toFixed(3)} ${(1 / (1 + stretch)).toFixed(3)})`);
+    }
+
+    // Taille du disque à l'écran donnée au curseur du site (--cbs, échelle de
+    // .cursor__bg en état cursor--below) : au bord de la section, il prolonge
+    // le disque à l'identique.
+    shareSize(ctm) {
+        const cursor = Cursor.instance && Cursor.instance.element;
+        if (!cursor) return;
+        // offsetWidth ignore scale et transform : taille de base du calque.
+        if (!this.bgSize) this.bgSize = cursor.firstElementChild && cursor.firstElementChild.offsetWidth;
+        if (!this.bgSize) return;
+        cursor.style.setProperty('--cbs', (2 * this.size.r * ctm.a / this.bgSize).toFixed(4));
     }
 
     destroy() {

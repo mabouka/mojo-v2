@@ -17,10 +17,6 @@ let options = {
             focusClass: 'cursor--dark'
         },
         {
-            elements: '#purposeSensible', // Can be nodelist or selector
-            focusClass: 'cursor--big'
-        },
-        {
             elements: '.darkSection', // Can be nodelist or selector
             focusClass: 'cursor--dark'
         },
