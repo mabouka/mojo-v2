@@ -258,8 +258,17 @@
 
         // Le tableau de bord n'accepte qu'une URL de confidentialité (l'anglaise) :
         // avant que tarteaucitron ne la suive (phase de capture), on met celle
-        // de la langue de la page.
-        var privacyUrl = <?= wp_json_encode(home_url(mojoLang() === 'fr' ? '/fr/politique-de-confidentialite/' : '/privacy-policy/'), JSON_UNESCAPED_SLASHES) ?>;
+        // de la langue de la page : la page de confidentialité choisie dans
+        // Réglages > Confidentialité, dans sa traduction WPML ; à défaut, les
+        // adresses actuelles.
+        <?php
+        $privacyId = (int) get_option('wp_page_for_privacy_policy');
+        $privacyUrl = $privacyId ? get_permalink(apply_filters('wpml_object_id', $privacyId, 'page', true)) : false;
+        if (!$privacyUrl) {
+            $privacyUrl = home_url(mojoLang() === 'fr' ? '/fr/politique-de-confidentialite/' : '/privacy-policy/');
+        }
+        ?>
+        var privacyUrl = <?= wp_json_encode($privacyUrl, JSON_UNESCAPED_SLASHES) ?>;
         document.addEventListener('click', function (e) {
             if (!e.target.closest('#tarteaucitronPrivacyUrl, #tarteaucitronPrivacyUrlDialog')) return;
             if (window.tarteaucitron && tarteaucitron.parameters) tarteaucitron.parameters.privacyUrl = privacyUrl;
