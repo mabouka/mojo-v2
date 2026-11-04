@@ -121,13 +121,21 @@
         ], JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
-    <?php // Sans crossorigin : les scripts classiques passent par une connexion
-          // « avec identifiants », qu'un preconnect crossorigin ne sert pas.
-          // cdn.tarteaucitron.io livre le moteur, la langue et les services :
-          // le bandeau en attend les trois avant de s'afficher (élément LCP
-          // des pages courtes : stories, /lead/). ?>
+    <?php
+        // Sur mojo-agency.org et le staging, un Snippet Cloudflare sert
+        // tarteaucitron depuis le site (/tac/load.js, puis /tac/cdn/… pour le
+        // moteur, la langue et les services) : le bandeau, élément LCP des
+        // pages courtes (stories, /lead/), n'attend plus deux connexions
+        // externes. Ailleurs (local), les serveurs de tarteaucitron.
+        $tacHost = parse_url(home_url(), PHP_URL_HOST);
+        $tacProxy = (bool) preg_match('/(^|\.)mojo-agency\.org$/', $tacHost);
+    ?>
+    <?php if (!$tacProxy): ?>
+    <?php // Sans crossorigin : un script classique n'utilise pas une connexion
+          // ouverte avec crossorigin. ?>
     <link rel="preconnect" href="https://cdntag.tarteaucitron.io">
     <link rel="preconnect" href="https://cdn.tarteaucitron.io">
+    <?php endif; ?>
     <!-- async (tarteaucitron conseille un script bloquant) : le bandeau ne
          retarde pas l'affichage, et les balises Google attendent son verdict
          grâce au wait_for_update ci-dessus. Son Consent Mode natif ne
@@ -136,7 +144,7 @@
          (footer.php) qui envoient les gtag('consent', 'update'). Le staging a
          sa propre configuration sur tarteaucitron.io. -->
     <?php $tacDomain = wp_get_environment_type() === 'staging' ? 'staging.mojo-agency.org' : 'mojo-agency.org'; ?>
-    <script async id="tarteaucitron-js" src="https://cdntag.tarteaucitron.io/load.js?domain=<?= $tacDomain ?>&uuid=347a399e4fed1b15379aa64451e701a68447a726"></script>
+    <script async id="tarteaucitron-js" src="<?= $tacProxy ? '/tac/load.js' : 'https://cdntag.tarteaucitron.io/load.js' ?>?domain=<?= $tacDomain ?>&uuid=347a399e4fed1b15379aa64451e701a68447a726"></script>
 
     <!-- Google Tag Manager, servi par le Google tag gateway : un Snippet
          Cloudflare relaie /6j56/ vers Google (fps.goog) avec l'ID GTM-WBZ8MLM.
