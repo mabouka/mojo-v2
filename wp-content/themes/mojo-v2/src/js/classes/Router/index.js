@@ -14,6 +14,7 @@ import Pluton               from '../Pluton';
 
 // utils
 import {forceAutoplay}      from './utils/video';
+import decodeCloudflareEmails from '../../utils/cloudflareEmails';
 
 // transitions
 import curtainTransition    from './transitions/curtain';
@@ -128,6 +129,7 @@ export default class Router {
             }, 200));
 
             this.lazyVideos.refresh(data.next.container);
+            decodeCloudflareEmails(data.next.container);
         });
 
         barba.hooks.after(() => {

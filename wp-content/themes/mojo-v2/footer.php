@@ -220,6 +220,14 @@
                     });
                 }
             };
+            // Lenis (défilement fluide) capte la molette sur toute la page : sans
+            // data-lenis-prevent, la liste des services du panneau ne défile pas.
+            (function letPanelScroll(tries) {
+                var list = document.getElementById('tarteaucitronServices');
+                if (list) return list.setAttribute('data-lenis-prevent', '');
+                if (tries < 100) setTimeout(function () { letPanelScroll(tries + 1); }, 100);
+            })(0);
+
             tarteaucitron.job.push('mojoga4');
             tarteaucitron.job.push('mojogads');
             tarteaucitron.job.push('treenation');
