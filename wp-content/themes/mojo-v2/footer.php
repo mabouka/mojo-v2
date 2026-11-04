@@ -51,9 +51,13 @@
                         </a>
                     <?php endforeach; ?>
                     <?php // Retrait du consentement aussi simple que son recueil (RGPD) :
-                          // ouvre le panneau tarteaucitron (voir le script en bas de page). ?>
+                          // ouvre le panneau tarteaucitron (voir le script en bas de page).
+                          // Chaîne traduisible du thème ; tant qu'elle n'a pas de
+                          // traduction (.po ou WPML), libellé français par défaut.
+                          $manageCookies = __('Manage cookies', 'mj');
+                          if ($manageCookies === 'Manage cookies' && mojoLang() === 'fr') $manageCookies = 'Gérer mes cookies'; ?>
                     <a class="footer__menuItem" href="#tarteaucitron" data-cookie-panel data-barba-prevent>
-                        <?= mojoLang() === 'fr' ? 'Gérer mes cookies' : 'Manage cookies' ?>
+                        <?= esc_html($manageCookies) ?>
                     </a>
                 </div>
             <?php endif; ?>
