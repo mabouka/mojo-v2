@@ -188,7 +188,7 @@ function wpml_shortcode_func()
         $output .= '<div class="lang_selector">';
 
         foreach ($languages as $i => $data) :
-            if ($data['language_code'] == ICL_LANGUAGE_CODE) :
+            if ($data['language_code'] == mojoLang()) :
                 $output .= '<a class="active" href="' . $data['url'] . '">' . $i . '</a>';
             else :
                 $output .= '<a href="' . $data['url'] . '">' . $i . '</a>';
@@ -438,6 +438,13 @@ function mojoLanguages()
     return is_array($languages) ? $languages : [];
 }
 
+// Langue de la page. ICL_LANGUAGE_CODE n'existe que si WPML est actif : le
+// lire sans garde ferait tomber le site (erreur 500) si WPML était désactivé.
+function mojoLang()
+{
+    return defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'en';
+}
+
 function getLanguageLinks($class = "header__language")
 {
     $link = '';
@@ -543,9 +550,10 @@ function splitCharWord($text, $charIndex = 0)
             $output .= '<span class="fx-word">';
             foreach (mb_str_split($word) as $char) {
                 $charIndex++;
-                // --i : rang de la lettre, lu par le CSS pour décaler l'animation
-                // (src/scss/base/_inview.scss), quelle que soit la longueur du titre.
-                $output .= '<span class="fx-letter fx-letter--' . $charIndex . '" style="--i:' . $charIndex . '">';
+                // --i : rang de la lettre, seul lu par le CSS pour décaler
+                // l'animation (src/scss/base/_inview.scss), quelle que soit la
+                // longueur du titre (plus de classe fx-letter--N).
+                $output .= '<span class="fx-letter" style="--i:' . $charIndex . '">';
                 $output .= $char;
                 $output .= '</span>';
             }

@@ -51,9 +51,13 @@
                         </a>
                     <?php endforeach; ?>
                     <?php // Retrait du consentement aussi simple que son recueil (RGPD) :
-                          // ouvre le panneau tarteaucitron (voir le script en bas de page). ?>
+                          // ouvre le panneau tarteaucitron (voir le script en bas de page).
+                          // Chaîne traduisible du thème ; tant qu'elle n'a pas de
+                          // traduction (.po ou WPML), libellé français par défaut.
+                          $manageCookies = __('Manage cookies', 'mj');
+                          if ($manageCookies === 'Manage cookies' && mojoLang() === 'fr') $manageCookies = 'Gérer mes cookies'; ?>
                     <a class="footer__menuItem" href="#tarteaucitron" data-cookie-panel data-barba-prevent>
-                        <?= ICL_LANGUAGE_CODE === 'fr' ? 'Gérer mes cookies' : 'Manage cookies' ?>
+                        <?= esc_html($manageCookies) ?>
                     </a>
                 </div>
             <?php endif; ?>
@@ -164,11 +168,15 @@
      - tree-nation, absent du catalogue tarteaucitron. -->
 <script>
     (function () {
-        // load.js est en async : on attend que tarteaucitron existe (10 s max).
+        // load.js est en async : on attend que tarteaucitron et son catalogue de
+        // services existent (tarteaucitron.job, lui, peut ne pas encore être
+        // créé). Toutes les 100 ms pendant 3 s, puis toutes les 500 ms ; on ne
+        // renonce qu'au bout de 60 s (réseau très lent, script bloqué).
         function whenReady(fn, tries) {
             tries = tries || 0;
-            if (window.tarteaucitron && tarteaucitron.job) return fn();
-            if (tries < 100) setTimeout(function () { whenReady(fn, tries + 1); }, 100);
+            if (window.tarteaucitron && tarteaucitron.services) return fn();
+            if (tries >= 144) return; // 30 × 100 ms + 114 × 500 ms = 60 s
+            setTimeout(function () { whenReady(fn, tries + 1); }, tries < 30 ? 100 : 500);
         }
 
         function consent(state, keys) {
@@ -178,6 +186,10 @@
         }
 
         whenReady(function () {
+            // « cookies » : tarteaucitron ne supprime au refus que les noms
+            // exacts listés. _ga_<ID> pour chaque flux GA4 : RS946CZMGV (celui
+            // du site) et CB1DX5V2VF (flux inconnu vu en 2024, cookie de 400 j
+            // peut-être encore présent chez des visiteurs).
             // Clé lue côté serveur par inc/consent.php (« mesure d'audience »).
             tarteaucitron.services.mojoga4 = {
                 key: 'mojoga4',
@@ -185,7 +197,7 @@
                 name: 'Google Analytics',
                 uri: 'https://policies.google.com/privacy',
                 needConsent: true,
-                cookies: ['_ga', '_gid'],
+                cookies: ['_ga', '_gid', '_ga_RS946CZMGV', '_ga_CB1DX5V2VF'],
                 js: function () { consent('granted', ['analytics_storage']); },
                 fallback: function () { consent('denied', ['analytics_storage']); }
             };
@@ -195,7 +207,7 @@
                 name: 'Google Ads',
                 uri: 'https://policies.google.com/privacy',
                 needConsent: true,
-                cookies: ['_gcl_au'],
+                cookies: ['_gcl_au', '_gcl_aw', '_gcl_dc'],
                 js: function () { consent('granted', ['ad_storage', 'ad_user_data', 'ad_personalization']); },
                 fallback: function () { consent('denied', ['ad_storage', 'ad_user_data', 'ad_personalization']); }
             };
@@ -212,23 +224,47 @@
                     });
                 }
             };
-            // Lenis (défilement fluide) capte la molette sur toute la page : sans
-            // data-lenis-prevent, la liste des services du panneau ne défile pas.
-            (function letPanelScroll(tries) {
-                var list = document.getElementById('tarteaucitronServices');
-                if (list) return list.setAttribute('data-lenis-prevent', '');
-                if (tries < 100) setTimeout(function () { letPanelScroll(tries + 1); }, 100);
-            })(0);
+            (tarteaucitron.job = tarteaucitron.job || []).push('mojoga4');
+            (tarteaucitron.job = tarteaucitron.job || []).push('mojogads');
+            (tarteaucitron.job = tarteaucitron.job || []).push('treenation');
+        });
 
-            tarteaucitron.job.push('mojoga4');
-            tarteaucitron.job.push('mojogads');
-            tarteaucitron.job.push('treenation');
+        // Lenis (défilement fluide) capte la molette sur toute la page : sans
+        // data-lenis-prevent, la liste des services du panneau ne défile pas.
+        // Le panneau peut être créé tard (réseau lent) : on le marque dès qu'il
+        // apparaît dans le DOM (observateur coupé ensuite), et de nouveau à
+        // chaque ouverture (événement tac.open_panel, ou clic en repli).
+        function letPanelScroll() {
+            var list = document.getElementById('tarteaucitronServices');
+            if (!list) return false;
+            list.setAttribute('data-lenis-prevent', '');
+            return true;
+        }
+        if (!letPanelScroll() && window.MutationObserver) {
+            var panelObserver = new MutationObserver(function () {
+                if (letPanelScroll()) panelObserver.disconnect();
+            });
+            panelObserver.observe(document.body, { childList: true, subtree: true });
+        }
+        window.addEventListener('tac.open_panel', letPanelScroll);
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('[data-cookie-panel], #tarteaucitronManager, #tarteaucitronPersonalize, #tarteaucitronPersonalize2')) return;
+            setTimeout(letPanelScroll, 0);
         });
 
         // Le tableau de bord n'accepte qu'une URL de confidentialité (l'anglaise) :
         // avant que tarteaucitron ne la suive (phase de capture), on met celle
-        // de la langue de la page.
-        var privacyUrl = <?= wp_json_encode(home_url(ICL_LANGUAGE_CODE === 'fr' ? '/fr/politique-de-confidentialite/' : '/privacy-policy/'), JSON_UNESCAPED_SLASHES) ?>;
+        // de la langue de la page : la page de confidentialité choisie dans
+        // Réglages > Confidentialité, dans sa traduction WPML ; à défaut, les
+        // adresses actuelles.
+        <?php
+        $privacyId = (int) get_option('wp_page_for_privacy_policy');
+        $privacyUrl = $privacyId ? get_permalink(apply_filters('wpml_object_id', $privacyId, 'page', true)) : false;
+        if (!$privacyUrl) {
+            $privacyUrl = home_url(mojoLang() === 'fr' ? '/fr/politique-de-confidentialite/' : '/privacy-policy/');
+        }
+        ?>
+        var privacyUrl = <?= wp_json_encode($privacyUrl, JSON_UNESCAPED_SLASHES) ?>;
         document.addEventListener('click', function (e) {
             if (!e.target.closest('#tarteaucitronPrivacyUrl, #tarteaucitronPrivacyUrlDialog')) return;
             if (window.tarteaucitron && tarteaucitron.parameters) tarteaucitron.parameters.privacyUrl = privacyUrl;

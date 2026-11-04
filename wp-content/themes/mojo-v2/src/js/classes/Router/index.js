@@ -95,6 +95,9 @@ export default class Router {
         });
 
         barba.hooks.enter((data) => {
+            // Avant l'affichage, sinon « [email protected] » apparaît un instant.
+            // Au premier chargement, le script de Cloudflare s'en charge.
+            decodeCloudflareEmails(data.next.container);
             data.current.container.remove();
             window.lenis.start();
             window.MJ.cursor.reset();
@@ -129,7 +132,6 @@ export default class Router {
             }, 200));
 
             this.lazyVideos.refresh(data.next.container);
-            decodeCloudflareEmails(data.next.container);
         });
 
         barba.hooks.after(() => {

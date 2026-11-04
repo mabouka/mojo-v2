@@ -58,19 +58,38 @@
             border: 1px solid rgba(color(dark), .15);
             border-radius: 8px;
 
-            // Colonnes fixes : alignées d'un tableau à l'autre, noms jamais coupés.
+            // Style commun à tous les tableaux ; largeur des colonnes calculée
+            // par le navigateur (table-layout: auto).
             table {
                 width: 100%;
-                min-width: 640px;
-                table-layout: fixed;
                 border-collapse: collapse;
                 font-size: s(15);
                 line-height: 1.45;
             }
 
-            th:nth-child(1) { width: 24%; }
-            th:nth-child(2) { width: 24%; }
-            th:nth-child(4) { width: 14%; }
+            // Tableaux de cookies (4 colonnes : nom, fournisseur, finalité,
+            // durée) : colonnes fixes, alignées d'un tableau à l'autre, en-têtes
+            // sur une ligne. Repérés par leur forme plutôt que par une classe à
+            // ajouter dans l'éditeur ; les autres tableaux gardent la mise en
+            // page automatique, où ces largeurs et le nowrap les casseraient.
+            table:has(thead th:nth-child(4):last-child) {
+                min-width: 640px;
+                table-layout: fixed;
+
+                th:nth-child(1) { width: 24%; }
+                th:nth-child(2) { width: 24%; }
+                th:nth-child(4) { width: 14%; }
+
+                thead th {
+                    white-space: nowrap;
+                }
+
+                // Noms de cookies.
+                td:first-child {
+                    font-weight: 600;
+                    overflow-wrap: anywhere;
+                }
+            }
 
             th,
             td {
@@ -83,7 +102,6 @@
                 background-color: color(dark);
                 color: color(sand);
                 font-weight: 600;
-                white-space: nowrap;
             }
 
             tbody tr + tr td {
@@ -92,12 +110,6 @@
 
             tbody tr:nth-child(even) td {
                 background-color: rgba(color(dark), .03);
-            }
-
-            // Noms de cookies.
-            td:first-child {
-                font-weight: 600;
-                overflow-wrap: anywhere;
             }
         }
 
