@@ -69,6 +69,30 @@
             'analytics_storage': 'denied',
             'wait_for_update': 800
         });
+
+        // Choix déjà enregistré (cookie « tarteaucitron », même format que
+        // mojoHasConsent() dans inc/consent.php) : on l'applique tout de suite,
+        // avant GTM. tarteaucitron se charge en async et risque d'arriver après
+        // les premières balises, qui compteraient alors le visiteur comme
+        // « refusé ». Lu en JS, donc juste malgré le cache Cloudflare APO.
+        (function () {
+            var match = document.cookie.match(/(?:^|;\s*)tarteaucitron=([^;]*)/);
+            if (!match) return;
+            var choices = match[1];
+            try { choices = decodeURIComponent(choices); } catch (e) {}
+            function accepted(service) {
+                return new RegExp('!' + service + '=true(!|$)').test(choices);
+            }
+            if (accepted('mojoga4')) gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
+            if (accepted('mojogads')) gtag('consent', 'update', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted'
+            });
+        })();
+
         gtag('set', 'ads_data_redaction', true);
         gtag('js', new Date());
 
