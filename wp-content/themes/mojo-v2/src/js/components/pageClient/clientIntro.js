@@ -88,26 +88,16 @@ export default class ClientIntro {
 
     async launchScroll() {
 
-        let height = window.innerHeight * 2;
-
-        if(window.innerWidth <= 600)  {
-            height = window.innerHeight;
-        }
-        
         this.main = gsap.timeline({
             scrollTrigger: {
                 trigger: this.el,
                 start: 'top',
-                end: '+=' + height, // +=600
+                // Recalculé à chaque refresh (redimensionnement, navigation).
+                end: () => '+=' + (window.innerWidth <= 600 ? window.innerHeight : window.innerHeight * 2),
                 scrub: true,
                 pin: true,
-                //markers: true,
+                invalidateOnRefresh: true,
                 id: "Intro",
-                onUpdate: () => {
-                   // this.circleSection.style.maxHeight = window.innerHeight + 'px';
-                }
-                //normalizeScroll: true
-                //invalidateOnRefresh: true,
             }
         })
 
@@ -123,11 +113,15 @@ export default class ClientIntro {
             x: 0
         }, 0)
 
-        .to(this.circleSection, {
-            duration: 2, 
+        // Le bloc des cercles se referme par le bas. Avant : max-height animé,
+        // donc une mise en page complète à chaque image du défilement ; la
+        // découpe (clip-path) ne fait que redessiner.
+        .fromTo(this.circleSection, {
+            clipPath: 'inset(0% 0% 0% 0%)',
+        }, {
+            duration: 2,
             ease: "power2.out",
-            maxHeight: 0,
-            overwrite: true
+            clipPath: 'inset(0% 0% 100% 0%)',
         }, 2)
 
         .from(this.ray, {
@@ -142,10 +136,4 @@ export default class ClientIntro {
      * Events
      */
 
-    e_resize() {
-        if(this.main) {
-            this.main.scrollTrigger.refresh();
-            this.main.scrollTrigger.update();
-        }
-    }
 }

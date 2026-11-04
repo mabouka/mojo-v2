@@ -22,25 +22,16 @@ export default class PageClient {
 
         })
         */
-        this.setEvents();
+        // Pas d'écouteur resize : ScrollTrigger se recalcule seul au
+        // redimensionnement (positions en fonctions + invalidateOnRefresh).
+        // L'ancien refresh() à chaque événement resize recalculait toute la
+        // page des dizaines de fois par seconde pendant un redimensionnement.
     }
 
-    // Appelé par Pluton en quittant la page (Barba) : sans ça, l'écouteur
-    // resize et le matchMedia du globe survivaient à la page.
+    // Appelé par Pluton en quittant la page (Barba) : sans ça, le matchMedia
+    // et les chargements du globe survivaient à la page.
+    // (Les ScrollTriggers de l'intro sont coupés par le Router, ScrollTrigger.killAll.)
     destroy() {
-        window.removeEventListener("resize", this.onResize);
         this.globe.destroy();
-    }
-
-    setEvents() {
-        this.onResize = this.e_resize.bind(this);
-        window.addEventListener("resize", this.onResize);
-    }
-
-
-    e_resize(e) {
-        this.intro.e_resize();
-        //this.number.e_resize();
-        this.globe.e_resize();
     }
 }

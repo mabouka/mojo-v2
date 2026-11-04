@@ -21,15 +21,14 @@
                 </text>
 
                 
-                <mask id="circle1Mask">
-                    <use xlink:href="#circle1" stroke="white" stroke-width="1.5" fill="white"/>
-                </mask>
-                <mask id="circle2Mask">
-                    <use xlink:href="#circle2" stroke="white" stroke-width="1.5" fill="white"/>
-                </mask>
-
-                <clipPath id="clipCircle" >
+                <?php // Intersection des deux cercles : deux découpes imbriquées.
+                      // Avant, deux masques imbriqués, recalculés sur tout l'écran
+                      // à chaque image du défilement. ?>
+                <clipPath id="circle1Clip">
                     <use xlink:href="#circle1"/>
+                </clipPath>
+                <clipPath id="circle2Clip">
+                    <use xlink:href="#circle2"/>
                 </clipPath>
             </defs>
 
@@ -42,8 +41,8 @@
             <use xlink:href="#text3" fill="#000"/>
 
 
-            <g mask="url(#circle1Mask)">
-                <g mask="url(#circle2Mask)">
+            <g clip-path="url(#circle1Clip)">
+                <g clip-path="url(#circle2Clip)">
                     <rect width="100%" height="100%" fill="#FFC833"></rect>
                     <use xlink:href="#text1" fill="#FFF"/>
                     <use xlink:href="#text2" fill="#FFF"/>

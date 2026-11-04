@@ -1,5 +1,6 @@
 import {gsap} from "gsap";
 import isCentered from "../classes/IsCentered";
+import { isMouse } from "../utils/detect";
 
 export default class ClientTypology {
 
@@ -11,14 +12,21 @@ export default class ClientTypology {
         this.el = el;
         this.items = this.getItems();
         this.images = this.el.querySelectorAll('.clientTypology__image');
-        this.mouse = {x: 0, y: 0, moved: false};
+        this.listeners = [];
         this.setEvents();
+    }
 
-        let mq = window.matchMedia( "(max-width: 600px)" );
+    // Appelé par Pluton en quittant la page (Barba).
+    destroy() {
+        this.listeners.forEach(([target, type, fn]) => target.removeEventListener(type, fn));
+        this.listeners = [];
+        gsap.killTweensOf(this.images);
+        this.items.forEach((item) => item.video && item.video.pause());
+    }
 
-        if(!mq.matches){
-            gsap.ticker.add(this.doOneFrame.bind(this));
-        }
+    on(target, type, fn) {
+        target.addEventListener(type, fn);
+        this.listeners.push([target, type, fn]);
     }
 
     getItems() {
@@ -30,78 +38,59 @@ export default class ClientTypology {
                 item.isVideo = element.classList.contains('clientTypology__item--video');
                 if(item.isVideo) item.video = item.el.querySelector('video');
 
-                if(1) {
-                    isCentered.addElement(item.el);
-                }
+                isCentered.addElement(item.el);
             items.push(item);
         });
 
         return items;
     }
 
-    doOneFrame() {
-        if (!this.mouse.moved) return;
-
-        gsap.to(this.images, {
-            duration: "1",
-            ease: "power1.out",
-            y: (this.mouse.y - window.innerHeight / 2)
-        });
-    }
-
     setEvents() {
-        let mq = window.matchMedia( "(max-width: 600px)" );
-        if(!mq.matches){
-            this.el.addEventListener('mousemove', this.e_mousemove.bind(this));
+        // Les images suivent la souris verticalement. Avant : une boucle sur le
+        // ticker GSAP créait un tween par image, 60 fois par seconde, pour
+        // toujours (y compris après avoir quitté la page). quickTo réutilise
+        // un seul tween, relancé seulement quand la souris bouge.
+        if (isMouse() && !window.matchMedia("(max-width: 600px)").matches && this.images.length) {
+            const followY = gsap.quickTo(this.images, "y", { duration: 1, ease: "power1.out" });
+            this.on(this.el, 'mousemove', (e) => followY(e.clientY - window.innerHeight / 2));
         }
-        this.items.forEach(item => {
 
-            item.el.addEventListener('inCenter',  (e) => { this.e_inCenter(e, item)} );
-            item.el.addEventListener('outCenter',(e) => { this.e_outCenter(e, item)} );
+        this.items.forEach(item => {
+            this.on(item.el, 'inCenter', () => this.e_inCenter(item));
+            this.on(item.el, 'outCenter', () => this.e_outCenter(item));
 
             if(item.isVideo) {
-                item.el.addEventListener('mouseenter', (e) => { this.e_mouseenter(e, item)} );
-                item.el.addEventListener('mouseleave', (e) => { this.e_mouseleave(e, item)} );
+                this.on(item.el, 'mouseenter', () => this.play(item));
+                this.on(item.el, 'mouseleave', () => this.stop(item));
             }
-
         })
     }
 
+    play(item) {
+        item.video.currentTime = 0;
+        // play() renvoie une promesse rejetée si la lecture est interrompue
+        // (survol très bref) : sans catch, erreur dans la console.
+        const playing = item.video.play();
+        if (playing && playing.catch) playing.catch(() => {});
+    }
+
+    stop(item) {
+        item.video.pause();
+        item.video.currentTime = 0;
+    }
 
     /**
      * Handlers
      */
 
-    e_mousemove(e) {
-        this.mouse.moved = true;
-        this.mouse.x = e.clientX;
-        this.mouse.y = e.clientY;
-    }
-
-    e_inCenter(e, item) {
-        if(item.isVideo) {
-            item.video.currentTime = 0;
-            item.video.play();
-        }
+    e_inCenter(item) {
+        if(item.isVideo) this.play(item);
         item.el.classList.add('clientTypology__item--active');
     }
 
-    e_outCenter(e, item) {
-        if(item.isVideo) {
-            item.video.pause();
-            item.video.currentTime = 0;
-        }
+    e_outCenter(item) {
+        if(item.isVideo) this.stop(item);
         item.el.classList.remove('clientTypology__item--active');
-    }
-
-    e_mouseenter(e, item) {
-        item.video.currentTime = 0;
-        item.video.play();
-    }
-
-    e_mouseleave(e, item) {
-        item.video.pause();
-        item.video.currentTime = 0;
     }
 
 }

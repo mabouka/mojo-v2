@@ -6,6 +6,20 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Ordre de chargement des images : une sur 16, puis une sur 8, 4, 2, 1.
+// L'animation est jouable dès les premières (image chargée la plus proche),
+// puis s'affine.
+function loadOrder(count) {
+    const order = [];
+    const seen = new Set();
+    for (let step = 16; step >= 1; step /= 2) {
+        for (let i = 0; i < count; i += step) {
+            if (!seen.has(i)) { seen.add(i); order.push(i); }
+        }
+    }
+    if (!seen.has(count - 1)) order.push(count - 1);
+    return order;
+}
 
 export default class Globe {
 
@@ -24,7 +38,7 @@ export default class Globe {
         this.canvas.width    = 1285;
         this.canvas.height   = 952;
 
-        this.currentFrame    = -1;
+        this.drawn           = -1; // index de l'image affichée
         this.firstFrame      = 53;
         this.frameCount      = 250;
         // WebP est lu par tous les navigateurs depuis 2020. L'ancien test était
@@ -39,154 +53,129 @@ export default class Globe {
         this.initialize();
     }
 
-    // Annule les animations, leurs ScrollTriggers et l'écoute des media queries
-    // (sinon un passage de part et d'autre de 600 px les recréait sur un globe
-    // retiré de la page).
+    // Annule les animations, leurs ScrollTriggers, l'écoute des media queries
+    // et les chargements en attente.
     destroy() {
         if (this.mm) this.mm.revert();
+        if (this.observer) this.observer.disconnect();
+        this.destroyed = true;
     }
 
     initialize() {
-        this.images = this.getImages();
-        this.images[this.anim.frame].image.onload = this.render.bind(this); // render first image
+        this.frames = [];
+        for (let i = this.firstFrame; i <= this.frameCount; i++) {
+            this.frames.push({ src: this.getImageUrl(i), image: null, ready: false });
+        }
+
+        // Avant : les ~200 images (5,7 Mo) partaient à l'ouverture de la page,
+        // tout en bas. Elles partent maintenant quand le globe approche.
+        this.loadFrame(0);
+        this.observer = new IntersectionObserver((entries) => {
+            if (!entries.some((e) => e.isIntersecting)) return;
+            this.observer.disconnect();
+            this.loadAll();
+        }, { rootMargin: '150% 0px 150% 0px' });
+        this.observer.observe(this.el);
 
         this.mm = gsap.matchMedia();
 
-
+        // Positions en fonctions + invalidateOnRefresh : recalculées à chaque
+        // refresh (redimensionnement, navigation), au lieu d'être figées à la
+        // hauteur de fenêtre du chargement.
         this.mm.add("(min-width: 601px)", () => {
-
-            this.animation = gsap.to(this.anim, {
-                frame: this.images.length - 1,
-                snap: "frame",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: this.el,
-                    start: "top-=" + (window.innerHeight/2),
-                    end: "bottom-=" + (window.innerHeight/8*5),
-                    scrub: true,
-                    id: "globe-canvas",
-                    //markers: true,
-                },
-                onUpdate: (self) => {
-                    this.render();
-                }, // use animation onUpdate instead of scrollTrigger's onUpdate
+            this.scrubFrames({
+                start: () => "top-=" + (window.innerHeight / 2),
+                end: () => "bottom-=" + (window.innerHeight / 8 * 5),
             });
-        });
 
-        this.mm.add("(max-width: 600px)", () => {
-
-            this.animation = gsap.to(this.anim, {
-                frame: this.images.length - 1,
-                snap: "frame",
+            gsap.to(this.right, {
+                y: () => this.inside.offsetHeight - this.right.offsetHeight,
                 ease: "none",
-                scrollTrigger: {
-                    trigger: this.el,
-                    start: "top+=" + 200,
-                    end: "top+=" + window.innerHeight ,
-                    scrub: true,
-                    id: "globe-canvas",
-                    //markers: true,
-
-                },
-                onUpdate: (self) => {
-                    this.render();
-                }, // use animation onUpdate instead of scrollTrigger's onUpdate
-            });
-        });
-        
-
-
-
-        this.mm.add("(min-width: 601px)", () => {
-            let height = 660;
-            height = this.inside.offsetHeight- this.right.offsetHeight;
-
-            this.main = gsap.timeline({
                 scrollTrigger: {
                     trigger: this.el,
                     start: "top-=200",
                     end: "bottom-=850",
                     scrub: true,
-                    //markers: true,
+                    invalidateOnRefresh: true,
                     id: "globe",
-                    ease: "none"
-                }
-            })
-            .to(this.right, {
-                y: height,
-                ease: "none",
-                duration: 1
-            },0);
+                },
+            });
         });
 
+        this.mm.add("(max-width: 600px)", () => {
+            this.scrubFrames({
+                start: "top+=200",
+                end: () => "top+=" + window.innerHeight,
+            });
+        });
     }
 
-    currentFrame(i) {
-        i = i.toString().padStart(4, '0');
-        return `${this.baseUrl}globe-1285-${i}.${this.fileType}`;
+    scrubFrames({ start, end }) {
+        gsap.to(this.anim, {
+            frame: this.frames.length - 1,
+            snap: "frame",
+            ease: "none",
+            scrollTrigger: {
+                trigger: this.el,
+                start,
+                end,
+                scrub: true,
+                invalidateOnRefresh: true,
+                id: "globe-canvas",
+            },
+            onUpdate: () => this.render(),
+        });
     }
 
-    getImages() {
-        let images = [];
-        for (let i = this.firstFrame; i <= this.frameCount; i++) {
-            let item = {};
-                item.frameIndex = i,
-                item.src = this.getImageUrl(i);
-                item.loaded = false;
-                item.image = this.preloadImage(item.src);
-                item.image.onload = () => {
-                    item.loaded = true;
-                }
+    // Six chargements en parallèle, dans l'ordre grossier → fin.
+    loadAll() {
+        const queue = loadOrder(this.frames.length);
+        const next = () => {
+            if (this.destroyed) return;
+            const index = queue.shift();
+            if (index === undefined) return;
+            this.loadFrame(index).then(next);
+        };
+        for (let i = 0; i < 6; i++) next();
+    }
 
-                setTimeout(() => {
-                    item.loaded ? this.preloadImage(item.src) : null
-                }, 1000);
+    loadFrame(index) {
+        const frame = this.frames[index];
+        if (frame.promise) return frame.promise;
+        const img = new Image();
+        img.src = frame.src;
+        frame.image = img;
+        // decode() : l'image est décodée hors du fil principal avant d'être
+        // dessinée, pas pendant le défilement.
+        frame.promise = img.decode()
+            .catch(() => new Promise((resolve) => { img.onload = img.onerror = resolve; }))
+            .then(() => {
+                frame.ready = img.naturalWidth > 0;
+                // Image attendue qui arrive : on l'affiche.
+                if (frame.ready) this.render(true);
+            });
+        return frame.promise;
+    }
 
-                setTimeout(() => {
-                    item.loaded ? this.preloadImage(item.src) : null
-                }, 1500);
-                
-            images.push(item);
-            
-
+    // Image chargée la plus proche de celle demandée : jamais de canevas vide.
+    nearestReady(index) {
+        for (let d = 0; d < this.frames.length; d++) {
+            if (this.frames[index - d] && this.frames[index - d].ready) return index - d;
+            if (this.frames[index + d] && this.frames[index + d].ready) return index + d;
         }
-        return images;
+        return -1;
     }
 
     getImageUrl(index) {
         let paddedIndex = index.toString().padStart(4, '0');
-        let url = `${this.baseUrl}globe-1285-${paddedIndex}.${this.fileType}`;
-        return url;
-    }
-    preloadImage(src) {
-        const img = new Image()
-              img.src = src;
-        return img;
+        return `${this.baseUrl}globe-1285-${paddedIndex}.${this.fileType}`;
     }
 
-    render(e) {
-        try {
-            if (this.anim.frame !== this.currentFrame) { 
-                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.context.drawImage(this.images[this.anim.frame].image, 0, 0); 
-                this.currentFrame = this.anim.frame;    
-            }
-        } catch (error) {
-            console.log(this.images);
-            console.error(error);
-            console.log('imageError', this.anim.frame)
-        }
+    render(force = false) {
+        const index = this.nearestReady(Math.round(this.anim.frame));
+        if (index < 0 || (index === this.drawn && !force)) return;
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.drawImage(this.frames[index].image, 0, 0);
+        this.drawn = index;
     }
-
-
-    /*
-     * Events
-     */
-
-    e_resize() {
-        if(this.main) {
-            this.main.scrollTrigger.refresh();
-        }
-    }
-
 }

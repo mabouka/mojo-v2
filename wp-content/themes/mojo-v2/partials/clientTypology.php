@@ -15,7 +15,7 @@
 
             <?php if (isset($item['video']) && $item['video']): ?>
             <div class="clientTypology__image">
-                <video  playsinline muted  src="<?= $item['video'] ?>" poster="<?= $item['image']['sizes']['imagesslider@2x']?>" ></video>
+                <video playsinline muted preload="none" src="<?= $item['video'] ?>" poster="<?= $item['image']['sizes']['imagesslider@2x']?>" ></video>
             </div>
             <?php else: ?>
             <figure class="clientTypology__image">
