@@ -291,12 +291,13 @@ html body #tarteaucitronRoot#tarteaucitronRoot {
                 background: transparent !important;
             }
 
+            // Même typo que le titre du bandeau.
             .tarteaucitronH1 {
                 display: block !important;
                 margin: 0 0 14px !important;
                 padding-right: 80px;
                 color: $tac-text !important;
-                font: 600 16px/1.4 'dm', sans-serif !important;
+                font: 600 24px/1.15 'Cambon', sans-serif !important;
                 text-align: left !important;
             }
 
