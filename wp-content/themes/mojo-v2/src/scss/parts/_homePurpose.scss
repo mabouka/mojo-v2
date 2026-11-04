@@ -53,28 +53,7 @@
             fill: yellow;
             opacity: 0;
         }
-
-        #purposeSvg_circleWrapper{
-            will-change: transform;
-            transform: matrix(1, 0,0, 1, var(--x,50vw), var(--y,50vh));
-            transition: transform 400ms easing(ease-out-quint);
-        }
-        #purposeSvg_circleWrapperPos{
-            will-change: transform;
-            transform: translate3d( var(--left),var(--top),0);
-        }
-    }
-
-    @media screen and (any-pointer: coarse) {
-
-        #purposeSvg_circleWrapper{
-            transform: translate3d(600px, 4750px, 0) scale(5);   
-        }
-
-        #purposeSvg_circleWrapperPos{
-            transform: none;
-        }
-
+        // Disque qui suit la souris : positionné en JS (classes/LogoCursor.js).
     }
 
     @media screen and (max-width: 1100px) {

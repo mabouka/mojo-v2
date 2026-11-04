@@ -1,5 +1,4 @@
-import gsap from "gsap";
-import { isMouse, isFirefox } from "../utils/detect";
+import LogoCursor from "../classes/LogoCursor";
 
 export default class HomePurpose {
 
@@ -8,204 +7,17 @@ export default class HomePurpose {
     }
 
     constructor(el) {
-        this.el = el;
-        this.body = document.querySelector('body');
-        this.svg = this.el.querySelector('#purposeSvg');
-        this.svgWrapper = this.el.querySelector('.homePurpose__svgWrapper');
-        this.circle = this.el.querySelector('#purposeSvg_circle');
-        this.sensible = this.el.querySelector('#purposeSensible');
-        this.links = Array.from(this.el.querySelectorAll('a'));
-
-        this.mousePos = { x: 0, y: 0 };
-        this.svgRect = { left: 0, top: 0 }; // position du wrapper dans le viewport
-
-        // BOUND handlers stockés pour pouvoir les removeEventListener correctement
-        this._boundResize = this.e_resize.bind(this);
-        this._boundMouseMove = this.e_mousemove.bind(this);
-        this._boundMouseEnter = this.e_mousenter.bind(this);
-        this._boundMouseLeave = this.e_mouseleave.bind(this);
-        this._boundMouseEnterLink = this.e_mousenterLink.bind(this);
-        this._boundMouseLeaveLink = this.e_mouseleaveLink.bind(this);
-        this._boundMouseEnterEl = this.e_mousenterEl.bind(this);
-        this._boundMouseLeaveEl = this.e_mouseleaveEl.bind(this);
-
-        // Le cercle suit (souris − position du wrapper). Cette cible ne change
-        // qu'au scroll, au resize et au mousemove : on la met à jour sur ces
-        // événements via deux quickTo créés une seule fois. Avant, frame() était
-        // sur le ticker GSAP et créait un nouveau tween 60 fois/s en continu
-        // (~680 lectures de style en 8 s au chargement de la home, même sur mobile).
-        gsap.set(this.circle, { transformOrigin: "center center" });
-        this.moveX = gsap.quickTo(this.circle, "x", { duration: 0.4, ease: "power2.out" });
-        this.moveY = gsap.quickTo(this.circle, "y", { duration: 0.4, ease: "power2.out" });
-
-        this.setRect();
-        this.setEvents();
+        // Rayons en unités du SVG (viewBox 5000 × 5000, 1 unité = s(1)).
+        this.logoCursor = new LogoCursor(el, {
+            svg: '#purposeSvg',
+            circle: '#purposeSvg_circle',
+            sensible: '#purposeSensible',
+            sensibleRadius: 74,
+            touch: { x: 600, y: 4750, r: 90 },
+        });
     }
 
     destroy() {
-        gsap.killTweensOf(this.circle);
-
-        // retire les listeners globaux
-        window.removeEventListener('resize', this._boundResize);
-        if (this._boundNativeScroll) window.removeEventListener('scroll', this._boundNativeScroll);
-
-        // retire lenis scroll si présent
-        if (window.lenis && typeof window.lenis.off === 'function') {
-            // supposer qu'off existe ; sinon il faudra une API adaptée
-            window.lenis.off('scroll', this._lenisScrollHandler);
-        } else if (window.lenis && typeof window.lenis.on === 'function') {
-            // fallback si pas d'off : on peut essayer de nuller le handler interne
-        }
-
-        // listeners souris généraux
-        if (isMouse()) {
-            this.sensible.removeEventListener('mouseenter', this._boundMouseEnter);
-            this.sensible.removeEventListener('mouseleave', this._boundMouseLeave);
-
-            this.links.forEach((link) => {
-                link.removeEventListener('mouseenter', this._boundMouseEnterLink);
-                link.removeEventListener('mouseleave', this._boundMouseLeaveLink);
-            });
-        }
-
-        if (isFirefox()) {
-            this.el.removeEventListener('mouseenter', this._boundMouseEnterEl);
-            this.el.removeEventListener('mouseleave', this._boundMouseLeaveEl);
-            window.removeEventListener('mousemove', this._boundMouseMove);
-        }
-
-        // nuller références si besoin
-        this.circle = null;
-        this.svg = null;
-        this.svgWrapper = null;
-        this.sensible = null;
-        this.links = null;
-        this.el = null;
-    }
-
-    // Envoie le cercle vers sa cible (même calcul que l'ancien frame()).
-    frame() {
-        if (!this.circle) return;
-        this.moveX(this.mousePos.x - this.svgRect.left);
-        this.moveY(this.mousePos.y - this.svgRect.top);
-    }
-
-    setRect() {
-        if (!this.svgWrapper) return;
-        const r = this.svgWrapper.getBoundingClientRect();
-        this.svgRect.left = r.left;
-        this.svgRect.top = r.top;
-        this.frame();
-    }
-
-    setEvents() {
-        // guard pour lenis
-        if (window.lenis && typeof window.lenis.on === 'function') {
-            // on stocke la ref pour pouvoir l'enlever plus tard
-            this._lenisScrollHandler = (e) => { this.e_scroll(e); };
-            window.lenis.on('scroll', this._lenisScrollHandler);
-        } else {
-            // fallback: si pas lenis, on peut écouter scroll natif
-            this._boundNativeScroll = this.e_scroll.bind(this);
-            window.addEventListener('scroll', this._boundNativeScroll, { passive: true });
-        }
-
-        window.addEventListener('resize', this._boundResize);
-
-        if (isMouse()) {
-            if (this.sensible) {
-                this.sensible.addEventListener('mouseenter', this._boundMouseEnter);
-                this.sensible.addEventListener('mouseleave', this._boundMouseLeave);
-            }
-
-            this.links.forEach((link) => {
-                link.addEventListener('mouseenter', this._boundMouseEnterLink);
-                link.addEventListener('mouseleave', this._boundMouseLeaveLink);
-            });
-        }
-
-        if (isFirefox()) { // quickfix firefox
-            gsap.set(this.circle, {
-                autoAlpha: 0,
-                scale: 0.001
-            });
-
-            this.el.addEventListener('mouseenter', this._boundMouseEnterEl);
-            this.el.addEventListener('mouseleave', this._boundMouseLeaveEl);
-
-            window.addEventListener('mousemove', this._boundMouseMove);
-        }
-    }
-
-    /**
-     * Handlers
-     */
-    e_mousemove(e) {
-        this.mousePos.x = e.clientX;
-        this.mousePos.y = e.clientY;
-        this.frame();
-    }
-
-    e_mousenterEl(e) {
-        gsap.to(this.circle, {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0,
-            transformOrigin: "center center"
-        });
-    }
-
-    e_mouseleaveEl(e) {
-        gsap.to(this.circle, {
-            autoAlpha: 0,
-            scale: 0.001,
-            duration: 0,
-            transformOrigin: "center center"
-        });
-    }
-
-    e_mousenter() {
-        gsap.to(this.circle, {
-            scale: 148 / 36,
-            duration: 0.3,
-            ease: "power4.out",
-            transformOrigin: "center center"
-        });
-    }
-
-    e_mouseleave() {
-        gsap.to(this.circle, {
-            scale: 1,
-            duration: 0.3,
-            ease: "power4.out",
-            transformOrigin: "center center"
-        });
-    }
-
-    e_mousenterLink() {
-        gsap.to(this.circle, {
-            scale: 72 / 36,
-            duration: 0.3,
-            ease: "power4.out",
-            transformOrigin: "center center"
-        });
-    }
-
-    e_mouseleaveLink() {
-        gsap.to(this.circle, {
-            scale: 1,
-            duration: 0.3,
-            ease: "power4.out",
-            transformOrigin: "center center"
-        });
-    }
-
-    e_scroll(e) {
-        // mettre à jour la position du wrapper (utile si le wrapper bouge)
-        this.setRect();
-    }
-
-    e_resize(e) {
-        this.setRect();
+        this.logoCursor.destroy();
     }
 }

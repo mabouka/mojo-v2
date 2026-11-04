@@ -128,29 +128,7 @@
         bottom: 0;
     }
 
-    .footerSvg{
-        #footerSvg_circleWrapper{
-            //transform: translate3d( var(--x),var(--y),0);
-            //transform: matrix(1, 0,0, 1, var(--x,50vw), var(--y,50vh));
-
-            transform: matrix3d(
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            var(--x), var(--y), 0, 1
-            );
-
-            
-            will-change: transform;
-            transition: transform 400ms easing(ease-out-quint);
-        }
-
-        #footerSvg_circleWrapperPos{
-            will-change: transform;
-            transform: translate3d( var(--left),var(--top),0);
-        }
-    }
-
+    // Disque qui suit la souris : positionné en JS (classes/LogoCursor.js).
     #footerSvg{
         display: block;
     }
@@ -172,21 +150,6 @@
         &__menu{
             width: col(2.5,12);
         }
-    }
-
-    @media screen and (any-pointer: coarse) {
-        .footerSvg{
-            #footerSvg_circleWrapper{
-                transform: translate3d(2550px, 1300px, 0) scale(5);
-                will-change: initial;
-          
-            }
-    
-            #footerSvg_circleWrapperPos{
-                transform: none;
-            }
-        }
-
     }
 
     @media screen and (max-width: 800px) {
