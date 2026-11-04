@@ -31,11 +31,6 @@ $parent    = array_reverse($ancestors);
             "modifier"  => 'service',
             "title"     => __('Our expertises', 'mj')
         ]); ?>
-
-        <?php getPartial('ourServices'); ?>
-
-
-
     </div>
 <?php else: ?>
     <div data-barba="container" data-barba-namespace="singleserviceparent">

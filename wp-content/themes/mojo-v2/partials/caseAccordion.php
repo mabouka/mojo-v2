@@ -58,7 +58,9 @@
 
         <div class="caseAccordion__image">
         <?php if ($video): ?>
-            <video preload="auto" playsinline muted <?= $imageCard ? 'poster="' .$imageCard['sizes']['imagesslider'] .'"' : ''?>>
+            <?php // preload="none" et data-poster : rien n'est téléchargé avant que
+                  // la souris approche (caseAccordion.js) ; jamais sur mobile. ?>
+            <video preload="none" playsinline muted <?= $imageCard ? 'data-poster="' . esc_url($imageCard['sizes']['imagesslider']) . '"' : ''?>>
                 <source src="<?= $video ?>"  media="screen and (min-width: 601px)" type="video/mp4">
                 <source src="<?= $videoWebm ?>"  media="screen and (min-width: 601px)" type="video/webm">
             </video>
@@ -79,7 +81,7 @@
                 loading="lazy"
             >
         <?php endif ?>
-        </figure>
+        </div>
 
 
     </section>

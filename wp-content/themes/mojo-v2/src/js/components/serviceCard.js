@@ -1,5 +1,10 @@
 import gsap from "gsap";
+import { isMouse } from "../utils/detect";
 
+// Carte de service : s'incline vers la souris pendant le survol.
+// Avant : chaque carte réécrivait son style à chaque frame, même au repos, et
+// relisait sa position à chaque défilement, pour toujours (aussi après avoir
+// quitté la page). La boucle ne tourne plus que pendant le survol.
 export default class ServiceCard {
 
     static get selector() {
@@ -7,87 +12,68 @@ export default class ServiceCard {
     }
 
     constructor(el) {
-        const mq = window.matchMedia( "any-pointer: coarse" );
-        if(mq.matches) return;
-
         this.el = el;
-        this.isActive = false;
-        this.bounds = this.el.getBoundingClientRect();
-        this.pos = {
-            x: 0,
-            y: 0
-        };
-        this.setEvents();
-        gsap.ticker.add(this.rotateToMouse.bind(this));
+        this.listeners = [];
+        // Le test d'origine, matchMedia("any-pointer: coarse") sans parenthèses,
+        // n'était jamais vrai : l'effet s'installait aussi sur les écrans tactiles.
+        if (!isMouse()) return;
+
+        this.pos = { x: 0, y: 0 };
+        this.tick = this.tick.bind(this);
+        this.on(this.el, 'mouseenter', this.e_mouseenter.bind(this));
+        this.on(this.el, 'mousemove', this.e_mousemove.bind(this));
+        this.on(this.el, 'mouseleave', this.e_mouseleave.bind(this));
     }
 
-    rotateToMouse() {
-        if(!this.isActive) {
-            this.el.style.transform = '';
-            this.el.style.background = '';
-            return;
-        }
-  
-        const leftX = this.pos.x - this.bounds.x;
-        const topY = this.pos.y - this.bounds.y;
+    // Appelé par Pluton en quittant la page (Barba).
+    destroy() {
+        this.listeners.forEach(([target, type, fn]) => target.removeEventListener(type, fn));
+        this.listeners = [];
+        gsap.ticker.remove(this.tick);
+    }
+
+    on(target, type, fn) {
+        target.addEventListener(type, fn);
+        this.listeners.push([target, type, fn]);
+    }
+
+    tick() {
+        // Position relue une fois par frame, seulement pendant le survol (la
+        // page peut défiler sous la souris).
+        const bounds = this.el.getBoundingClientRect();
         const center = {
-            x: leftX - this.bounds.width / 2,
-            y: topY - this.bounds.height / 2
-        }
-        const distance = Math.sqrt(center.x**2 + center.y**2);
-        
+            x: this.pos.x - bounds.x - bounds.width / 2,
+            y: this.pos.y - bounds.y - bounds.height / 2
+        };
+        // Au moins 1 : souris pile au centre, log(0) donnait -Infinity.
+        const distance = Math.max(1, Math.sqrt(center.x ** 2 + center.y ** 2));
+
         this.el.style.transform = `
             scale3d(1.07, 1.07, 1.07)
             rotate3d(
             ${center.y / 100},
             ${-center.x / 100},
             0,
-            ${Math.log(distance)* 2}deg
+            ${Math.log(distance) * 2}deg
             )
         `;
-
-        
-        /*this.el.querySelector('.glow').style.backgroundImage = `
-            radial-gradient(
-            circle at
-            ${center.x * 2 + this.bounds.width/2}px
-            ${center.y * 2 + this.bounds.height/2}px,
-            #ffffff55,
-            #0000000f
-            )
-        `;*/
     }
-
-    setEvents() {
-        this.el.addEventListener('mousemove', this.e_mousemove.bind(this));
-        this.el.addEventListener('mouseenter', this.e_mouseenter.bind(this));
-        this.el.addEventListener('mouseleave', this.e_mouseleave.bind(this));
-        window.addEventListener('scroll', this.e_scroll.bind(this));
-    }
-
 
     /**
      * Handlers
      */
 
-    e_mousemove(e) {
-        this.pos = {
-            x: e.clientX,
-            y: e.clientY
-        }
-        //this.rotateToMouse();
-    }
-
-    e_scroll(e) {
-        this.bounds = this.el.getBoundingClientRect();
-    }
-
     e_mouseenter(e) {
-        this.bounds = this.el.getBoundingClientRect();
-        this.isActive = true;
+        this.pos = { x: e.clientX, y: e.clientY };
+        gsap.ticker.add(this.tick);
     }
-    e_mouseleave(e) {
-        document.removeEventListener('mousemove', this.rotateToMouse.bind(this));
-        this.isActive = false;
+
+    e_mousemove(e) {
+        this.pos = { x: e.clientX, y: e.clientY };
+    }
+
+    e_mouseleave() {
+        gsap.ticker.remove(this.tick);
+        this.el.style.transform = '';
     }
 }
