@@ -58,13 +58,19 @@
             border: 1px solid rgba(color(dark), .15);
             border-radius: 8px;
 
+            // Colonnes fixes : alignées d'un tableau à l'autre, noms jamais coupés.
             table {
                 width: 100%;
                 min-width: 640px;
+                table-layout: fixed;
                 border-collapse: collapse;
                 font-size: s(15);
                 line-height: 1.45;
             }
+
+            th:nth-child(1) { width: 24%; }
+            th:nth-child(2) { width: 24%; }
+            th:nth-child(4) { width: 14%; }
 
             th,
             td {
@@ -91,7 +97,7 @@
             // Noms de cookies.
             td:first-child {
                 font-weight: 600;
-                word-break: break-word;
+                overflow-wrap: anywhere;
             }
         }
 
