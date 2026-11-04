@@ -159,6 +159,13 @@ require_once('inc/consent.php');
 
 
 /*
+ * Pages sans gabarit (index.php) : vraie 404
+ */
+
+require_once('inc/notFound.php');
+
+
+/*
  * Posttype
  */
 require_once('inc/posttype/stories.php');
