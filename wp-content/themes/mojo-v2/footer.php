@@ -163,8 +163,13 @@
     window.recaptchaKey = '<?= $recaptcha ?>';
 </script>
 <!-- Consentement (tarteaucitron, chargé en async dans le <head>).
-     LinkedIn Insight est un service réglé sur tarteaucitron.io ; tree-nation
-     n'existe pas dans son catalogue, on le déclare ici. -->
+     LinkedIn Insight est un service réglé sur tarteaucitron.io. Les autres sont
+     déclarés ici :
+     - Google Analytics et Google Ads : GTM les charge dans tous les cas
+       (Consent Mode avancé) ; ces services ne font que transmettre le choix à
+       Google. Le Consent Mode de tarteaucitron ne s'active que s'il charge
+       lui-même GA ou Ads, ce qui n'est pas notre cas.
+     - tree-nation, absent du catalogue tarteaucitron. -->
 <script>
     (function () {
         // load.js est en async : on attend que tarteaucitron existe (10 s max).
@@ -174,7 +179,34 @@
             if (tries < 100) setTimeout(function () { whenReady(fn, tries + 1); }, 100);
         }
 
+        function consent(state, keys) {
+            var update = {};
+            keys.forEach(function (key) { update[key] = state; });
+            gtag('consent', 'update', update);
+        }
+
         whenReady(function () {
+            // Clé lue côté serveur par inc/consent.php (« mesure d'audience »).
+            tarteaucitron.services.mojoga4 = {
+                key: 'mojoga4',
+                type: 'analytic',
+                name: 'Google Analytics',
+                uri: 'https://policies.google.com/privacy',
+                needConsent: true,
+                cookies: ['_ga', '_gid'],
+                js: function () { consent('granted', ['analytics_storage']); },
+                fallback: function () { consent('denied', ['analytics_storage']); }
+            };
+            tarteaucitron.services.mojogads = {
+                key: 'mojogads',
+                type: 'ads',
+                name: 'Google Ads',
+                uri: 'https://policies.google.com/privacy',
+                needConsent: true,
+                cookies: ['_gcl_au'],
+                js: function () { consent('granted', ['ad_storage', 'ad_user_data', 'ad_personalization']); },
+                fallback: function () { consent('denied', ['ad_storage', 'ad_user_data', 'ad_personalization']); }
+            };
             tarteaucitron.services.treenation = {
                 key: 'treenation',
                 type: 'analytic',
@@ -188,6 +220,8 @@
                     });
                 }
             };
+            tarteaucitron.job.push('mojoga4');
+            tarteaucitron.job.push('mojogads');
             tarteaucitron.job.push('treenation');
         });
 

@@ -3,9 +3,8 @@
  * Consentement recueilli par tarteaucitron, lu côté serveur.
  *
  * Le cookie « tarteaucitron » liste les choix du visiteur sous la forme
- * « !service=true!autre=false ». Les services Google Consent Mode sont réglés
- * sur tarteaucitron.io (« Demander tous les signaux Google Consent mode ») :
- * gcmanalyticsstorage porte l'accord « mesure d'audience ».
+ * « !service=true!autre=false ». Le service « mojoga4 » (déclaré dans
+ * footer.php) porte l'accord « mesure d'audience » (Google Analytics).
  */
 
 function mojoHasConsent($service)
@@ -19,7 +18,7 @@ function mojoHasConsent($service)
 // envoyé, sans regarder le consentement. On retire son action avant qu'elle
 // ne s'exécute quand le visiteur n'a pas accepté la mesure d'audience.
 add_action('wpcf7_mail_sent', function () {
-    if (!mojoHasConsent('gcmanalyticsstorage')) {
+    if (!mojoHasConsent('mojoga4')) {
         remove_action('wpcf7_mail_sent', 'cf7_ga4_send_event');
     }
 }, 1);
