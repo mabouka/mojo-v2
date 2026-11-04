@@ -18,9 +18,11 @@
                             <div class="homeService__realSize">
                                 <?php foreach ($items as $key => $service) : ?>
                                     <div class="homeService__cardSlide" id="cardSlide-<?= $key ?>">
+                                        <?php // Même carte que sur l'accueil (homeService.php) : la variante
+                                              // « full » affichait au survol toute la liste des sous-services. ?>
                                         <?php getPartial('serviceCard', [
                                             'service' => $service,
-                                            'modifier' => "full serviceCard--animated serviceCard--nolink"
+                                            'modifier' => "animated"
                                         ]); ?>
                                     </div>
                                 <?php endforeach; ?>
