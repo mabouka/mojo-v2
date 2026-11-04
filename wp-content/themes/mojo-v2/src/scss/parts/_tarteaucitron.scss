@@ -378,7 +378,7 @@ html body #tarteaucitronRoot#tarteaucitronRoot {
         }
 
         // Services d'une catégorie, en retrait sous elle.
-        ul[id^="tarteaucitronServices_"] .tarteaucitronLine {
+        ul[id^="tarteaucitronServices_"]:not(#tarteaucitronServices_mandatory) .tarteaucitronLine {
             margin-left: 16px !important;
             background: lighten($tac-block, 3%) !important;
         }
@@ -400,8 +400,11 @@ html body #tarteaucitronRoot#tarteaucitronRoot {
         }
     }
 
-    // Enregistrer, en pied de fenêtre.
+    // Enregistrer, collé en pied de fenêtre (il est dans la zone qui défile).
     #tarteaucitronSave {
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
         padding: 16px $tac-panel-gutter !important;
         border-top: 1px solid $tac-separator;
         background: $tac-bg !important;
