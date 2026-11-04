@@ -13,8 +13,9 @@
     <!-- Preload -->
 
     <?php mojoPageCssLinks(true); ?>
-    <?php // JS du thème en defer (footer.php), sans preload : il ne doit pas
-          // prendre la bande passante des CSS, polices et images du haut de page. ?>
+    <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
+    <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
+    <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
     <?php if (is_front_page()): ?>
         <link rel="preload" href="<?= getUrlVersion('dist/images/homeIntroStars.svg'); ?>" fetchpriority="high" as="image" type="image/svg+xml">
     <?php endif ?>
