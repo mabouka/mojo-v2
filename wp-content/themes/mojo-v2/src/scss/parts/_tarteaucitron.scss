@@ -1,0 +1,171 @@
+// Bandeau de consentement tarteaucitron, à l'image de l'ancien bandeau
+// (vanilla-cookieconsent, thème sombre) : boîte en bas à droite, titre en
+// Cambon, boutons clairs, pied foncé avec le lien de confidentialité.
+//
+// La feuille de tarteaucitron arrive APRÈS la nôtre, avec des !important et des
+// sélecteurs du type « body #tarteaucitronRoot.tarteaucitronSize-popup div#… » :
+// l'identifiant répété (#tarteaucitronRoot#tarteaucitronRoot) l'emporte sur eux
+// quel que soit le format choisi sur tarteaucitron.io.
+// Ne pas toucher à « display » du bandeau : tarteaucitron l'affiche et le
+// masque par un style en ligne.
+
+$tac-bg: #161a1c;
+$tac-text: #ebf3f6;
+$tac-muted: #aebbc5;
+$tac-btn: #c2d0e0;
+$tac-btn-hover: #98a7b6;
+$tac-btn-secondary: #242c31;
+$tac-btn-secondary-hover: #353d43;
+$tac-separator: #222a30;
+$tac-footer: #0c0e0f;
+$tac-gutter: 24px;
+$tac-footer-height: 37px;
+
+html body #tarteaucitronRoot#tarteaucitronRoot div#tarteaucitronAlertBig {
+    top: auto !important;
+    right: 16px !important;
+    bottom: 16px !important;
+    left: auto !important;
+    box-sizing: border-box !important;
+    width: 576px !important;
+    min-width: 0 !important;
+    max-width: calc(100vw - 32px) !important;
+    border: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 0 $tac-footer-height !important;
+    background: $tac-bg !important;
+    color: $tac-text !important;
+    border-radius: 8px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 2, .3) !important;
+    font-family: 'dm', sans-serif !important;
+    text-align: left !important;
+    overflow: hidden;
+
+    // Pied foncé, sous les boutons (le lien de confidentialité s'y place).
+    &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: $tac-footer-height;
+        background: $tac-footer;
+        border-top: 1px solid $tac-separator;
+    }
+
+    // Titre et texte.
+    #tarteaucitronDisclaimerAlert {
+        display: block !important;
+        margin: 0 !important;
+        padding: 16px $tac-gutter !important;
+        border-bottom: 1px solid $tac-separator;
+        color: $tac-muted !important;
+        font: 400 14.4px/1.5 'dm', sans-serif !important;
+        text-align: left !important;
+
+        &::before {
+            content: "Dear friends, fancy a cookie?";
+            display: block;
+            margin-bottom: 12px;
+            color: $tac-text;
+            font: 600 24px/1.15 'Cambon', sans-serif;
+        }
+    }
+
+    // L'ancien bandeau n'affichait ni la liste des partenaires ni de croix.
+    .tarteaucitronPartnersList,
+    #tarteaucitronCloseCross,
+    .tarteaucitronCheck,
+    .tarteaucitronCross {
+        display: none !important;
+    }
+
+    // Boutons : « Tout accepter » et « Tout refuser » à gauche (même poids,
+    // exigence CNIL), « Personnaliser » à droite.
+    #tarteaucitronPersonalize2,
+    #tarteaucitronAllDenied2,
+    #tarteaucitronCloseAlert {
+        display: inline-block !important;
+        box-sizing: border-box !important;
+        width: auto !important;
+        height: 42px;
+        margin: 16px 0 16px 8px !important;
+        padding: 0 23.6px !important;
+        border: 1px solid $tac-btn !important;
+        border-radius: 6.4px !important;
+        background: $tac-btn !important;
+        color: $tac-bg !important;
+        font: 600 13.12px/1 'dm', sans-serif !important;
+        cursor: pointer;
+        transition: background-color .2s, border-color .2s;
+
+        &:hover,
+        &:focus-visible {
+            border-color: $tac-btn-hover !important;
+            background: $tac-btn-hover !important;
+        }
+    }
+
+    #tarteaucitronPersonalize2 {
+        margin-left: $tac-gutter !important;
+    }
+
+    #tarteaucitronCloseAlert {
+        float: right;
+        margin-right: $tac-gutter !important;
+        border-color: $tac-btn-secondary !important;
+        background: $tac-btn-secondary !important;
+        color: $tac-text !important;
+
+        &:hover,
+        &:focus-visible {
+            border-color: $tac-btn-secondary-hover !important;
+            background: $tac-btn-secondary-hover !important;
+        }
+    }
+
+    // Lien « Politique de confidentialité », dans le pied.
+    #tarteaucitronPrivacyUrl {
+        position: absolute;
+        bottom: 0;
+        left: $tac-gutter;
+        z-index: 1;
+        height: $tac-footer-height;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: none !important;
+        color: $tac-muted !important;
+        font: 400 13px/#{$tac-footer-height} 'dm', sans-serif !important;
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+            color: $tac-text !important;
+        }
+    }
+
+    @media (max-width: 600px) {
+        #tarteaucitronPersonalize2,
+        #tarteaucitronAllDenied2,
+        #tarteaucitronCloseAlert {
+            display: block !important;
+            float: none;
+            width: calc(100% - #{2 * $tac-gutter}) !important;
+            margin: 8px $tac-gutter 0 !important;
+        }
+
+        #tarteaucitronPersonalize2 {
+            margin-top: 16px !important;
+        }
+
+        #tarteaucitronCloseAlert {
+            margin-bottom: 16px !important;
+        }
+    }
+}
+
+html[lang^="fr"] body #tarteaucitronRoot#tarteaucitronRoot div#tarteaucitronAlertBig #tarteaucitronDisclaimerAlert::before {
+    content: "On vous présente nos amis… les Cookies !";
+}
