@@ -173,10 +173,7 @@
     @include cover();
     pointer-events: none;
     z-index: 2;
-    background-image: url('../images/transparentNoise.jpg');
-    @supports (gap: 1px) {
-        background-image: url('../images/transparentNoise.webp');
-    }
+    background-image: $photoNoise;
     background-size: s(300) s(300);
     image-rendering: pixelated;
 

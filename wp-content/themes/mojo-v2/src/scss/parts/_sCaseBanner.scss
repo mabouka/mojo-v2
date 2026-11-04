@@ -54,10 +54,7 @@
             @include cover();
             pointer-events: none;
 
-            background-image: url('../images/noise.jpg');
-            @supports (gap: 1px) {
-                background-image: url('../images/noise.webp');
-            }
+            background-image: $noise;
 
             background-size: 200px 200px;
             mix-blend-mode:darken;

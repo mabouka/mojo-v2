@@ -16,7 +16,6 @@
     <link rel="preload" href="<?= getUrlVersion('dist/js/manifest.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/vendor.js'); ?>" as="script">
     <link rel="preload" href="<?= getUrlVersion('dist/js/main.js'); ?>" as="script">
-    <link rel="preload" href="<?= getUrl('dist/images/transparentNoise.webp'); ?>" fetchpriority="high" as="image">
     <?php if (is_front_page()): ?>
         <link rel="preload" href="<?= getUrlVersion('dist/images/homeIntroStars.svg'); ?>" fetchpriority="high" as="image" type="image/svg+xml">
     <?php endif ?>
