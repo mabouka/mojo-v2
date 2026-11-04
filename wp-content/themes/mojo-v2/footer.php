@@ -228,17 +228,32 @@
                     });
                 }
             };
-            // Lenis (défilement fluide) capte la molette sur toute la page : sans
-            // data-lenis-prevent, la liste des services du panneau ne défile pas.
-            (function letPanelScroll(tries) {
-                var list = document.getElementById('tarteaucitronServices');
-                if (list) return list.setAttribute('data-lenis-prevent', '');
-                if (tries < 100) setTimeout(function () { letPanelScroll(tries + 1); }, 100);
-            })(0);
-
             (tarteaucitron.job = tarteaucitron.job || []).push('mojoga4');
             (tarteaucitron.job = tarteaucitron.job || []).push('mojogads');
             (tarteaucitron.job = tarteaucitron.job || []).push('treenation');
+        });
+
+        // Lenis (défilement fluide) capte la molette sur toute la page : sans
+        // data-lenis-prevent, la liste des services du panneau ne défile pas.
+        // Le panneau peut être créé tard (réseau lent) : on le marque dès qu'il
+        // apparaît dans le DOM (observateur coupé ensuite), et de nouveau à
+        // chaque ouverture (événement tac.open_panel, ou clic en repli).
+        function letPanelScroll() {
+            var list = document.getElementById('tarteaucitronServices');
+            if (!list) return false;
+            list.setAttribute('data-lenis-prevent', '');
+            return true;
+        }
+        if (!letPanelScroll() && window.MutationObserver) {
+            var panelObserver = new MutationObserver(function () {
+                if (letPanelScroll()) panelObserver.disconnect();
+            });
+            panelObserver.observe(document.body, { childList: true, subtree: true });
+        }
+        window.addEventListener('tac.open_panel', letPanelScroll);
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('[data-cookie-panel], #tarteaucitronManager, #tarteaucitronPersonalize, #tarteaucitronPersonalize2')) return;
+            setTimeout(letPanelScroll, 0);
         });
 
         // Le tableau de bord n'accepte qu'une URL de confidentialité (l'anglaise) :
