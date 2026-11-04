@@ -73,6 +73,28 @@
         gtag('js', new Date());
 
         var tarteaucitronForceLanguage = '<?= ICL_LANGUAGE_CODE === 'fr' ? 'fr' : 'en' ?>';
+
+        // Textes de l'ancien bandeau, lus par tarteaucitron au démarrage (le
+        // titre du bandeau est ajouté en CSS, voir parts/_tarteaucitron.scss).
+        var tarteaucitronCustomText = <?= wp_json_encode(ICL_LANGUAGE_CODE === 'fr' ? [
+            'alertBigPrivacy' => 'Nous utilisons des cookies pour personnaliser votre expérience sur notre site. Vous pouvez lire notre politique en matière de cookies et personnaliser vos choix.',
+            'acceptAll'       => 'Tout accepter',
+            'denyAll'         => 'Tout refuser',
+            'allowAll'        => 'Tout accepter',
+            'personalize'     => 'Gérer les préférences',
+            'save'            => 'Enregistrer les préférences',
+            'close'           => 'Fermer',
+            'privacyUrl'      => 'Politique de confidentialité',
+        ] : [
+            'alertBigPrivacy' => 'We use cookies to personalize your experience on our site. Read our cookie policy and customize your choices.',
+            'acceptAll'       => 'Accept all',
+            'denyAll'         => 'Reject all',
+            'allowAll'        => 'Accept all',
+            'personalize'     => 'Manage preferences',
+            'save'            => 'Save preferences',
+            'close'           => 'Close',
+            'privacyUrl'      => 'Privacy Policy',
+        ], JSON_UNESCAPED_UNICODE) ?>;
     </script>
 
     <link rel="preconnect" href="https://cdntag.tarteaucitron.io" crossorigin>
