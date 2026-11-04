@@ -98,25 +98,6 @@
 
         var tarteaucitronForceLanguage = '<?= mojoLang() === 'fr' ? 'fr' : 'en' ?>';
 
-        // tarteaucitron n'affiche son bandeau qu'à l'événement « load » (toutes
-        // les images, GTM… téléchargés) : jusqu'à 8 s sur mobile, et le bandeau
-        // est l'élément LCP des pages courtes. Son code fait la même chose tout
-        // de suite quand la page est déjà chargée : on lui donne ce chemin dès
-        // que le DOM est prêt. Seul l'écouteur « load » de tarteaucitron est
-        // concerné (reconnu à son appel initEvents.loadEvent).
-        (function () {
-            var add = window.addEventListener;
-            window.addEventListener = function (type, fn, opts) {
-                if (type === 'load' && typeof fn === 'function' && /initEvents\.loadEvent/.test(String(fn))) {
-                    window.addEventListener = add;
-                    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { fn(); }, { once: true });
-                    else setTimeout(fn, 0);
-                    return;
-                }
-                return add.apply(this, arguments);
-            };
-        })();
-
         // Textes de l'ancien bandeau, lus par tarteaucitron au démarrage (le
         // titre du bandeau est ajouté en CSS, voir parts/_tarteaucitron.scss).
         var tarteaucitronCustomText = <?= wp_json_encode(mojoLang() === 'fr' ? [
