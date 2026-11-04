@@ -179,3 +179,250 @@ html body #tarteaucitronRoot#tarteaucitronRoot div#tarteaucitronAlertBig {
 html[lang^="fr"] body #tarteaucitronRoot#tarteaucitronRoot div#tarteaucitronAlertBig #tarteaucitronDisclaimerAlert::before {
     content: "On vous présente nos amis… les Cookies !";
 }
+
+// Panneau « Personnaliser » (#tarteaucitron), à l'image de l'ancienne fenêtre
+// de préférences : fenêtre sombre centrée, une bande par catégorie et par
+// service, choix actif en clair. Même astuce de sélecteur que le bandeau.
+$tac-block: #1e2428;
+$tac-link: #c2d0e0;
+$tac-panel-gutter: 22px;
+
+html body #tarteaucitronRoot#tarteaucitronRoot {
+    #tarteaucitronBack {
+        background: #000 !important;
+        opacity: .65 !important;
+    }
+
+    #tarteaucitron {
+        right: 0 !important;
+        left: 0 !important;
+        box-sizing: border-box !important;
+        width: 688px !important;
+        max-width: calc(100vw - 32px) !important;
+        margin: 0 auto !important;
+        background: $tac-bg !important;
+        border-radius: 8px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 2, .3) !important;
+        overflow: hidden;
+        color: $tac-text !important;
+        font-family: 'dm', sans-serif !important;
+
+        a {
+            color: $tac-link !important;
+        }
+
+        // Boutons « Autoriser » / « Interdire » (tous services, catégories,
+        // services) : foncés, le choix actif passe en clair.
+        .tarteaucitronAllow,
+        .tarteaucitronDeny {
+            box-sizing: border-box !important;
+            margin: 0 0 0 6px !important;
+            padding: 8px 14px !important;
+            border: 1px solid $tac-btn-secondary !important;
+            border-radius: 6.4px !important;
+            background: $tac-btn-secondary !important;
+            color: $tac-text !important;
+            font: 600 13px/1 'dm', sans-serif !important;
+            opacity: 1 !important;
+            cursor: pointer;
+
+            &:hover,
+            &:focus-visible {
+                border-color: $tac-btn-secondary-hover !important;
+                background: $tac-btn-secondary-hover !important;
+            }
+
+            &[aria-pressed="true"] {
+                border-color: $tac-btn !important;
+                background: $tac-btn !important;
+                color: $tac-bg !important;
+            }
+
+            &:disabled {
+                display: none !important;
+            }
+        }
+
+        .tarteaucitronCheck,
+        .tarteaucitronCross,
+        .tarteaucitronPlus {
+            display: none !important;
+        }
+
+        .tarteaucitronIsAllowed .tarteaucitronAllow,
+        .tarteaucitronIsDenied .tarteaucitronDeny {
+            border-color: $tac-btn !important;
+            background: $tac-btn !important;
+            color: $tac-bg !important;
+        }
+    }
+
+    // Fermer, en haut à droite de la fenêtre.
+    #tarteaucitronClosePanel {
+        top: 14px !important;
+        right: $tac-panel-gutter !important;
+        z-index: 2;
+        padding: 9px 12px !important;
+        border-radius: 6.4px !important;
+        background: $tac-btn-secondary !important;
+        color: $tac-text !important;
+        font: 600 12px/1 'dm', sans-serif !important;
+
+        &:hover,
+        &:focus-visible {
+            background: $tac-btn-secondary-hover !important;
+        }
+    }
+
+    #tarteaucitronServices {
+        background: transparent !important;
+        box-shadow: none !important;
+
+        // En-tête : titre, explication, lien de confidentialité, tous les services.
+        .tarteaucitronMainLine {
+            margin: 0 !important;
+            padding: 16px $tac-panel-gutter !important;
+            border: 0 !important;
+            border-bottom: 1px solid $tac-separator !important;
+            background: transparent !important;
+            text-align: left !important;
+
+            &:hover {
+                background: transparent !important;
+            }
+
+            .tarteaucitronH1 {
+                display: block !important;
+                margin: 0 0 14px !important;
+                padding-right: 80px;
+                color: $tac-text !important;
+                font: 600 16px/1.4 'dm', sans-serif !important;
+                text-align: left !important;
+            }
+
+            .tarteaucitronName {
+                padding-top: 6px;
+
+                .tarteaucitronH2 {
+                    margin: 0 !important;
+                    color: $tac-text !important;
+                    font: 600 15.2px/1.4 'dm', sans-serif !important;
+                }
+            }
+        }
+
+        #tarteaucitronInfo {
+            max-width: none !important;
+            margin: 0 0 12px !important;
+            padding: 0 !important;
+            border: 0 !important;
+            background: transparent !important;
+            color: $tac-muted !important;
+            font: 400 14.4px/1.5 'dm', sans-serif !important;
+            text-align: left !important;
+
+            p {
+                margin: 0 !important;
+                color: inherit !important;
+                font: inherit !important;
+            }
+
+            br {
+                display: none;
+            }
+        }
+
+        #tarteaucitronPrivacyUrlDialog {
+            margin: 8px 0 0 !important;
+            padding: 0 !important;
+            border: 0 !important;
+            background: none !important;
+            color: $tac-link !important;
+            font: 600 14.4px/1.5 'dm', sans-serif !important;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        // Catégories et services.
+        .tarteaucitronBorder {
+            padding: 8px $tac-panel-gutter 16px !important;
+            border: 0 !important;
+            background: transparent !important;
+        }
+
+        .tarteaucitronBorder .tarteaucitronLine {
+            box-sizing: border-box;
+            margin: 8px 0 0 !important;
+            padding: 12px 16px !important;
+            border: 0 !important;
+            border-radius: 6.4px;
+            background: $tac-block !important;
+            color: $tac-text !important;
+
+            &:hover {
+                background: $tac-block !important;
+            }
+
+            .tarteaucitronH3 {
+                color: $tac-text !important;
+                font: 600 15.2px/1.4 'dm', sans-serif !important;
+            }
+
+            .tarteaucitronName span:not(.tarteaucitronH3),
+            .tarteaucitronStatusInfo,
+            .tarteaucitronListCookies,
+            .tarteaucitronReadmoreSeparator {
+                color: $tac-muted !important;
+                font-size: 13px !important;
+            }
+        }
+
+        // Services d'une catégorie, en retrait sous elle.
+        ul[id^="tarteaucitronServices_"] .tarteaucitronLine {
+            margin-left: 16px !important;
+            background: lighten($tac-block, 3%) !important;
+        }
+
+        .tarteaucitron-toggle-group {
+            margin-top: 6px !important;
+            padding: 0 !important;
+            border: 0 !important;
+            background: none !important;
+            color: $tac-link !important;
+            font: 600 13px/1.4 'dm', sans-serif !important;
+            cursor: pointer;
+        }
+
+        .tarteaucitronTitle button,
+        .tarteaucitronDetails {
+            background: $tac-block !important;
+            color: $tac-text !important;
+        }
+    }
+
+    // Enregistrer, en pied de fenêtre.
+    #tarteaucitronSave {
+        padding: 16px $tac-panel-gutter !important;
+        border-top: 1px solid $tac-separator;
+        background: $tac-bg !important;
+        text-align: right !important;
+    }
+
+    #tarteaucitronSaveButton {
+        margin: 0 !important;
+        padding: 0 23.6px !important;
+        height: 42px;
+        border: 1px solid $tac-btn !important;
+        border-radius: 6.4px !important;
+        background: $tac-btn !important;
+        color: $tac-bg !important;
+        font: 600 13.12px/1 'dm', sans-serif !important;
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+            border-color: $tac-btn-hover !important;
+            background: $tac-btn-hover !important;
+        }
+    }
+}
