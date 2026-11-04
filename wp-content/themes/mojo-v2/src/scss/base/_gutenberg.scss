@@ -212,6 +212,59 @@ html :where(img[class*=wp-image-]){height:auto;max-width:100%;}
             width: 100%;
             height: 100%;
         }
+
+        // Aperçu d'une vidéo YouTube (inc/embeds.php), remplacé au clic.
+        .ytFacade{
+            @include cover();
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: 0;
+            background: #000;
+            cursor: pointer;
+            overflow: hidden;
+
+            &:focus-visible{
+                outline: 2px solid color(sand);
+                outline-offset: -4px;
+            }
+        }
+
+        .ytFacade__image{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ytFacade__play{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: s(76);
+            height: s(76);
+            min-width: 56px;
+            min-height: 56px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            transition: background-color 200ms ease;
+
+            &:after{
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 54%;
+                transform: translate(-50%, -50%);
+                border-style: solid;
+                border-width: 12px 0 12px 20px;
+                border-color: transparent transparent transparent #fff;
+            }
+        }
+
+        .ytFacade:hover .ytFacade__play{
+            background: #FF0000;
+        }
     }
 }
 

@@ -166,6 +166,13 @@ require_once('inc/notFound.php');
 
 
 /*
+ * Vidéos YouTube du contenu : aperçu, lecteur chargé au clic
+ */
+
+require_once('inc/embeds.php');
+
+
+/*
  * Posttype
  */
 require_once('inc/posttype/stories.php');
