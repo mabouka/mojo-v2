@@ -31,12 +31,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php mojoPageCssLinks(); ?>
 
-    <?php
-    $gtag = 'G-RS946CZMGV';
-
-    $gtag = 'GTM-WBZ8MLM';
-    $cookieConsent = false;
-    ?>
     <!-- InView & JS -->
     <script>
         document.documentElement.classList.remove('no-js');
@@ -56,107 +50,63 @@
         }
     </script>
 
+    <!-- Consentement : Google Consent Mode v2 « avancé ». Tout est refusé par
+         défaut AVANT GTM ; tarteaucitron (Pro, services réglés sur
+         tarteaucitron.io) envoie gtag('consent', 'update') quand le visiteur
+         choisit, ou dès son chargement pour un visiteur qui a déjà choisi. -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        // gtag() sert aussi au Router (page_view des navigations Barba), relayé
+        // par la balise Google de GTM.
+        function gtag() {
+            dataLayer.push(arguments)
+        };
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 800
+        });
+        gtag('set', 'ads_data_redaction', true);
+        gtag('js', new Date());
+
+        var tarteaucitronForceLanguage = '<?= ICL_LANGUAGE_CODE === 'fr' ? 'fr' : 'en' ?>';
+    </script>
+
+    <link rel="preconnect" href="https://cdntag.tarteaucitron.io" crossorigin>
+    <!-- async (tarteaucitron conseille un script bloquant) : le bandeau ne
+         retarde pas l'affichage, et les balises Google attendent son verdict
+         grâce au wait_for_update ci-dessus. Il pose lui aussi un défaut
+         « refusé », identique au nôtre. -->
+    <script async id="tarteaucitron-js" src="https://cdntag.tarteaucitron.io/load.js?domain=mojo-agency.org&uuid=347a399e4fed1b15379aa64451e701a68447a726"></script>
+
     <!-- Google Tag Manager -->
-    <?php if ($cookieConsent): ?>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gtag ?>"></script>
-
-        <script>
-            let data = {
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'analytics_storage': 'denied'
-            }
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments)
-            };
-            gtag('js', new Date());
-            gtag('config', '<?= $gtag ?>', {
-                send_page_view: false,
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
             });
-
-            // Set default consent to 'denied' as a placeholder
-            // Determine actual values based on your own requirements
-
-            gtag('consent', 'default', data);
-        </script>
-
-        <script type="text/plain" data-category="analytics" data-service="Google Analytics">
-            // Executed when the "analytics" category is enabled
-        data['analytics_storage'] = 'granted';
-        data['ad_storage'] = 'granted';
-        gtag('consent', 'default',data);
-
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WBZ8MLM');
     </script>
-
-        <script type="text/plain" data-category="marketing" data-service="Google Ads">
-            // Executed when the "Marketing" category is enabled
-        data['ad_storage'] = 'granted';
-        data['ad_user_data'] = 'granted';
-        data['ad_personalization'] = 'granted';
-        data['ad_storage'] = 'granted';
-        data['ad_user_data'] = 'granted';
-        gtag('consent', 'default',data);
-    </script>
-
-
-    <?php else: ?>
-
-        <!-- Google Tag Manager -->
-        <script>
-            (function(w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start': new Date().getTime(),
-                    event: 'gtm.js'
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-WBZ8MLM');
-
-
-            window.dataLayer = window.dataLayer || [];
-
-            // gtag() sert au Router (page_view des navigations Barba), relayé
-            // par la balise Google de GTM. Pas de gtag('config') ici : il visait
-            // l'ID du conteneur GTM, qui n'est pas une destination GA/Ads.
-            function gtag() {
-                dataLayer.push(arguments)
-            };
-            gtag('js', new Date());
-        </script>
-        <!-- End Google Tag Manager -->
-
-
-    <?php endif ?>
-
-
-    <!-- Cookie consent : sa CSS est chargée par dist/js/cookieconsent-config.js,
-         uniquement si le bandeau ou les préférences doivent s'afficher. -->
-
+    <!-- End Google Tag Manager -->
 
 </head>
 
 <body <?php body_class(); ?> data-barba="wrapper">
 
-    <?php if ($cookieConsent): ?>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $gtag ?>"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-    <?php else: ?>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBZ8MLM"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-    <?php endif; ?>
+    <!-- Pas de GTM en <noscript> : sans JavaScript, aucun consentement ne peut
+         être recueilli. -->
 
     <div class="curtain">&nbsp;</div>
 

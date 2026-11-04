@@ -50,6 +50,11 @@
                             <?= $item['title'] ?>
                         </a>
                     <?php endforeach; ?>
+                    <?php // Retrait du consentement aussi simple que son recueil (RGPD) :
+                          // ouvre le panneau tarteaucitron (voir le script en bas de page). ?>
+                    <a class="footer__menuItem" href="#tarteaucitron" data-cookie-panel data-barba-prevent>
+                        <?= ICL_LANGUAGE_CODE === 'fr' ? 'Gérer mes cookies' : 'Manage cookies' ?>
+                    </a>
                 </div>
             <?php endif; ?>
                 
@@ -157,24 +162,46 @@
 <script type="text/javascript">
     window.recaptchaKey = '<?= $recaptcha ?>';
 </script>
-<?php 
-    $old_tree_nation = true;
-    $new_tree_nation = false;
-?>
-<?php if($old_tree_nation): ?>
-<!-- async : ne bloque plus DOMContentLoaded (donc le démarrage de main.js).
-     Le suivi est lancé quand le script est arrivé. -->
-<script async src="https://tree-nation.com/js/track.js" onload="treenation_track('6322d1badbb2d')"></script>
-<?php endif ?>
+<!-- Consentement (tarteaucitron, chargé en async dans le <head>).
+     LinkedIn Insight est un service réglé sur tarteaucitron.io ; tree-nation
+     n'existe pas dans son catalogue, on le déclare ici. -->
+<script>
+    (function () {
+        // load.js est en async : on attend que tarteaucitron existe (10 s max).
+        function whenReady(fn, tries) {
+            tries = tries || 0;
+            if (window.tarteaucitron && tarteaucitron.job) return fn();
+            if (tries < 100) setTimeout(function () { whenReady(fn, tries + 1); }, 100);
+        }
 
-<?php if ($new_tree_nation): ?>
-<script src="https://widgets.tree-nation.com/js/widgets/v1/widgets.min.js?v=1.0"></script>
-<script>TreeNationOffsetWebsite({code: '6322d1badbb2d', lang: '<?= ICL_LANGUAGE_CODE ?>', theme: 'dark'}).render('.footer__carbon');</script>
-<?php endif ?>
+        whenReady(function () {
+            tarteaucitron.services.treenation = {
+                key: 'treenation',
+                type: 'analytic',
+                name: 'Tree-Nation',
+                uri: 'https://tree-nation.com/privacy-policy',
+                needConsent: true,
+                cookies: [],
+                js: function () {
+                    tarteaucitron.addScript('https://tree-nation.com/js/track.js', '', function () {
+                        if (typeof window.treenation_track === 'function') treenation_track('6322d1badbb2d');
+                    });
+                }
+            };
+            tarteaucitron.job.push('treenation');
+        });
 
-<script type="module" src="<?= getUrlVersion('dist/js/cookieconsent-config.js'); ?>"></script>
-<script type="text/javascript"> _linkedin_partner_id = "6766820"; window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || []; window._linkedin_data_partner_ids.push(_linkedin_partner_id); </script><script type="text/javascript"> (function(l) { if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])}; window.lintrk.q=[]} var s = document.getElementsByTagName("script")[0]; var b = document.createElement("script"); b.type = "text/javascript";b.async = true; b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js"; s.parentNode.insertBefore(b, s);})(window.lintrk); </script> <noscript> <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=6766820&fmt=gif" /> </noscript>
-    
+        // « Gérer mes cookies » (footer) : liens présents dans chaque page
+        // chargée par Barba, d'où la délégation sur document.
+        document.addEventListener('click', function (e) {
+            var link = e.target.closest('[data-cookie-panel]');
+            if (!link || !window.tarteaucitron || !tarteaucitron.userInterface) return;
+            e.preventDefault();
+            tarteaucitron.userInterface.openPanel();
+        });
+    })();
+</script>
+
 <!-- WPFOOTER START -->
 <?php //wp_footer(); ?>
 <!-- WPFOOTER END -->

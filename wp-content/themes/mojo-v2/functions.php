@@ -152,6 +152,13 @@ require_once('inc/pageCss.php');
 
 
 /*
+ * Consentement (tarteaucitron) côté serveur
+ */
+
+require_once('inc/consent.php');
+
+
+/*
  * Posttype
  */
 require_once('inc/posttype/stories.php');
