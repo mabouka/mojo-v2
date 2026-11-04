@@ -39,7 +39,7 @@
             <?php if ($imageMobile): ?>
             <source srcset="<?= $imageMobile['sizes']['caseFullMobile'] ?> 1x, <?= $imageMobile['sizes']['caseFullMobile@2x'] ?> 2x" media="(max-width:600px)" >
             <?php endif ?>
-            <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>">
+            <img src="<?= $image['sizes']['caseFull'] ?>" alt="<?= $image['alt'] ?>" fetchpriority="high">
         
         </picture>
     </figure>

@@ -116,6 +116,15 @@
         height: 100vh;
         height: 100svh;
 
+        // Chrome ignore pour le LCP les images qui couvrent tout l'écran (vues
+        // comme un fond) : le LCP tombait sur le texte du bandeau cookies
+        // (~8 s). 1 px de moins en hauteur, invisible sous le grain, et l'image
+        // du haut redevient l'élément LCP.
+        .sCaseBanner__image img,
+        .sCaseBanner__video video{
+            height: calc(100% - 1px);
+        }
+
         .purposeDisc{
             bottom: s(15);
             right: s(15);
