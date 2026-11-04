@@ -22,7 +22,8 @@
                                               // « full » affichait au survol toute la liste des sous-services. ?>
                                         <?php getPartial('serviceCard', [
                                             'service' => $service,
-                                            'modifier' => "animated"
+                                            // Page d'atterrissage (trafic payant) : cartes sans lien.
+                                            'modifier' => "animated serviceCard--nolink"
                                         ]); ?>
                                     </div>
                                 <?php endforeach; ?>
