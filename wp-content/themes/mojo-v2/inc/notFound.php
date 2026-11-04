@@ -22,3 +22,9 @@ add_filter('template_include', 'mojoIndexTemplateTo404', 99);
 add_filter('wpseo_sitemap_post_type_archive_link', function ($link, $postType) {
     return $postType === 'lead' ? false : $link;
 }, 10, 2);
+// La traduction de l'archive (/fr/lead/) est ajoutée par WPML SEO par une autre
+// voie : on retire l'entrée elle-même.
+add_filter('wpseo_sitemap_url', function ($xml, $url) {
+    $path = untrailingslashit((string) parse_url($url['loc'] ?? '', PHP_URL_PATH));
+    return preg_match('~^(/[a-z]{2})?/lead$~', $path) ? '' : $xml;
+}, 10, 2);
