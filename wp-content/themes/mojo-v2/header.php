@@ -79,8 +79,10 @@
     <!-- async (tarteaucitron conseille un script bloquant) : le bandeau ne
          retarde pas l'affichage, et les balises Google attendent son verdict
          grâce au wait_for_update ci-dessus. Il pose lui aussi un défaut
-         « refusé », identique au nôtre. -->
-    <script async id="tarteaucitron-js" src="https://cdntag.tarteaucitron.io/load.js?domain=mojo-agency.org&uuid=347a399e4fed1b15379aa64451e701a68447a726"></script>
+         « refusé », identique au nôtre. Le staging a sa propre configuration
+         sur tarteaucitron.io. -->
+    <?php $tacDomain = wp_get_environment_type() === 'staging' ? 'staging.mojo-agency.org' : 'mojo-agency.org'; ?>
+    <script async id="tarteaucitron-js" src="https://cdntag.tarteaucitron.io/load.js?domain=<?= $tacDomain ?>&uuid=347a399e4fed1b15379aa64451e701a68447a726"></script>
 
     <!-- Google Tag Manager -->
     <script>
