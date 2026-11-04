@@ -185,6 +185,16 @@
             gtag('consent', 'update', update);
         }
 
+        // Retrait de l'accord en cours de visite : tarteaucitron n'appelle pas
+        // `fallback` (il recharge la page à la fermeture du panneau). D'ici là,
+        // Google doit savoir tout de suite qu'il ne peut plus poser de cookies.
+        document.addEventListener('mojoga4_disallowed', function () {
+            consent('denied', ['analytics_storage']);
+        });
+        document.addEventListener('mojogads_disallowed', function () {
+            consent('denied', ['ad_storage', 'ad_user_data', 'ad_personalization']);
+        });
+
         whenReady(function () {
             // « cookies » : tarteaucitron ne supprime au refus que les noms
             // exacts listés. _ga_<ID> pour chaque flux GA4 : RS946CZMGV (celui
@@ -246,7 +256,7 @@
             });
             panelObserver.observe(document.body, { childList: true, subtree: true });
         }
-        window.addEventListener('tac.open_panel', letPanelScroll);
+        document.addEventListener('tac.open_panel', letPanelScroll);
         document.addEventListener('click', function (e) {
             if (!e.target.closest('[data-cookie-panel], #tarteaucitronManager, #tarteaucitronPersonalize, #tarteaucitronPersonalize2')) return;
             setTimeout(letPanelScroll, 0);
