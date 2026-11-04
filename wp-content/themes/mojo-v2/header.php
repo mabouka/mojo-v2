@@ -51,9 +51,9 @@
     </script>
 
     <!-- Consentement : Google Consent Mode v2 « avancé ». Tout est refusé par
-         défaut AVANT GTM ; tarteaucitron (Pro, services réglés sur
-         tarteaucitron.io) envoie gtag('consent', 'update') quand le visiteur
-         choisit, ou dès son chargement pour un visiteur qui a déjà choisi. -->
+         défaut AVANT GTM ; nos services tarteaucitron mojoga4 et mojogads
+         (footer.php) envoient gtag('consent', 'update') quand le visiteur
+         choisit. Un choix déjà enregistré est appliqué ci-dessous, avant GTM. -->
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -124,9 +124,11 @@
     <link rel="preconnect" href="https://cdntag.tarteaucitron.io" crossorigin>
     <!-- async (tarteaucitron conseille un script bloquant) : le bandeau ne
          retarde pas l'affichage, et les balises Google attendent son verdict
-         grâce au wait_for_update ci-dessus. Il pose lui aussi un défaut
-         « refusé », identique au nôtre. Le staging a sa propre configuration
-         sur tarteaucitron.io. -->
+         grâce au wait_for_update ci-dessus. Son Consent Mode natif ne
+         s'active que s'il charge lui-même GA ou Ads, ce qui n'est pas le cas
+         (GTM s'en charge) : ce sont nos services mojoga4 et mojogads
+         (footer.php) qui envoient les gtag('consent', 'update'). Le staging a
+         sa propre configuration sur tarteaucitron.io. -->
     <?php $tacDomain = wp_get_environment_type() === 'staging' ? 'staging.mojo-agency.org' : 'mojo-agency.org'; ?>
     <script async id="tarteaucitron-js" src="https://cdntag.tarteaucitron.io/load.js?domain=<?= $tacDomain ?>&uuid=347a399e4fed1b15379aa64451e701a68447a726"></script>
 
