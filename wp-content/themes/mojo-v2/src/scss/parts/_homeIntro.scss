@@ -133,12 +133,9 @@
         // changement de couleur était aussi animé, lettre par lettre.
         transition: transform 1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990),
                     opacity   1.5s cubic-bezier(0.245, 0.495, 0.000, 0.990);
-
-        @for $n from 1 through 35 {
-            &--#{$n} {
-                transition-delay: ($n - 1) * .008s;
-            }
-        }
+        // Après le raccourci `transition` (qui remet le délai à 0). Sans limite
+        // de longueur : l'ancienne boucle s'arrêtait à la 35ᵉ lettre.
+        transition-delay: calc((var(--i, 1) - 1) * .008s);
     }
 
     .no-js &,
