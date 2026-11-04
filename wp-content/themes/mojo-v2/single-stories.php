@@ -44,10 +44,11 @@ $backToStoriesUrl = get_post_type_archive_link('stories');
                 <article class="singlePost__article">
                     <header class="singlePost__header">
                         <div class="singlePost__narrow">
-                            <h1 class="singlePost__title js-in-view appear-fade"><?= get_the_title($post->ID); ?></h1>
+                            <?php // Haut de page sans fondu : visible dès le premier affichage (élément LCP). ?>
+                            <h1 class="singlePost__title"><?= get_the_title($post->ID); ?></h1>
                         </div>
 
-                        <div class="singlePost__meta js-in-view appear-fade appear-delay2 singlePost__narrow<?= !$author ? ' singlePost__meta--twoCol' : ''; ?>">
+                        <div class="singlePost__meta singlePost__narrow<?= !$author ? ' singlePost__meta--twoCol' : ''; ?>">
                             <?php if ($author) : ?>
                                 <div class="singlePost__metaItem">
                                     <span class="singlePost__metaLabel"><?= __('Author', 'mj'); ?></span>
@@ -76,17 +77,19 @@ $backToStoriesUrl = get_post_type_archive_link('stories');
                     </header>
 
                     <?php if ($hero) : ?>
-                        <figure class="singlePost__hero js-in-view appear-fade appear-delay3">
+                        <figure class="singlePost__hero">
                             <img
                                 src="<?= esc_url($hero->src['storyHero']); ?>"
-                                srcset="<?= esc_url($hero->src['storyHero']); ?> 1x, <?= esc_url($hero->src['storyHero@2x']); ?> 2x"
+                                srcset="<?= esc_url($hero->src['storyHero']); ?> 1065w, <?= esc_url($hero->src['storyHero@2x']); ?> 2130w"
+                                sizes="(max-width: 900px) 100vw, 1065px"
+                                fetchpriority="high"
                                 alt="<?= esc_attr($hero->alt ?: get_the_title($post->ID)); ?>"
                                 width="1065"
                                 height="553">
                         </figure>
                     <?php endif; ?>
 
-                    <div class="singlePost__body  js-in-view appear-fade">
+                    <div class="singlePost__body">
 
                         <div class="singlePost__content guthContent">
                             <?php the_content(); ?>
