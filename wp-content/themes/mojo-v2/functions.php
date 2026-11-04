@@ -188,7 +188,7 @@ function wpml_shortcode_func()
         $output .= '<div class="lang_selector">';
 
         foreach ($languages as $i => $data) :
-            if ($data['language_code'] == ICL_LANGUAGE_CODE) :
+            if ($data['language_code'] == mojoLang()) :
                 $output .= '<a class="active" href="' . $data['url'] . '">' . $i . '</a>';
             else :
                 $output .= '<a href="' . $data['url'] . '">' . $i . '</a>';
@@ -436,6 +436,13 @@ function mojoLanguages()
         return [];
     }
     return is_array($languages) ? $languages : [];
+}
+
+// Langue de la page. ICL_LANGUAGE_CODE n'existe que si WPML est actif : le
+// lire sans garde ferait tomber le site (erreur 500) si WPML était désactivé.
+function mojoLang()
+{
+    return defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'en';
 }
 
 function getLanguageLinks($class = "header__language")

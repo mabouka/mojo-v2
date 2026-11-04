@@ -72,11 +72,11 @@
         gtag('set', 'ads_data_redaction', true);
         gtag('js', new Date());
 
-        var tarteaucitronForceLanguage = '<?= ICL_LANGUAGE_CODE === 'fr' ? 'fr' : 'en' ?>';
+        var tarteaucitronForceLanguage = '<?= mojoLang() === 'fr' ? 'fr' : 'en' ?>';
 
         // Textes de l'ancien bandeau, lus par tarteaucitron au démarrage (le
         // titre du bandeau est ajouté en CSS, voir parts/_tarteaucitron.scss).
-        var tarteaucitronCustomText = <?= wp_json_encode(ICL_LANGUAGE_CODE === 'fr' ? [
+        var tarteaucitronCustomText = <?= wp_json_encode(mojoLang() === 'fr' ? [
             'alertBigPrivacy' => 'Nous utilisons des cookies pour personnaliser votre expérience sur notre site. Vous pouvez lire notre politique en matière de cookies et personnaliser vos choix.',
             'acceptAll'       => 'Tout accepter',
             'denyAll'         => 'Tout refuser',

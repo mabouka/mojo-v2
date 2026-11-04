@@ -53,7 +53,7 @@
                     <?php // Retrait du consentement aussi simple que son recueil (RGPD) :
                           // ouvre le panneau tarteaucitron (voir le script en bas de page). ?>
                     <a class="footer__menuItem" href="#tarteaucitron" data-cookie-panel data-barba-prevent>
-                        <?= ICL_LANGUAGE_CODE === 'fr' ? 'Gérer mes cookies' : 'Manage cookies' ?>
+                        <?= mojoLang() === 'fr' ? 'Gérer mes cookies' : 'Manage cookies' ?>
                     </a>
                 </div>
             <?php endif; ?>
@@ -236,7 +236,7 @@
         // Le tableau de bord n'accepte qu'une URL de confidentialité (l'anglaise) :
         // avant que tarteaucitron ne la suive (phase de capture), on met celle
         // de la langue de la page.
-        var privacyUrl = <?= wp_json_encode(home_url(ICL_LANGUAGE_CODE === 'fr' ? '/fr/politique-de-confidentialite/' : '/privacy-policy/'), JSON_UNESCAPED_SLASHES) ?>;
+        var privacyUrl = <?= wp_json_encode(home_url(mojoLang() === 'fr' ? '/fr/politique-de-confidentialite/' : '/privacy-policy/'), JSON_UNESCAPED_SLASHES) ?>;
         document.addEventListener('click', function (e) {
             if (!e.target.closest('#tarteaucitronPrivacyUrl, #tarteaucitronPrivacyUrlDialog')) return;
             if (window.tarteaucitron && tarteaucitron.parameters) tarteaucitron.parameters.privacyUrl = privacyUrl;
