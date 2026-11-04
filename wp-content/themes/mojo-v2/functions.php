@@ -550,9 +550,10 @@ function splitCharWord($text, $charIndex = 0)
             $output .= '<span class="fx-word">';
             foreach (mb_str_split($word) as $char) {
                 $charIndex++;
-                // --i : rang de la lettre, lu par le CSS pour décaler l'animation
-                // (src/scss/base/_inview.scss), quelle que soit la longueur du titre.
-                $output .= '<span class="fx-letter fx-letter--' . $charIndex . '" style="--i:' . $charIndex . '">';
+                // --i : rang de la lettre, seul lu par le CSS pour décaler
+                // l'animation (src/scss/base/_inview.scss), quelle que soit la
+                // longueur du titre (plus de classe fx-letter--N).
+                $output .= '<span class="fx-letter" style="--i:' . $charIndex . '">';
                 $output .= $char;
                 $output .= '</span>';
             }
