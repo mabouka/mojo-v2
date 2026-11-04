@@ -108,7 +108,12 @@
 
     <!-- Google Tag Manager, servi par le Google tag gateway : un Snippet
          Cloudflare relaie /6j56/ vers Google (fps.goog) avec l'ID GTM-WBZ8MLM.
-         La barre finale compte : la règle du Snippet porte sur « /6j56/ ». -->
+         La barre finale compte : la règle du Snippet porte sur « /6j56/ ».
+         Hors des domaines derrière Cloudflare (DDEV…), GTM vient de Google. -->
+    <?php
+    $host = parse_url(home_url(), PHP_URL_HOST);
+    $gtmSrc = preg_match('/(^|\.)mojo-agency\.org$/', $host) ? '/6j56/' : 'https://www.googletagmanager.com/gtm.js?id=GTM-WBZ8MLM';
+    ?>
     <script>
         (function(w, d, s, l) {
             w[l] = w[l] || [];
@@ -117,10 +122,9 @@
                 event: 'gtm.js'
             });
             var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '?l=' + l : '';
+                j = d.createElement(s);
             j.async = true;
-            j.src = '/6j56/' + dl;
+            j.src = <?= wp_json_encode($gtmSrc, JSON_UNESCAPED_SLASHES) ?>;
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer');
     </script>
