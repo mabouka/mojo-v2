@@ -106,9 +106,11 @@
     <?php $tacDomain = wp_get_environment_type() === 'staging' ? 'staging.mojo-agency.org' : 'mojo-agency.org'; ?>
     <script async id="tarteaucitron-js" src="https://cdntag.tarteaucitron.io/load.js?domain=<?= $tacDomain ?>&uuid=347a399e4fed1b15379aa64451e701a68447a726"></script>
 
-    <!-- Google Tag Manager -->
+    <!-- Google Tag Manager, servi par le Google tag gateway : un Snippet
+         Cloudflare relaie /6j56/ vers Google (fps.goog) avec l'ID GTM-WBZ8MLM.
+         La barre finale compte : la règle du Snippet porte sur « /6j56/ ». -->
     <script>
-        (function(w, d, s, l, i) {
+        (function(w, d, s, l) {
             w[l] = w[l] || [];
             w[l].push({
                 'gtm.start': new Date().getTime(),
@@ -116,12 +118,11 @@
             });
             var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
+                dl = l != 'dataLayer' ? '?l=' + l : '';
             j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            j.src = '/6j56/' + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WBZ8MLM');
+        })(window, document, 'script', 'dataLayer');
     </script>
     <!-- End Google Tag Manager -->
 
