@@ -180,6 +180,13 @@ require_once('inc/schema.php');
 
 
 /*
+ * Cas favoris (Options) : cas proposés en bas des études de cas
+ */
+
+require_once('inc/caseFavorites.php');
+
+
+/*
  * Posttype
  */
 require_once('inc/posttype/stories.php');
