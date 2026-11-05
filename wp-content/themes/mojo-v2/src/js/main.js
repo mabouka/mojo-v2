@@ -51,12 +51,8 @@ window.addEventListener("DOMContentLoaded", function () {
         started = true;
         boot();
     };
-    // Onglet en arrière-plan : rAF est suspendu, on démarre tout de suite.
-    if (document.hidden) return start();
     // rAF puis setTimeout : exécuté une fois la frame peinte.
     requestAnimationFrame(() => setTimeout(start, 0));
-    // Sécurité si la première image n'arrive jamais. Elle était à 500 ms : sur
-    // un chargement lent, tout le démarrage passait alors avant le premier
-    // affichage (LCP des études de cas à ~8 s au lieu de ~2,7 s).
-    setTimeout(start, 3000);
+    // Onglet en arrière-plan : rAF est suspendu, on démarre quand même.
+    setTimeout(start, 500);
 });
