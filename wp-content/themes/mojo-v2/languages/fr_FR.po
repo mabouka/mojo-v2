@@ -175,3 +175,55 @@ msgstr "Projets où nous avons pris l’initiative"
 
 #~ msgid "Our team"
 #~ msgstr "Notre équipe"
+
+#: single-stories.php
+msgid "Author"
+msgstr "Auteur"
+
+#: single-stories.php
+msgid "Category"
+msgstr "Catégorie"
+
+#: single-stories.php
+msgid "Date"
+msgstr "Date"
+
+#: single-stories.php
+msgid "Uncategorized"
+msgstr "Sans catégorie"
+
+#: single-stories.php
+msgid "Share"
+msgstr "Partager"
+
+#: single-stories.php
+msgid "Read also"
+msgstr "À lire aussi"
+
+#: single-stories.php
+msgid "Back to stories"
+msgstr "Retour aux stories"
+
+#: archive-stories.php
+msgid "Story categories"
+msgstr "Catégories de stories"
+
+#: archive-stories.php
+msgid "Show all"
+msgstr "Tout voir"
+
+#: archive-stories.php
+msgid "No stories found."
+msgstr "Aucune story trouvée."
+
+#: archive-stories.php
+msgid "Pagination"
+msgstr "Pagination"
+
+#: archive-stories.php
+msgid "Prev"
+msgstr "Précédent"
+
+#: archive-stories.php
+msgid "Next"
+msgstr "Suivant"

@@ -8,7 +8,7 @@
                         <div class="leadReviews__content">
                             <div class="leadReviews__top">
                                 <figure class="leadReviews__logo">
-                                    <img src="<?= $review['logo']['sizes']['medium'] ?>" alt="<?= $review['logo']['alt'] ?>">
+                                    <img src="<?= $review['logo']['sizes']['medium'] ?>" width="<?= $review['logo']['sizes']['medium-width'] ?>" height="<?= $review['logo']['sizes']['medium-height'] ?>" alt="<?= $review['logo']['alt'] ?>">
                                 </figure>
 
                                 <svg class="leadReviews__quote" width="40" height="33" viewBox="0 0 40 33" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -173,6 +173,13 @@ require_once('inc/embeds.php');
 
 
 /*
+ * Données structurées : adresse et contact de l'agence
+ */
+
+require_once('inc/schema.php');
+
+
+/*
  * Posttype
  */
 require_once('inc/posttype/stories.php');
@@ -356,14 +363,19 @@ function getCustomThumbnail($id, $size)
     if (!$imageId) return;
     $image = new stdClass;
     if (is_string($size)) {
-        $image->src = wp_get_attachment_image_src($imageId, $size)[0];
+        $data = wp_get_attachment_image_src($imageId, $size);
+        $image->src = $data[0];
     } elseif (is_array($size)) {
         $src = [];
         foreach ($size as $itemSize) {
             $src[$itemSize] = wp_get_attachment_image_src($imageId, $itemSize)[0];
         }
         $image->src = $src;
+        $data = wp_get_attachment_image_src($imageId, $size[0]);
     }
+    // Dimensions de la (première) taille : attributs width/height des <img>
+    $image->width = $data[1] ?? '';
+    $image->height = $data[2] ?? '';
     $image->alt = get_post_meta($imageId, '_wp_attachment_image_alt', true);
     return $image;
 }

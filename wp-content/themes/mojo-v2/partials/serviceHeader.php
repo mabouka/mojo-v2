@@ -11,7 +11,7 @@
             </h1>
 
             <?php if ($svg): ?>
-                <img class="serviceHeader__picture" fetchpriority="high" src="<?= $svg['url'] ?>" alt="<?= $svg['alt'] ?>">
+                <img class="serviceHeader__picture" fetchpriority="high" src="<?= $svg['url'] ?>" width="<?= $svg['width'] ?>" height="<?= $svg['height'] ?>" alt="<?= $svg['alt'] ?>">
             <?php endif ?>
 
         </div>

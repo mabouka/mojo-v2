@@ -23,14 +23,14 @@ $contactText  = get_field('intro_contact_text', $contactPage->ID);
 
 
 
-            <h1 class="contact__title js-in-view fx-parent">
+            <h2 class="contact__title js-in-view fx-parent">
                 <?php if ($subtitle) : ?>
                     <p class="contact__subtitle js-in-view appear-fade appear-delay4">
                         <?= $subtitle; ?>
                     </p>
                 <?php endif; ?>
                 <?= splitCharWord($title); ?>
-            </h1>
+            </h2>
 
             <div class="contact__content  js-in-view appear-fadeup appear-delay4">
 

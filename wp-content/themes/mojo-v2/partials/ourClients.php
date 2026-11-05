@@ -57,14 +57,20 @@
         <div class="ourClients__carousel js-in-view appear-fade">
             <div class="ourClients__carouselWrapper">
                 <?php foreach ($logos as $logo) : ?>
+                    <?php
+                    // Nom du client pour les lecteurs d'écran et Google : le texte n'est
+                    // souvent rempli qu'en anglais ; à défaut, le titre du fichier du logo
+                    // (« Logo_Croix-Rouge-2 » → « Croix Rouge »).
+                    $name = $logo['text'] ?: ($logo['logo']['alt'] ?: trim(preg_replace('/^logo|[-_\d\s]+/i', ' ', $logo['logo']['title'])));
+                    ?>
                     <?php if ($logo['url']) : ?>
                         <a class="ourClients__carouselItem" href="<?= $logo['url']; ?>" target="_blank">
                             <img loading="lazy" src="<?= $logo['logo']['sizes']['logo'] ?>" width="<?= $logo['logo']['sizes']['logo-width'] ?>" height="<?= $logo['logo']['sizes']['logo-height'] ?>" srcset="<?= $logo['logo']['sizes']['logo'] ?> 1x, <?= $logo['logo']['sizes']['logo@2x'] ?> 2x" alt="<?= $logo['logo']['alt'] ?>">
-                            <span class="sro"><?= $logo['text']; ?></span>
+                            <span class="sro"><?= esc_html($name); ?></span>
                         </a>
                     <?php else : ?>
                         <figure class="ourClients__carouselItem">
-                            <img loading="lazy" src="<?= $logo['logo']['sizes']['logo'] ?>" width="<?= $logo['logo']['sizes']['logo-width'] ?>" height="<?= $logo['logo']['sizes']['logo-height'] ?>" srcset="<?= $logo['logo']['sizes']['logo'] ?> 1x, <?= $logo['logo']['sizes']['logo@2x'] ?> 2x" alt="<?= $logo['logo']['alt'] ?>">
+                            <img loading="lazy" src="<?= $logo['logo']['sizes']['logo'] ?>" width="<?= $logo['logo']['sizes']['logo-width'] ?>" height="<?= $logo['logo']['sizes']['logo-height'] ?>" srcset="<?= $logo['logo']['sizes']['logo'] ?> 1x, <?= $logo['logo']['sizes']['logo@2x'] ?> 2x" alt="<?= esc_attr($name) ?>">
                         </figure>
                     <?php endif; ?>
                 <?php endforeach; ?>

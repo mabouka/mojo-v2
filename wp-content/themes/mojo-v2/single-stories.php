@@ -21,13 +21,40 @@ if (function_exists('get_field')) {
 }
 $author = function_exists('get_field') ? get_field('author', $post->ID) : '';
 
+// À lire aussi : les stories de la même catégorie, puis les plus proches en date
+// (les plus anciennes d'abord). Avec les 3 plus récentes partout, les anciennes
+// stories ne recevaient presque aucun lien interne.
+$relatedIds = [];
+$relatedArgs = [
+    'post_type' => 'stories',
+    'post_status' => 'publish',
+    'fields' => 'ids',
+    'suppress_filters' => false, // langue courante (WPML)
+];
+if ($categories) {
+    $relatedIds = get_posts($relatedArgs + [
+        'posts_per_page' => 3,
+        'post__not_in' => [$post->ID],
+        'tax_query' => [['taxonomy' => 'storyCategory', 'terms' => wp_list_pluck($categories, 'term_id')]],
+    ]);
+}
+foreach (['before' => 'DESC', 'after' => 'ASC'] as $side => $order) {
+    if (count($relatedIds) >= 3) break;
+    $relatedIds = array_merge($relatedIds, get_posts($relatedArgs + [
+        'posts_per_page' => 3 - count($relatedIds),
+        'post__not_in' => array_merge([$post->ID], $relatedIds),
+        'date_query' => [[$side => get_the_date('Y-m-d H:i:s', $post->ID)]],
+        'orderby' => 'date',
+        'order' => $order,
+    ]));
+}
+
 $latestStories = new WP_Query([
     'post_type' => 'stories',
     'post_status' => 'publish',
     'posts_per_page' => 3,
-    'post__not_in' => [$post->ID],
-    'orderby' => 'date',
-    'order' => 'DESC',
+    'post__in' => $relatedIds ?: [0],
+    'orderby' => 'post__in',
 ]);
 
 $permalink = get_permalink($post->ID);
@@ -112,7 +139,7 @@ $backToStoriesUrl = get_post_type_archive_link('stories');
 
                     <?php if ($latestStories->have_posts()) : ?>
                         <section class="singlePost__latest">
-                            <h2 class="singlePost__latestTitle"><?= __('Our latest articles', 'mj'); ?></h2>
+                            <h2 class="singlePost__latestTitle"><?= __('Read also', 'mj'); ?></h2>
 
                             <div class="singlePost__latestGrid">
                                 <?php foreach ($latestStories->posts as $story) : ?>

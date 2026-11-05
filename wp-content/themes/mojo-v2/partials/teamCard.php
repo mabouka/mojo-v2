@@ -5,7 +5,7 @@ $color = get_field('color', $person);
 <section class="teamCard<?= $color ? ' teamCard--' . $color : '' ?><?= isset($class) && $class ? ' ' .$class : '' ?>">
     <?php if ($photo = getCustomThumbnail($person->ID, ['teamCard', 'teamCard@2x'])) : ?>
         <figure class="teamCard__photo">
-            <img src="<?= $photo->src['teamCard']; ?>" srcset="<?= $photo->src['teamCard']; ?> 1x, <?= $photo->src['teamCard@2x'] ?> 2x" alt="<?= $photo->alt ?>" loading="lazy">
+            <img src="<?= $photo->src['teamCard']; ?>" srcset="<?= $photo->src['teamCard']; ?> 1x, <?= $photo->src['teamCard@2x'] ?> 2x" width="<?= $photo->width ?>" height="<?= $photo->height ?>" alt="<?= esc_attr($photo->alt ?: get_the_title($person)) ?>" loading="lazy">
         </figure>
     <?php endif; ?>
     <div class="teamCard__contentWrapper">

@@ -111,6 +111,7 @@
                                         loading="lazy"
                                         src="<?= $picture['sizes']['featuredVideo']; ?>"
                                         srcset="<?= $picture['sizes']['featuredVideo']; ?> 1x, <?= $picture['sizes']['featuredVideo']; ?> 2x"
+                                        width="<?= $picture['sizes']['featuredVideo-width'] ?>" height="<?= $picture['sizes']['featuredVideo-height'] ?>"
                                         alt="<?= $picture['alt'] ?>"
                                     >
                                 <?php elseif($mainPicture): ?>
@@ -118,6 +119,7 @@
                                         loading="lazy"
                                         src="<?= $mainPicture->src['featuredVideo'] ?>"
                                         srcset="<?= $mainPicture->src['featuredVideo'] ?> 1x, <?= $mainPicture->src['featuredVideo@2x'] ?> 2x"
+                                        width="<?= $mainPicture->width ?>" height="<?= $mainPicture->height ?>"
                                         alt="<?= $mainPicture->alt ?>"
                                     >
                                 <?php endif; ?>
