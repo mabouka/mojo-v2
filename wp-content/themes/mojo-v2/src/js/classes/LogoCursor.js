@@ -52,8 +52,20 @@ export default class LogoCursor {
         });
         this.on(el, 'pointerleave', () => {
             this.inside = false;
-            this.grow(0);
+            if (!this.near) this.grow(0);
         });
+
+        // Le disque prend le relais dès que le cercle du curseur touche la
+        // section, pas seulement quand la pointe de la souris y entre : en
+        // mélange darken, le curseur jaune disparaissait sur le fond sombre et
+        // semblait coupé en deux au bord. Calculé seulement section à l'écran.
+        this.near = false;
+        this.visible = false;
+        this.observer = new IntersectionObserver(([entry]) => {
+            this.visible = entry.isIntersecting;
+            if (!this.visible) this.setNear(false);
+        });
+        this.observer.observe(el);
 
         if (this.sensible && this.sensibleRadius) {
             this.on(this.sensible, 'pointerenter', () => this.grow(this.sensibleRadius));
@@ -83,7 +95,30 @@ export default class LogoCursor {
 
     frame(state) {
         this.last = state;
-        if (this.size.r > 0 || this.inside) this.draw();
+        if (this.visible && !this.inside) this.setNear(this.touches(state));
+        if (this.size.r > 0 || this.inside || this.near) this.draw();
+    }
+
+    // Le cercle du curseur (même rayon que le disque) touche-t-il la section ?
+    touches(state) {
+        const ctm = this.svg.getScreenCTM();
+        if (!ctm) return false;
+        const rect = this.el.getBoundingClientRect();
+        const dx = Math.max(rect.left - state.x, 0, state.x - rect.right);
+        const dy = Math.max(rect.top - state.y, 0, state.y - rect.bottom);
+        return Math.hypot(dx, dy) < this.radius * ctm.a;
+    }
+
+    setNear(near) {
+        if (near === this.near) return;
+        this.near = near;
+        if (Cursor.instance) Cursor.instance.force('cursor--below', near);
+        if (near) {
+            gsap.killTweensOf(this.size);
+            this.size.r = Math.max(this.size.r, this.radius);
+        } else if (!this.inside) {
+            this.grow(0);
+        }
     }
 
     draw() {
@@ -95,7 +130,7 @@ export default class LogoCursor {
         // Recalculée à chaque image : le SVG défile avec la page.
         const ctm = this.svg.getScreenCTM();
         if (!ctm) return;
-        if (this.inside) this.shareSize(ctm);
+        if (this.inside || this.near) this.shareSize(ctm);
         const p = new DOMPoint(s.x, s.y).matrixTransform(ctm.inverse());
         const stretch = Math.min(s.speed / 90, 0.16);
         const angle = Math.atan2(s.vy, s.vx) * 180 / Math.PI;
@@ -119,6 +154,10 @@ export default class LogoCursor {
         if (!this.listeners) return;
         this.listeners.forEach(([target, type, fn]) => target.removeEventListener(type, fn));
         if (this.unsubscribe) this.unsubscribe();
+        if (this.observer) {
+            this.observer.disconnect();
+            this.setNear(false);
+        }
         gsap.killTweensOf(this.size);
         this.listeners = null;
     }

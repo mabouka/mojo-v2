@@ -39,6 +39,9 @@ export default class Cursor {
         this.running = false;
         this.initialized = false;
         this.hovered = null;
+        // États imposés par un effet abonné (LogoCursor), quel que soit
+        // l'élément survolé.
+        this.forced = new Set();
 
         this.tick = this.tick.bind(this);
         this.onMove = this.onMove.bind(this);
@@ -106,8 +109,19 @@ export default class Cursor {
             });
         }
         this.focusClasses.forEach((focusClass) => {
-            this.element.classList.toggle(focusClass, wanted.has(focusClass));
+            this.element.classList.toggle(focusClass, wanted.has(focusClass) || this.forced.has(focusClass));
         });
+    }
+
+    // Impose (ou retire) un état, en plus de ceux donnés par l'élément survolé.
+    force(focusClass, on) {
+        if (on === this.forced.has(focusClass)) return;
+        if (on) this.forced.add(focusClass);
+        else this.forced.delete(focusClass);
+        const wanted = !!(this.hovered && this.hovered.closest && this.focusElements.some(
+            (item) => item.focusClass === focusClass && this.hovered.closest(item.elements)
+        ));
+        this.element.classList.toggle(focusClass, on || wanted);
     }
 
     wake() {
