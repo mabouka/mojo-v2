@@ -499,6 +499,28 @@ function mojo_register_types_taxonomies()
 
 add_action('init', 'mojo_register_types_taxonomies', 0);
 
+// Types modifiait aussi deux taxonomies natives : les catégories, réservées aux
+// cas (retirées des articles), et les étiquettes, désactivées. Le site n'a ni
+// article ni étiquette ; reproduit pour garder l'admin et les adresses d'avant.
+function mojo_register_types_builtin_taxonomies()
+{
+    if (defined('TYPES_VERSION')) return;
+
+    unregister_taxonomy_for_object_type('category', 'post');
+
+    $tag = get_taxonomy('post_tag');
+    if (!$tag) return;
+    $args = get_object_vars($tag);
+    $args['labels'] = (array) $tag->labels;
+    $args['rewrite'] = ['slug' => 'post_tag', 'with_front' => true, 'hierarchical' => false, 'ep_mask' => EP_TAGS];
+    $args['query_var'] = 'post_tag';
+    $args['show_in_rest'] = false;
+    unset($args['name'], $args['object_type'], $args['cap'], $args['rest_controller']);
+    register_taxonomy('post_tag', [], $args);
+}
+
+add_action('init', 'mojo_register_types_builtin_taxonomies', 1);
+
 // Règles d'adresses recalculées une fois, la première fois que Types est
 // désactivé (sinon elles restent celles enregistrées par Types). Réarmé tant que
 // Types est actif, pour un retour arrière puis une nouvelle désactivation.

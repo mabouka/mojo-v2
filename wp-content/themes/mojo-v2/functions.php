@@ -190,6 +190,8 @@ require_once('inc/caseFavorites.php');
  * Posttype
  */
 require_once('inc/posttype/stories.php');
+// case, services, people, lead et leurs taxonomies, quand l'extension Types est désactivée
+require_once('inc/posttype/fromTypes.php');
 //require_once('inc/posttype/work.php');
 
 /*
