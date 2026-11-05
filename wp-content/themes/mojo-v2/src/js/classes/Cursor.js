@@ -64,9 +64,13 @@ export default class Cursor {
         document.addEventListener('pointerdown', this.onDown, { passive: true });
         document.addEventListener('pointerup', this.onUp, { passive: true });
 
-        // Défilement sans bouger la souris : les effets abonnés se recalent.
+        // Défilement sans bouger la souris : la page glisse sous un curseur
+        // immobile. Le navigateur n'envoie alors aucun événement de survol ;
+        // on relit l'élément sous la souris et on recale tout de suite les
+        // effets abonnés, dans la même frame que Lenis (avant : à la frame
+        // suivante, d'où un disque en retard sur la page).
         if (window.lenis && typeof window.lenis.on === 'function') {
-            this.offScroll = window.lenis.on('scroll', () => this.wake());
+            this.offScroll = window.lenis.on('scroll', () => this.onScroll());
         }
 
         this.initialized = true;
@@ -91,6 +95,12 @@ export default class Cursor {
             this.element.classList.add('cursor--active');
         }
         this.wake();
+    }
+
+    onScroll() {
+        if (!this.active) return;
+        this.setHovered(document.elementFromPoint(this.target.x, this.target.y));
+        subscribers.forEach((fn) => fn(this.state));
     }
 
     onOver(e) {

@@ -61,6 +61,7 @@ export default class LogoCursor {
         // semblait coupé en deux au bord. Calculé seulement section à l'écran.
         this.near = false;
         this.visible = false;
+        this.scale = 0;
         this.observer = new IntersectionObserver(([entry]) => {
             this.visible = entry.isIntersecting;
             if (!this.visible) this.setNear(false);
@@ -95,18 +96,25 @@ export default class LogoCursor {
 
     frame(state) {
         this.last = state;
-        if (this.visible && !this.inside) this.setNear(this.touches(state));
+        // Position du curseur par rapport à la section, recalculée à chaque
+        // image (aussi pendant un défilement sans mouvement de souris, où
+        // pointerenter et pointerleave n'arrivent pas).
+        if (this.visible) {
+            const d = this.distance(state);
+            if (d > 0) this.inside = false;
+            this.setNear(d < this.radius * this.scale);
+        }
         if (this.size.r > 0 || this.inside || this.near) this.draw();
     }
 
-    // Le cercle du curseur (même rayon que le disque) touche-t-il la section ?
-    touches(state) {
+    // Distance entre le centre du curseur et la section (0 dedans).
+    distance(state) {
         const ctm = this.svg.getScreenCTM();
-        if (!ctm) return false;
+        if (ctm) this.scale = ctm.a;
         const rect = this.el.getBoundingClientRect();
         const dx = Math.max(rect.left - state.x, 0, state.x - rect.right);
         const dy = Math.max(rect.top - state.y, 0, state.y - rect.bottom);
-        return Math.hypot(dx, dy) < this.radius * ctm.a;
+        return Math.hypot(dx, dy);
     }
 
     setNear(near) {
