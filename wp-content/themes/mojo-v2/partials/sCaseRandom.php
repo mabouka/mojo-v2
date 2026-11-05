@@ -1,7 +1,7 @@
 <?php
     wp_reset_postdata();
 
-    // 2 cas au hasard parmi les favoris (Options → Cas favoris), ou parmi toutes
+    // 2 cas au hasard parmi les favoris (Options → Favourite cases), ou parmi toutes
     // les études de cas s'il y en a moins de 2.
     $favorites = array_values(array_diff(mojoFavoriteCaseIds(), [get_the_ID()]));
 

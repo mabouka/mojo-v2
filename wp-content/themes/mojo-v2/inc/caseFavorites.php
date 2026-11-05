@@ -1,5 +1,5 @@
 <?php
-// Cas favoris : liste choisie dans Options → « Cas favoris ». Les blocs « Want to
+// Cas favoris : liste choisie dans Options → « Favourite cases ». Les blocs « Want to
 // see more ? » des études de cas piochent dedans, au lieu de toutes les études
 // de cas. Champ déclaré ici (et pas en base) pour qu'il suive le code sur chaque
 // site.
@@ -7,13 +7,13 @@
 add_action('acf/init', function () {
     acf_add_local_field_group([
         'key' => 'group_mojo_favorite_cases',
-        'title' => 'Cas favoris',
+        'title' => 'Favourite cases',
         'fields' => [[
             'key' => 'field_mojo_favorite_cases',
-            'label' => 'Cas favoris',
+            'label' => 'Favourite cases',
             'name' => 'favorite_cases',
             'type' => 'relationship',
-            'instructions' => "Les cas proposés en bas de chaque étude de cas (« Want to see more ? »), 2 au hasard parmi cette liste. À remplir en anglais : la version française reprend les traductions. Moins de 2 cas : tirage parmi toutes les études de cas.",
+            'instructions' => 'Cases suggested at the bottom of each case study ("Want to see more?"): 2 picked at random from this list. Fill it in English, the French pages use the translations. Fewer than 2 cases: picked from all case studies.',
             'post_type' => ['case'],
             'post_status' => ['publish'],
             'filters' => ['search'],
