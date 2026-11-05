@@ -81,11 +81,17 @@ export default class Router {
             const nextDoc = new DOMParser().parseFromString(data.next.html, 'text/html');
             this.nextPageCss = this.pageCssHrefFrom(nextDoc);
             this.pageCssPending = true; // une vraie transition est en cours
+            // Barba a déjà inséré le conteneur (sous le rideau) : sans son CSS, il
+            // prend un premier style puis bascule, en transition CSS, quand la
+            // feuille arrive (au premier passage sur /services/, les cartes
+            // visibles s'effaçaient puis réapparaissaient). Masqué jusque-là.
+            data.next.container.style.display = 'none';
             // En parallèle : les chunks JS des composants de la page suivante.
             await Promise.all([
                 this.loadPageCss(this.nextPageCss),
                 window.MJ.parts.load(data.next.container),
             ]);
+            data.next.container.style.display = '';
 
             //this.updateHeader(data);
             this.updatePage(nextDoc);
