@@ -102,13 +102,13 @@ function mojoGuardMessage($attachmentId)
     switch ($guard[0]) {
         // Le ✅ en tête sert d'indicateur au JS (encart vert au lieu d'orange).
         case 'recompressed':
-            return sprintf('✅ Nice try. This JPG was exported a little too generously, so it was quietly slimmed down on upload: %s KB → %s KB (quality %d). Nobody will notice. Except the developer.', number_format_i18n($guard[1]), number_format_i18n($guard[2]), MOJO_GUARD_JPG_QUALITY);
+            return sprintf('✅ Nice try. This JPG was exported a little too generously, so it was quietly slimmed down on upload: %s KB → %s KB (quality %d). Nobody will notice. Except Max.', number_format_i18n($guard[1]), number_format_i18n($guard[2]), MOJO_GUARD_JPG_QUALITY);
         case 'png_photo':
-            return sprintf('👀 The developer saw that. This photo is a %s KB PNG with no transparency: as a JPG it would be 3 to 4 times lighter. Export it as JPG and upload it again, and all will be forgiven.', number_format_i18n($guard[1]));
+            return sprintf('👀 Max saw that. This photo is a %s KB PNG with no transparency: as a JPG it would be 3 to 4 times lighter. Export it as JPG and upload it again, and all will be forgiven.', number_format_i18n($guard[1]));
         case 'gif':
-            return sprintf('👀 Somewhere, a developer just sighed. Animated GIF of %s KB: a muted looping video (MP4) is usually 90 to 99%% lighter for the same animation. Export it as MP4 and use a video block instead.', number_format_i18n($guard[1]));
+            return sprintf('👀 Somewhere, Max just sighed. Animated GIF of %s KB: a muted looping video (MP4) is usually 90 to 99%% lighter for the same animation. Export it as MP4 and use a video block instead.', number_format_i18n($guard[1]));
         case 'gif_static':
-            return sprintf('👀 A still GIF of %s KB? The developer has questions. As JPG (photo) or PNG (graphic) it would be much lighter: export it again in one of these formats.', number_format_i18n($guard[1]));
+            return sprintf('👀 A still GIF of %s KB? Max has questions. As JPG (photo) or PNG (graphic) it would be much lighter: export it again in one of these formats.', number_format_i18n($guard[1]));
     }
     return '';
 }
@@ -187,9 +187,9 @@ function mojoGuardConfirmJs()
 window.mojoGuardConfirm = function (name, type, bytes) {
     var kb = Math.round(bytes / 1024), message = '';
     if (/gif$/i.test(type) && kb >= $gif) {
-        message = '👀 The developer is watching you.\\n\\n“' + name + '” is a ' + kb.toLocaleString() + ' KB GIF. A muted looping video (MP4) would be 90 to 99% lighter, and every phone visiting the site would thank you.\\n\\nUpload this GIF anyway? (The developer will know.)';
+        message = '👀 Max is watching you.\\n\\n“' + name + '” is a ' + kb.toLocaleString() + ' KB GIF. A muted looping video (MP4) would be 90 to 99% lighter, and every phone visiting the site would thank you.\\n\\nUpload this GIF anyway? (Max will know.)';
     } else if (/png$/i.test(type) && kb >= $png) {
-        message = '👀 The developer is watching you.\\n\\n“' + name + '” is a ' + kb.toLocaleString() + ' KB PNG. If it is a photo (no transparency), a JPG would be 3 to 4 times lighter. A logo or a cut-out with transparency is fine as PNG.\\n\\nUpload this PNG anyway?';
+        message = '👀 Max is watching you.\\n\\n“' + name + '” is a ' + kb.toLocaleString() + ' KB PNG. If it is a photo (no transparency), a JPG would be 3 to 4 times lighter. A logo or a cut-out with transparency is fine as PNG.\\n\\nUpload this PNG anyway?';
     }
     return !message || window.confirm(message);
 };
