@@ -145,6 +145,13 @@ require_once('inc/images.php');
 
 
 /*
+ * Garde-fou à l'envoi des images (JPG trop lourds, photos en PNG, GIF)
+ */
+
+require_once('inc/uploadGuard.php');
+
+
+/*
  * CSS découpé par page (base.css + page-*.css)
  */
 
