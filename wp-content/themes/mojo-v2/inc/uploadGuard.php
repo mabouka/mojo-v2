@@ -3,12 +3,13 @@
 // doit la redimensionner : un JPG exporté en qualité maximale à la taille exacte
 // d'une bannière (750 × 1440, 1920 × 720…) était servi tel quel (1,8 Mo pour la
 // bannière Euractiv). Ici :
-// - JPG trop lourd pour ses dimensions : ré-enregistré en qualité 80, même nom ;
+// - JPG trop lourd pour ses dimensions : ré-enregistré en qualité 85, même nom,
+//   sans message ;
 // - PNG sans transparence (une photo) ou GIF lourd : avertissement dans la
 //   médiathèque, sans rien modifier (changer de format changerait l'adresse).
 
 const MOJO_GUARD_JPG_KB_PER_MP = 300; // au-delà : export en qualité trop haute
-const MOJO_GUARD_JPG_QUALITY = 80;
+const MOJO_GUARD_JPG_QUALITY = 85;
 const MOJO_GUARD_PNG_KB = 300;
 const MOJO_GUARD_GIF_KB = 1024;
 
@@ -66,7 +67,7 @@ function mojoGuardInspect($attachmentId)
 
     if (isset($GLOBALS['mojoGuardRecompressed'][$file])) {
         [$before, $after] = $GLOBALS['mojoGuardRecompressed'][$file];
-        update_post_meta($attachmentId, '_mojo_upload_guard', ['recompressed', (int) round($before / 1024), (int) round($after / 1024)]);
+        update_post_meta($attachmentId, '_mojo_upload_guard', ['recompressed', (int) round($before / 1024), (int) round($after / 1024), MOJO_GUARD_JPG_QUALITY]);
     } elseif ($type === 'image/png' && $kb >= MOJO_GUARD_PNG_KB && class_exists('Imagick')) {
         try {
             $im = new Imagick($file);
@@ -100,9 +101,9 @@ function mojoGuardMessage($attachmentId)
     if (!is_array($guard)) return '';
 
     switch ($guard[0]) {
-        // Le ✅ en tête sert d'indicateur au JS (encart vert au lieu d'orange).
+        // JPG recompressé : en silence (constat gardé sur le média, pas de message).
         case 'recompressed':
-            return sprintf('✅ Nice try. This JPG was exported a little too generously, so it was quietly slimmed down on upload: %s KB → %s KB (quality %d). Nobody will notice. Except Max.', number_format_i18n($guard[1]), number_format_i18n($guard[2]), MOJO_GUARD_JPG_QUALITY);
+            return '';
         case 'png_photo':
             return sprintf('👀 Max saw that. This photo is a %s KB PNG with no transparency: as a JPG it would be 3 to 4 times lighter. Export it as JPG and upload it again, and all will be forgiven.', number_format_i18n($guard[1]));
         case 'gif':
@@ -135,11 +136,12 @@ add_action('manage_media_custom_column', function ($column, $attachmentId) {
     if ($column === 'mojo_upload_guard') echo esc_html(mojoGuardMessage($attachmentId));
 }, 10, 2);
 
-// Message visible au moment de l'envoi.
-// - Médias → Ajouter : encart sous chaque fichier envoyé (le résumé affiché par
-//   WordPress n'a pas de filtre, il est complété en JS).
-// - Éditeur de blocs : avis en haut de l'éditeur, d'après le champ ajouté à la
-//   réponse de l'API au moment de l'envoi.
+// Message visible au moment de l'envoi :
+// - avant : confirmation pour un GIF ou un PNG lourd (la transparence d'un PNG
+//   n'est pas connue avant l'envoi, la question est posée pour tout PNG lourd) ;
+// - après : fenêtre avec l'avertissement (Médias → Ajouter, médiathèque, fenêtre
+//   « Ajouter un média »), en plus d'un encart sous le fichier dans Médias →
+//   Ajouter ; avis en haut de l'éditeur de blocs.
 register_rest_field('attachment', 'mojo_upload_guard', [
     'get_callback' => fn($attachment) => mojoGuardMessage($attachment['id']),
     'schema' => ['type' => 'string', 'context' => ['edit']],
@@ -152,37 +154,11 @@ add_action('wp_ajax_mojo_upload_guard', function () {
     wp_send_json_success(['message' => $id ? mojoGuardMessage($id) : '']);
 });
 
-add_action('admin_enqueue_scripts', function ($hook) {
-    if ($hook !== 'media-new.php') return;
-    $url = wp_json_encode(add_query_arg(['action' => 'mojo_upload_guard', '_ajax_nonce' => wp_create_nonce('mojo_upload_guard')], admin_url('admin-ajax.php')));
-    wp_add_inline_script('jquery-core', <<<JS
-jQuery(function ($) {
-    var done = {};
-    new MutationObserver(function () {
-        $('#media-items .media-item').each(function () {
-            var item = $(this), link = item.find('a[href*="post.php?post="]').attr('href');
-            var id = link && (link.match(/post=(\\d+)/) || [])[1];
-            if (!id || done[id]) return;
-            done[id] = true;
-            $.get($url + '&id=' + id, function (res) {
-                var message = res && res.success && res.data.message;
-                if (!message) return;
-                var ok = message.indexOf('✅') === 0;
-                $('<div class="notice inline ' + (ok ? 'notice-success' : 'notice-warning') + '" style="margin:8px 10px 10px"><p></p></div>')
-                    .find('p').text(message).end().appendTo(item);
-            });
-        });
-    }).observe(document.getElementById('media-items') || document.body, { childList: true, subtree: true });
-});
-JS);
-});
-
-// Confirmation avant l'envoi d'un GIF ou d'un PNG lourd (la transparence d'un PNG
-// n'est pas connue avant l'envoi : la question est posée pour tout PNG lourd).
-function mojoGuardConfirmJs()
+function mojoGuardJs()
 {
     $png = MOJO_GUARD_PNG_KB;
     $gif = MOJO_GUARD_GIF_KB;
+    $ajax = wp_json_encode(add_query_arg(['action' => 'mojo_upload_guard', '_ajax_nonce' => wp_create_nonce('mojo_upload_guard')], admin_url('admin-ajax.php')));
     return <<<JS
 window.mojoGuardConfirm = function (name, type, bytes) {
     var kb = Math.round(bytes / 1024), message = '';
@@ -193,12 +169,20 @@ window.mojoGuardConfirm = function (name, type, bytes) {
     }
     return !message || window.confirm(message);
 };
+// Constat du garde-fou pour un média envoyé : callback(message) s'il y en a un.
+window.mojoGuardFetch = function (id, callback) {
+    if (!id) return;
+    fetch($ajax + '&id=' + encodeURIComponent(id), { credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (res) { if (res && res.success && res.data.message) callback(res.data.message); })
+        .catch(function () {});
+};
 JS;
 }
 
 add_action('admin_enqueue_scripts', function ($hook) {
-    // Fenêtre de la médiathèque (wp.Uploader) : partout dans l'admin.
-    wp_add_inline_script('wp-plupload', mojoGuardConfirmJs() . <<<JS
+    // Médiathèque et fenêtre « Ajouter un média » (wp.Uploader) : partout dans l'admin.
+    wp_add_inline_script('wp-plupload', mojoGuardJs() . <<<JS
 if (window.wp && wp.Uploader) {
     var mojoInit = wp.Uploader.prototype.init;
     wp.Uploader.prototype.init = function () {
@@ -208,30 +192,49 @@ if (window.wp && wp.Uploader) {
                 if (!mojoGuardConfirm(file.name, file.type, file.size)) up.removeFile(file);
             });
         }, null, 100);
+        this.uploader.bind('FileUploaded', function (up, file, response) {
+            var data = {};
+            try { data = JSON.parse(response.response).data || {}; } catch (e) {}
+            mojoGuardFetch(data.id, function (message) { window.alert(message); });
+        });
     };
 }
 JS, 'after');
 
-    // Médias → Ajouter (plupload de handlers.js, initialisé au chargement).
+    // Médias → Ajouter (plupload de handlers.js). uploadSuccess() est appelée par
+    // son nom à chaque fichier envoyé : on la complète.
     if ($hook === 'media-new.php') {
-        wp_add_inline_script('plupload-handlers', mojoGuardConfirmJs() . <<<JS
+        wp_add_inline_script('plupload-handlers', mojoGuardJs() . <<<JS
 jQuery(window).on('load', function () {
-    if (!window.uploader || !uploader.bind) return;
-    uploader.bind('FilesAdded', function (up, files) {
-        files.slice().forEach(function (file) {
-            if (!mojoGuardConfirm(file.name, file.type, file.size)) {
-                up.removeFile(file);
-                files.splice(files.indexOf(file), 1);
-            }
-        });
-    }, null, 100);
+    if (window.uploader && uploader.bind) {
+        uploader.bind('FilesAdded', function (up, files) {
+            files.slice().forEach(function (file) {
+                if (!mojoGuardConfirm(file.name, file.type, file.size)) {
+                    up.removeFile(file);
+                    files.splice(files.indexOf(file), 1);
+                }
+            });
+        }, null, 100);
+    }
+    if (typeof window.uploadSuccess === 'function') {
+        var mojoUploadSuccess = window.uploadSuccess;
+        window.uploadSuccess = function (fileObj, serverData) {
+            mojoUploadSuccess.apply(this, arguments);
+            var id = parseInt(serverData, 10);
+            mojoGuardFetch(id, function (message) {
+                jQuery('<div class="notice inline notice-warning" style="margin:0 0 8px"><p></p></div>')
+                    .find('p').text(message).end().insertAfter('#media-item-' + fileObj.id);
+                window.alert(message);
+            });
+        };
+    }
 });
 JS, 'after');
     }
 });
 
 add_action('enqueue_block_editor_assets', function () {
-    wp_add_inline_script('wp-api-fetch', mojoGuardConfirmJs() . <<<JS
+    wp_add_inline_script('wp-api-fetch', mojoGuardJs() . <<<JS
 wp.apiFetch.use(function (options, next) {
     var file = options.body instanceof FormData && options.body.get('file');
     if (file && file.name && !mojoGuardConfirm(file.name, file.type, file.size)) {
@@ -242,8 +245,7 @@ wp.apiFetch.use(function (options, next) {
         result.then(function (media) {
             var message = media && media.mojo_upload_guard;
             if (!message || !wp.data) return;
-            var notices = wp.data.dispatch('core/notices');
-            (message.indexOf('✅') === 0 ? notices.createSuccessNotice : notices.createWarningNotice)(message, { id: 'mojo-upload-guard-' + media.id });
+            wp.data.dispatch('core/notices').createWarningNotice(message, { id: 'mojo-upload-guard-' + media.id });
         }).catch(function () {});
     }
     return result;
