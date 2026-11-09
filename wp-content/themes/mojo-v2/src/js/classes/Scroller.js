@@ -14,26 +14,13 @@ export default class Scroller {
         window.lenis = new Lenis({
             duration: 1,
             easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
-            direction: "vertical",
-            gestureDirection: "vertical",
-            smooth: true,
-            smoothTouch: false,
             touchMultiplier: 2.2
         });
-        
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        
-        requestAnimationFrame(raf);
-        
-        function raf(time) {
-            window.lenis.raf(time)
-            requestAnimationFrame(raf)
-        }
-        
-        requestAnimationFrame(raf);
+
+        // Une seule boucle : le ticker de GSAP (méthode recommandée par Lenis).
+        // Il y en avait trois (deux requestAnimationFrame en plus) avec deux
+        // horloges différentes : Lenis recevait à chaque frame des écarts de
+        // temps qui changeaient de signe, d'où un défilement irrégulier.
         gsap.registerPlugin(ScrollTrigger);
         window.lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time)=>{

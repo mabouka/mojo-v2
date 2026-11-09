@@ -29,6 +29,7 @@ export default class featuredCases {
 
     destroy() {
         if (this.preloadObserver) this.preloadObserver.disconnect();
+        this.videos.forEach(({ video }) => { if (video) video.pause(); });
     }
 
     getVideos() {
@@ -36,9 +37,11 @@ export default class featuredCases {
         let links = this.el.querySelectorAll('.featuredCases__caseLink, .featuredCases__galleryItem');
         Array.from(links).forEach(link => {
             let el = {};
-                el.link = link;             
+                el.link = link;
                 el.target = link.dataset.hoverTarget;
-                el.videoContainer = this.el.querySelector(el.target);
+                el.videoContainer = el.target ? this.el.querySelector(el.target) : null;
+            // Lien sans visuel associé : ignoré (sinon erreur dans le constructeur).
+            if (!el.videoContainer) return;
                 el.video = el.videoContainer.querySelector("video");
             videos.push(el);
         });
@@ -46,9 +49,14 @@ export default class featuredCases {
         return videos;
     }
 
+    // Survol seulement avec une souris : sur écran tactile, un tapotement
+    // lançait une vidéo qui n'était pas préchargée.
+    // mouseenter et pas mouseover : mouseover se redéclenche en passant sur
+    // l'image ou le titre du lien, et la vidéo repartait de zéro.
     setEvents() {
+        if (!window.matchMedia('(hover: hover)').matches) return;
         this.videos.forEach((video) => {
-            video.link.addEventListener('mouseover', (e) => {
+            video.link.addEventListener('mouseenter', (e) => {
                 this.e_mouseEnter(e, video);
             });
 
@@ -67,7 +75,8 @@ export default class featuredCases {
         video.videoContainer.classList.add('featuredCases__video--active');
         video.link.classList.add('featuredCases__caseLink--active');
         this.gallery.classList.add('featuredCases__gallery--hovered');
-        if(video.video) video.video.play();
+        // Survol bref : la lecture est interrompue par pause(), ce n'est pas une erreur.
+        if(video.video) video.video.play().catch(() => {});
     }
 
     e_mouseLeave(e, video) {

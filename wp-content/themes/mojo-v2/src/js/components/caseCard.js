@@ -1,5 +1,4 @@
 import IsTopMedium from "../classes/IsTopMedium";
-import { isMobile } from "../utils/detect"
 export default class caseCard {
 
     static get selector() {
@@ -9,21 +8,27 @@ export default class caseCard {
     constructor(el) {
         this.el = el;
         this.isVideo = el.classList.contains('caseCard--video');
+        // Vidéo au survol avec une souris, au défilement sinon. Décidé par le
+        // pointeur et non par la largeur : sur iPad (plus de 600 px, tactile),
+        // seul le survol était branché et la vidéo ne jouait jamais.
+        this.hover = window.matchMedia('(hover: hover)').matches;
 
         if(this.isVideo) {
             this.link = this.el.querySelector('.caseCard__link');
             this.video = this.el.querySelector('.caseCard__video');
+            if (!this.video) this.isVideo = false;
         }
 
-        if(isMobile()) {
+        if(this.isVideo && !this.hover) {
             IsTopMedium.addElement(this.el);
         }
         this.setEvents();
     }
-    
+
     play() {
         this.video.currentTime = 0;
-        this.video.play();
+        // Interrompue par pause() (survol bref, défilement rapide) : pas une erreur.
+        this.video.play().catch(() => {});
     }
 
     pause() {
@@ -37,10 +42,10 @@ export default class caseCard {
 
     setEvents() {
         if(this.isVideo) {
-            if(isMobile()) {
+            if(!this.hover) {
                 this.el.addEventListener('inTopMedium', this.e_inTop.bind(this));
                 this.el.addEventListener('outTopMedium', this.e_outTop.bind(this));
-            } else{
+            } else if (this.link) {
                 this.link.addEventListener('mouseenter', this.e_enter.bind(this));
                 this.link.addEventListener('mouseleave', this.e_leave.bind(this));
             }

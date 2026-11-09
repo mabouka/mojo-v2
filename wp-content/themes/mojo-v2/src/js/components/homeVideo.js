@@ -9,6 +9,8 @@ export default class HomeVideo {
     constructor(el) {
         this.el = el;
         this.video = el.querySelector('.homeVideo__video');
+        this.e_inview = this.e_inview.bind(this);
+        this.e_playing = this.e_playing.bind(this);
 
         this.setEvents();
         this.setSource();
@@ -42,16 +44,17 @@ export default class HomeVideo {
     destroy() {
         this.removeEvents();
         if (this._onError) this.video.removeEventListener('error', this._onError);
+        this.video.pause();
     }
 
     setEvents() {
-        this.el.addEventListener('inView', this.e_inview.bind(this))
-        this.video.addEventListener('playing', this.e_playing.bind(this))
+        this.el.addEventListener('inView', this.e_inview)
+        this.video.addEventListener('playing', this.e_playing)
     }
 
     removeEvents() {
-        this.el.removeEventListener('inView', this.e_inview.bind(this))
-        this.video.removeEventListener('playing', this.e_playing.bind(this))
+        this.el.removeEventListener('inView', this.e_inview)
+        this.video.removeEventListener('playing', this.e_playing)
     }
 
 

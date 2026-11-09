@@ -102,7 +102,6 @@ export default class HomeService {
         this.main = gsap.timeline({
             scrollTrigger: {
                 trigger: this.triggerStart,
-                type: "pointer,touch",
                 start: 'top',
                 end: () => `+=${getScrollDistance()}`,
                 scrub: true,
@@ -136,7 +135,7 @@ export default class HomeService {
                 event.preventDefault();
             });
 
-            Observer.create({
+            this.observer = Observer.create({
                 axis: 'x',
                 lockAxis: true,
                 target: this.el,
@@ -150,11 +149,19 @@ export default class HomeService {
                 onDrag: (self) => {
                     gsap.to(this.main.scrollTrigger, {
                         duration: 0.4,
+                        overwrite: true,
                         ease: "power1.out",
                         scroll: self.startScroll + (self.startX - self.x) * 2
                     })
                 }
             });
         }
+    }
+
+    // Ni l'Observer ni Swiper ne sont nettoyés par le ScrollTrigger.killAll()
+    // du Router : à détruire en quittant la page.
+    destroy() {
+        if (this.observer) this.observer.kill();
+        if (this.slider) this.slider.destroy(true, true);
     }
 }

@@ -63,11 +63,16 @@ class PlutonClass {
         return this.ready;
     }
 
+    // Une erreur dans un composant ne doit pas empêcher les autres de se
+    // détruire (le hook leave de Barba s'arrêterait là, clear() jamais appelé).
     destroy() {
         for (const [key, value] of Object.entries(this.instances)) {
             value.forEach(component => {
-                if( typeof component.destroy === 'function'){
+                if (typeof component.destroy !== 'function') return;
+                try {
                     component.destroy();
+                } catch (error) {
+                    console.error(`Pluton : ${key}.destroy()`, error);
                 }
             });
         };
@@ -76,20 +81,19 @@ class PlutonClass {
     setupComponent(className, component, root) {
         [].forEach.call((root||document).querySelectorAll(this.selectors[className]), (el) => {
             if (!this.instances[className]) this.instances[className] = [];
-            this.instances[className].push(new component(el));
+            // Un constructeur qui plante ne bloque ni les éléments suivants ni
+            // les autres composants (ni le refresh de Lenis et ScrollTrigger).
+            try {
+                this.instances[className].push(new component(el));
+            } catch (error) {
+                console.error(`Pluton : ${className}`, error);
+            }
             // Composant prêt (états initiaux posés) : le CSS peut afficher ce
             // qu'il masquait en attendant, ex. `.js .homeIntro:not([data-mounted])`.
             // Les chunks arrivent après la première peinture : sans ça, un
             // élément s'affiche dans son état final puis saute à son état de départ.
             el.setAttribute('data-mounted', '');
         });
-    }
-
-    call(className, fn, parameters) {
-        if (!this.instances[className]) return;
-        for (var i = this.instances[className].length - 1; i >= 0; i--) {
-            this.instances[className][i][fn](parameters);
-        }
     }
 }
 

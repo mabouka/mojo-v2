@@ -8,13 +8,15 @@ export default class ImagesSlider {
 
     constructor(el) {
         this.el         = el;
-        this.wrapper    = el.querySelector('.imagesslider__wrapper');
-        this.items      = el.querySelectorAll('.imagesslider__item');
-        this.initialize();    
+        this.initialize();
     }
 
+    // Le .swiper de ce bloc seulement : avec le sélecteur seul, Swiper prenait
+    // tous les sliders de la page (et renvoyait un tableau dès qu'il y en a deux).
     initialize() {
-        this.swiper = new Swiper('.swiper', {
+        const container = this.el.querySelector('.swiper');
+        if (!container) return;
+        this.swiper = new Swiper(container, {
             direction: 'horizontal',
             loop: true,
             autoHeight: true,

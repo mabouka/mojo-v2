@@ -63,7 +63,10 @@ export default class casesGrid {
                 link.slug = el.dataset.slug;
                 link.filter = filter;
 
+                // Filtre déjà actif à l'ouverture : l'état suit la classe, sinon
+                // un second clic rechargeait le filtre au lieu de le retirer.
                 if(link.slug === filter.select.value){
+                    link.isActive = true;
                     link.el.classList.add('casesGrid__dropDownLink--active');
                 }
 
@@ -72,10 +75,16 @@ export default class casesGrid {
         return links;
     }
 
-    getFormUrl() {
-        let params = new URLSearchParams(new FormData(this.form)).toString()
+    // Filtres vides retirés de l'adresse : `?cat-sector=` faisait croire au PHP
+    // qu'un filtre était actif (« All » n'était plus mis en avant).
+    getFormUrl() {
+        let params = new URLSearchParams();
+        new FormData(this.form).forEach((value, key) => {
+            if (value !== '') params.append(key, value);
+        });
         let actionUrl = this.form.getAttribute('action');
-        return actionUrl + '?' + params;
+        let query = params.toString();
+        return query ? actionUrl + '?' + query : actionUrl;
     }
 
     refreshPage() {

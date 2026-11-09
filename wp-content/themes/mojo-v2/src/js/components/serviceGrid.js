@@ -76,4 +76,9 @@ export default class ServiceGrid {
     e_inview() {
         this.el.classList.add('serviceGrid--inview');
     }
+
+    // Swiper garde ses écouteurs resize sur window : à détruire en quittant la page.
+    destroy() {
+        if (this.slider) this.slider.destroy(true, true);
+    }
  }

@@ -75,7 +75,7 @@ export default class HomeIntro {
     }
 
     doAnimation() {
-        const main = gsap.timeline({})
+        const main = this.animation = gsap.timeline({})
 
         main.to(this.moon, { 
             autoAlpha: 1,
@@ -142,6 +142,15 @@ export default class HomeIntro {
  
     setEvents() {
         this.el.addEventListener('inView', this.e_inview.bind(this))
+    }
+
+    // Page quittée pendant l'intro (~2,3 s) : sans ça, son onComplete relançait
+    // Lenis en pleine transition et créait un ScrollTrigger sur l'ancienne page.
+    // Lenis est relancé par le Router à l'arrivée sur la page suivante.
+    destroy() {
+        if (this.animation) this.animation.kill();
+        if (this.main) this.main.kill();
+        this.body.classList.remove('loading');
     }
 
     /**

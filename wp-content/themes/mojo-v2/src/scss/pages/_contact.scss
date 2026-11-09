@@ -87,6 +87,15 @@
         text-align: center;
         overflow: hidden;
 
+        // Échec de l'envoi (reCAPTCHA bloqué, réseau) : voir ContactForm.js.
+        .contact__error{
+            margin-top: s(20);
+            padding: s(15) s(20);
+            border: 1px dashed color(yellow);
+            border-radius: s(20);
+            color: color(yellow);
+        }
+
         .wpcf7 {
             form.sent{
                 position: relative;

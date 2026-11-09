@@ -1,3 +1,4 @@
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default class CommitmentsFaq {
 
@@ -7,9 +8,10 @@ export default class CommitmentsFaq {
 
     constructor(el) {
         this.el = el;
+        this.e_resized = this.e_resized.bind(this);
         this.items = this.getItems();
         this.setEvents();
-        this.active(this.items[0]);
+        if (this.items[0]) this.active(this.items[0]);
     }
 
     getItems() {
@@ -57,9 +59,21 @@ export default class CommitmentsFaq {
         });
     }
 
+    // Clic sur le titre seulement : écouté sur tout l'item (réponse comprise),
+    // un lien dans une réponse ouverte ne marchait pas et sélectionner du texte
+    // refermait la question.
     setEvents() {
         this.items.forEach((item, index) =>{
-            item.el.addEventListener('click', (e) => { this.e_click(e, item, index)});
+            (item.title || item.el).addEventListener('click', (e) => { this.e_click(e, item, index)});
+            // La page change de hauteur : les ScrollTrigger plus bas (équipe de
+            // la page Lead…) doivent recalculer leurs positions.
+            if (item.wrapper) item.wrapper.addEventListener('transitionend', this.e_resized);
+        });
+    }
+
+    destroy() {
+        this.items.forEach(item => {
+            if (item.wrapper) item.wrapper.removeEventListener('transitionend', this.e_resized);
         });
     }
 
@@ -70,5 +84,11 @@ export default class CommitmentsFaq {
     e_click(e, item, index) {
         e.preventDefault();
         this.toggle(item);
+    }
+
+    e_resized(e) {
+        if (e.propertyName !== 'max-height') return;
+        window.lenis.resize();
+        ScrollTrigger.refresh();
     }
 }

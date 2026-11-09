@@ -20,6 +20,14 @@ export default class commitmentsIntro {
 
     }
 
+    // Page quittée pendant l'intro (~1,7 s) : sans ça, son onComplete créait
+    // les ScrollTrigger sur l'ancienne page, après le nettoyage du Router.
+    destroy() {
+        if (this.intro) this.intro.kill();
+        if (this.scroll) this.scroll.kill();
+        this.mm.revert();
+    }
+
     prepare() {
         gsap.set(this.path, {
             y: '60%',

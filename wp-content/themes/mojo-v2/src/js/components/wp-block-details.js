@@ -1,5 +1,10 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import wait      from "../utils/wait";
+
+// Bloc « Détails » de Gutenberg : à l'ouverture ou à la fermeture, la page
+// change de hauteur, Lenis et ScrollTrigger doivent recalculer.
+// Événement natif toggle, plutôt qu'un MutationObserver sur tous les
+// attributs : celui-ci se déclenchait aussi au montage (data-mounted posé par
+// Pluton) et faisait un refresh complet par bloc au chargement.
 export default class wpBlockDetails {
 
     static get selector() {
@@ -8,17 +13,21 @@ export default class wpBlockDetails {
 
     constructor(el) {
         this.el = el;
-        var observer = new MutationObserver(function(mutations) {
-                            mutations.forEach(function(mutation) {
-                                if (mutation.type === "attributes") {
-                                    console.log("attributes changed");
-                                    window.lenis.resize();
-                                    ScrollTrigger.refresh();
-                                }
-                            });
-                        });
-        observer.observe(this.el, {attributes: true});
+        this.e_toggle = this.e_toggle.bind(this);
+        this.el.addEventListener('toggle', this.e_toggle);
+    }
 
+    destroy() {
+        this.el.removeEventListener('toggle', this.e_toggle);
+        cancelAnimationFrame(this.frame);
+    }
+
+    e_toggle() {
+        cancelAnimationFrame(this.frame);
+        this.frame = requestAnimationFrame(() => {
+            window.lenis.resize();
+            ScrollTrigger.refresh();
+        });
     }
 
 }

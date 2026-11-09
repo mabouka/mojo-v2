@@ -3,13 +3,18 @@ import gsap from "gsap";
 // reCAPTCHA (~1 Mo, ~1,5 s de calcul sur mobile) n'est chargé qu'au premier
 // contact avec le formulaire (focus, clic), ou à l'envoi au plus tard : avant,
 // les vues Barba contact / singlelead l'ajoutaient à l'ouverture de la page.
+// Chargé directement chez Google avec la clé de Contact Form 7 (window.recaptchaKey,
+// footer.php) : recaptcha.php codait sa propre clé en dur, et une clé différente
+// de celle de CF7 bloquait l'envoi. recaptcha.php reste le repli sans clé.
 let recaptchaLoading = null;
 function loadRecaptcha() {
     if (window.grecaptcha && window.grecaptcha.execute) return Promise.resolve();
     if (!recaptchaLoading) {
         recaptchaLoading = new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            script.src = window.location.origin + '/recaptcha.php';
+            script.src = window.recaptchaKey
+                ? 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(window.recaptchaKey)
+                : window.location.origin + '/recaptcha.php';
             script.async = true;
             script.onload = resolve;
             script.onerror = () => { recaptchaLoading = null; reject(); };
@@ -39,14 +44,8 @@ export default class Contactform {
         this.fileInput = this.el.querySelector('.field--file input');
 
         this.form   = this.el.querySelector(".wpcf7-form");
-        /*
-        if(this.form && this.isLead){
-            let url = this.form.action;
-                url = url.includes("#") ? url.substring(0, url.indexOf("#")) : url;
-                url += "#contactForm";
-            this.form.action = url
-        }
-        */
+        // Bloc sans formulaire (shortcode CF7 absent ou en erreur) : rien à faire.
+        if (!this.form) return;
 
         if(this.form && this.isLead && this.form.classList.contains('sent')) {
 
@@ -58,10 +57,13 @@ export default class Contactform {
 
         this.form.removeAttribute("novalidate");
 
-        const filesEl = document.createElement("div");
-        filesEl.classList.add('files');
+        // Liste des fichiers joints (formulaire sans champ fichier : rien).
         let container = this.el.querySelector('.field--file .field__label');
-        container.appendChild(filesEl);
+        if (container) {
+            const filesEl = document.createElement("div");
+            filesEl.classList.add('files');
+            container.appendChild(filesEl);
+        }
 
 
         this.fields.forEach(field => {
@@ -72,23 +74,25 @@ export default class Contactform {
             radio.setAttribute("required","required");
         });
         
-        this.main = gsap.timeline({
-            scrollTrigger: {
-                trigger: this.el,
-                start: "top top",
-                end: "bottom",
-                scrub: true,
-
-            }
-        })
-        .to(this.svg, 
-            {
-                y: () => 700,
-                ease: 'none',
-                duration:2
-            },
-            0
-        )
+        // Illustration en parallaxe (absente du formulaire de la page Lead).
+        if (this.svg) {
+            this.main = gsap.timeline({
+                scrollTrigger: {
+                    trigger: this.el,
+                    start: "top top",
+                    end: "bottom",
+                    scrub: true,
+                }
+            })
+            .to(this.svg,
+                {
+                    y: () => 700,
+                    ease: 'none',
+                    duration:2
+                },
+                0
+            )
+        }
 
         this.setEvents();
     }
@@ -132,15 +136,13 @@ export default class Contactform {
     }
 
     setEvents() {
-        this._boundSendForm = this.e_sendForm.bind(this);
         this._boundSubmit   = this.e_submit.bind(this);
         this._boundFileChange = this.e_fileChange.bind(this);
-
-        window.removeEventListener('sendForm', this._boundSendForm);
-        window.addEventListener('sendForm', this._boundSendForm);
+        this._boundPageShow = this.e_pageShow.bind(this);
 
         this.form.addEventListener('submit', this._boundSubmit);
-        this.fileInput.addEventListener('change', this._boundFileChange);
+        if (this.fileInput) this.fileInput.addEventListener('change', this._boundFileChange);
+        window.addEventListener('pageshow', this._boundPageShow);
 
         this._boundWarm = () => { loadRecaptcha().catch(() => {}); };
         this.form.addEventListener('focusin', this._boundWarm, { once: true });
@@ -148,11 +150,35 @@ export default class Contactform {
     }
 
     destroy() {
-        window.removeEventListener('sendForm', this._boundSendForm);
+        if (!this.form) return;
         this.form.removeEventListener('submit', this._boundSubmit);
-        this.fileInput.removeEventListener('change', this._boundFileChange);
+        if (this.fileInput) this.fileInput.removeEventListener('change', this._boundFileChange);
         this.form.removeEventListener('focusin', this._boundWarm);
         this.form.removeEventListener('pointerdown', this._boundWarm);
+        window.removeEventListener('pageshow', this._boundPageShow);
+    }
+
+    // Retour arrière après un envoi : la page restaurée par le navigateur gardait
+    // le bouton désactivé.
+    e_pageShow(e) {
+        if (!e.persisted) return;
+        this._submitting = false;
+        const submit = this.form.querySelector('[type="submit"]');
+        if (submit) submit.disabled = false;
+        this.showError('');
+    }
+
+    // Message d'échec annoncé aux lecteurs d'écran, sous le bouton d'envoi.
+    showError(message) {
+        if (!this.errorEl) {
+            if (!message) return;
+            this.errorEl = document.createElement('p');
+            this.errorEl.className = 'contact__error';
+            this.errorEl.setAttribute('role', 'alert');
+            this.form.appendChild(this.errorEl);
+        }
+        this.errorEl.textContent = message;
+        this.errorEl.hidden = !message;
     }
 
     e_removeFile(e, index) {
@@ -165,17 +191,6 @@ export default class Contactform {
         this.showFiles(files);
     }
 
-    e_sendForm(e) {
-        if (this._submitting) return;
-        if (e.detail.token) {
-            let token = e.detail.token;
-            Array.from(this.captchaFields).forEach(field => {
-                field.setAttribute("value", token);
-            });
-            this.form.submit();
-        }
-    }
-
     e_submit(e) {
         e.preventDefault();
         if (this._submitting) return;
@@ -184,18 +199,30 @@ export default class Contactform {
         const submit = this.form.querySelector('[type="submit"]');
         if (submit) submit.disabled = true;
 
+        this.showError('');
+        // Échec (reCAPTCHA bloqué, réseau, clé refusée) : le bouton revient et
+        // un message l'explique, au lieu d'un clic qui « ne fait rien ».
         const fail = () => {
             this._submitting = false;
             if (submit) submit.disabled = false;
+            this.showError(document.documentElement.lang.startsWith('fr')
+                ? "Le message n'a pas pu être envoyé. Vérifiez votre connexion, puis réessayez."
+                : 'Your message could not be sent. Please check your connection and try again.');
         };
 
         loadRecaptcha().then(() => grecaptcha.ready(() => {
-            grecaptcha.execute(window.recaptchaKey, {action: 'submit'}).then((token) => {
-                Array.from(this.captchaFields).forEach(field => {
-                    field.setAttribute("value", token);
-                });
-                this.form.submit();
-            }).catch(fail);
+            // execute() lève une erreur synchrone si la clé est refusée : sans
+            // ce try, le bouton restait désactivé pour de bon.
+            try {
+                grecaptcha.execute(window.recaptchaKey, {action: 'submit'}).then((token) => {
+                    Array.from(this.captchaFields).forEach(field => {
+                        field.setAttribute("value", token);
+                    });
+                    this.form.submit();
+                }).catch(fail);
+            } catch (error) {
+                fail();
+            }
         })).catch(fail);
     }
 }

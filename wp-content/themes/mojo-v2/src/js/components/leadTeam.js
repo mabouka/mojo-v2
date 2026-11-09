@@ -11,8 +11,11 @@ export default class LeadTeam {
         this.initialize();    
     }
 
+    // Le .swiper de ce bloc seulement (voir imagesslider.js).
     initialize() {
-        this.swiper = new Swiper('.swiper', {
+        const container = this.el.querySelector('.swiper');
+        if (!container) return;
+        this.swiper = new Swiper(container, {
             direction: 'horizontal',
             autoHeight: true,
             slidesPerView: 'auto',

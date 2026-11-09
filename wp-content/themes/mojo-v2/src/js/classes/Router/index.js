@@ -18,15 +18,7 @@ import decodeCloudflareEmails from '../../utils/cloudflareEmails';
 
 // transitions
 import curtainTransition    from './transitions/curtain';
-import curtainFade          from './transitions/curtainFade';
 import fadeTransition       from './transitions/fade';
-
-// views
-import contact              from './views/contact';
-import singlelead           from  './views/singlelead';
-//import singlecase           from './views/singlecase';
-//import singleservicechild   from './views/singleservicechild';
-//import pageTemplate         from './views/pageTemplate';
 
 
 export default class Router {
@@ -42,16 +34,8 @@ export default class Router {
                 timeout: 5000, // default is 2000ms
                 logLevel: 'error',
                 transitions: [
-                    //curtainFade,
                     curtainTransition,
                     fadeTransition
-                ],
-                views: [
-                    contact,
-                    singlelead
-                    //singlecase,
-                    //singleservicechild,
-                    //pageTemplate
                 ],
                 //cacheIgnore: ['/contact/']
         });
@@ -96,8 +80,9 @@ export default class Router {
             //this.updateHeader(data);
             this.updatePage(nextDoc);
             Menu.update(data);
+            // Le refresh est fait une fois les composants de la page instanciés
+            // (afterEnter) : ici, juste après killAll, il ne recalculait rien.
             ScrollTrigger.killAll();
-            ScrollTrigger.refresh();
         });
 
         barba.hooks.enter((data) => {
@@ -226,7 +211,8 @@ export default class Router {
             'header--light',
             'header--withoutLogo'
         ];
-        classes.forEach( (className) => {
+        // Page suivante sans .header : on garde les classes actuelles.
+        if (newHeader && this.header) classes.forEach( (className) => {
             if(newHeader.classList.contains(className)) this.header.classList.add(className);
             else this.header.classList.remove(className);
         });

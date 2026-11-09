@@ -1,4 +1,4 @@
-export default class LeadDescription {
+export default class Cta {
 
     static get selector() {
         return '.homeService--lead';
@@ -17,10 +17,12 @@ export default class LeadDescription {
         }
     }
 
+    // Lien bloqué seulement si le formulaire est dans la page : sinon (lien vers
+    // une autre page saisi dans l'ACF), le bouton ne faisait plus rien.
     e_click(e) {
-        e.preventDefault();
         const contactForm = document.getElementById('contactForm');
         if(contactForm) {
+            e.preventDefault();
             window.lenis.scrollTo(contactForm, { duration: 1.5 }  );
         }
     }
