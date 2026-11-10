@@ -241,12 +241,18 @@
             }
         }
 
+        // Sous les menus flottants (clear) : en inline-block, sur un téléphone de
+        // plus de 400 px le badge trouvait la place à leur droite et remontait en
+        // haut ; le pied de page ne prenait plus la hauteur des menus et le
+        // copyright (en bas, absolu) tombait au milieu de la liste.
         &__carbon{
             position: static;
             right: 0;
             bottom: 0;
             margin-top: s(39);
-            display: inline-block;
+            display: block;
+            clear: both;
+            width: max-content;
         }
 
         &__copyright{
