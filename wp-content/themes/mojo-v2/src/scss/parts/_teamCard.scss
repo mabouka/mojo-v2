@@ -1,6 +1,7 @@
 .teamCard{
     position: relative;
     width: s(405);
+    max-width: 100%; // écran plus étroit que la carte (390 px) : elle se réduit
 
 
 

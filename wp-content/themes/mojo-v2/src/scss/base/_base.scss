@@ -10,6 +10,10 @@ html {
 body{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    // Un mot plus long que la ligne (#UnequalNoMore:, adresse web brute dans les
+    // sources d'un article) passe à la ligne au lieu d'élargir la page. Sans
+    // effet sur les mots qui tiennent.
+    overflow-wrap: break-word;
 
     &.loading{
         cursor: wait;
