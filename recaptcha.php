@@ -1,4 +1,6 @@
 <?php 
+// Servi comme script : avec l'en-tête nosniff (Cloudflare), un Content-Type text/html est refusé par le navigateur.
+header('Content-Type: application/javascript; charset=utf-8');
 // create a new cURL resource
 $ch = curl_init();
 
