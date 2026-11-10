@@ -570,6 +570,13 @@ add_action('wpcf7_enqueue_scripts', function () {
 add_filter('wpcf7_load_js', '__return_false');
 add_filter('wpcf7_load_css', '__return_false');
 
+// Plugin « Multiline files » : il ajoute avant le champ fichier une copie cachée
+// (même id « your-file ») pour son bouton « ajouter un fichier », dont le script
+// est retiré ci-dessus. Cette copie donnait un id en double (HTML invalide) et
+// c'est elle que visaient le libellé et ContactForm.js. Sans elle, tout vise le
+// vrai champ, qui porte le même nom à l'envoi (your-file[]).
+add_filter('cf7_multilinefile_input', '__return_empty_string');
+
 function deregister_polyfill()
 {
 
