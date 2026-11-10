@@ -45,8 +45,11 @@ export default class Router {
         });
 
 
+        // Les composants de la page quittée sont détruits une fois l'ancien
+        // conteneur retiré (enter) : détruits ici, pendant le rideau ou le
+        // fondu, leurs carrousels et animations se remettaient à zéro à l'écran.
         barba.hooks.leave(() => {
-            window.MJ.parts.destroy();
+            this.leavingParts = window.MJ.parts.instances;
             window.MJ.parts.clear();
         });
 
@@ -90,6 +93,10 @@ export default class Router {
             // Au premier chargement, le script de Cloudflare s'en charge.
             decodeCloudflareEmails(data.next.container);
             data.current.container.remove();
+            if (this.leavingParts) {
+                window.MJ.parts.destroy(this.leavingParts);
+                this.leavingParts = null;
+            }
             window.lenis.start();
             window.MJ.cursor.reset();
 

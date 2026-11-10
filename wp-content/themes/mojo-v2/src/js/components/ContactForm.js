@@ -99,6 +99,7 @@ export default class Contactform {
 
     showFiles(files) {
         let el = this.el.querySelector('.files');
+        if (!el) return;
             el.innerHTML = '';
 
         Array.from(files).forEach((file, index) => {

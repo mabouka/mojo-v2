@@ -1,4 +1,5 @@
 import IsTopMedium from "../classes/IsTopMedium";
+import { canHover } from "../utils/detect";
 export default class caseCard {
 
     static get selector() {
@@ -11,7 +12,7 @@ export default class caseCard {
         // Vidéo au survol avec une souris, au défilement sinon. Décidé par le
         // pointeur et non par la largeur : sur iPad (plus de 600 px, tactile),
         // seul le survol était branché et la vidéo ne jouait jamais.
-        this.hover = window.matchMedia('(hover: hover)').matches;
+        this.hover = canHover();
 
         if(this.isVideo) {
             this.link = this.el.querySelector('.caseCard__link');

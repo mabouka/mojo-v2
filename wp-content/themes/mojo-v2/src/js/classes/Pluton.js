@@ -64,9 +64,10 @@ class PlutonClass {
     }
 
     // Une erreur dans un composant ne doit pas empêcher les autres de se
-    // détruire (le hook leave de Barba s'arrêterait là, clear() jamais appelé).
-    destroy() {
-        for (const [key, value] of Object.entries(this.instances)) {
+    // détruire. instances : celles d'une page déjà quittée (voir le Router),
+    // par défaut celles en cours.
+    destroy(instances = this.instances) {
+        for (const [key, value] of Object.entries(instances)) {
             value.forEach(component => {
                 if (typeof component.destroy !== 'function') return;
                 try {

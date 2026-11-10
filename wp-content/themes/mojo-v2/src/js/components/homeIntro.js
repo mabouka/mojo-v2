@@ -141,16 +141,22 @@ export default class HomeIntro {
     }
  
     setEvents() {
-        this.el.addEventListener('inView', this.e_inview.bind(this))
+        this.e_inview = this.e_inview.bind(this);
+        this.el.addEventListener('inView', this.e_inview)
     }
 
     // Page quittée pendant l'intro (~2,3 s) : sans ça, son onComplete relançait
     // Lenis en pleine transition et créait un ScrollTrigger sur l'ancienne page.
     // Lenis est relancé par le Router à l'arrivée sur la page suivante.
     destroy() {
+        this.destroyed = true;
+        this.el.removeEventListener('inView', this.e_inview);
         if (this.animation) this.animation.kill();
         if (this.main) this.main.kill();
         this.body.classList.remove('loading');
+        // Le header (hors de la page, il reste) n'apparaît qu'à la fin de
+        // l'intro : intro coupée, on l'affiche quand même.
+        if (this.header) inview.addElement(this.header);
     }
 
     /**
@@ -158,6 +164,7 @@ export default class HomeIntro {
      */
 
     e_inview(e) {
+        if (this.destroyed) return;
         this.doAnimation();
     }
 

@@ -37,16 +37,6 @@
         document.documentElement.classList.add('js-active');
         if ('IntersectionObserver' in window) document.documentElement.classList.add('inview');
         else document.documentElement.classList.add('no-inview');
-
-        function onSend(token) {
-            var sendForm = new CustomEvent("sendForm", {
-                detail: {
-                    token: token,
-                },
-            });
-
-            window.dispatchEvent(sendForm);
-        }
     </script>
 
     <!-- Consentement : Google Consent Mode v2 « avancé ». Tout est refusé par

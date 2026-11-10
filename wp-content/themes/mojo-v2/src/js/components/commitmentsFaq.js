@@ -75,6 +75,7 @@ export default class CommitmentsFaq {
         this.items.forEach(item => {
             if (item.wrapper) item.wrapper.removeEventListener('transitionend', this.e_resized);
         });
+        cancelAnimationFrame(this.frame);
     }
 
     /**
@@ -86,9 +87,14 @@ export default class CommitmentsFaq {
         this.toggle(item);
     }
 
+    // Ouvrir une question en ferme une autre : deux transitions finissent
+    // ensemble, un seul recalcul.
     e_resized(e) {
-        if (e.propertyName !== 'max-height') return;
-        window.lenis.resize();
-        ScrollTrigger.refresh();
+        if (e.propertyName !== 'max-height' || e.target !== e.currentTarget) return;
+        cancelAnimationFrame(this.frame);
+        this.frame = requestAnimationFrame(() => {
+            window.lenis.resize();
+            ScrollTrigger.refresh();
+        });
     }
 }

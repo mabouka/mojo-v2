@@ -1,3 +1,4 @@
+import { canHover } from "../utils/detect";
 
 export default class featuredCases {
 
@@ -18,7 +19,7 @@ export default class featuredCases {
     // une souris, on lance le préchargement quand la section approche de l'écran
     // (elles étaient sinon toutes téléchargées dès l'ouverture de la page).
     preloadVideosNearby() {
-        if (!window.matchMedia('(hover: hover)').matches || !('IntersectionObserver' in window)) return;
+        if (!canHover() || !('IntersectionObserver' in window)) return;
         this.preloadObserver = new IntersectionObserver((entries) => {
             if (!entries.some((entry) => entry.isIntersecting)) return;
             this.videos.forEach(({ video }) => { if (video) video.preload = 'auto'; });
@@ -54,7 +55,7 @@ export default class featuredCases {
     // mouseenter et pas mouseover : mouseover se redéclenche en passant sur
     // l'image ou le titre du lien, et la vidéo repartait de zéro.
     setEvents() {
-        if (!window.matchMedia('(hover: hover)').matches) return;
+        if (!canHover()) return;
         this.videos.forEach((video) => {
             video.link.addEventListener('mouseenter', (e) => {
                 this.e_mouseEnter(e, video);

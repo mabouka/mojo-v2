@@ -26,4 +26,9 @@ function isMouse() {
     } 
     return isMouse;
 }
-export { isTouchDevice, isMobile, isFirefox, isMouse};
+// Survol possible (souris, trackpad) : décide des effets au survol plutôt que
+// la largeur d'écran (un iPad fait plus de 600 px mais n'a pas de survol).
+function canHover() {
+    return window.matchMedia('(hover: hover)').matches;
+}
+export { isTouchDevice, isMobile, isFirefox, isMouse, canHover};
