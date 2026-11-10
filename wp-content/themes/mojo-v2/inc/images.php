@@ -75,6 +75,9 @@ add_image_size('storyHero@2x', 1065 * 2, 553 * 2, true);
 // réservé puis un saut de mise en page au chargement. On lit les dimensions
 // réelles dans le fichier (width/height ou viewBox) et on les ajuste à la
 // taille demandée, comme WordPress le ferait pour une image bitmap.
+// Lues une fois, puis gardées dans les métadonnées du média (avec la date du
+// fichier : remplacé, il est relu), comme les dimensions des vidéos : sinon le
+// fichier était relu sur le disque à chaque page affichée sans cache.
 function mojoSvgIntrinsicSize($attachmentId)
 {
     static $cache = [];
@@ -84,8 +87,24 @@ function mojoSvgIntrinsicSize($attachmentId)
     $file = get_attached_file($attachmentId);
     if (!$file || !is_readable($file)) return null;
 
-    // La balise <svg> est au début du fichier : inutile de tout lire.
-    $head = file_get_contents($file, false, null, 0, 4096);
+    $mtime = (int) filemtime($file);
+    $meta  = wp_get_attachment_metadata($attachmentId);
+    $meta  = is_array($meta) ? $meta : [];
+    if (isset($meta['mojo_svg_size']) && ($meta['mojo_svg_size']['mtime'] ?? 0) === $mtime) {
+        return $cache[$attachmentId] = $meta['mojo_svg_size']['size'];
+    }
+
+    $size = mojoSvgReadSize($file);
+    $meta['mojo_svg_size'] = ['size' => $size, 'mtime' => $mtime];
+    wp_update_attachment_metadata($attachmentId, $meta);
+    return $cache[$attachmentId] = $size;
+}
+
+function mojoSvgReadSize($file)
+{
+    // La balise <svg> est au début du fichier : inutile de tout lire (16 Ko :
+    // les exports Illustrator la font précéder d'un DOCTYPE et d'entités).
+    $head = file_get_contents($file, false, null, 0, 16384);
     if (!preg_match('/<svg\b[^>]*>/is', $head, $tag)) return null;
 
     $attr = function ($name) use ($tag) {
@@ -103,7 +122,7 @@ function mojoSvgIntrinsicSize($attachmentId)
     }
     if ($width <= 0 || $height <= 0) return null;
 
-    return $cache[$attachmentId] = [$width, $height];
+    return [$width, $height];
 }
 
 function mojoSvgImageSrc($image, $attachmentId, $size)

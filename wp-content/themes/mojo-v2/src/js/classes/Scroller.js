@@ -8,9 +8,12 @@ export default class Scroller {
         if ('scrollRestoration' in window.history) {
             window.history.scrollRestoration = 'manual';
         }
-        window.scrollTo(0, 0);
+        // Le JS démarre après le premier affichage : remonter en haut annulait
+        // une ancre de l'adresse (#contactForm dans un e-mail). Ancre présente
+        // dans la page : on y va ; sinon, haut de page comme avant.
+        const hashTarget = this.hashTarget();
+        if (!hashTarget) window.scrollTo(0, 0);
 
-    
         window.lenis = new Lenis({
             duration: 1,
             easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
@@ -27,6 +30,17 @@ export default class Scroller {
             window.lenis.raf(time * 1000);
         })
         gsap.ticker.lagSmoothing(0);
+
+        if (hashTarget) window.lenis.scrollTo(hashTarget, { immediate: true, force: true });
+    }
+
+    hashTarget() {
+        if (!window.location.hash) return null;
+        try {
+            return document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        } catch (e) {
+            return null;
+        }
     }
 
     scrollTop() {

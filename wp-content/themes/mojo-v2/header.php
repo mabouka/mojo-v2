@@ -116,8 +116,10 @@
         // moteur, la langue et les services) : le bandeau, élément LCP des
         // pages courtes (stories, /lead/), n'attend plus deux connexions
         // externes. Ailleurs (local), les serveurs de tarteaucitron.
-        $tacHost = parse_url(home_url(), PHP_URL_HOST);
-        $tacProxy = (bool) preg_match('/(^|\.)mojo-agency\.org$/', $tacHost);
+        // Un seul test pour tarteaucitron (/tac/) et GTM (/6j56/), servis par
+        // les Snippets Cloudflare des mêmes domaines.
+        $behindCloudflare = (bool) preg_match('/(^|\.)mojo-agency\.org$/', parse_url(home_url(), PHP_URL_HOST));
+        $tacProxy = $behindCloudflare;
     ?>
     <?php if (!$tacProxy): ?>
     <?php // Sans crossorigin : un script classique n'utilise pas une connexion
@@ -140,8 +142,7 @@
          La barre finale compte : la règle du Snippet porte sur « /6j56/ ».
          Hors des domaines derrière Cloudflare (DDEV…), GTM vient de Google. -->
     <?php
-    $host = parse_url(home_url(), PHP_URL_HOST);
-    $gtmSrc = preg_match('/(^|\.)mojo-agency\.org$/', $host) ? '/6j56/' : 'https://www.googletagmanager.com/gtm.js?id=GTM-WBZ8MLM';
+    $gtmSrc = $behindCloudflare ? '/6j56/' : 'https://www.googletagmanager.com/gtm.js?id=GTM-WBZ8MLM';
     ?>
     <script>
         (function(w, d, s, l) {
