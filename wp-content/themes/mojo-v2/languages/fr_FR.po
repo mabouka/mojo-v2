@@ -20,7 +20,7 @@ msgstr "Oups. <br>mauvais tirage"
 
 #: 404.php:13 footer.php:47 functions.php:195
 msgid "Sitemap"
-msgstr "Sitemap"
+msgstr "Plan du site"
 
 #: 404.php:24 functions.php:193
 msgid "More"
@@ -32,7 +32,7 @@ msgstr "Erreur"
 
 #: footer.php:59 functions.php:194
 msgid "Social"
-msgstr "Social"
+msgstr "Réseaux sociaux"
 
 #: functions.php:192
 msgid "Main"
@@ -227,3 +227,23 @@ msgstr "Précédent"
 #: archive-stories.php
 msgid "Next"
 msgstr "Suivant"
+
+#: partials/servicePeople.php:16
+msgid "Back to expertise"
+msgstr "Retour aux expertises"
+
+#: partials/serviceCard.php:78
+msgid "Click to see more"
+msgstr "Cliquez pour en voir plus"
+
+#: footer.php:57
+msgid "Manage cookies"
+msgstr "Gérer mes cookies"
+
+#: partials/wedo.php:6 single-services.php:71
+msgid "We do"
+msgstr "Ce que nous faisons"
+
+#: archive-stories.php:34
+msgid "Stories"
+msgstr "Stories"
