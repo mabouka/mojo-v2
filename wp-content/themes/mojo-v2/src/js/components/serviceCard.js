@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { isMouse } from "../utils/detect";
+import Listeners from "../utils/listeners";
 
 // Carte de service : s'incline vers la souris pendant le survol.
 // Avant : chaque carte réécrivait son style à chaque frame, même au repos, et
@@ -13,28 +14,22 @@ export default class ServiceCard {
 
     constructor(el) {
         this.el = el;
-        this.listeners = [];
+        this.listeners = new Listeners();
         // Le test d'origine, matchMedia("any-pointer: coarse") sans parenthèses,
         // n'était jamais vrai : l'effet s'installait aussi sur les écrans tactiles.
         if (!isMouse()) return;
 
         this.pos = { x: 0, y: 0 };
         this.tick = this.tick.bind(this);
-        this.on(this.el, 'mouseenter', this.e_mouseenter.bind(this));
-        this.on(this.el, 'mousemove', this.e_mousemove.bind(this));
-        this.on(this.el, 'mouseleave', this.e_mouseleave.bind(this));
+        this.listeners.on(this.el, 'mouseenter', this.e_mouseenter.bind(this));
+        this.listeners.on(this.el, 'mousemove', this.e_mousemove.bind(this));
+        this.listeners.on(this.el, 'mouseleave', this.e_mouseleave.bind(this));
     }
 
     // Appelé par Pluton en quittant la page (Barba).
     destroy() {
-        this.listeners.forEach(([target, type, fn]) => target.removeEventListener(type, fn));
-        this.listeners = [];
+        this.listeners.removeAll();
         gsap.ticker.remove(this.tick);
-    }
-
-    on(target, type, fn) {
-        target.addEventListener(type, fn);
-        this.listeners.push([target, type, fn]);
     }
 
     tick() {

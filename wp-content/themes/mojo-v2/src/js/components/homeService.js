@@ -1,8 +1,9 @@
 
 import gsap from "gsap";
 import Observer from "gsap/Observer";
-import { isTouchDevice, isMobile } from "../utils/detect";
+import { isTouchDevice } from "../utils/detect";
 import Swiper from "swiper";
+import Listeners from "../utils/listeners";
 
 export default class HomeService {
     
@@ -24,13 +25,38 @@ export default class HomeService {
             return;
         }
 
-        if(!isMobile()){
+        this.listeners = new Listeners();
+        if (!isTouchDevice()) {
+            this.listeners.on(this.el, 'dragstart', (e) => e.preventDefault());
+            this.listeners.on(this.el, 'drop', (e) => e.preventDefault());
+        }
+
+        // Défilement horizontal au-dessus de 600 px, carrousel en dessous. Avec
+        // matchMedia, le bon mode s'installe aussi après une rotation ou un
+        // redimensionnement (avant, il était choisi une fois au chargement), et
+        // tout ce qui a été créé dans un mode est défait en le quittant.
+        this.mm = gsap.matchMedia();
+        this.mm.add('(min-width: 601px)', () => {
             this.initIntro();
             this.initScroller();
-        }
-        else{
+            return () => {
+                if (this.observer) this.observer.kill();
+                this.observer = null;
+            };
+        });
+        this.mm.add('(max-width: 600px)', () => {
             this.initSwiper();
-        }
+            return () => this.destroySwiper();
+        });
+    }
+
+    destroySwiper() {
+        if (!this.slider) return;
+        this.slider.destroy(true, true);
+        this.slider = null;
+        this.groupSlide.classList.remove('swiper');
+        this.realSection.classList.remove('swiper-wrapper');
+        this.allCard.forEach(card => card.classList.remove('swiper-slide'));
     }
 
     initSwiper() {
@@ -127,14 +153,6 @@ export default class HomeService {
 
     addSwipeMovement() {
         if(!isTouchDevice()){
-            this.el.addEventListener('dragstart', event => {
-                event.preventDefault();
-            });
-
-            this.el.addEventListener('drop', event => {
-                event.preventDefault();
-            });
-
             this.observer = Observer.create({
                 axis: 'x',
                 lockAxis: true,
@@ -159,9 +177,9 @@ export default class HomeService {
     }
 
     // Ni l'Observer ni Swiper ne sont nettoyés par le ScrollTrigger.killAll()
-    // du Router : à détruire en quittant la page.
+    // du Router : le matchMedia défait le mode en cours (Observer, carrousel).
     destroy() {
-        if (this.observer) this.observer.kill();
-        if (this.slider) this.slider.destroy(true, true);
+        if (this.mm) this.mm.revert();
+        if (this.listeners) this.listeners.removeAll();
     }
 }

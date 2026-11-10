@@ -1,4 +1,6 @@
-import { canHover } from "../utils/detect";
+import { isMouse } from "../utils/detect";
+import { playFromStart } from "../utils/hoverVideo";
+import Listeners from "../utils/listeners";
 
 export default class featuredCases {
 
@@ -8,6 +10,7 @@ export default class featuredCases {
 
     constructor(el) {
         this.el = el;
+        this.listeners = new Listeners();
         this.gallery = this.el.querySelector('.featuredCases__gallery');
         this.videos = this.getVideos();
         this.setEvents();
@@ -19,7 +22,7 @@ export default class featuredCases {
     // une souris, on lance le préchargement quand la section approche de l'écran
     // (elles étaient sinon toutes téléchargées dès l'ouverture de la page).
     preloadVideosNearby() {
-        if (!canHover() || !('IntersectionObserver' in window)) return;
+        if (!isMouse() || !('IntersectionObserver' in window)) return;
         this.preloadObserver = new IntersectionObserver((entries) => {
             if (!entries.some((entry) => entry.isIntersecting)) return;
             this.videos.forEach(({ video }) => { if (video) video.preload = 'auto'; });
@@ -29,6 +32,7 @@ export default class featuredCases {
     }
 
     destroy() {
+        this.listeners.removeAll();
         if (this.preloadObserver) this.preloadObserver.disconnect();
         this.videos.forEach(({ video }) => { if (video) video.pause(); });
     }
@@ -55,15 +59,10 @@ export default class featuredCases {
     // mouseenter et pas mouseover : mouseover se redéclenche en passant sur
     // l'image ou le titre du lien, et la vidéo repartait de zéro.
     setEvents() {
-        if (!canHover()) return;
+        if (!isMouse()) return;
         this.videos.forEach((video) => {
-            video.link.addEventListener('mouseenter', (e) => {
-                this.e_mouseEnter(e, video);
-            });
-
-            video.link.addEventListener('mouseleave', (e) => {
-                this.e_mouseLeave(e, video);
-            });
+            this.listeners.on(video.link, 'mouseenter', () => this.e_mouseEnter(video));
+            this.listeners.on(video.link, 'mouseleave', () => this.e_mouseLeave(video));
         })
     }
 
@@ -71,16 +70,14 @@ export default class featuredCases {
      * Handlers
      */
 
-    e_mouseEnter(e, video) {
-        if(video.video) video.video.currentTime = 0;
+    e_mouseEnter(video) {
         video.videoContainer.classList.add('featuredCases__video--active');
         video.link.classList.add('featuredCases__caseLink--active');
         this.gallery.classList.add('featuredCases__gallery--hovered');
-        // Survol bref : la lecture est interrompue par pause(), ce n'est pas une erreur.
-        if(video.video) video.video.play().catch(() => {});
+        playFromStart(video.video);
     }
 
-    e_mouseLeave(e, video) {
+    e_mouseLeave(video) {
         video.videoContainer.classList.remove('featuredCases__video--active');
         video.link.classList.remove('featuredCases__caseLink--active');
         this.gallery.classList.remove('featuredCases__gallery--hovered');

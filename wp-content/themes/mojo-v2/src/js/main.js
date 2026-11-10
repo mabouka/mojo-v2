@@ -8,6 +8,7 @@ import Router       from './classes/Router';
 import Footer       from './classes/Footer';
 import Header       from './classes/Header';
 import initYoutubeFacade from './utils/youtubeFacade';
+import initAnchorScroll from './utils/anchorScroll';
 
 class Mojo {
     constructor() {
@@ -29,6 +30,7 @@ class Mojo {
 
 function boot() {
     initYoutubeFacade();
+    initAnchorScroll();
     window.scroller = new Scroller();
     window.MJ = new Mojo();
     window.document.documentElement.classList.add('js-active');

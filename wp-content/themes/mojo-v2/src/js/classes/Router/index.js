@@ -6,6 +6,7 @@ import { ScrollTrigger }    from "gsap/ScrollTrigger";
 import InView               from '../InView';
 import IsCentered           from '../IsCentered';
 import IsTop                from '../IsTop';
+import IsTopMedium          from '../IsTopMedium';
 
 import Menu                 from '../Menu';
 import LazyVideos           from '../lazyVideos';
@@ -97,6 +98,7 @@ export default class Router {
                 window.MJ.parts.destroy(this.leavingParts);
                 this.leavingParts = null;
             }
+            [InView, IsTop, IsCentered, IsTopMedium].forEach(zone => zone.removeView(data.current.container));
             window.lenis.start();
             window.MJ.cursor.reset();
 

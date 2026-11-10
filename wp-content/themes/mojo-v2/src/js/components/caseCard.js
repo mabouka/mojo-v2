@@ -1,5 +1,8 @@
 import IsTopMedium from "../classes/IsTopMedium";
-import { canHover } from "../utils/detect";
+import { isMouse } from "../utils/detect";
+import { playFromStart, stopVideo } from "../utils/hoverVideo";
+import Listeners from "../utils/listeners";
+
 export default class caseCard {
 
     static get selector() {
@@ -8,11 +11,12 @@ export default class caseCard {
 
     constructor(el) {
         this.el = el;
+        this.listeners = new Listeners();
         this.isVideo = el.classList.contains('caseCard--video');
         // Vidéo au survol avec une souris, au défilement sinon. Décidé par le
         // pointeur et non par la largeur : sur iPad (plus de 600 px, tactile),
         // seul le survol était branché et la vidéo ne jouait jamais.
-        this.hover = canHover();
+        this.hover = isMouse();
 
         if(this.isVideo) {
             this.link = this.el.querySelector('.caseCard__link');
@@ -26,64 +30,32 @@ export default class caseCard {
         this.setEvents();
     }
 
-    play() {
-        this.video.currentTime = 0;
-        // Interrompue par pause() (survol bref, défilement rapide) : pas une erreur.
-        this.video.play().catch(() => {});
-    }
-
-    pause() {
-        this.video.pause();
-        this.video.currentTime = 0;
+    destroy() {
+        this.listeners.removeAll();
+        IsTopMedium.removeElement(this.el);
+        if (this.isVideo) this.video.pause();
     }
 
     /**
      * Events
      */
 
-    setEvents() {
+    setEvents() {
+        const on = this.listeners.on.bind(this.listeners);
         if(this.isVideo) {
             if(!this.hover) {
-                this.el.addEventListener('inTopMedium', this.e_inTop.bind(this));
-                this.el.addEventListener('outTopMedium', this.e_outTop.bind(this));
-            } else if (this.link) {
-                this.link.addEventListener('mouseenter', this.e_enter.bind(this));
-                this.link.addEventListener('mouseleave', this.e_leave.bind(this));
+                on(this.el, 'inTopMedium', () => playFromStart(this.video));
+                on(this.el, 'outTopMedium', () => stopVideo(this.video));
+            } else {
+                on(this.link, 'mouseenter', () => playFromStart(this.video));
+                on(this.link, 'mouseleave', () => stopVideo(this.video));
             }
 
-            this.video.addEventListener('playing', this.e_playing.bind(this));
-            this.video.addEventListener('pause', this.e_pause.bind(this));
+            on(this.video, 'playing', () => this.el.classList.add('caseCard--playing'));
+            on(this.video, 'pause', () => this.el.classList.remove('caseCard--playing'));
         }
 
-        this.el.addEventListener('inView', this.e_inview.bind(this))
-    }
-
-    e_playing(e) {
-        this.el.classList.add('caseCard--playing');
-    }
-
-    e_pause(e) {
-        this.el.classList.remove('caseCard--playing');
-    }
-
-    e_inTop(e) {
-        this.play();
-    }
-
-    e_outTop(e) {
-        this.pause();
-    }
-
-    e_enter(e) {
-        this.play();
-    }
-
-    e_leave(e) {
-        this.pause();
-    }
-
-    e_inview(e) {
-        this.el.classList.add('caseCard--inview')
+        on(this.el, 'inView', () => this.el.classList.add('caseCard--inview'));
     }
 
 }
