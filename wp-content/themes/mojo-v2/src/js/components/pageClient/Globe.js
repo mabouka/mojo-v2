@@ -147,8 +147,10 @@ export default class Globe {
         frame.image = img;
         // decode() : l'image est décodée hors du fil principal avant d'être
         // dessinée, pas pendant le défilement.
+        // Échec de decode() : l'image est déjà chargée ou en erreur (load/error
+        // passés), attendre ces événements bloquerait ce chargeur pour de bon.
         frame.promise = img.decode()
-            .catch(() => new Promise((resolve) => { img.onload = img.onerror = resolve; }))
+            .catch(() => {})
             .then(() => {
                 frame.ready = img.naturalWidth > 0;
                 // Image attendue qui arrive : on l'affiche.

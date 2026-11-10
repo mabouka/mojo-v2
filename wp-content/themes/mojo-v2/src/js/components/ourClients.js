@@ -11,16 +11,20 @@ export default class OurClients {
         this.container = this.el.querySelector('.ourClients__container');
         this.clients = this.getClients();
         this.current = 0;
-        this.timer = this.getTimer();
 
         this.startCarousel();
 
+        // Sans clients (champ vide) : pas de rotation, l'active() du minuteur
+        // plantait toutes les 2 s.
+        if (!this.clients.length) return;
+        this.timer = this.getTimer();
         this.active(this.clients[this.current]);
         this.setEvents();
     }
 
     startCarousel() {
-        this.marquee = new Marquee(this.el.querySelector('.ourClients__carousel'));
+        const carousel = this.el.querySelector('.ourClients__carousel');
+        if (carousel) this.marquee = new Marquee(carousel);
     }
 
     destroy() {
@@ -73,7 +77,7 @@ export default class OurClients {
     }
 
     setEvents() {
-        this.container.addEventListener('mouseenter', (e) => {
+        if (this.container) this.container.addEventListener('mouseenter', (e) => {
             clearInterval(this.timer);
         });
         

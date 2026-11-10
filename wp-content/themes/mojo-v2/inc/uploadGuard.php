@@ -34,6 +34,8 @@ function mojoGuardRecompressJpeg($upload)
         // Photo de téléphone tournée par ses métadonnées : on laisse WordPress faire.
         if (!in_array($im->getImageOrientation(), [Imagick::ORIENTATION_UNDEFINED, Imagick::ORIENTATION_TOPLEFT], true)) return $upload;
 
+        // Métadonnées retirées (EXIF, IPTC, XMP : position GPS, appareil…),
+        // choix voulu ; seul le profil de couleur est gardé.
         $icc = null;
         try { $icc = $im->getImageProfile('icc'); } catch (Exception $e) {}
         $im->stripImage();
@@ -187,9 +189,14 @@ if (window.wp && wp.Uploader) {
     var mojoInit = wp.Uploader.prototype.init;
     wp.Uploader.prototype.init = function () {
         if (mojoInit) mojoInit.apply(this, arguments);
+        // Fichier refusé : retiré aussi du tableau, sinon le gestionnaire de
+        // WordPress (appelé après) créait une vignette « en cours » qui restait.
         this.uploader.bind('FilesAdded', function (up, files) {
             files.slice().forEach(function (file) {
-                if (!mojoGuardConfirm(file.name, file.type, file.size)) up.removeFile(file);
+                if (!mojoGuardConfirm(file.name, file.type, file.size)) {
+                    up.removeFile(file);
+                    files.splice(files.indexOf(file), 1);
+                }
             });
         }, null, 100);
         this.uploader.bind('FileUploaded', function (up, file, response) {

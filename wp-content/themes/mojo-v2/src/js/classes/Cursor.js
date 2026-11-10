@@ -80,6 +80,9 @@ export default class Cursor {
     // Après une navigation Barba : l'élément sous la souris a changé.
     reset() {
         if (!this.initialized || !this.active) return;
+        // Même élément (header, menu : hors de la page Barba) mais classes
+        // changées par le Router : on force le recalcul de la couleur.
+        this.hovered = null;
         this.setHovered(document.elementFromPoint(this.target.x, this.target.y));
     }
 
