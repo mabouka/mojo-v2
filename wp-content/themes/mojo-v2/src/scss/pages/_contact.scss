@@ -191,11 +191,23 @@
                 }
             }
             &--file {
+                flex-wrap: wrap;
 
                 .field__label{
                     flex-shrink: initial;
                     text-decoration: underline;
 
+                }
+
+                // Phrase sous le champ (limite de 10 Mo, lien pour les gros
+                // fichiers), écrite dans le formulaire CF7 : discrète, sur sa ligne.
+                .field__hint{
+                    flex-basis: 100%;
+                    margin-top: s(8);
+                    font-family: dm, sans-serif;
+                    font-size: s(14);
+                    line-height: em(22,14);
+                    opacity: 0.6;
                 }
             }
 
