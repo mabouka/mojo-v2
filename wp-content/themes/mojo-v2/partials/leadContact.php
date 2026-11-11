@@ -36,7 +36,7 @@ $contactText  = get_field('intro_contact_text', $contactPage->ID);
 
                 <div class="contact__contact">
                     <?php if ($address): ?>
-                        <a target="_blank" href="https://www.google.be/maps/dir/''/<?= urlencode(strip_tags($address)) ?>" class="contact__address">
+                        <a target="_blank" rel="noopener" href="<?= esc_url(mapsUrl($address)) ?>" class="contact__address">
                             <?= $address ?>
                         </a>
                     <?php endif ?>

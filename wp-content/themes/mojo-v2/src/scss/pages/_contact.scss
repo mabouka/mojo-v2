@@ -411,9 +411,27 @@
             margin-bottom: s(120);
         }
 
+        // L'e-mail (≈ 175 px) ne tenait pas dans une demi-colonne (170 px) et se
+        // coupait au tiret (« hello@mojo- / agency.org ») : il reste sur une ligne,
+        // chaque bloc prend sa largeur réelle, et sur un très petit écran l'e-mail
+        // passe sous l'adresse plutôt que de déborder.
+        &__contact{
+            flex-wrap: wrap;
+            column-gap: s(20);
+            row-gap: s(16);
+        }
+
         &__contactText,
         &__address{
-            width: col(3,6);
+            width: auto;
+        }
+
+        // À droite à côté de l'adresse (space-between du parent), à gauche quand
+        // il passe à la ligne (seul sur sa ligne, il se place au début).
+        &__contactText{
+            a[href^="mailto:"]{
+                white-space: nowrap;
+            }
         }
 
         .field__label {

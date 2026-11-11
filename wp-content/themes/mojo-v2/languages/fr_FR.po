@@ -46,6 +46,9 @@ msgstr "Aller au contenu principal"
 msgid "Go back home"
 msgstr "Retour à l’accueil"
 
+msgid "MOJO Agency, home"
+msgstr "MOJO Agency, accueil"
+
 #: header.php:153
 msgid "Contact us"
 msgstr "Contactez-nous"

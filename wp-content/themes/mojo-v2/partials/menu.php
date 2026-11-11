@@ -5,8 +5,8 @@
             <h2 class="menu__title sro"><?= __('Navigation','mj') ?></h2>
 
             <div class="menu__header">
-                <a class="menu__headerLogo" href="<?= home_url(); ?>" title="<?= __('Go back home', 'mj'); ?>">
-                    <svg class="menu__headerLogoSvg" width="98" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <a class="menu__headerLogo" href="<?= home_url(); ?>" title="<?= __('Go back home', 'mj'); ?>" aria-label="<?= esc_attr__('MOJO Agency, home', 'mj'); ?>">
+                    <svg class="menu__headerLogoSvg" width="98" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                         <g fill="#FAF6ED">
                             <path d="M31.644.625h-3.798L16.605 18.78V.625H11.997L0 20h5.46L15.796 3.31V20H21.31L31.644 3.31V20h.81V.625h-.81Z" />
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M35 10c0-5.523 4.844-10 10.818-10 5.975 0 10.818 4.477 10.818 10s-4.843 10-10.818 10C39.844 20 35 15.523 35 10Zm5.833 8.105c2.633 1.608 7-.717 9.754-5.194 2.753-4.476 2.85-9.409.217-11.017-2.634-1.607-7 .718-9.754 5.195-2.753 4.476-2.85 9.409-.217 11.016ZM76.363 10c0-5.523 4.844-10 10.819-10C93.156 0 98 4.477 98 10s-4.844 10-10.818 10c-5.975 0-10.819-4.477-10.819-10Zm5.833 8.105c2.633 1.608 7-.717 9.754-5.194 2.753-4.476 2.85-9.409.217-11.017-2.634-1.607-7 .718-9.754 5.195-2.753 4.476-2.85 9.409-.217 11.016Z" />

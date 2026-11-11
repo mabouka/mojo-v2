@@ -487,6 +487,16 @@ function mojoLang()
     return defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'en';
 }
 
+// Lien Google Maps vers une adresse saisie dans l'admin sur plusieurs lignes
+// (<br>, retours à la ligne) : lignes jointes par des virgules, sans %0D%0A dans
+// l'URL. Format officiel de Google (api=1) : ouvre le lieu, pas un itinéraire.
+function mapsUrl($address)
+{
+    $text  = wp_strip_all_tags(preg_replace('/<br\s*\/?>/i', "\n", (string) $address));
+    $lines = array_filter(array_map('trim', preg_split('/\R+/', html_entity_decode($text, ENT_QUOTES, 'UTF-8'))));
+    return 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode(implode(', ', $lines));
+}
+
 function getLanguageLinks($class = "header__language")
 {
     $link = '';
