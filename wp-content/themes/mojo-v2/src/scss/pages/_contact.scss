@@ -201,6 +201,12 @@
 
                 // Phrase sous le champ (limite de 10 Mo, lien pour les gros
                 // fichiers), écrite dans le formulaire CF7 : discrète, sur sa ligne.
+                // Erreur du champ (fichier trop lourd, type refusé), sur sa ligne.
+                .wpcf7-not-valid-tip{
+                    flex-basis: 100%;
+                    margin-left: 0;
+                }
+
                 .field__hint{
                     flex-basis: 100%;
                     margin-top: s(8);

@@ -587,8 +587,26 @@ add_filter('wpcf7_load_css', '__return_false');
 // (le plugin passe aussi le vrai champ par ce filtre) : tout vise alors le vrai
 // champ, même nom à l'envoi (your-file[]).
 add_filter('cf7_multilinefile_input', function ($format) {
-    return strpos($format, 'mfcf7-zl-multiline-sample') !== false ? '' : $format;
+    if (strpos($format, 'mfcf7-zl-multiline-sample') !== false) return '';
+    // Message d'erreur (%3$s) sorti de l'enveloppe du champ, cachée en CSS (c'est
+    // le libellé qui sert de bouton) : sinon « fichier trop lourd » reste invisible.
+    return str_replace('%3$s', '', $format) . '%3$s';
 });
+
+// Le plugin rattache ses erreurs (taille, type) au bouton « your-file-zl-mfcf7-upld-btn »
+// de la copie retirée ci-dessus : on les reporte sur le vrai champ pour qu'elles
+// s'affichent sous « + Ajouter une pièce jointe ».
+foreach (['wpcf7_validate_multilinefile', 'wpcf7_validate_multilinefile*'] as $hook) {
+    add_filter($hook, function ($result, $tag) {
+        $tag = $tag instanceof WPCF7_FormTag ? $tag : new WPCF7_FormTag($tag);
+        $invalid = $result->get_invalid_fields();
+        $btn = $tag->name . '-zl-mfcf7-upld-btn';
+        if (isset($invalid[$btn]) && !isset($invalid[$tag->name])) {
+            $result->invalidate($tag, $invalid[$btn]['reason']);
+        }
+        return $result;
+    }, 20, 2);
+}
 
 function deregister_polyfill()
 {
