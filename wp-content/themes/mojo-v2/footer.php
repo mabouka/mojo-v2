@@ -195,7 +195,25 @@
             consent('denied', ['ad_storage', 'ad_user_data', 'ad_personalization']);
         });
 
-        whenReady(function () {
+        var isSetUp = false;
+        function setup() {
+            if (isSetUp) return;
+            isSetUp = true;
+
+            // Protection (recette D4) : tarteaucitron recompte les cookies de
+            // chaque service de sa liste (checkCount, appelé par proPing et par
+            // l'affichage) sans vérifier que le service existe. Un nom encore
+            // inconnu le faisait planter (« reading 'cookies' ») : la config du
+            // staging sur tarteaucitron.io inscrit nos services avant que ce
+            // script les déclare. On saute les inconnus ; sans effet sinon.
+            var checkCount = tarteaucitron.cookie && tarteaucitron.cookie.checkCount;
+            if (typeof checkCount === 'function') {
+                tarteaucitron.cookie.checkCount = function (key) {
+                    if (!tarteaucitron.services[key]) return;
+                    return checkCount.apply(this, arguments);
+                };
+            }
+
             // « cookies » : tarteaucitron ne supprime au refus que les noms
             // exacts listés. _ga_<ID> pour chaque flux GA4 : RS946CZMGV (celui
             // du site) et CB1DX5V2VF (flux inconnu vu en 2024, cookie de 400 j
@@ -237,7 +255,15 @@
             (tarteaucitron.job = tarteaucitron.job || []).push('mojoga4');
             (tarteaucitron.job = tarteaucitron.job || []).push('mojogads');
             (tarteaucitron.job = tarteaucitron.job || []).push('treenation');
-        });
+        }
+
+        // Dès que load.js a fini de s'exécuter (événement load du script, avant
+        // toute autre tâche) : nos services et la protection sont en place avant
+        // que tarteaucitron puisse s'en servir. Le sondage reste en repli (script
+        // déjà chargé quand cette ligne s'exécute, ou événement manqué).
+        var tacScript = document.getElementById('tarteaucitron-js');
+        if (tacScript) tacScript.addEventListener('load', function () { whenReady(setup); });
+        whenReady(setup);
 
         // Lenis (défilement fluide) capte la molette sur toute la page : sans
         // data-lenis-prevent, la liste des services du panneau ne défile pas.
