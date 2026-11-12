@@ -249,3 +249,38 @@ function mojoCaseLabelHeadings($html, $block = [])
         : preg_replace('/<p\b/i', '<p class="h6"', $html, 1);
 }
 add_filter('render_block_core/heading', 'mojoCaseLabelHeadings', 10, 2);
+
+// Champs image et galerie d'ACF : pour chaque image, ACF calcule l'adresse et
+// les dimensions de toutes les tailles déclarées (une cinquantaine), alors que
+// le thème n'en lit qu'une partie via $image['sizes'][…]. Sur le site public, on
+// limite ce calcul aux tailles lues par le thème (relevées dans le code le
+// 12/11/2026) : jusqu'à 180 ms de moins par page hors cache, HTML identique.
+// Une nouvelle taille lue via $image['sizes'] doit être ajoutée à cette liste.
+// Les tailles passées par getCustomThumbnail() ou wp_get_attachment_image_src()
+// ne sont pas concernées.
+function mojoAcfImageSizes()
+{
+    return [
+        'medium', 'logo', 'logo@2x', 'featuredVideo', 'featuredVideo@2x',
+        'caseCard', 'caseCard@2x', 'caseCardMobile', 'caseCardMobile@2x', 'caseLong',
+        'caseFull', 'caseFullMobile', 'caseFullMobile@2x',
+        'twoImages', 'twoImages@2x', 'twoImagesMobile', 'textGallery', 'textGallery@2x',
+        'fullBlackImage', 'fullBlackImageMobile', 'fullImage', 'fullImageMobile', 'wrapperImage',
+        'imagesslider', 'imagesslider@2x', 'imagessliderMobile', 'imagessliderMobile@2x',
+        'leadBanner', 'leadBanner@2x',
+    ];
+}
+
+// ?mojo-acf-sizes=all : comportement d'origine (toutes les tailles), pour mesurer avant / après.
+if (!is_admin() && !(defined('REST_REQUEST') && REST_REQUEST) && !(defined('WP_CLI') && WP_CLI) && !isset($_GET['mojo-acf-sizes'])) {
+    $GLOBALS['mojoAcfImageDepth'] = 0;
+    foreach (['image', 'gallery'] as $mojoAcfType) {
+        add_filter("acf/format_value/type=$mojoAcfType", function ($value) { $GLOBALS['mojoAcfImageDepth']++; return $value; }, 0);
+        add_filter("acf/format_value/type=$mojoAcfType", function ($value) { $GLOBALS['mojoAcfImageDepth']--; return $value; }, PHP_INT_MAX);
+    }
+    unset($mojoAcfType);
+    add_filter('intermediate_image_sizes', function ($sizes) {
+        if ($GLOBALS['mojoAcfImageDepth'] <= 0) return $sizes;
+        return array_values(array_intersect($sizes, mojoAcfImageSizes()));
+    });
+}
