@@ -23,7 +23,7 @@
 
 
                     <?php if ($client['link']): ?>
-                    <a class="client__link"href="<?= $client['link']['url'] ?>">
+                    <a class="client__link" href="<?= $client['link']['url'] ?>">
                         <?= $client['link']['title'] ?>
 
                         <svg class="client__linkArrow" width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">

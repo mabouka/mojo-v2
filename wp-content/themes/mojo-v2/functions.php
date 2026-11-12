@@ -21,7 +21,9 @@ if (!function_exists('mojo_setup')) :
     function mojo_setup()
     {
         add_theme_support('post-thumbnails');
-        add_theme_support('title-tag');;
+        add_theme_support('title-tag');
+        // Scripts et styles sans l'attribut type="text/javascript" / "text/css", inutile en HTML5.
+        add_theme_support('html5', ['script', 'style']);
     }
 endif;
 add_action('after_setup_theme', 'mojo_setup');
@@ -586,6 +588,13 @@ add_filter('wpcf7_load_css', '__return_false');
 // c'est elle que visaient le libellé et ContactForm.js. On ne vide que ce modèle
 // (le plugin passe aussi le vrai champ par ce filtre) : tout vise alors le vrai
 // champ, même nom à l'envoi (your-file[]).
+// Le plugin met aussi value="Upload" sur le champ fichier : attribut interdit
+// sur un <input type="file"> (HTML invalide), et sans effet. On le retire.
+add_filter('cf7_multilinefile_atts', function ($atts) {
+    unset($atts['value']);
+    return $atts;
+});
+
 add_filter('cf7_multilinefile_input', function ($format) {
     if (strpos($format, 'mfcf7-zl-multiline-sample') !== false) return '';
     // Message d'erreur (%3$s) sorti de l'enveloppe du champ, cachée en CSS (c'est

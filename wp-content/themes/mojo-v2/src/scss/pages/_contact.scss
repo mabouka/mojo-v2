@@ -509,6 +509,7 @@
         }
 
         .contact__subtitle{
+            display: block;
             @extend %subtitle;
             color: color(dark);
             margin-bottom: s(12);

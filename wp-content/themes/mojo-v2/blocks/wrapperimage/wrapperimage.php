@@ -12,7 +12,7 @@
     <figure class="wrapperImage__image">
         <picture>
             <source srcset="<?= $image['sizes']['fullImageMobile'] ?>" media="(max-width: 600px)">
-            <img src="<?= $image['sizes']['wrapperImage'] ?>" width="<?= $image['sizes']['wrapperImage-width'] ?>" height="<?= $image['sizes']['wrapperImage-height'] ?>">
+            <img src="<?= $image['sizes']['wrapperImage'] ?>" alt="<?= esc_attr($image['alt'] ?? '') ?>" width="<?= $image['sizes']['wrapperImage-width'] ?>" height="<?= $image['sizes']['wrapperImage-height'] ?>">
         </picture>
     </figure>
     <?php endif ?>

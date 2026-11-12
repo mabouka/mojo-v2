@@ -69,25 +69,22 @@
             poster="<?= $imageCard ? $imageCard['sizes']['caseCard@2x'] : $image->src['caseCard@2x'] ?>"  
             <?php endif; ?>
 
-            loop playsinline muted >
-
-            <?php if ($videoMobile): ?>
-            <source data-src="<?= $videoMobile ?>"  media="screen and (max-width: 600px)" type="video/mp4">
-            <?php endif ?>
-
-            <?php if ($videoMobileWebm): ?>
-            <source data-src="<?= $videoMobileWebm ?>"  media="screen and (max-width: 600px)" type="video/webm">
-            <?php endif ?>
-
-            <?php if (isset($mobileOnly) && $mobileOnly): ?>
-                <source data-src="<?= $video ?>"  media="screen and (max-width: 600px)">
-            <?php else: ?>
-                <source data-src="<?= $video ?>" type="video/mp4">
-                <source data-src="<?= $videoWebm ?>" type="video/webm">
-
-            <?php endif; ?>
-
-        </video>
+            <?php
+            // Sources posées par LazyVideos à l'approche de l'écran (src/js/classes/lazyVideos.js) :
+            // gardées dans data-sources, car un <source> sans src n'est pas du HTML valide.
+            $mobileMedia = 'screen and (max-width: 600px)';
+            $sources = [];
+            if ($videoMobile) $sources[] = ['src' => $videoMobile, 'media' => $mobileMedia, 'type' => 'video/mp4'];
+            if ($videoMobileWebm) $sources[] = ['src' => $videoMobileWebm, 'media' => $mobileMedia, 'type' => 'video/webm'];
+            if (isset($mobileOnly) && $mobileOnly) {
+                if ($video) $sources[] = ['src' => $video, 'media' => $mobileMedia];
+            } else {
+                if ($video) $sources[] = ['src' => $video, 'type' => 'video/mp4'];
+                if ($videoWebm) $sources[] = ['src' => $videoWebm, 'type' => 'video/webm'];
+            }
+            ?>
+            data-sources="<?= esc_attr(wp_json_encode($sources, JSON_UNESCAPED_SLASHES)) ?>"
+            loop playsinline muted ></video>
     </div>
 
     <?php elseif($imageCard): ?>

@@ -177,7 +177,7 @@ function mojoCaseContentImages($image, $context)
 add_filter('wp_content_img_tag', 'mojoCaseContentImages', 20, 2);
 
 // Bloc vidéo Gutenberg : chargé à l'approche de l'écran par LazyVideos
-// (src/js/classes/lazyVideos.js : <video class="lazy"> + <source data-src>)
+// (src/js/classes/lazyVideos.js : <video class="lazy" data-sources="[…]">)
 // au lieu d'être téléchargé dès l'ouverture de la page. L'autoplay est
 // conservé : il démarre une fois la source posée.
 // Les dimensions de la vidéo (médiathèque) sont ajoutées en width/height : sans
@@ -218,7 +218,9 @@ function mojoLazyContentVideo($html, $block = [])
             ? preg_replace('/\sclass=(["\'])/', ' class=$1lazy ', $attrs, 1)
             : $attrs . ' class="lazy"';
         $type = preg_match('/\.webm(\?|$)/i', $m[3]) ? 'video/webm' : 'video/mp4';
-        return '<video' . $attrs . ' preload="none"><source data-src="' . esc_url($m[3]) . '" type="' . $type . '">';
+        // Source gardée dans data-sources (un <source> sans src n'est pas du HTML valide).
+        $sources = [['src' => esc_url_raw($m[3]), 'type' => $type]];
+        return '<video' . $attrs . ' preload="none" data-sources="' . esc_attr(wp_json_encode($sources, JSON_UNESCAPED_SLASHES)) . '">';
     }, $html);
 }
 add_filter('render_block_core/video', 'mojoLazyContentVideo', 10, 2);

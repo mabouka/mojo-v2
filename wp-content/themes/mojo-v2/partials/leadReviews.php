@@ -1,7 +1,9 @@
 <section class="leadReviews">
     <div class="wrapper">
         <div class="leadReviews__inside">
+            <?php if (trim(wp_strip_all_tags((string) $title)) !== ''): // titre vide = <h2> vide, invalide ?>
             <h2 class="leadReviews__title"><?= $title ?></h2>
+            <?php endif ?>
             <div class="leadReviews__list">
                 <?php foreach ($reviews as $review): ?>
                     <div class="leadReviews__item">

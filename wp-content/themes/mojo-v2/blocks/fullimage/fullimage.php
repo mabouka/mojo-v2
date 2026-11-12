@@ -20,7 +20,7 @@
     <figure class="fullImage__image">
         <picture>
             <source srcset="<?= $image['sizes']['fullImageMobile'] ?>" media="(max-width: 600px)">
-            <img src="<?= $image['sizes']['fullImage'] ?>" width="<?= $image['sizes']['fullImage-width'] ?>" height="<?= $image['sizes']['fullImage-height'] ?>">
+            <img src="<?= $image['sizes']['fullImage'] ?>" alt="<?= esc_attr($image['alt'] ?? '') ?>" width="<?= $image['sizes']['fullImage-width'] ?>" height="<?= $image['sizes']['fullImage-height'] ?>">
         </picture>
     </figure>
     <?php endif ?>

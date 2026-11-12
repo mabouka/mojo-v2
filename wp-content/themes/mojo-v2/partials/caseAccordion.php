@@ -62,7 +62,9 @@
                   // la souris approche (caseAccordion.js) ; jamais sur mobile. ?>
             <video preload="none" playsinline muted <?= $imageCard ? 'data-poster="' . esc_url($imageCard['sizes']['imagesslider']) . '"' : ''?>>
                 <source src="<?= $video ?>"  media="screen and (min-width: 601px)" type="video/mp4">
+                <?php if ($videoWebm): // src vide = HTML invalide ?>
                 <source src="<?= $videoWebm ?>"  media="screen and (min-width: 601px)" type="video/webm">
+                <?php endif ?>
             </video>
         <?php elseif($imageCard): ?>
             <img src="<?= $imageCard['sizes']['imagesslider']?>"

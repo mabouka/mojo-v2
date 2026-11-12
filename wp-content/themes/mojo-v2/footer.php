@@ -146,16 +146,16 @@
 <?php getPartial('menu'); ?>
 
 
-<script type="text/javascript" id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
-<script type="text/javascript" id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
-<script type="text/javascript" id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
+<script id="mojo-manifest-js" src="<?= getUrlVersion('dist/js/manifest.js'); ?>"></script>
+<script id="mojo-vendor-js" src="<?= getUrlVersion('dist/js/vendor.js'); ?>"></script>
+<script id="mojo-main-js" src="<?= getUrlVersion('dist/js/main.js'); ?>"></script>
 
 <?php 
     
     $recaptcha = WPCF7_RECAPTCHA::get_instance()->get_sitekey();
 ?>
 
-<script type="text/javascript">
+<script>
     window.recaptchaKey = '<?= $recaptcha ?>';
 </script>
 <!-- Consentement (tarteaucitron, chargé en async dans le <head>).

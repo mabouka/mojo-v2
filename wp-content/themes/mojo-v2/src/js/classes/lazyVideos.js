@@ -71,6 +71,20 @@ class LazyVideos {
     }
 
     _loadVideo(videoEl) {
+        // Sources gardées en JSON sur la <video> (data-sources) : un <source> sans
+        // src n'est pas du HTML valide, on ne les crée qu'au moment de charger.
+        if (videoEl.dataset.sources && !videoEl.querySelector("source")) {
+            let list = [];
+            try { list = JSON.parse(videoEl.dataset.sources) || []; } catch (e) { list = []; }
+            list.forEach(({ src, type, media }) => {
+                if (!src) return;
+                const source = document.createElement("source");
+                source.src = src;
+                if (type) source.type = type;
+                if (media) source.media = media;
+                videoEl.appendChild(source);
+            });
+        }
         for (let source of videoEl.children) {
             if (source.tagName === "SOURCE" && source.dataset.src && !source.src) {
                 source.src = source.dataset.src;

@@ -4,7 +4,9 @@
         <div class="featuredCases__inside">
             <div class="featuredCases__left">
                 <p class="featuredCases__subtitle js-in-view appear-fade"><?= $subtitle; ?></p>
+                <?php if (trim(wp_strip_all_tags((string) $title)) !== ''): // titre vide = <h2> vide, invalide ?>
                 <h2 class="featuredCases__title js-in-view appear-fade"><?= $title; ?></h2>
+                <?php endif ?>
 
                 <?php if ($text) : ?>
                 <div class="featuredCases__text js-in-view appear-fade">

@@ -16,7 +16,7 @@
  ?>
 
 <?php if($images): ?>
-<div class="imagesslider<?= $isService ? ' imagesslider--service': '' ?>"">
+<div class="imagesslider<?= $isService ? ' imagesslider--service': '' ?>">
    <div class="swiper">
       <div class="imagesslider__wrapper swiper-wrapper">
          <?php foreach ($images as $image): ?>

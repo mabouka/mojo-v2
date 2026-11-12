@@ -25,9 +25,10 @@ $contactText  = get_field('intro_contact_text', $contactPage->ID);
 
             <h2 class="contact__title js-in-view fx-parent">
                 <?php if ($subtitle) : ?>
-                    <p class="contact__subtitle js-in-view appear-fade appear-delay4">
+                    <?php // <span> et non <p> : un paragraphe n'est pas permis dans un titre (affiché en bloc en CSS). ?>
+                    <span class="contact__subtitle js-in-view appear-fade appear-delay4">
                         <?= $subtitle; ?>
-                    </p>
+                    </span>
                 <?php endif; ?>
                 <?= splitCharWord($title); ?>
             </h2>

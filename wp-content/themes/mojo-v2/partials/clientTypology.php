@@ -7,7 +7,7 @@
         <?php if ($item['url']): ?>
         <a class="clientTypology__item clientTypology__item--link<?=  $item['video'] ? ' clientTypology__item--video' : '' ?>" href="<?= $item['url'] ?>">
         <?php else: ?>
-        <span class="clientTypology__item<?=  $item['video'] ? ' clientTypology__item--video' : '' ?>">
+        <div class="clientTypology__item<?=  $item['video'] ? ' clientTypology__item--video' : '' ?>">
         <?php endif ?>
             <span class="clientTypology__itemText">
                 <?= $item['title']; ?>
@@ -31,7 +31,7 @@
         <?php if ($item['url']): ?>
         </a>
         <?php else: ?>
-        </span>
+        </div>
         <?php endif ?>
         <?php endforeach ?>
     </div>

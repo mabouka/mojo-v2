@@ -1,5 +1,5 @@
 <?php if ($items): ?>
-    <section class="commitmentsFaq <?= isset($modifier) ? 'commitmentsFaq--' . $modifier : '' ?>" id="<?= isset($id) ? $id : '' ?>">
+    <section class="commitmentsFaq <?= isset($modifier) ? 'commitmentsFaq--' . $modifier : '' ?>"<?= !empty($id) ? ' id="' . esc_attr($id) . '"' : '' ?>>
         <div class=" wrapper">
             <div class="commitmentsFaq__inside">
 

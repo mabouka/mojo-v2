@@ -57,7 +57,7 @@
                 <?php foreach ( $categories  as $filterName => $category ): ?>
                 
 
-                <div class="casesGrid__filter<?= (isset($_GET[$filterName]) && $_GET[$filterName]) ? ' casesGrid__filter--active' : '' ?>"">
+                <div class="casesGrid__filter<?= (isset($_GET[$filterName]) && $_GET[$filterName]) ? ' casesGrid__filter--active' : '' ?>">
                     <label class="casesGrid__filterLabel" for="<?= $filterName ?>">
                         <?= $category['label']  ?>
                         <svg class="casesGrid__filterStar" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
