@@ -405,7 +405,13 @@ function getPagebyTemplate($templateName)
         'meta_key' => '_wp_page_template',
         'meta_value' => $templateName,
         'hierarchical' => 0,
-        'posts_per_page' => 1
+        'posts_per_page' => 1,
+        // Page de la langue courante : get_posts ignore WPML par défaut, et les pages
+        // EN et FR ont la même date de création, donc la base renvoyait l'une ou
+        // l'autre au hasard (adresse « Belgique » sur la page lead anglaise).
+        'suppress_filters' => false,
+        'orderby' => 'ID',
+        'order' => 'ASC',
     ));
     if ($page) return current($page);
 }
