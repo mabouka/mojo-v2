@@ -231,3 +231,21 @@ function change_graphic_lib($array)
     return array('WP_Image_Editor_GD', 'WP_Image_Editor_Imagick');
 }
 add_filter('wp_image_editors', 'change_graphic_lib');
+
+// Études de cas : les petites étiquettes au-dessus des parties (« Challenge »,
+// « Solution », « Contexte »…) sont saisies en titres h6. Placées juste après le
+// h1 ou un h2, elles sautent des niveaux de titre (HTML invalide, plan de page
+// faux pour les lecteurs d'écran et Google). Ce sont des étiquettes, pas des
+// titres : on les écrit en <p class="h6">, que les styles du thème traitent
+// comme un h6 (« h6, .h6 » dans _singleCase.scss).
+function mojoCaseLabelHeadings($html, $block = [])
+{
+    if (is_admin() || wp_is_json_request() || !is_singular('case')) return $html;
+    if ((int) ($block['attrs']['level'] ?? 2) !== 6) return $html;
+    $html = preg_replace('/<h6\b([^>]*)>/i', '<p$1>', $html, 1);
+    $html = preg_replace('/<\/h6>/i', '</p>', $html, 1);
+    return preg_match('/^\s*<p\b[^>]*\sclass=(["\'])/i', $html)
+        ? preg_replace('/(<p\b[^>]*\sclass=(["\']))/i', '$1h6 ', $html, 1)
+        : preg_replace('/<p\b/i', '<p class="h6"', $html, 1);
+}
+add_filter('render_block_core/heading', 'mojoCaseLabelHeadings', 10, 2);

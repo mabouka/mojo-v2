@@ -74,7 +74,9 @@ $children = get_children($child_args);
     <?php endif ?>
 
 
-    <h3 class="serviceCard__title"><?= get_the_title($service); ?></h3>
+    <?php // h2 quand la grille n'a pas de titre de section (page Services) : sinon h3 sous un h1, niveau sauté. ?>
+    <?php $headingTag = (isset($headingLevel) && (int) $headingLevel === 2) ? 'h2' : 'h3'; ?>
+    <<?= $headingTag ?> class="serviceCard__title"><?= get_the_title($service); ?></<?= $headingTag ?>>
     <span class="serviceCard__more"><?= __('Click to see more', 'mj'); ?></span>
 
     <div class="serviceCard__hoverMenu">

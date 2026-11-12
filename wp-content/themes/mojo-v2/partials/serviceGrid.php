@@ -21,7 +21,8 @@ $the_query = new WP_Query([
                                 <div class="serviceGrid__item">
                                     <?php getPartial('serviceCard', [
                                         'service' => $service,
-                                        'modifier' => 'animated'
+                                        'modifier' => 'animated',
+                                        'headingLevel' => isset($title) ? 3 : 2,
                                     ]); ?>
                                 </div>
                             <?php endforeach; ?>

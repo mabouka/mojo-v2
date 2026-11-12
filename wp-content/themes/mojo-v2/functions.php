@@ -588,6 +588,20 @@ add_filter('wpcf7_load_css', '__return_false');
 // c'est elle que visaient le libellé et ContactForm.js. On ne vide que ce modèle
 // (le plugin passe aussi le vrai champ par ce filtre) : tout vise alors le vrai
 // champ, même nom à l'envoi (your-file[]).
+// Le plugin ajoute son bouton « ajouter un fichier » dans un <p><label>…</label></p>,
+// alors que le champ est déjà dans le <p> du formulaire : un paragraphe dans un
+// paragraphe, donc un </p> en trop (HTML invalide). Le bouton est caché (c'est le
+// libellé du thème qui sert de bouton) : on garde son champ, sans l'enveloppe.
+add_filter('wpcf7_form_elements', function ($html) {
+    return preg_replace(
+        ['#<p><label>(<span class="wpcf7-form-control-wrap" data-name="[^"]*-zl-mfcf7-upld-btn">.*?</span>)</label></p>#s',
+         // Conteneur vide du plugin : un <div> ferme le <p> du champ (même problème).
+         '#<div id="mfcf7_zl_multifilecontainer"></div>#'],
+        ['$1', '<span id="mfcf7_zl_multifilecontainer"></span>'],
+        $html
+    );
+});
+
 // Le plugin met aussi value="Upload" sur le champ fichier : attribut interdit
 // sur un <input type="file"> (HTML invalide), et sans effet. On le retire.
 add_filter('cf7_multilinefile_atts', function ($atts) {

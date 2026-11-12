@@ -31,8 +31,12 @@
             margin-top: s(14);
         }
 
+        // .mojo-small-heading : intertitres des pages légales passés en h2 (niveau
+        // correct sous le h1, 12/11/2026) en gardant l'apparence des anciens h3/h4.
         h4,
-        .wp-block-heading:is(h3, h4) {
+        .wp-block-heading:is(h3, h4),
+        .wp-block-heading.mojo-small-heading {
+            font-family: Cambon, serif;
             margin: s(64) 0 s(16);
             font-size: s(20);
             line-height: 1.3;
