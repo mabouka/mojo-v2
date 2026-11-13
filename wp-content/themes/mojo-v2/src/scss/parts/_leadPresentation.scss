@@ -5,6 +5,14 @@
     
     &__inside{
         display: flex;
+        flex-wrap: wrap; // le bouton passe sous le texte
+    }
+
+    // Bouton vers le formulaire, sous le texte et aligné sur lui (largeur du
+    // titre + marge du texte).
+    &__cta{
+        margin-top: s(40);
+        margin-left: colGut(5,1,12,0) + colGut(1,1,12,0);
     }
 
     &__title{
@@ -53,6 +61,10 @@
             margin-left: 0;
             font-size: s(18);
             padding: 0 s(15);
+        }
+        &__cta{
+            margin-top: s(30);
+            margin-left: s(15);
         }
     }
 

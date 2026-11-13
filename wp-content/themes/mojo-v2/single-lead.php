@@ -18,6 +18,8 @@
     getPartial('leadPresentation', [
         'title' => get_field('presentation_title'),
         'text' => get_field('presentation_text'),
+        // Bouton vers le formulaire sous le texte de présentation (texte demandé le 13/11/2026).
+        'ctaLabel' => __('Get in Touch', 'mj'),
     ]);
     ?>
 

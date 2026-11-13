@@ -250,3 +250,7 @@ msgstr "Ce que nous faisons"
 #: archive-stories.php:34
 msgid "Stories"
 msgstr "Stories"
+
+#: single-lead.php
+msgid "Get in Touch"
+msgstr "Prendre contact"
